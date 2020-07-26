@@ -42,17 +42,17 @@ public class NewsCanvas
 		{
 			switch(DisplayUtils.idispi)
 			{
-				case 1:
-				case 5:
-				case 6:
+				case DisplayUtils.PORTRAIT:
+				case DisplayUtils.ALBUM:
+				case DisplayUtils.E6:
 				{
 					menuImg = Image.createImage("/menu.png");
 					lentaImg = Image.createImage("/lentao.png");
 					break;
 				}
-				case 2:
-				case 3:
-				case 4:
+				case DisplayUtils.S40:
+				case DisplayUtils.ASHA311:
+				case DisplayUtils.EQWERTY:
 				{
 					menuImg = VikaUtils.resize(Image.createImage("/menu.png"), 10, 9);
 					lentaImg = VikaUtils.resize(Image.createImage("/lentao.png"), 11, 11);
@@ -162,13 +162,13 @@ public class NewsCanvas
 			{
 				VikaTouch.error(e, "Прорисовка объектов: Посты");
 			}
+			
 			g.translate(0,-g.getTranslateY());
 			
 			switch(DisplayUtils.idispi)
 			{
-				case 1:
+				case DisplayUtils.PORTRAIT:
 				{
-
 					ColorUtils.setcolor(g, 3);
 					g.fillRect(0, 0, 360, 58);
 					ColorUtils.setcolor(g, -3);
@@ -188,7 +188,6 @@ public class NewsCanvas
 					}
 					if(VikaTouch.has > 0)
 					{
-
 						if(MenuCanvas.dialImg2 != null)
 						{
 							g.drawImage(MenuCanvas.dialImg2, 168, 599, 0);
@@ -211,7 +210,7 @@ public class NewsCanvas
 					g.drawString("Новости", 72, 14, 0);
 					break;
 				}
-				case 2:
+				case DisplayUtils.S40:
 				{
 					ColorUtils.setcolor(g, 3);
 					g.fillRect(0, 0, 240, 30);
@@ -258,7 +257,7 @@ public class NewsCanvas
 					break;
 				}
 
-				case 5:
+				case DisplayUtils.ALBUM:
 				{
 					ColorUtils.setcolor(g, 3);
 					g.fillRect(0, 0, 640, 58);
@@ -328,8 +327,8 @@ public class NewsCanvas
 		{
 			switch(DisplayUtils.idispi)
 			{
-				case 5:
-				case 1:
+				case DisplayUtils.ALBUM:
+				case DisplayUtils.PORTRAIT:
 				{
 					if(y > 58 && y < DisplayUtils.height - oneitemheight)
 					{

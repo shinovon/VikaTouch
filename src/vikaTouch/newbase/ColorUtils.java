@@ -9,7 +9,16 @@ public class ColorUtils
 	public final static int[] buttoncolor = {81, 129, 184};
 	public final static int[] buttoncolorhover = {102, 144, 192};
 	public final static int[] onlinecolor = {74, 178, 78};
+	private static final int BACKGROUND = -1;
+	private static final int COLOR1 = 1;
+	private static final int TEXTCOLOR1 = 2;
+	private static final int BUTTONCOLOR = 3;
+	private static final int ONLINE = 4;
+	private static final int TEXT = 5;
+	private static final int OUTLINE = 6;
 	public static boolean isTemnaya = false;
+	
+	
 	
 	public static void setcolor(final Graphics g, final int i)
 	{
@@ -20,17 +29,17 @@ public class ColorUtils
 				g.setColor(0);
 				break;
 			}
-			case 1:
+			case COLOR1:
 			{
 				g.setColor(color[0], color[1], color[2]);
 				break;
 			}
-			case 2:
+			case TEXTCOLOR1:
 			{
 				g.setColor(textcolor[0], textcolor[1], textcolor[2]);
 				break;
 			}
-			case 3:
+			case BUTTONCOLOR:
 			{
 				if(isTemnaya)
 					g.setGrayScale(30);
@@ -38,12 +47,12 @@ public class ColorUtils
 					g.setColor(buttoncolor[0], buttoncolor[1], buttoncolor[2]);
 				break;
 			}
-			case 4:
+			case ONLINE:
 			{
 				g.setColor(onlinecolor[0], onlinecolor[1], onlinecolor[2]);
 				break;
 			}
-			case 5:
+			case TEXT:
 			{
 				if(isTemnaya)
 					g.setGrayScale(225);
@@ -51,7 +60,7 @@ public class ColorUtils
 					g.setColor(0);
 				break;
 			}
-			case 6:
+			case OUTLINE:
 			{
 				g.setGrayScale(100);
 				break;
@@ -66,7 +75,7 @@ public class ColorUtils
 				g.setColor(158, 180, 205);
 				break;
 			}
-			case -1:
+			case BACKGROUND:
 			{
 				if(isTemnaya)
 					g.setColor(0);

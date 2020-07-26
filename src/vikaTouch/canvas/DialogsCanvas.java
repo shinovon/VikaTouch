@@ -33,9 +33,9 @@ public class DialogsCanvas
 		{
 			switch(DisplayUtils.idispi)
 			{
-				case 1:
-				case 5:
-				case 6:
+				case DisplayUtils.PORTRAIT:
+				case DisplayUtils.ALBUM:
+				case DisplayUtils.E6:
 				{
 					if(menuImg == null)
 					{
@@ -43,9 +43,9 @@ public class DialogsCanvas
 					}
 					break;
 				}
-				case 2:
-				case 3:
-				case 4:
+				case DisplayUtils.S40:
+				case DisplayUtils.ASHA311:
+				case DisplayUtils.EQWERTY:
 				{
 					if(menuImg == null)
 					{
@@ -69,17 +69,18 @@ public class DialogsCanvas
 	public void paint(Graphics g)
 	{
 		DisplayUtils.checkdisplay(this);
+		
+		ColorUtils.setcolor(g, -1);
+		g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
+		ColorUtils.setcolor(g, 0);
+		g.setFont(Font.getFont(0, 0, 8));
+		itemsh = Dialogs.itemsCount * 63;
+		DisplayUtils.checkdisplay(this);
 		double multiplier = (double)DisplayUtils.height / 640.0;
 		double ww = 10.0 * multiplier;
 		int w = (int)ww;
 		try
 		{
-			DisplayUtils.checkdisplay(this);
-			
-			ColorUtils.setcolor(g, -1);
-			g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
-			ColorUtils.setcolor(g, 0);
-			g.setFont(Font.getFont(0, 0, 8));
 			//g.drawString(string, 8, 8, 0);
 			
 			update(g);
@@ -103,9 +104,8 @@ public class DialogsCanvas
 			
 			switch(DisplayUtils.idispi)
 			{
-				case 1:
+				case DisplayUtils.PORTRAIT:
 				{
-
 					ColorUtils.setcolor(g, 3);
 					g.fillRect(0, 0, 360, 58);
 					ColorUtils.setcolor(g, -3);
@@ -150,7 +150,7 @@ public class DialogsCanvas
 					g.setFont(Font.getFont(0, 0, 8));
 					break;
 				}
-				case 2:
+				case DisplayUtils.S40:
 				{
 					ColorUtils.setcolor(g, 3);
 					g.fillRect(0, 0, 240, 30);
@@ -200,7 +200,7 @@ public class DialogsCanvas
 					break;
 				}
 
-				case 5:
+				case DisplayUtils.ALBUM:
 				{
 					ColorUtils.setcolor(g, 3);
 					g.fillRect(0, 0, 640, 58);
@@ -262,7 +262,9 @@ public class DialogsCanvas
 					g.drawString("Сообщения", 72, 14, 0);
 				}
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			VikaTouch.error(e, "Прорисовка: Диалоги");
 			e.printStackTrace();
 		}
@@ -270,6 +272,14 @@ public class DialogsCanvas
 	
 	public void unselectAll()
 	{
+		try
+		{
+			VikaTouch.mainThread.join();
+		}
+		catch (InterruptedException e)
+		{
+			
+		}
 		for(int i = 0; i < Dialogs.itemsCount; i++)
 		{
 			if(Dialogs.dialogs[i] != null)
@@ -281,10 +291,18 @@ public class DialogsCanvas
 	
 	protected final void pointerReleased(int x, int y)
 	{
+		try
+		{
+			VikaTouch.mainThread.join();
+		}
+		catch (InterruptedException e)
+		{
+			
+		}
 		switch(DisplayUtils.idispi)
 		{
-			case 5:
-			case 1:
+			case DisplayUtils.ALBUM:
+			case DisplayUtils.PORTRAIT:
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
@@ -317,10 +335,18 @@ public class DialogsCanvas
 	
 	protected final void pointerPressed(int x, int y)
 	{
+		try
+		{
+			VikaTouch.mainThread.join();
+		}
+		catch (InterruptedException e)
+		{
+			
+		}
 		switch(DisplayUtils.idispi)
 		{
-			case 5:
-			case 1:
+			case DisplayUtils.ALBUM:
+			case DisplayUtils.PORTRAIT:
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{

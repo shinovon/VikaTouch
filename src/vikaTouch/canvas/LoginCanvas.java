@@ -67,7 +67,7 @@ public class LoginCanvas extends GameCanvas {
 		g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
 		switch(DisplayUtils.idispi)
 		{
-			case 1:
+			case DisplayUtils.PORTRAIT:
 			{
 				ColorUtils.setcolor(g, 1);
 				g.fillRect(0, 0, 360, 50);
@@ -103,10 +103,10 @@ public class LoginCanvas extends GameCanvas {
 				break;
 			}
 
-			case 2:
-			case 3:
-			case 4:
-			case 5:
+			case DisplayUtils.S40:
+			case DisplayUtils.ASHA311:
+			case DisplayUtils.EQWERTY:
+			case DisplayUtils.ALBUM:
 			{
 
 				ColorUtils.setcolor(g, 1);
@@ -156,7 +156,7 @@ public class LoginCanvas extends GameCanvas {
 	protected final void pointerPressed(int x, int y) {
 		switch(DisplayUtils.idispi)
 		{
-			case 1:
+			case DisplayUtils.PORTRAIT:
 			{
 				if(x > 116 && y > 300 && x < 112+128 && y < 300+36)
 				{
@@ -196,9 +196,10 @@ public class LoginCanvas extends GameCanvas {
 				}
 				break;
 			}
-			case 2:
-			case 3:
-			case 4:
+			case DisplayUtils.S40:
+			case DisplayUtils.ASHA311:
+			case DisplayUtils.EQWERTY:
+			case DisplayUtils.ALBUM:
 			{
 				if(y > 220 && y < 256 && x < 128)
 				{
@@ -247,7 +248,7 @@ public class LoginCanvas extends GameCanvas {
 			pressed = false;
 			switch(DisplayUtils.idispi)
 			{
-				case 1:
+				case DisplayUtils.PORTRAIT:
 				{
 					if(x > 116 && y > 300 && x < 112+128 && y < 300+36)
 					{
@@ -290,9 +291,10 @@ public class LoginCanvas extends GameCanvas {
 					break;
 				}
 
-				case 2:
-				case 3:
-				case 4:
+				case DisplayUtils.S40:
+				case DisplayUtils.ASHA311:
+				case DisplayUtils.EQWERTY:
+				case DisplayUtils.ALBUM:
 				{
 					if(y > 220 && y < 256 && x < 128)
 					{

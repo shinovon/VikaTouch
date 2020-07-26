@@ -49,9 +49,9 @@ public class MenuCanvas extends MainCanvas {
 		try {
 			switch(DisplayUtils.idispi)
 				{
-				case 5:
-				case 6:
-				case 1:
+				case DisplayUtils.ALBUM:
+				case DisplayUtils.PORTRAIT:
+				case DisplayUtils.E6:
 				{
 
 					menuImg = Image.createImage("/menuo.png");
@@ -81,9 +81,9 @@ public class MenuCanvas extends MainCanvas {
 					break;
 				}
 				
-				case 2:
-				case 3:
-				case 4:
+				case DisplayUtils.S40:
+				case DisplayUtils.ASHA311:
+				case DisplayUtils.EQWERTY:
 				{
 
 					profileimg = Image.createImage("/ava25.png");
@@ -183,8 +183,8 @@ public class MenuCanvas extends MainCanvas {
 		{
 			switch(DisplayUtils.idispi)
 			{
-				case 5:
-				case 1:
+				case DisplayUtils.ALBUM:
+				case DisplayUtils.PORTRAIT:
 				{
 					//Nokia N8, E7, C7, C6, N97, 5800, и т.д.. Портретная
 					update(g);
@@ -322,7 +322,7 @@ public class MenuCanvas extends MainCanvas {
 						
 					g.translate(0,-g.getTranslateY());
 						
-					if(DisplayUtils.idispi == 1)
+					if(DisplayUtils.idispi == DisplayUtils.PORTRAIT)
 					{
 						ColorUtils.setcolor(g, 3);
 						g.fillRect(0, 0, 360, 58);
@@ -372,7 +372,7 @@ public class MenuCanvas extends MainCanvas {
 							}
 						}
 					}
-					else if(DisplayUtils.idispi == 5)
+					else if(DisplayUtils.idispi == DisplayUtils.ALBUM)
 					{
 						ColorUtils.setcolor(g, 3);
 						g.fillRect(0, 0, 640, 58);
@@ -426,8 +426,8 @@ public class MenuCanvas extends MainCanvas {
 					break;
 				}
 				
-				case 2:
-				case 3:
+				case DisplayUtils.S40:
+				case DisplayUtils.ASHA311:
 				{
 					//S40, bada, asha 311
 					
@@ -542,8 +542,8 @@ public class MenuCanvas extends MainCanvas {
 					break;
 				}
 				
-				case 4:
-				case -1:
+				case DisplayUtils.EQWERTY:
+				case DisplayUtils.UNDEFINED:
 					
 				default:
 				{
@@ -570,7 +570,7 @@ public class MenuCanvas extends MainCanvas {
 			try {
 				switch(DisplayUtils.idispi)
 				{
-					case 1:
+					case DisplayUtils.PORTRAIT:
 					{
 
 						more = Image.createImage("/more.png");
@@ -595,7 +595,7 @@ public class MenuCanvas extends MainCanvas {
 						break;
 					}
 					
-					case 2:
+					case DisplayUtils.S40:
 					{
 
 						if(!hasAva)
@@ -626,7 +626,7 @@ public class MenuCanvas extends MainCanvas {
 		{
 			switch(DisplayUtils.idispi)
 			{
-				case 1:
+				case DisplayUtils.PORTRAIT:
 				{
 					if(y > 58 && y < 590)
 					{
@@ -645,9 +645,9 @@ public class MenuCanvas extends MainCanvas {
 					break;
 				}
 
-				case 4:
-				case 3:
-				case 2:
+				case DisplayUtils.S40:
+				case DisplayUtils.ASHA311:
+				case DisplayUtils.EQWERTY:
 				{
 					if(y > 30 && y < 295)
 					{
@@ -665,7 +665,7 @@ public class MenuCanvas extends MainCanvas {
 					}
 					break;
 				}
-				case 5:
+				case DisplayUtils.ALBUM:
 				{
 					if(y > 58 && y < 310)
 					{

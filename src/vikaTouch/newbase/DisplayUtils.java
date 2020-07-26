@@ -8,28 +8,47 @@ import vikaTouch.base.VikaUtils;
 import vikaTouch.canvas.MenuCanvas;
 import vikaTouch.canvas.ScrollableCanvas;
 
-public class DisplayUtils {
-	
-	public static String disp;
+public class DisplayUtils
+{
 	public static int idispi;
 	public static int width;
 	public static int height;
 	public static int lwidth;
 	public static int lheight;
+	public static int current;
 	
+	public static final int LOGIN = 1;
+	public static final int MENU = 2;
+	public static final int NEWS = 3;
+	public static final int CHATSLIST = 4;
+	public static final int CHAT = 5;
+	public static final int ABOUT = 6;
+	public static final int SETTINGS = 7;
 
-	public static Image resizeava(Image img) {
+	public static final int PORTRAIT = 1;
+	public static final int S40 = 2;
+	public static final int ASHA311 = 3;
+	public static final int EQWERTY = 4;
+	public static final int ALBUM = 5;
+	public static final int E6 = 6;
+	public static final int UNDEFINED = -6;
+
+	public static Image resizeava(Image img)
+	{
 		int h = img.getHeight();
 		int need = h;
 		switch(idispi)
 		{
-			case 1:
+			case E6:
+			case PORTRAIT:
 			{
 				need = 50;
 				break;
 			}
 			
-			case 2:
+			case S40:
+			case ASHA311:
+			case EQWERTY:
 			{
 				need = 25;
 				break;
@@ -58,8 +77,7 @@ public class DisplayUtils {
 		{
 			if(width == 360 && height == 640)
 			{
-				disp = "portrait";
-				i = 1;
+				i = PORTRAIT;
 				ScrollableCanvas.oneitemheight = 50;
 				ScrollableCanvas.vmeshautsa = 528;
 				if(VikaTouch.menu != null)
@@ -69,8 +87,7 @@ public class DisplayUtils {
 			{
 				if(height == 320)
 				{
-					disp = "standart34";
-					i = 2;
+					i = S40;
 					ScrollableCanvas.oneitemheight = 25;
 					ScrollableCanvas.vmeshautsa = 265;
 					if(VikaTouch.menu != null)
@@ -79,8 +96,7 @@ public class DisplayUtils {
 				else if(height == 400)
 				{
 					ScrollableCanvas.oneitemheight = 32;
-					disp = "asha311";
-					i = 3;
+					i = ASHA311;
 				}
 			}
 			else if(width == 320)
@@ -89,16 +105,14 @@ public class DisplayUtils {
 				{
 					ScrollableCanvas.oneitemheight = 25;
 					ScrollableCanvas.vmeshautsa = 185;
-					disp = "eqwerty";
-					i = 4;
+					i = EQWERTY;
 				}
 			}
 			else if(width == 640)
 			{
 				if(height == 360)
 				{
-					disp = "album";
-					i = 5;
+					i = ALBUM;
 					ScrollableCanvas.oneitemheight = 50;
 					ScrollableCanvas.vmeshautsa = 248;
 					if(VikaTouch.menu != null)
@@ -108,12 +122,11 @@ public class DisplayUtils {
 				{
 					ScrollableCanvas.oneitemheight = 50;
 					ScrollableCanvas.vmeshautsa = 368;
-					disp = "e6";
-					i = 6;
+					i = E6;
 				}
 			}
 			else
-				i = -1;
+				i = UNDEFINED;
 		}
 		
 		lwidth = width;
