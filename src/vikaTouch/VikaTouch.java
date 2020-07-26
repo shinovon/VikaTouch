@@ -298,7 +298,7 @@ public final class VikaTouch
 	public static void error(Throwable e, String s)
 	{
 		inst.errReason = e.toString();
-		final Alert alert = new Alert("Ошибка!", "Произошла непредвиденная ошибка!\nНеобработанное исключение: \n"+e.toString()+"\nВозможное описание: "+s, null, AlertType.ERROR);
+		final Alert alert = new Alert("Ошибка!", "Необработанное исключение: \n" + e.toString() + "\nВозможное описание: " + s, null, AlertType.ERROR);
 		final boolean fatal = e instanceof IOException || e instanceof NullPointerException;
 		if(fatal)
 		{

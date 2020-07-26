@@ -57,6 +57,10 @@ public class Dialogs
 			VikaTouch.warn("Переход в оффлайн режим!");
 			VikaTouch.offlineMode = true;
 		}
+		catch (Exception e)
+		{
+			VikaTouch.warn("Не удалось обновить диалоги!");
+		}
 		
 	}
 	
