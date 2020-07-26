@@ -208,6 +208,7 @@ public class NewsCanvas
 							g.drawImage(MenuCanvas.dialImg, 168, 604, 0);
 						}
 					}
+					g.drawString("Новости", 72, 14, 0);
 					break;
 				}
 				case 2:
@@ -253,6 +254,7 @@ public class NewsCanvas
 							g.drawImage(MenuCanvas.dialImg, 114, 302, 0);
 						}
 					}
+					g.drawString("Новости", 52, 2, 0);
 					break;
 				}
 
@@ -297,6 +299,7 @@ public class NewsCanvas
 					{
 						g.drawImage(menuImg, 584, 326, 0);
 					}
+					g.drawString("Новости", 72, 14, 0);
 					break;
 				}
 				default:
@@ -310,6 +313,7 @@ public class NewsCanvas
 					{
 						g.drawImage(MenuCanvas.logoImg, 2, 2, 0);
 					}
+					g.drawString("Новости", 72, 14, 0);
 				}
 			}
 		} catch (Exception e) {

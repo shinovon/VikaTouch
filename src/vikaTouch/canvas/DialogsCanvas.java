@@ -195,7 +195,7 @@ public class DialogsCanvas
 					}
 					
 					g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
-					g.drawString("Сообщения", 52, 1, 0);
+					g.drawString("Сообщения", 52, 2, 0);
 					g.setFont(Font.getFont(0, 0, 8));
 					break;
 				}
