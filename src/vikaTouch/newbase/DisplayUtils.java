@@ -18,23 +18,23 @@ public class DisplayUtils
 	public static int current;
 	
 	//Дисплеи
-	public static final int LOGIN = 1;
-	public static final int MENU = 2;
-	public static final int NEWS = 3;
-	public static final int CHATSLIST = 4;
-	public static final int CHAT = 5;
-	public static final int ABOUT = 6;
-	public static final int SETTINGS = 7;
-	public static final int TEMPLIST = 8;
+	public static final int CANVAS_LOGIN = 1;
+	public static final int CANVAS_MENU = 2;
+	public static final int CANVAS_NEWS = 3;
+	public static final int CANVAS_CHATSLIST = 4;
+	public static final int CANVAS_CHAT = 5;
+	public static final int CANVAS_ABOUT = 6;
+	public static final int CANVAS_SETTINGS = 7;
+	public static final int CANVAS_TEMPLIST = 8;
 
 	//Экраны
-	public static final int PORTRAIT = 1;
-	public static final int S40 = 2;
-	public static final int ASHA311 = 3;
-	public static final int EQWERTY = 4;
-	public static final int ALBUM = 5;
-	public static final int E6 = 6;
-	public static final int UNDEFINED = -1;
+	public static final int DISPLAY_PORTRAIT = 1;
+	public static final int DISPLAY_S40 = 2;
+	public static final int DISPLAY_ASHA311 = 3;
+	public static final int DISPLAY_EQWERTY = 4;
+	public static final int DISPLAY_ALBUM = 5;
+	public static final int DISPLAY_E6 = 6;
+	public static final int DISPLAY_UNDEFINED = -1;
 
 	public static Image resizeava(Image img)
 	{
@@ -42,16 +42,16 @@ public class DisplayUtils
 		int need = h;
 		switch(idispi)
 		{
-			case E6:
-			case PORTRAIT:
+			case DISPLAY_E6:
+			case DISPLAY_PORTRAIT:
 			{
 				need = 50;
 				break;
 			}
 			
-			case S40:
-			case ASHA311:
-			case EQWERTY:
+			case DISPLAY_S40:
+			case DISPLAY_ASHA311:
+			case DISPLAY_EQWERTY:
 			{
 				need = 25;
 				break;
@@ -80,7 +80,7 @@ public class DisplayUtils
 		{
 			if(width == 360 && height == 640)
 			{
-				i = PORTRAIT;
+				i = DISPLAY_PORTRAIT;
 				ScrollableCanvas.oneitemheight = 50;
 				ScrollableCanvas.vmeshautsa = 528;
 				if(VikaTouch.menu != null)
@@ -90,7 +90,7 @@ public class DisplayUtils
 			{
 				if(height == 320)
 				{
-					i = S40;
+					i = DISPLAY_S40;
 					ScrollableCanvas.oneitemheight = 25;
 					ScrollableCanvas.vmeshautsa = 265;
 					if(VikaTouch.menu != null)
@@ -99,7 +99,7 @@ public class DisplayUtils
 				else if(height == 400)
 				{
 					ScrollableCanvas.oneitemheight = 32;
-					i = ASHA311;
+					i = DISPLAY_ASHA311;
 				}
 			}
 			else if(width == 320)
@@ -108,14 +108,14 @@ public class DisplayUtils
 				{
 					ScrollableCanvas.oneitemheight = 25;
 					ScrollableCanvas.vmeshautsa = 185;
-					i = EQWERTY;
+					i = DISPLAY_EQWERTY;
 				}
 			}
 			else if(width == 640)
 			{
 				if(height == 360)
 				{
-					i = ALBUM;
+					i = DISPLAY_ALBUM;
 					ScrollableCanvas.oneitemheight = 50;
 					ScrollableCanvas.vmeshautsa = 248;
 					if(VikaTouch.menu != null)
@@ -125,11 +125,11 @@ public class DisplayUtils
 				{
 					ScrollableCanvas.oneitemheight = 50;
 					ScrollableCanvas.vmeshautsa = 368;
-					i = E6;
+					i = DISPLAY_E6;
 				}
 			}
 			else
-				i = UNDEFINED;
+				i = DISPLAY_UNDEFINED;
 		}
 		
 		lwidth = width;

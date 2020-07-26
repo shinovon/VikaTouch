@@ -33,9 +33,9 @@ public class DialogsCanvas
 		{
 			switch(DisplayUtils.idispi)
 			{
-				case DisplayUtils.PORTRAIT:
-				case DisplayUtils.ALBUM:
-				case DisplayUtils.E6:
+				case DisplayUtils.DISPLAY_PORTRAIT:
+				case DisplayUtils.DISPLAY_ALBUM:
+				case DisplayUtils.DISPLAY_E6:
 				{
 					if(menuImg == null)
 					{
@@ -43,9 +43,9 @@ public class DialogsCanvas
 					}
 					break;
 				}
-				case DisplayUtils.S40:
-				case DisplayUtils.ASHA311:
-				case DisplayUtils.EQWERTY:
+				case DisplayUtils.DISPLAY_S40:
+				case DisplayUtils.DISPLAY_ASHA311:
+				case DisplayUtils.DISPLAY_EQWERTY:
 				{
 					if(menuImg == null)
 					{
@@ -104,7 +104,7 @@ public class DialogsCanvas
 			
 			switch(DisplayUtils.idispi)
 			{
-				case DisplayUtils.PORTRAIT:
+				case DisplayUtils.DISPLAY_PORTRAIT:
 				{
 					ColorUtils.setcolor(g, 3);
 					g.fillRect(0, 0, 360, 58);
@@ -150,7 +150,7 @@ public class DialogsCanvas
 					g.setFont(Font.getFont(0, 0, 8));
 					break;
 				}
-				case DisplayUtils.S40:
+				case DisplayUtils.DISPLAY_S40:
 				{
 					ColorUtils.setcolor(g, 3);
 					g.fillRect(0, 0, 240, 30);
@@ -200,7 +200,7 @@ public class DialogsCanvas
 					break;
 				}
 
-				case DisplayUtils.ALBUM:
+				case DisplayUtils.DISPLAY_ALBUM:
 				{
 					ColorUtils.setcolor(g, 3);
 					g.fillRect(0, 0, 640, 58);
@@ -301,8 +301,8 @@ public class DialogsCanvas
 		}
 		switch(DisplayUtils.idispi)
 		{
-			case DisplayUtils.ALBUM:
-			case DisplayUtils.PORTRAIT:
+			case DisplayUtils.DISPLAY_ALBUM:
+			case DisplayUtils.DISPLAY_PORTRAIT:
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
@@ -345,8 +345,8 @@ public class DialogsCanvas
 		}
 		switch(DisplayUtils.idispi)
 		{
-			case DisplayUtils.ALBUM:
-			case DisplayUtils.PORTRAIT:
+			case DisplayUtils.DISPLAY_ALBUM:
+			case DisplayUtils.DISPLAY_PORTRAIT:
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{

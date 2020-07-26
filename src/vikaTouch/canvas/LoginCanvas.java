@@ -67,7 +67,7 @@ public class LoginCanvas extends GameCanvas {
 		g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
 		switch(DisplayUtils.idispi)
 		{
-			case DisplayUtils.PORTRAIT:
+			case DisplayUtils.DISPLAY_PORTRAIT:
 			{
 				ColorUtils.setcolor(g, 1);
 				g.fillRect(0, 0, 360, 50);
@@ -103,10 +103,10 @@ public class LoginCanvas extends GameCanvas {
 				break;
 			}
 
-			case DisplayUtils.S40:
-			case DisplayUtils.ASHA311:
-			case DisplayUtils.EQWERTY:
-			case DisplayUtils.ALBUM:
+			case DisplayUtils.DISPLAY_S40:
+			case DisplayUtils.DISPLAY_ASHA311:
+			case DisplayUtils.DISPLAY_EQWERTY:
+			case DisplayUtils.DISPLAY_ALBUM:
 			{
 
 				ColorUtils.setcolor(g, 1);
@@ -156,7 +156,7 @@ public class LoginCanvas extends GameCanvas {
 	protected final void pointerPressed(int x, int y) {
 		switch(DisplayUtils.idispi)
 		{
-			case DisplayUtils.PORTRAIT:
+			case DisplayUtils.DISPLAY_PORTRAIT:
 			{
 				if(x > 116 && y > 300 && x < 112+128 && y < 300+36)
 				{
@@ -196,10 +196,10 @@ public class LoginCanvas extends GameCanvas {
 				}
 				break;
 			}
-			case DisplayUtils.S40:
-			case DisplayUtils.ASHA311:
-			case DisplayUtils.EQWERTY:
-			case DisplayUtils.ALBUM:
+			case DisplayUtils.DISPLAY_S40:
+			case DisplayUtils.DISPLAY_ASHA311:
+			case DisplayUtils.DISPLAY_EQWERTY:
+			case DisplayUtils.DISPLAY_ALBUM:
 			{
 				if(y > 220 && y < 256 && x < 128)
 				{
@@ -248,7 +248,7 @@ public class LoginCanvas extends GameCanvas {
 			pressed = false;
 			switch(DisplayUtils.idispi)
 			{
-				case DisplayUtils.PORTRAIT:
+				case DisplayUtils.DISPLAY_PORTRAIT:
 				{
 					if(x > 116 && y > 300 && x < 112+128 && y < 300+36)
 					{
@@ -291,10 +291,10 @@ public class LoginCanvas extends GameCanvas {
 					break;
 				}
 
-				case DisplayUtils.S40:
-				case DisplayUtils.ASHA311:
-				case DisplayUtils.EQWERTY:
-				case DisplayUtils.ALBUM:
+				case DisplayUtils.DISPLAY_S40:
+				case DisplayUtils.DISPLAY_ASHA311:
+				case DisplayUtils.DISPLAY_EQWERTY:
+				case DisplayUtils.DISPLAY_ALBUM:
 				{
 					if(y > 220 && y < 256 && x < 128)
 					{

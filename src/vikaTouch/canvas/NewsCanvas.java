@@ -42,17 +42,17 @@ public class NewsCanvas
 		{
 			switch(DisplayUtils.idispi)
 			{
-				case DisplayUtils.PORTRAIT:
-				case DisplayUtils.ALBUM:
-				case DisplayUtils.E6:
+				case DisplayUtils.DISPLAY_PORTRAIT:
+				case DisplayUtils.DISPLAY_ALBUM:
+				case DisplayUtils.DISPLAY_E6:
 				{
 					menuImg = Image.createImage("/menu.png");
 					lentaImg = Image.createImage("/lentao.png");
 					break;
 				}
-				case DisplayUtils.S40:
-				case DisplayUtils.ASHA311:
-				case DisplayUtils.EQWERTY:
+				case DisplayUtils.DISPLAY_S40:
+				case DisplayUtils.DISPLAY_ASHA311:
+				case DisplayUtils.DISPLAY_EQWERTY:
 				{
 					menuImg = VikaUtils.resize(Image.createImage("/menu.png"), 10, 9);
 					lentaImg = VikaUtils.resize(Image.createImage("/lentao.png"), 11, 11);
@@ -167,7 +167,7 @@ public class NewsCanvas
 			
 			switch(DisplayUtils.idispi)
 			{
-				case DisplayUtils.PORTRAIT:
+				case DisplayUtils.DISPLAY_PORTRAIT:
 				{
 					ColorUtils.setcolor(g, 3);
 					g.fillRect(0, 0, 360, 58);
@@ -210,7 +210,7 @@ public class NewsCanvas
 					g.drawString("Новости", 72, 14, 0);
 					break;
 				}
-				case DisplayUtils.S40:
+				case DisplayUtils.DISPLAY_S40:
 				{
 					ColorUtils.setcolor(g, 3);
 					g.fillRect(0, 0, 240, 30);
@@ -257,7 +257,7 @@ public class NewsCanvas
 					break;
 				}
 
-				case DisplayUtils.ALBUM:
+				case DisplayUtils.DISPLAY_ALBUM:
 				{
 					ColorUtils.setcolor(g, 3);
 					g.fillRect(0, 0, 640, 58);
@@ -327,8 +327,8 @@ public class NewsCanvas
 		{
 			switch(DisplayUtils.idispi)
 			{
-				case DisplayUtils.ALBUM:
-				case DisplayUtils.PORTRAIT:
+				case DisplayUtils.DISPLAY_ALBUM:
+				case DisplayUtils.DISPLAY_PORTRAIT:
 				{
 					if(y > 58 && y < DisplayUtils.height - oneitemheight)
 					{

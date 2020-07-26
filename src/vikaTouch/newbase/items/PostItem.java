@@ -176,15 +176,15 @@ public class PostItem
 			{
 				switch(DisplayUtils.idispi)
 				{
-					case DisplayUtils.PORTRAIT:
-					case DisplayUtils.ALBUM:
+					case DisplayUtils.DISPLAY_PORTRAIT:
+					case DisplayUtils.DISPLAY_ALBUM:
 					{
 						if(attachments[0] instanceof PhotoAttachment)
 							prevImage = ((PhotoAttachment)attachments[0]).getImg(3);
 						break;
 					}
-					case DisplayUtils.S40:
-					case DisplayUtils.ASHA311:
+					case DisplayUtils.DISPLAY_S40:
+					case DisplayUtils.DISPLAY_ASHA311:
 					{
 						if(attachments[0] instanceof PhotoAttachment)
 							prevImage = ((PhotoAttachment)attachments[0]).getImg(2);

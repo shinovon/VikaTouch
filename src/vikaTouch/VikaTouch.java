@@ -144,27 +144,27 @@ public final class VikaTouch
 	{
 		if(d instanceof MenuCanvas)
 		{
-			DisplayUtils.current = DisplayUtils.MENU;
+			DisplayUtils.current = DisplayUtils.CANVAS_MENU;
 		}
 		if(d instanceof NewsCanvas)
 		{
-			DisplayUtils.current = DisplayUtils.NEWS;
+			DisplayUtils.current = DisplayUtils.CANVAS_NEWS;
 		}
 		if(d instanceof DialogsCanvas)
 		{
-			DisplayUtils.current = DisplayUtils.CHATSLIST;
+			DisplayUtils.current = DisplayUtils.CANVAS_CHATSLIST;
 		}
 		if(d instanceof AboutCanvas)
 		{
-			DisplayUtils.current = DisplayUtils.ABOUT;
+			DisplayUtils.current = DisplayUtils.CANVAS_ABOUT;
 		}
 		if(d instanceof LoginCanvas)
 		{
-			DisplayUtils.current = DisplayUtils.LOGIN;
+			DisplayUtils.current = DisplayUtils.CANVAS_LOGIN;
 		}
 		if(d instanceof ReturnableListCanvas)
 		{
-			DisplayUtils.current = DisplayUtils.TEMPLIST;
+			DisplayUtils.current = DisplayUtils.CANVAS_TEMPLIST;
 		}
 		if(d instanceof ScrollableCanvas)
 			loadingAnimation = false;
