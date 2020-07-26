@@ -169,12 +169,12 @@ public class DialogItem
 			type = fixJSONString(peer.optString("type"));
 			id = peer.optInt("local_id");
 			
-			if(type == "user")
+			if(type.equalsIgnoreCase("user"))
 			{
 				for(int i = 0; i < Dialogs.profiles.length(); i++)
 				{
 					final JSONObject profile = Dialogs.profiles.getJSONObject(i);
-					if(profile.getInt("id") == id)
+					if(profile.optInt("id") == id)
 					{
 						title = fixJSONString(profile.optString("first_name") + " " + profile.optString("last_name"));
 						avaurl = fixJSONString(profile.optString("photo_50"));
@@ -182,12 +182,12 @@ public class DialogItem
 					}
 				}
 			}
-			if(type == "group" && Dialogs.groups != null)
+			if(type.equalsIgnoreCase("group") && Dialogs.groups != null)
 			{
 				for(int i = 0; i < Dialogs.groups.length(); i++)
 				{
 					final JSONObject group = Dialogs.groups.getJSONObject(i);
-					if(group.getInt("id") == lastmessage.fromid)
+					if(group.optInt("id") == id)
 					{
 						title = fixJSONString(group.optString("name"));
 						avaurl = fixJSONString(group.optString("photo_50"));
