@@ -2,8 +2,8 @@ package vikaTouch.newbase;
 
 import javax.microedition.lcdui.Graphics;
 
-public class ColorUtils {
-	
+public class ColorUtils
+{
 	public final static int[] color = {80, 118, 167};
 	public final static int[] textcolor = {193, 206, 224};
 	public final static int[] buttoncolor = {81, 129, 184};
