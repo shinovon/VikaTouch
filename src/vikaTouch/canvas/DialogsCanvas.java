@@ -146,7 +146,7 @@ public class DialogsCanvas
 						}
 					}
 					g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
-					g.drawString("Сообщения", 72, 2, 0);
+					g.drawString("Сообщения", 72, 14, 0);
 					g.setFont(Font.getFont(0, 0, 8));
 					break;
 				}
@@ -242,7 +242,7 @@ public class DialogsCanvas
 						g.drawImage(menuImg, 584, 326, 0);
 					}
 					g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
-					g.drawString("Сообщения", 72, 2, 0);
+					g.drawString("Сообщения", 72, 14, 0);
 					g.setFont(Font.getFont(0, 0, 8));
 					
 					break;
@@ -258,6 +258,8 @@ public class DialogsCanvas
 					{
 						g.drawImage(MenuCanvas.logoImg, 2, 2, 0);
 					}
+
+					g.drawString("Сообщения", 72, 14, 0);
 				}
 			}
 		} catch (Exception e) {
