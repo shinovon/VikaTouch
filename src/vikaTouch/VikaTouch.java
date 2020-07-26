@@ -46,7 +46,7 @@ public final class VikaTouch
 	public static Thread mainThread;
 	public static Thread uiThread;
 	public static String userId;
-	public static int has = 0;
+	public static int has = -1;
 	public static boolean offlineMode;
 	public static boolean loadingAnimation;
 	public static LoadingCanvas loading;
