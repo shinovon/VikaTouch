@@ -25,8 +25,6 @@ public class NewsCanvas
 	public static PostItem[] postitems = new PostItem[10];
 	public static JSONArray profiles;
 	public static JSONArray groups;
-	private static Image menuImg;
-	private static Image lentaImg;
 	
 	public NewsCanvas()
 	{
@@ -47,7 +45,7 @@ public class NewsCanvas
 				case DisplayUtils.DISPLAY_E6:
 				{
 					menuImg = Image.createImage("/menu.png");
-					lentaImg = Image.createImage("/lentao.png");
+					newsImg = Image.createImage("/lentao.png");
 					break;
 				}
 				case DisplayUtils.DISPLAY_S40:
@@ -55,7 +53,7 @@ public class NewsCanvas
 				case DisplayUtils.DISPLAY_EQWERTY:
 				{
 					menuImg = VikaUtils.resize(Image.createImage("/menu.png"), 10, 9);
-					lentaImg = VikaUtils.resize(Image.createImage("/lentao.png"), 11, 11);
+					newsImg = VikaUtils.resize(Image.createImage("/lentao.png"), 11, 11);
 					break;
 				}
 			}
@@ -163,158 +161,9 @@ public class NewsCanvas
 				VikaTouch.error(e, "Прорисовка объектов: Посты");
 			}
 			
-			g.translate(0,-g.getTranslateY());
+			g.translate(0, -g.getTranslateY());
 			
-			switch(DisplayUtils.idispi)
-			{
-				case DisplayUtils.DISPLAY_PORTRAIT:
-				{
-					ColorUtils.setcolor(g, 3);
-					g.fillRect(0, 0, 360, 58);
-					ColorUtils.setcolor(g, -3);
-					g.fillRect(0, 590, 360, 50);
-
-					if(menuImg != null)
-					{
-						g.drawImage(menuImg, 304, 606, 0);
-					}
-					if(MenuCanvas.logoImg != null)
-					{
-						g.drawImage(MenuCanvas.logoImg, 2, 2, 0);
-					}
-					if(lentaImg != null)
-					{
-						g.drawImage(lentaImg, 37, 604, 0);
-					}
-					if(VikaTouch.has > 0)
-					{
-						if(MenuCanvas.dialImg2 != null)
-						{
-							g.drawImage(MenuCanvas.dialImg2, 168, 599, 0);
-							g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
-							g.drawString(""+VikaTouch.has, 191, 598, 0);
-						}
-						else if(MenuCanvas.dialImg != null)
-						{
-							g.drawImage(MenuCanvas.dialImg, 168, 604, 0);
-						}
-
-					}
-					else
-					{
-						if(MenuCanvas.dialImg != null)
-						{
-							g.drawImage(MenuCanvas.dialImg, 168, 604, 0);
-						}
-					}
-					g.drawString("Новости", 72, 14, 0);
-					break;
-				}
-				case DisplayUtils.DISPLAY_S40:
-				{
-					ColorUtils.setcolor(g, 3);
-					g.fillRect(0, 0, 240, 30);
-					ColorUtils.setcolor(g, -3);
-					g.fillRect(0, 295, 240, 25);
-					
-					if(MenuCanvas.logoImg != null)
-					{
-						g.drawImage(MenuCanvas.logoImg, 2, 2, 0);
-					}
-					
-					if(menuImg != null)
-					{
-						g.drawImage(menuImg, 212, 303, 0);
-					}
-					
-					if(MenuCanvas.newsImg != null)
-					{
-						g.drawImage(MenuCanvas.newsImg, 18, 301, 0);
-					}
-					
-					if(VikaTouch.has > 0)
-					{
-						if(MenuCanvas.dialImg2 != null)
-						{
-							g.drawImage(MenuCanvas.dialImg2, 114, 299, 0);
-							g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
-							g.drawString(""+VikaTouch.has, 126, 300, 0);
-						}
-						else if(MenuCanvas.dialImg != null)
-						{
-							g.drawImage(MenuCanvas.dialImg, 114, 302, 0);
-						}
-
-					}
-					else
-					{
-						if(MenuCanvas.dialImg != null)
-						{
-							g.drawImage(MenuCanvas.dialImg, 114, 302, 0);
-						}
-					}
-					g.drawString("Новости", 52, 2, 0);
-					break;
-				}
-
-				case DisplayUtils.DISPLAY_ALBUM:
-				{
-					ColorUtils.setcolor(g, 3);
-					g.fillRect(0, 0, 640, 58);
-					ColorUtils.setcolor(g, -3);
-					g.fillRect(0, 310, 640, 50);
-
-					if(MenuCanvas.logoImg != null)
-					{
-						g.drawImage(MenuCanvas.logoImg, 2, 2, 0);
-					}
-					if(lentaImg != null)
-					{
-						g.drawImage(lentaImg, 36, 324, 0);
-					}
-					if(VikaTouch.has > 0)
-					{
-
-						if(MenuCanvas.dialImg2 != null)
-						{
-							g.drawImage(MenuCanvas.dialImg2, 308, 319, 0);
-							g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
-							g.drawString(""+VikaTouch.has, 330, 318, 0);
-						}
-						else if(MenuCanvas.dialImg != null)
-						{
-							g.drawImage(MenuCanvas.dialImg, 308, 324, 0);
-						}
-
-					}
-					else
-					{
-						if(MenuCanvas.dialImg != null)
-						{
-							g.drawImage(MenuCanvas.dialImg, 308, 324, 0);
-						}
-					}
-					if(menuImg != null)
-					{
-						g.drawImage(menuImg, 584, 326, 0);
-					}
-					g.drawString("Новости", 72, 14, 0);
-					break;
-				}
-				default:
-				{
-					ColorUtils.setcolor(g, 3);
-					g.fillRect(0, 0, DisplayUtils.width, oneitemheight+w);
-					ColorUtils.setcolor(g, -3);
-					g.fillRect(0, DisplayUtils.height - oneitemheight, DisplayUtils.width, oneitemheight);
-					
-					if(MenuCanvas.logoImg != null)
-					{
-						g.drawImage(MenuCanvas.logoImg, 2, 2, 0);
-					}
-					g.drawString("Новости", 72, 14, 0);
-				}
-			}
+			drawHeaders(g, "Новости");
 		} catch (Exception e) {
 			VikaTouch.error(e, "Прорисовка: Лента");
 			e.printStackTrace();

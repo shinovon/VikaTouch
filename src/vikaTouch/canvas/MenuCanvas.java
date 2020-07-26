@@ -28,7 +28,6 @@ public class MenuCanvas extends MainCanvas {
 	private static Image profileimg;
 	private static Image friendimg;
 	private static Image groupimg;
-	protected static Image newsImg;
 	public static String name;
 	public static boolean hasAva;
 	public static String lastname;
@@ -356,13 +355,12 @@ public class MenuCanvas extends MainCanvas {
 							{
 								g.drawImage(dialImg2, 168, 599, 0);
 								g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
-								g.drawString(""+VikaTouch.has, 191, 598, 0);
+								g.drawString("" + VikaTouch.has, 191, 598, 0);
 							}
 							else if(dialImg != null)
 							{
 								g.drawImage(dialImg, 168, 604, 0);
 							}
-	
 						}
 						else
 						{
@@ -386,7 +384,7 @@ public class MenuCanvas extends MainCanvas {
 						
 						if(newsImg != null)
 						{
-							g.drawImage(MenuCanvas.newsImg, 36, 323, 0);
+							g.drawImage(newsImg, 36, 323, 0);
 						}
 						
 						if(settingsImg != null)
@@ -401,13 +399,12 @@ public class MenuCanvas extends MainCanvas {
 							{
 								g.drawImage(MenuCanvas.dialImg2, 308, 319, 0);
 								g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
-								g.drawString(""+VikaTouch.has, 330, 318, 0);
+								g.drawString("" + VikaTouch.has, 330, 318, 0);
 							}
 							else if(dialImg != null)
 							{
 								g.drawImage(dialImg, 308, 324, 0);
 							}
-
 						}
 						else
 						{
