@@ -15,6 +15,7 @@ import vikaTouch.base.ImageStorage;
 import vikaTouch.base.InvisibleScreen;
 import vikaTouch.base.VikaUtils;
 import vikaTouch.canvas.*;
+import javax.microedition.lcdui.game.GameCanvas;
 import vikaTouch.newbase.CaptchaObject;
 import vikaTouch.newbase.Commands;
 import vikaTouch.newbase.Dialogs;
@@ -143,7 +144,14 @@ public final class VikaTouch
 			loadingAnimation = false;
 		else
 		{
-			LoadingCanvas.parent = (Canvas) getCurrentDisplay();
+			try
+			{
+				LoadingCanvas.parent = (GameCanvas) getCurrentDisplay();
+			}
+			catch (Exception e)
+			{
+				
+			}
 		}
 		Display.getDisplay(inst).setCurrent(d);
 	}

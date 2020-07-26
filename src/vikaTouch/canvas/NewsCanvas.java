@@ -48,6 +48,7 @@ public class NewsCanvas
 				{
 					menuImg = Image.createImage("/menu.png");
 					lentaImg = Image.createImage("/lentao.png");
+					break;
 				}
 				case 2:
 				case 3:
@@ -55,6 +56,7 @@ public class NewsCanvas
 				{
 					menuImg = VikaUtils.resize(Image.createImage("/menu.png"), 10, 9);
 					lentaImg = VikaUtils.resize(Image.createImage("/lentao.png"), 11, 11);
+					break;
 				}
 			}
 		}
@@ -75,7 +77,7 @@ public class NewsCanvas
 			final String s = VikaUtils.download(
 					new URLBuilder("newsfeed.get")
 					.addField("filters", "post,photo,photo_tag,wall_photo")
-					.addField("count", "" + requestcount)
+					.addField("count", requestcount)
 					.addField("fields", "groups,profiles,items")
 					);
 			final JSONObject response = new JSONObject(s).getJSONObject("response");
@@ -91,17 +93,17 @@ public class NewsCanvas
 				{
 					break;
 				}
-				final JSONObject ob = items.getJSONObject(i2);
-				JSONObject ob2;
+				final JSONObject item = items.getJSONObject(i2);
+				JSONObject itemCopy;
 				try
 				{
-					ob2 = ob.getJSONArray("copy_history").getJSONObject(0);
+					itemCopy = item.getJSONArray("copy_history").getJSONObject(0);
 				}
 				catch(Exception e)
 				{
-					ob2 = ob;
+					itemCopy = item;
 				}
-				postitems[i] = new PostItem(ob2, ob);
+				postitems[i] = new PostItem(itemCopy, item);
 				postitems[i].parseJSON();
 				if(postitems[i].text == "" && postitems[i].prevImage == null)
 				{
@@ -116,7 +118,7 @@ public class NewsCanvas
 		}
 		catch (Exception e)
 		{
-			VikaTouch.error(e, "Обработка объектов: Посты (Parse)");
+			VikaTouch.error(e, "Обработка объектов: Посты");
 			e.printStackTrace();
 		}
 		

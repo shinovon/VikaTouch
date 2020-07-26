@@ -41,6 +41,7 @@ public class DialogsCanvas
 					{
 						menuImg = Image.createImage("/menu.png");
 					}
+					break;
 				}
 				case 2:
 				case 3:
@@ -50,6 +51,7 @@ public class DialogsCanvas
 					{
 						menuImg = VikaUtils.resize(Image.createImage("/menu.png"), 10, 9);
 					}
+					break;
 				}
 			}
 		}

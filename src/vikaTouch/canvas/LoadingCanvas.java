@@ -5,6 +5,7 @@ import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
+import javax.microedition.lcdui.game.GameCanvas;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.base.GifDecoder;
@@ -17,7 +18,7 @@ public class LoadingCanvas
 	private GifDecoder gifDecoder;
 	private Thread animationThread;
 	protected Image frame;
-	public static Canvas parent;
+	public static GameCanvas parent;
 	
 	public LoadingCanvas()
 	{
@@ -31,7 +32,7 @@ public class LoadingCanvas
 		//если есть фоновой канвас то рисовать его
 		if(parent != null)
 		{
-			parent.repaint();
+			parent.paint(g);
 		}
 		//если же его нету то рисовать фон
 		else

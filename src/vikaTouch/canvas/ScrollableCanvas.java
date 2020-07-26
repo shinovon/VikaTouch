@@ -110,11 +110,6 @@ public abstract class ScrollableCanvas extends GameCanvas {
 		if(itemsh > vmeshautsa)
 		{
 			canScroll = true;
-			if(scrolled < vmeshautsa - itemsh && scrolled != 0)
-			{
-				scrolled = vmeshautsa - itemsh;
-				d2 = d2 || true;
-			}
 		}
 		else
 		{
@@ -126,17 +121,21 @@ public abstract class ScrollableCanvas extends GameCanvas {
 		}
 		if(d2)
 		{
-			g.translate(0, scrolled+scroll);
-			scrolled = g.getTranslateY();
+			scrolled = scrolled + scroll;
+			if(scrolled > 0)
+			{
+				scrolled = 0;
+			}
+			if(scrolled < vmeshautsa - itemsh && scrolled != 0)
+			{
+				scrolled = vmeshautsa - itemsh;
+			}
+			g.translate(0, scrolled);
 			scroll = 0;
 		}
 		else
 			g.translate(0, scrolled);
 		
-		if(scrolled > 0)
-		{
-			scrolled = 0;
-		}
 	}
 
 	protected void callRefresh()
