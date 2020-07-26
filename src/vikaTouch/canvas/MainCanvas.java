@@ -26,7 +26,10 @@ public abstract class MainCanvas
 			int wyw = bbw(DisplayUtils.idispi);
 			if(y < oneitemheight + 10)
 			{
-				
+				if(x > DisplayUtils.width - oneitemheight)
+				{
+					VikaTouch.inst.cmdsInst.commandAction(13, this);
+				}
 			}
 			else if(y >= DisplayUtils.height - oneitemheight)
 			{

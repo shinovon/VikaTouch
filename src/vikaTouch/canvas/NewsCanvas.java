@@ -161,9 +161,9 @@ public class NewsCanvas
 					{
 						g.drawImage(menuImg, 304, 606, 0);
 					}
-					if(MenuCanvas.diary != null)
+					if(MenuCanvas.logoImg != null)
 					{
-						g.drawImage(MenuCanvas.diary, 2, 2, 0);
+						g.drawImage(MenuCanvas.logoImg, 2, 2, 0);
 					}
 					if(lentaImg != null)
 					{
@@ -172,23 +172,23 @@ public class NewsCanvas
 					if(VikaTouch.has > 0)
 					{
 
-						if(MenuCanvas.dialhas != null)
+						if(MenuCanvas.dialImg2 != null)
 						{
-							g.drawImage(MenuCanvas.dialhas, 168, 599, 0);
+							g.drawImage(MenuCanvas.dialImg2, 168, 599, 0);
 							g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
 							g.drawString(""+VikaTouch.has, 191, 598, 0);
 						}
-						else if(MenuCanvas.dial != null)
+						else if(MenuCanvas.dialImg != null)
 						{
-							g.drawImage(MenuCanvas.dial, 168, 604, 0);
+							g.drawImage(MenuCanvas.dialImg, 168, 604, 0);
 						}
 
 					}
 					else
 					{
-						if(MenuCanvas.dial != null)
+						if(MenuCanvas.dialImg != null)
 						{
-							g.drawImage(MenuCanvas.dial, 168, 604, 0);
+							g.drawImage(MenuCanvas.dialImg, 168, 604, 0);
 						}
 					}
 					break;
@@ -200,9 +200,9 @@ public class NewsCanvas
 					ColorUtils.setcolor(g, -3);
 					g.fillRect(0, 295, 240, 25);
 					
-					if(MenuCanvas.diary != null)
+					if(MenuCanvas.logoImg != null)
 					{
-						g.drawImage(MenuCanvas.diary, 2, 2, 0);
+						g.drawImage(MenuCanvas.logoImg, 2, 2, 0);
 					}
 					break;
 				}
@@ -214,9 +214,9 @@ public class NewsCanvas
 					ColorUtils.setcolor(g, -3);
 					g.fillRect(0, 310, 640, 50);
 
-					if(MenuCanvas.diary != null)
+					if(MenuCanvas.logoImg != null)
 					{
-						g.drawImage(MenuCanvas.diary, 2, 2, 0);
+						g.drawImage(MenuCanvas.logoImg, 2, 2, 0);
 					}
 					if(lentaImg != null)
 					{
@@ -225,23 +225,23 @@ public class NewsCanvas
 					if(VikaTouch.has > 0)
 					{
 
-						if(MenuCanvas.dialhas != null)
+						if(MenuCanvas.dialImg2 != null)
 						{
-							g.drawImage(MenuCanvas.dialhas, 308, 319, 0);
+							g.drawImage(MenuCanvas.dialImg2, 308, 319, 0);
 							g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
 							g.drawString(""+VikaTouch.has, 330, 318, 0);
 						}
-						else if(MenuCanvas.dial != null)
+						else if(MenuCanvas.dialImg != null)
 						{
-							g.drawImage(MenuCanvas.dial, 308, 324, 0);
+							g.drawImage(MenuCanvas.dialImg, 308, 324, 0);
 						}
 
 					}
 					else
 					{
-						if(MenuCanvas.dial != null)
+						if(MenuCanvas.dialImg != null)
 						{
-							g.drawImage(MenuCanvas.dial, 308, 324, 0);
+							g.drawImage(MenuCanvas.dialImg, 308, 324, 0);
 						}
 					}
 					if(menuImg != null)
@@ -257,9 +257,9 @@ public class NewsCanvas
 					ColorUtils.setcolor(g, -3);
 					g.fillRect(0, DisplayUtils.height - oneitemheight, DisplayUtils.width, oneitemheight);
 					
-					if(MenuCanvas.diary != null)
+					if(MenuCanvas.logoImg != null)
 					{
-						g.drawImage(MenuCanvas.diary, 2, 2, 0);
+						g.drawImage(MenuCanvas.logoImg, 2, 2, 0);
 					}
 				}
 			}

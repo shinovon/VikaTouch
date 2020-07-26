@@ -202,6 +202,11 @@ public class Commands implements CommandListener {
 				}*/
 				break;
 			}
+			case 13:
+			{
+				//Настройки
+				break;
+			}
 			default:
 			{
 				break;

@@ -22,13 +22,13 @@ import vikaTouch.newbase.URLBuilder;
 
 public class MenuCanvas extends MainCanvas {
 
-	protected static Image diary;
-	private static Image more;
-	protected static Image dial;
+	protected static Image logoImg;
+	private static Image menuImg;
+	protected static Image dialImg;
 	private static Image profileimg;
 	private static Image friendimg;
 	private static Image groupimg;
-	protected static Image img;
+	protected static Image newsImg;
 	public static String name;
 	public static boolean hasAva;
 	public static String lastname;
@@ -37,9 +37,10 @@ public class MenuCanvas extends MainCanvas {
 	private static Image videosimg;
 	private static Image photosimg;
 	private static int[] itemscmd = {4, 5, 6, 7, 8, 9, -1};
-	protected static Image dialhas;
+	protected static Image dialImg2;
 	private static Image docsimg;
 	private Image exit;
+	private Image settingsImg;
 
 	public MenuCanvas()
 	{
@@ -53,19 +54,19 @@ public class MenuCanvas extends MainCanvas {
 				case 1:
 				{
 
-					more = Image.createImage("/menuo.png");
+					menuImg = Image.createImage("/menuo.png");
 					if(ColorUtils.isTemnaya)
 					{
-						dial = Image.createImage("/msg1.png");
-						img = Image.createImage("/lenta1.png");
-						diary = Image.createImage("/vikahead.png");
+						dialImg = Image.createImage("/msg1.png");
+						newsImg = Image.createImage("/lenta1.png");
+						logoImg = Image.createImage("/vikahead.png");
 						friendimg = Image.createImage("/friend1.png");
 					}
 					else
 					{
-						dial = Image.createImage("/msg.png"); 
-						img = Image.createImage("/lenta.png");
-						diary = Image.createImage("/vikahead.jpg");
+						dialImg = Image.createImage("/msg.png"); 
+						newsImg = Image.createImage("/lenta.png");
+						logoImg = Image.createImage("/vikahead.jpg");
 						friendimg = Image.createImage("/friend.png");
 					}
 					profileimg = Image.createImage("/ava.png");
@@ -74,8 +75,9 @@ public class MenuCanvas extends MainCanvas {
 					videosimg = Image.createImage("/video.png");
 					photosimg = Image.createImage("/fotki.png");
 					docsimg = Image.createImage("/doc.png");
-					dialhas = Image.createImage("/msgh.png");
+					dialImg2 = Image.createImage("/msgh.png");
 					exit = Image.createImage("/exit.png");
+					settingsImg = Image.createImage("/settings.png");
 					break;
 				}
 				
@@ -85,10 +87,11 @@ public class MenuCanvas extends MainCanvas {
 				{
 
 					profileimg = Image.createImage("/ava25.png");
-					diary = Image.createImage("/vikaheadsmall.png");
+					logoImg = Image.createImage("/vikaheadsmall.png");
 					groupimg = Image.createImage("/group12.png");
 					friendimg = Image.createImage("/friend25.png");
 					exit = VikaUtils.resize(Image.createImage("/exit.png"), 12, 12);
+					settingsImg = VikaUtils.resize(Image.createImage("/settings.png"), 12, 12);
 					break;
 				}
 				
@@ -322,40 +325,44 @@ public class MenuCanvas extends MainCanvas {
 						ColorUtils.setcolor(g, -3);
 						g.fillRect(0, 590, 360, 50);
 	
-						if(diary != null)
+						if(logoImg != null)
 						{
-							g.drawImage(diary, 2, 2, 0);
+							g.drawImage(logoImg, 2, 2, 0);
 						}
-						if(more != null)
+						if(menuImg != null)
 						{
-							g.drawImage(more, 304, 606, 0);
+							g.drawImage(menuImg, 304, 606, 0);
 						}
-						if(img != null)
+						if(newsImg != null)
 						{
-							g.drawImage(img, 37, 603, 0);
+							g.drawImage(newsImg, 37, 603, 0);
 							//g.drawImage(img, 312-66-6, 600, 0);
 							//g.drawImage(img, 88, 600, 0);
+						}
+						if(settingsImg != null)
+						{
+							g.drawImage(settingsImg, 325, 18, 0);
 						}
 						if(VikaTouch.has > 0)
 						{
 	
-							if(dialhas != null)
+							if(dialImg2 != null)
 							{
-								g.drawImage(dialhas, 168, 599, 0);
+								g.drawImage(dialImg2, 168, 599, 0);
 								g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
 								g.drawString(""+VikaTouch.has, 191, 598, 0);
 							}
-							else if(dial != null)
+							else if(dialImg != null)
 							{
-								g.drawImage(dial, 168, 604, 0);
+								g.drawImage(dialImg, 168, 604, 0);
 							}
 	
 						}
 						else
 						{
-							if(dial != null)
+							if(dialImg != null)
 							{
-								g.drawImage(dial, 168, 604, 0);
+								g.drawImage(dialImg, 168, 604, 0);
 							}
 						}
 					}
@@ -367,40 +374,44 @@ public class MenuCanvas extends MainCanvas {
 						ColorUtils.setcolor(g, -3);
 						g.fillRect(0, 310, 640, 50);
 
-						if(MenuCanvas.diary != null)
+						if(MenuCanvas.logoImg != null)
 						{
-							g.drawImage(MenuCanvas.diary, 2, 2, 0);
+							g.drawImage(MenuCanvas.logoImg, 2, 2, 0);
 						}
-						if(MenuCanvas.img != null)
+						if(MenuCanvas.newsImg != null)
 						{
-							g.drawImage(MenuCanvas.img, 36, 323, 0);
+							g.drawImage(MenuCanvas.newsImg, 36, 323, 0);
+						}
+						if(settingsImg != null)
+						{
+							g.drawImage(settingsImg, 605, 18, 0);
 						}
 						if(VikaTouch.has > 0)
 						{
 
-							if(MenuCanvas.dialhas != null)
+							if(MenuCanvas.dialImg2 != null)
 							{
-								g.drawImage(MenuCanvas.dialhas, 308, 319, 0);
+								g.drawImage(MenuCanvas.dialImg2, 308, 319, 0);
 								g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
 								g.drawString(""+VikaTouch.has, 330, 318, 0);
 							}
-							else if(MenuCanvas.dial != null)
+							else if(MenuCanvas.dialImg != null)
 							{
-								g.drawImage(MenuCanvas.dial, 308, 324, 0);
+								g.drawImage(MenuCanvas.dialImg, 308, 324, 0);
 							}
 
 						}
 						else
 						{
-							if(MenuCanvas.dial != null)
+							if(MenuCanvas.dialImg != null)
 							{
-								g.drawImage(MenuCanvas.dial, 324, 308, 0);
+								g.drawImage(MenuCanvas.dialImg, 324, 308, 0);
 							}
 						}
 
-						if(more != null)
+						if(menuImg != null)
 						{
-							g.drawImage(more, 584, 326, 0);
+							g.drawImage(menuImg, 584, 326, 0);
 						}
 						break;
 					}
@@ -466,9 +477,9 @@ public class MenuCanvas extends MainCanvas {
 					g.fillRect(0, 295, 240, 25);
 					
 
-					if(diary != null)
+					if(logoImg != null)
 					{
-						g.drawImage(diary, 1, 1, 0);
+						g.drawImage(logoImg, 1, 1, 0);
 					}
 					
 					if(friendimg != null)
