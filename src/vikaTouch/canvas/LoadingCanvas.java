@@ -29,16 +29,12 @@ public class LoadingCanvas
 
 	public void paint(Graphics g)
 	{
+		g.setColor(0xffffff);
+		g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
 		//если есть фоновой канвас то рисовать его
 		if(parent != null)
 		{
 			parent.paint(g);
-		}
-		//если же его нету то рисовать фон
-		else
-		{
-			g.setColor(0xffffff);
-			g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
 		}
 		g.setColor(0);
 		g.drawString("Загрузка", DisplayUtils.width / 2, DisplayUtils.height - 72, Graphics.TOP | Graphics.HCENTER);

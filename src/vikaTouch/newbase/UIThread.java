@@ -1,6 +1,7 @@
 package vikaTouch.newbase;
 
 import javax.microedition.lcdui.Canvas;
+import javax.microedition.lcdui.game.GameCanvas;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.canvas.LoadingCanvas;
@@ -29,6 +30,14 @@ public class UIThread
 			}
 			if(VikaTouch.loadingAnimation && !(VikaTouch.getCurrentDisplay() instanceof LoadingCanvas))
 			{
+				try
+				{
+					LoadingCanvas.parent = (GameCanvas) VikaTouch.getCurrentDisplay();
+				}
+				catch (Exception e)
+				{
+					
+				}
 				VikaTouch.setDisplay(VikaTouch.loading);
 				VikaTouch.loading.repaint();
 			}

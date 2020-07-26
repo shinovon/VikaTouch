@@ -133,7 +133,7 @@ public final class VikaTouch
 		}
 		catch (Exception e)
 		{
-			VikaTouch.error(e, "Получение токена");
+			VikaTouch.error(e, "Получение токена из сохранений");
 		}
 		return false;
 	}
@@ -142,17 +142,6 @@ public final class VikaTouch
 	{
 		if(!(d instanceof LoadingCanvas))
 			loadingAnimation = false;
-		else
-		{
-			try
-			{
-				LoadingCanvas.parent = (GameCanvas) getCurrentDisplay();
-			}
-			catch (Exception e)
-			{
-				
-			}
-		}
 		Display.getDisplay(inst).setCurrent(d);
 	}
 

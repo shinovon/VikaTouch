@@ -255,6 +255,8 @@ public class LoginCanvas extends GameCanvas {
 						{
 							if(!vse)
 							{
+								VikaTouch.loadingAnimation = true;
+								
 								//логин
 								if(VikaTouch.DEMO_MODE)
 								{
