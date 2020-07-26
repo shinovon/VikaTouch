@@ -34,7 +34,7 @@ public class DisplayUtils
 	public static final int EQWERTY = 4;
 	public static final int ALBUM = 5;
 	public static final int E6 = 6;
-	public static final int UNDEFINED = -6;
+	public static final int UNDEFINED = -1;
 
 	public static Image resizeava(Image img)
 	{
