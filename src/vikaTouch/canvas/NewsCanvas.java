@@ -23,36 +23,51 @@ public class NewsCanvas
 {
 	
 	public static PostItem[] postitems = new PostItem[10];
-	private static String string;
-	private static JSONObject resp;
-	private static JSONArray array;
-	public static JSONArray arrayprofiles;
-	public static JSONArray arraygroups;
-	private static Image menu;
-	private static Image lenta;
+	public static JSONArray profiles;
+	public static JSONArray groups;
+	private static Image menuImg;
+	private static Image lentaImg;
 	
 	public NewsCanvas()
 	{
 		super();
 		DisplayUtils.checkdisplay(this);
+		
 		if(VikaTouch.menu == null)
 			VikaTouch.menu = new MenuCanvas();
-		try {
+		
+		loadPosts();
+		
+		try
+		{
+			menuImg = Image.createImage("/menu.png");
+			lentaImg = Image.createImage("/lentao.png");
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
+	
+	private void loadPosts()
+	{
+		try
+		{
 			int requestcount = 20;
 			int startswith = 0;
 			int postscount = 10;
 			int len2 = postscount;
-			string = VikaUtils.download(
+			final String s = VikaUtils.download(
 					new URLBuilder("newsfeed.get")
 					.addField("filters", "post,photo,photo_tag,wall_photo")
 					.addField("count", "" + requestcount)
 					.addField("fields", "groups,profiles,items")
 					);
-			resp = new JSONObject(string).getJSONObject("response");
-			array = resp.getJSONArray("items");
-			arrayprofiles = resp.getJSONArray("profiles");
-			arraygroups = resp.getJSONArray("groups");
-			System.out.println(string);
+			final JSONObject response = new JSONObject(s).getJSONObject("response");
+			final JSONArray items = response.getJSONArray("items");
+			profiles = response.getJSONArray("profiles");
+			groups = response.getJSONArray("groups");
+			System.out.println(s);
 			itemsh = 0;
 			int i2 = startswith;
 			for(int i = 0; i < len2; i++)
@@ -61,7 +76,7 @@ public class NewsCanvas
 				{
 					break;
 				}
-				final JSONObject ob = array.getJSONObject(i2);
+				final JSONObject ob = items.getJSONObject(i2);
 				JSONObject ob2;
 				try
 				{
@@ -82,7 +97,7 @@ public class NewsCanvas
 					itemsh += postitems[i].itemDrawHeight;
 				i2++;
 			}
-			items = postscount;
+			this.itemsCount = postscount;
 		}
 		catch (Exception e)
 		{
@@ -90,22 +105,12 @@ public class NewsCanvas
 			e.printStackTrace();
 		}
 		
-		try
-		{
-			menu = Image.createImage("/menu.png");
-			lenta = Image.createImage("/lentao.png");
-		}
-		catch(Exception e)
-		{
-		}
+		System.gc();
 	}
-	
+
 	protected final void callRefresh()
 	{
-		if(VikaTouch.news == null)
-			VikaTouch.news = new NewsCanvas();
-		VikaTouch.setDisplay(VikaTouch.news);
-		
+		loadPosts();
 	}
 
 	public void paint(Graphics g)
@@ -127,11 +132,11 @@ public class NewsCanvas
 			int y = oneitemheight + w;
 			try
 			{
-				for(int i = 0; i < items; i++)
+				for(int i = 0; i < itemsCount; i++)
 				{
 					if(postitems[i] != null)
 					{
-						postitems[i].paint(g, 0, y);
+						postitems[i].paint(g, y, scrolled);
 						y += postitems[i].itemDrawHeight + 8;
 					}
 				}
@@ -152,17 +157,17 @@ public class NewsCanvas
 					ColorUtils.setcolor(g, -3);
 					g.fillRect(0, 590, 360, 50);
 
-					if(menu != null)
+					if(menuImg != null)
 					{
-						g.drawImage(menu, 304, 606, 0);
+						g.drawImage(menuImg, 304, 606, 0);
 					}
 					if(MenuCanvas.diary != null)
 					{
 						g.drawImage(MenuCanvas.diary, 2, 2, 0);
 					}
-					if(lenta != null)
+					if(lentaImg != null)
 					{
-						g.drawImage(lenta, 37, 604, 0);
+						g.drawImage(lentaImg, 37, 604, 0);
 					}
 					if(VikaTouch.has > 0)
 					{
@@ -213,9 +218,9 @@ public class NewsCanvas
 					{
 						g.drawImage(MenuCanvas.diary, 2, 2, 0);
 					}
-					if(lenta != null)
+					if(lentaImg != null)
 					{
-						g.drawImage(lenta, 36, 324, 0);
+						g.drawImage(lentaImg, 36, 324, 0);
 					}
 					if(VikaTouch.has > 0)
 					{
@@ -239,9 +244,9 @@ public class NewsCanvas
 							g.drawImage(MenuCanvas.dial, 308, 324, 0);
 						}
 					}
-					if(menu != null)
+					if(menuImg != null)
 					{
-						g.drawImage(menu, 584, 326, 0);
+						g.drawImage(menuImg, 584, 326, 0);
 					}
 					break;
 				}
@@ -276,16 +281,16 @@ public class NewsCanvas
 					if(y > 58 && y < DisplayUtils.height - oneitemheight)
 					{
 						int yy = 0;
-						for(int i = 0; i < items; i++)
+						for(int i = 0; i < itemsCount; i++)
 						{
 							int y1 = scrolled + 50 + yy;
 							int y2 = y1 + postitems[i].itemDrawHeight;
 							yy += postitems[i].itemDrawHeight;
 							if(y > y1 && y < y2)
 							{
-								postitems[i].tap();
+								postitems[i].tap(x, y1 - y);
 								itemsh = 0;
-								for(int i2 = 0; i2 < items; i2++)
+								for(int i2 = 0; i2 < itemsCount; i2++)
 								{
 									itemsh += postitems[i2].itemDrawHeight;
 								}

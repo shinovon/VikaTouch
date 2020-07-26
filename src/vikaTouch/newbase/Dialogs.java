@@ -13,19 +13,21 @@ import vikaTouch.newbase.items.DialogItem;
 public class Dialogs
 {
 	
+	private static final int dialogsCount = 15;
+	
 	public static DialogItem[] dialogs = new DialogItem[15];
 	
 	public static void refreshDialogsList()
 	{
 		try
 		{
-			String x = VikaUtils.download(new URLBuilder("messages.getConversations").addField("filter", "all").addField("count", ""+15));
+			String x = VikaUtils.download(new URLBuilder("messages.getConversations").addField("filter", "all").addField("extended", "1").addField("count", "" + dialogsCount));
 			try {
-				JSONObject response = new JSONObject(x).getJSONObject("response");
-				JSONArray array = response.getJSONArray("items");
-				for(int i = 0; i < array.length(); i++)
+				final JSONObject response = new JSONObject(x).getJSONObject("response");
+				final JSONArray items = response.getJSONArray("items");
+				for(int i = 0; i < items.length(); i++)
 				{
-					JSONObject item = array.getJSONObject(i);
+					final JSONObject item = items.getJSONObject(i);
 					dialogs[i] = new DialogItem(item);
 				}
 				VikaTouch.has = response.getInt("unread_count");
@@ -43,6 +45,11 @@ public class Dialogs
 	}
 	
 	public static void refreshDialog()
+	{
+		
+	}
+
+	public static void openDialog(DialogItem dialogItem)
 	{
 		
 	}

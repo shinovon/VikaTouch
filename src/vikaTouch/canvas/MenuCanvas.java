@@ -44,7 +44,7 @@ public class MenuCanvas extends MainCanvas {
 	public MenuCanvas()
 	{
 		super();
-		items = 7;
+		itemsCount = 7;
 		try {
 			switch(DisplayUtils.idispi)
 				{
@@ -88,7 +88,7 @@ public class MenuCanvas extends MainCanvas {
 					diary = Image.createImage("/vikaheadsmall.png");
 					groupimg = Image.createImage("/group12.png");
 					friendimg = Image.createImage("/friend25.png");
-					exit = VikaUtils.createThumbnail(Image.createImage("/exit.png"), 12, 12);
+					exit = VikaUtils.resize(Image.createImage("/exit.png"), 12, 12);
 					break;
 				}
 				
@@ -578,7 +578,7 @@ public class MenuCanvas extends MainCanvas {
 				{
 					if(y > 58 && y < 590)
 					{
-						for(int i = 0; i < items; i++)
+						for(int i = 0; i < itemsCount; i++)
 						{
 							int y1 = scrolled + 140 + (i * oneitemheight);
 							int y2 = y1 + oneitemheight;
@@ -599,7 +599,7 @@ public class MenuCanvas extends MainCanvas {
 				{
 					if(y > 30 && y < 295)
 					{
-						for(int i = 0; i < items; i++)
+						for(int i = 0; i < itemsCount; i++)
 						{
 							int y1 = scrolled + 70 + (i * oneitemheight);
 							int y2 = y1 + oneitemheight;
@@ -617,7 +617,7 @@ public class MenuCanvas extends MainCanvas {
 				{
 					if(y > 58 && y < 310)
 					{
-						for(int i = 0; i < items; i++)
+						for(int i = 0; i < itemsCount; i++)
 						{
 							int y1 = scrolled + 140 + (i * oneitemheight);
 							int y2 = y1 + oneitemheight;

@@ -18,8 +18,8 @@ public abstract class ScrollableCanvas extends GameCanvas {
 	protected boolean dragging;
 	protected boolean canScroll;
 	public static int oneitemheight = 50;
-	public int items = 5;
-	public int itemsh = items * oneitemheight;
+	public int itemsCount = 5;
+	public int itemsh = itemsCount * oneitemheight;
 	private int lastx;
 	public static int vmeshautsa = 528;
 	public static final double speed = 2.1;

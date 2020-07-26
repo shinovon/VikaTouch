@@ -30,8 +30,7 @@ public class Commands implements CommandListener {
 			case -1:
 			{
 				//Выход
-	
-
+				
 				VikaTouch.inst.destroyApp(false);
 				
 				break;
@@ -39,11 +38,10 @@ public class Commands implements CommandListener {
 			case 0:
 			{
 				//Новости
-
 				
-					if(VikaTouch.news == null)
-						VikaTouch.news = new NewsCanvas();
-					VikaTouch.setDisplay(VikaTouch.news);
+				if(VikaTouch.news == null)
+					VikaTouch.news = new NewsCanvas();
+				VikaTouch.setDisplay(VikaTouch.news);
 				
 				break;
 			}

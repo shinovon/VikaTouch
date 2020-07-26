@@ -51,6 +51,21 @@ public class ColorUtils {
 					g.setColor(0);
 				break;
 			}
+			case 6:
+			{
+				g.setGrayScale(100);
+				break;
+			}
+			case 7:
+			{
+				g.setColor(157, 164, 172);
+				break;
+			}
+			case 8:
+			{
+				g.setColor(158, 180, 205);
+				break;
+			}
 			case -1:
 			{
 				if(isTemnaya)

@@ -1,4 +1,3 @@
-
 package vikaTouch;
 
 import java.io.*;
@@ -21,7 +20,6 @@ import vikaTouch.newbase.Commands;
 import vikaTouch.newbase.Dialogs;
 import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.URLBuilder;
-
 
 public final class VikaTouch
 	extends MIDlet
@@ -91,7 +89,7 @@ public final class VikaTouch
 				
 			}
 			tokenRMS = RecordStore.openRecordStore(TOKEN_RMS, true);
-			String s = accessToken+";"+userId+";"+MenuCanvas.name+" "+MenuCanvas.lastname+";"+MenuCanvas.avaurl;
+			String s = accessToken + ";" + userId + ";" + MenuCanvas.name + " " + MenuCanvas.lastname + ";" + MenuCanvas.avaurl;
 			tokenRMS.addRecord(s.getBytes("UTF-8"), 0, s.length());
 		}
 		catch (Exception e)
@@ -109,6 +107,8 @@ public final class VikaTouch
 			{
 				String s = new String(tokenRMS.getRecord(1), "UTF-8");
 				accessToken = s.substring(0, s.indexOf(";"));
+				
+				//Вся эта хрень нужна для запуска в оффлайне
 				String s2 = s.substring(s.indexOf(";")+1, s.length());
 				String s3 = s2.substring(s2.indexOf(";")+1, s2.length());
 				MenuCanvas.avaurl = s3.substring(s3.indexOf(";")+1, s3.length());

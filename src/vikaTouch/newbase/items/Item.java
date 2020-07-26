@@ -9,7 +9,7 @@ import vikaTouch.base.VikaUtils;
 import vikaTouch.newbase.JSONBase;
 import vikaTouch.newbase.attachments.Attachment;
 
-public class Item
+public abstract class Item
 	extends JSONBase
 {
 	public Item(JSONObject json)
@@ -29,7 +29,10 @@ public class Item
 		text = fixJSONString(json.optString("text"));
 		fromid = json.optInt("from_id");
 		date = json.optLong("date");
-		
+	}
+	
+	protected void parseAttachments()
+	{
 		try
 		{
 			if(!json.isNull("attachments"))
@@ -55,13 +58,18 @@ public class Item
 		}
 	}
 	
-	public void paint(Graphics g, int x, int y)
+	public void paint(Graphics g, int y, int scrolled)
 	{
 		
 	}
 	
 	public String getTime()
 	{
-		return VikaUtils.millisecondsToTime(date);
+		return VikaUtils.parseShortTime(date);
+	}
+	
+	public void tap(int x, int y)
+	{
+		
 	}
 }
