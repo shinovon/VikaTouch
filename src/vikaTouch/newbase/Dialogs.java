@@ -23,6 +23,8 @@ public class Dialogs
 	public static JSONArray profiles;
 	
 	public static JSONArray groups;
+
+	public static int itemsCount;
 	
 	public static void refreshDialogsList()
 	{
@@ -41,13 +43,10 @@ public class Dialogs
 					final JSONArray items = response.getJSONArray("items");
 					profiles = response.getJSONArray("profiles");
 					groups = response.optJSONArray("items");
-					if(VikaTouch.menu != null)
+					itemsCount = response.optInt("count");
+					if(itemsCount > dialogsCount)
 					{
-						VikaTouch.menu.itemsCount = response.optInt("count");
-						if(VikaTouch.menu.itemsCount > dialogsCount)
-						{
-							VikaTouch.menu.itemsCount = dialogsCount;
-						}
+						itemsCount = dialogsCount;
 					}
 					for(int i = 0; i < items.length(); i++)
 					{

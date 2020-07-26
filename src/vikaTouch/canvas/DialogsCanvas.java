@@ -86,7 +86,7 @@ public class DialogsCanvas
 			int y = oneitemheight + w;
 			try
 			{
-				for(int i = 0; i < itemsCount; i++)
+				for(int i = 0; i < Dialogs.itemsCount; i++)
 				{
 					if(Dialogs.dialogs[i] != null)
 					{
@@ -239,7 +239,7 @@ public class DialogsCanvas
 				default:
 				{
 					ColorUtils.setcolor(g, 3);
-					g.fillRect(0, 0, DisplayUtils.width, oneitemheight+w);
+					g.fillRect(0, 0, DisplayUtils.width, oneitemheight + w);
 					ColorUtils.setcolor(g, -3);
 					g.fillRect(0, DisplayUtils.height - oneitemheight, DisplayUtils.width, oneitemheight);
 					
@@ -257,7 +257,7 @@ public class DialogsCanvas
 	
 	public void unselectAll()
 	{
-		for(int i = 0; i < itemsCount; i++)
+		for(int i = 0; i < Dialogs.itemsCount; i++)
 		{
 			if(Dialogs.dialogs[i] != null)
 			{
@@ -276,7 +276,7 @@ public class DialogsCanvas
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
 					int yy = 0;
-					for(int i = 0; i < itemsCount; i++)
+					for(int i = 0; i < Dialogs.itemsCount; i++)
 					{
 						int y1 = scrolled + 50 + yy;
 						int y2 = y1 + Dialogs.dialogs[i].itemDrawHeight;
@@ -312,7 +312,7 @@ public class DialogsCanvas
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
 					int yy = 0;
-					for(int i = 0; i < itemsCount; i++)
+					for(int i = 0; i < Dialogs.itemsCount; i++)
 					{
 						int y1 = scrolled + 50 + yy;
 						int y2 = y1 + Dialogs.dialogs[i].itemDrawHeight;
