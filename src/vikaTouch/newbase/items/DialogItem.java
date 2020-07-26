@@ -14,6 +14,8 @@ import vikaTouch.base.VikaUtils;
 import vikaTouch.newbase.ColorUtils;
 import vikaTouch.newbase.Dialogs;
 import vikaTouch.newbase.DisplayUtils;
+import vikaTouch.newbase.attachments.AudioAttachment;
+import vikaTouch.newbase.attachments.PhotoAttachment;
 
 public class DialogItem
 	extends Item
@@ -32,7 +34,7 @@ public class DialogItem
 	private String type;
 	private boolean isGroup;
 	private int id;
-	private static Image deleteImg;
+	//private static Image deleteImg;
 	private static Image unreadImg;
 	
 	public DialogItem(JSONObject json)
@@ -42,11 +44,12 @@ public class DialogItem
 
 		try
 		{
+			/*
 			if(deleteImg == null)
 			{
 				deleteImg = Image.createImage("/dialremove.png");
 			}
-			
+			*/
 			if(unreadImg == null)
 			{
 				unreadImg = Image.createImage("/unread.png");
@@ -105,7 +108,7 @@ public class DialogItem
 			ColorUtils.setcolor(g, 3);
 			g.fillRect(0, y - 1, DisplayUtils.width, itemDrawHeight + 1);
 			ColorUtils.setcolor(g, -1);
-			g.drawImage(deleteImg, DisplayUtils.width - 25, y + 17, 0);
+			//g.drawImage(deleteImg, DisplayUtils.width - 25, y + 17, 0);
 		}
 		if(title != null)
 		{
@@ -119,9 +122,13 @@ public class DialogItem
 		
 		g.drawString(text, 73, y + 40, 0);
 		
-		if(!selected && time != null)
+		if(!selected)
 		{
 			ColorUtils.setcolor(g, 7);
+		}
+		
+		if(time != null)
+		{
 			g.drawString(time, DisplayUtils.width - (16 + font.stringWidth(time)), y + 16, 0);
 		}
 		
@@ -154,9 +161,9 @@ public class DialogItem
 			try
 			{
 				JSONObject chatSettings = conv.getJSONObject("chat_settings");
-				avaurl = fixJSONString(chatSettings.getJSONObject("photo").optString("photo_50"));
 				title = fixJSONString(chatSettings.optString("title"));
 				isGroup = chatSettings.optBoolean("is_group_channel");
+				avaurl = fixJSONString(chatSettings.getJSONObject("photo").optString("photo_50"));
 			}
 			catch (Exception e)
 			{
@@ -214,6 +221,32 @@ public class DialogItem
 			
 			String nameauthora = "";
 			
+			if(text == "" || text == null || text.length() == 0)
+			{
+				if(lastmessage.attachments[0] != null)
+				{
+					if(lastmessage.attachments[1] != null)
+					{
+						text = "Вложения";
+					}
+					else
+					{
+						if(lastmessage.attachments[0] instanceof PhotoAttachment)
+						{
+							text = "Фотография";
+						}
+						else if(lastmessage.attachments[0] instanceof AudioAttachment)
+						{
+							text = "Аудиозапись";
+						}
+						else
+						{
+							text = "Вложение";
+						}
+					}
+				}
+			}
+			
 			if(("" + lastmessage.fromid).equalsIgnoreCase(VikaTouch.userId))
 			{
 				nameauthora = "Вы";
@@ -256,17 +289,17 @@ public class DialogItem
 	
 	public void tap(int x, int y)
 	{
-		if(selected)
+		Dialogs.openDialog(this);
+		/*
+		if(x > DisplayUtils.width - 25 && y > 16 && y < 32)
 		{
-			if(x > DisplayUtils.width - 25 && y > 16 && y < 32)
-			{
-				remove();
-			}
-			else
-			{
-				Dialogs.openDialog(this);
-			}
+			remove();
 		}
+		else
+		{
+			Dialogs.openDialog(this);
+		}
+		*/
 	}
 	
 	private void remove()
