@@ -7,6 +7,7 @@ import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
 
 import vikaTouch.VikaTouch;
+import vikaTouch.canvas.AboutCanvas;
 import vikaTouch.canvas.DialogsCanvas;
 import vikaTouch.canvas.LoginCanvas;
 import vikaTouch.canvas.MenuCanvas;
@@ -15,12 +16,20 @@ import vikaTouch.canvas.NewsCanvas;
 public class Commands implements CommandListener {
 
     public static final Command close = new Command("Закрыть", 4, 0);
+    public static final Command back = new Command("Назад", 2, 0);
 
 	public void commandAction(Command c, Displayable d)
 	{
 		if(c == close)
 		{
 			VikaTouch.inst.destroyApp(false);
+		}
+		if(c == back)
+		{
+			if(!(d instanceof MenuCanvas))
+			{
+				VikaTouch.setDisplay(VikaTouch.menu);
+			}
 		}
 	}
 	
@@ -205,6 +214,9 @@ public class Commands implements CommandListener {
 			case 13:
 			{
 				//Настройки
+				if(VikaTouch.about == null)
+					VikaTouch.about = new AboutCanvas();
+				VikaTouch.setDisplay(VikaTouch.about);
 				break;
 			}
 			default:

@@ -16,6 +16,7 @@ import vikaTouch.base.InvisibleScreen;
 import vikaTouch.base.VikaUtils;
 import vikaTouch.canvas.*;
 import javax.microedition.lcdui.game.GameCanvas;
+
 import vikaTouch.newbase.CaptchaObject;
 import vikaTouch.newbase.Commands;
 import vikaTouch.newbase.Dialogs;
@@ -50,6 +51,7 @@ public final class VikaTouch
 	public static boolean offlineMode;
 	public static boolean loadingAnimation;
 	public static LoadingCanvas loading;
+	public static AboutCanvas about;
 	public boolean isPaused;
 	public Commands cmdsInst;
 	private String errReason;
@@ -140,7 +142,7 @@ public final class VikaTouch
 
 	public static void setDisplay(Displayable d)
 	{
-		if(!(d instanceof LoadingCanvas))
+		if(d instanceof ScrollableCanvas)
 			loadingAnimation = false;
 		Display.getDisplay(inst).setCurrent(d);
 	}
@@ -400,6 +402,11 @@ public final class VikaTouch
 	public static Displayable getCurrentDisplay()
 	{
 		return Display.getDisplay(inst).getCurrent();
+	}
+
+	public static String getVersion()
+	{
+		return inst.getAppProperty("MIDlet-Version");
 	}
 	
 
