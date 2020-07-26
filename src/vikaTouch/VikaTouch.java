@@ -69,8 +69,9 @@ public final class VikaTouch
 		if(!started)
 		{
 			started = true;
-			mainThread = new Thread(this);
 			inst = this;
+			mainThread = new Thread(this);
+			mainThread.start();
 		}
 	}
 	

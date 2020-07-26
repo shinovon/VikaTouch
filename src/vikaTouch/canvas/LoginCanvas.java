@@ -33,22 +33,35 @@ public class LoginCanvas extends GameCanvas {
 	{
 		super(false);
 		this.setFullScreenMode(true);
-		try {
+		try
+		{
 			diary = Image.createImage("/vikab48.jpg");
-		} catch (Exception e) {
 		}
-		try {
+		catch (Exception e)
+		{
+			
+		}
+		try
+		{
 			login = Image.createImage("/login.png");
-		} catch (Exception e) {
 		}
-		try {
+		catch (Exception e)
+		{
+			
+		}
+		try
+		{
 			loginpressed = Image.createImage("/loginpressed.png");
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
+			
 		}
 		pressed = false;
 	}
 
-	public void paint(Graphics g) {
+	public void paint(Graphics g)
+	{
 		DisplayUtils.checkdisplay(this);
 		ColorUtils.setcolor(g, -1);
 		g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
@@ -66,8 +79,7 @@ public class LoginCanvas extends GameCanvas {
 				{
 					g.drawImage(loginpressed, 116, 300, 0);
 				}
-				else
-				if(login != null)
+				else if(login != null)
 				{
 					g.drawImage(login, 116, 300, 0);
 				}
@@ -107,8 +119,7 @@ public class LoginCanvas extends GameCanvas {
 				{
 					g.drawImage(loginpressed, 0, 220, 0);
 				}
-				else
-				if(login != null)
+				else if(login != null)
 				{
 					g.drawImage(login, 0, 220, 0);
 				}
