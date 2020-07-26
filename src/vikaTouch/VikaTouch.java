@@ -162,6 +162,10 @@ public final class VikaTouch
 		{
 			DisplayUtils.current = DisplayUtils.CANVAS_LOGIN;
 		}
+		if(d instanceof DialogCanvas)
+		{
+			DisplayUtils.current = DisplayUtils.CANVAS_CHAT;
+		}
 		if(d instanceof ReturnableListCanvas)
 		{
 			DisplayUtils.current = DisplayUtils.CANVAS_TEMPLIST;
