@@ -92,6 +92,10 @@ public class MenuCanvas extends MainCanvas {
 					friendimg = Image.createImage("/friend25.png");
 					exit = VikaUtils.resize(Image.createImage("/exit.png"), 12, 12);
 					settingsImg = VikaUtils.resize(Image.createImage("/settings.png"), 12, 12);
+					menuImg = VikaUtils.resize(Image.createImage("/menuo.png"), 10, 9);
+					dialImg = VikaUtils.resize(Image.createImage("/msg.png"), 12, 12);
+					newsImg = VikaUtils.resize(Image.createImage("/lenta.png"), 11, 12);
+					dialImg2 = VikaUtils.resize(Image.createImage("/msgh.png"), 18, 14);
 					break;
 				}
 				
@@ -329,20 +333,22 @@ public class MenuCanvas extends MainCanvas {
 						{
 							g.drawImage(logoImg, 2, 2, 0);
 						}
+						
 						if(menuImg != null)
 						{
 							g.drawImage(menuImg, 304, 606, 0);
 						}
+						
 						if(newsImg != null)
 						{
 							g.drawImage(newsImg, 37, 603, 0);
-							//g.drawImage(img, 312-66-6, 600, 0);
-							//g.drawImage(img, 88, 600, 0);
 						}
+						
 						if(settingsImg != null)
 						{
 							g.drawImage(settingsImg, 325, 18, 0);
 						}
+						
 						if(VikaTouch.has > 0)
 						{
 	
@@ -368,44 +374,46 @@ public class MenuCanvas extends MainCanvas {
 					}
 					else if(DisplayUtils.idispi == 5)
 					{
-
 						ColorUtils.setcolor(g, 3);
 						g.fillRect(0, 0, 640, 58);
 						ColorUtils.setcolor(g, -3);
 						g.fillRect(0, 310, 640, 50);
 
-						if(MenuCanvas.logoImg != null)
+						if(logoImg != null)
 						{
 							g.drawImage(MenuCanvas.logoImg, 2, 2, 0);
 						}
-						if(MenuCanvas.newsImg != null)
+						
+						if(newsImg != null)
 						{
 							g.drawImage(MenuCanvas.newsImg, 36, 323, 0);
 						}
+						
 						if(settingsImg != null)
 						{
 							g.drawImage(settingsImg, 605, 18, 0);
 						}
+						
 						if(VikaTouch.has > 0)
 						{
 
-							if(MenuCanvas.dialImg2 != null)
+							if(dialImg2 != null)
 							{
 								g.drawImage(MenuCanvas.dialImg2, 308, 319, 0);
 								g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
 								g.drawString(""+VikaTouch.has, 330, 318, 0);
 							}
-							else if(MenuCanvas.dialImg != null)
+							else if(dialImg != null)
 							{
-								g.drawImage(MenuCanvas.dialImg, 308, 324, 0);
+								g.drawImage(dialImg, 308, 324, 0);
 							}
 
 						}
 						else
 						{
-							if(MenuCanvas.dialImg != null)
+							if(dialImg != null)
 							{
-								g.drawImage(MenuCanvas.dialImg, 324, 308, 0);
+								g.drawImage(dialImg, 308, 324, 0);
 							}
 						}
 
@@ -419,8 +427,9 @@ public class MenuCanvas extends MainCanvas {
 				}
 				
 				case 2:
+				case 3:
 				{
-					//S40
+					//S40, bada, asha 311
 					
 					update(g);
 					
@@ -452,8 +461,16 @@ public class MenuCanvas extends MainCanvas {
 							g.drawImage(profileimg, 8, 35, 0);
 						}
 					}
-					
 
+					if(friendimg != null)
+					{
+						g.drawImage(friendimg, 10, 83, 0);
+					}
+
+					if(groupimg != null)
+					{
+						g.drawImage(groupimg, 9, 108, 0);
+					}
 					
 					ColorUtils.setcolor(g, 5);
 					g.setFont(Font.getFont(0, 0, 8));
@@ -469,27 +486,20 @@ public class MenuCanvas extends MainCanvas {
 					g.drawString("Выход", 29, 216, 0);
 					
 					g.translate(0,-g.getTranslateY());
-					
 
 					ColorUtils.setcolor(g, 3);
 					g.fillRect(0, 0, 240, 30);
 					ColorUtils.setcolor(g, -3);
 					g.fillRect(0, 295, 240, 25);
-					
 
 					if(logoImg != null)
 					{
 						g.drawImage(logoImg, 1, 1, 0);
 					}
 					
-					if(friendimg != null)
+					if(settingsImg != null)
 					{
-						g.drawImage(friendimg, 10, 83, 0);
-					}
-
-					if(groupimg != null)
-					{
-						g.drawImage(groupimg, 9, 108, 0);
+						g.drawImage(settingsImg, 228, 9, 0);
 					}
 
 					if(exit != null)
@@ -497,10 +507,41 @@ public class MenuCanvas extends MainCanvas {
 						g.drawImage(exit, 9, 233, 0);
 					}
 					
+					if(menuImg != null)
+					{
+						g.drawImage(menuImg, 212, 303, 0);
+					}
+					
+					if(newsImg != null)
+					{
+						g.drawImage(newsImg, 18, 301, 0);
+					}
+					
+					if(VikaTouch.has > 0)
+					{
+						if(dialImg2 != null)
+						{
+							g.drawImage(dialImg2, 114, 299, 0);
+							g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
+							g.drawString(""+VikaTouch.has, 126, 300, 0);
+						}
+						else if(dialImg != null)
+						{
+							g.drawImage(dialImg, 114, 302, 0);
+						}
+
+					}
+					else
+					{
+						if(dialImg != null)
+						{
+							g.drawImage(dialImg, 114, 302, 0);
+						}
+					}
+					
 					break;
 				}
 				
-				case 3:
 				case 4:
 				case -1:
 					

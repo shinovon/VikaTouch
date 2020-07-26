@@ -40,8 +40,23 @@ public class NewsCanvas
 		
 		try
 		{
-			menuImg = Image.createImage("/menu.png");
-			lentaImg = Image.createImage("/lentao.png");
+			switch(DisplayUtils.idispi)
+			{
+				case 1:
+				case 5:
+				case 6:
+				{
+					menuImg = Image.createImage("/menu.png");
+					lentaImg = Image.createImage("/lentao.png");
+				}
+				case 2:
+				case 3:
+				case 4:
+				{
+					menuImg = VikaUtils.resize(Image.createImage("/menu.png"), 10, 9);
+					lentaImg = VikaUtils.resize(Image.createImage("/lentao.png"), 11, 11);
+				}
+			}
 		}
 		catch(Exception e)
 		{
@@ -203,6 +218,38 @@ public class NewsCanvas
 					if(MenuCanvas.logoImg != null)
 					{
 						g.drawImage(MenuCanvas.logoImg, 2, 2, 0);
+					}
+					
+					if(menuImg != null)
+					{
+						g.drawImage(menuImg, 212, 303, 0);
+					}
+					
+					if(MenuCanvas.newsImg != null)
+					{
+						g.drawImage(MenuCanvas.newsImg, 18, 301, 0);
+					}
+					
+					if(VikaTouch.has > 0)
+					{
+						if(MenuCanvas.dialImg2 != null)
+						{
+							g.drawImage(MenuCanvas.dialImg2, 114, 299, 0);
+							g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
+							g.drawString(""+VikaTouch.has, 126, 300, 0);
+						}
+						else if(MenuCanvas.dialImg != null)
+						{
+							g.drawImage(MenuCanvas.dialImg, 114, 302, 0);
+						}
+
+					}
+					else
+					{
+						if(MenuCanvas.dialImg != null)
+						{
+							g.drawImage(MenuCanvas.dialImg, 114, 302, 0);
+						}
 					}
 					break;
 				}
