@@ -221,7 +221,7 @@ public class DialogItem
 			
 			String nameauthora = "";
 			
-			if(text == "" || text == null || text.length() == 0)
+			if(text == "" || text == null || text.length() == 0 || text.length() == 1)
 			{
 				if(lastmessage.attachments[0] != null)
 				{
