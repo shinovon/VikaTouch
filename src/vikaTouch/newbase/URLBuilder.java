@@ -53,4 +53,8 @@ public class URLBuilder
 		return new URLBuilder(method).toString();
 	}
 
+	public URLBuilder addField(String param, int value) {
+		return addField(param, "" + value);
+	}
+
 }

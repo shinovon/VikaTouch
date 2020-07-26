@@ -140,7 +140,11 @@ public final class VikaTouch
 	public static void setDisplay(Displayable d)
 	{
 		if(!(d instanceof LoadingCanvas))
-			VikaTouch.loadingAnimation = false;
+			loadingAnimation = false;
+		else
+		{
+			LoadingCanvas.parent = (Canvas) getCurrentDisplay();
+		}
 		Display.getDisplay(inst).setCurrent(d);
 	}
 
@@ -375,7 +379,6 @@ public final class VikaTouch
 					if(!offlineMode)
 						Dialogs.refreshDialogsList();
 				}
-				//canvas = news = new NewsCanvas();
 				canvas = menu = new MenuCanvas();
 			}
 			else

@@ -18,17 +18,19 @@ public class UIThread
 		
 		while(VikaTouch.inst != null && VikaTouch.inst.started && !VikaTouch.inst.isPaused)
 		{
-			if(VikaTouch.loadingAnimation && !(VikaTouch.getCurrentDisplay() instanceof LoadingCanvas))
-			{
-				VikaTouch.setDisplay(VikaTouch.loading);
-			}
 			try
 			{
 				((Canvas) VikaTouch.getCurrentDisplay()).repaint();
+				Thread.sleep(100L);
 			}
 			catch (Exception e)
 			{
 				
+			}
+			if(VikaTouch.loadingAnimation && !(VikaTouch.getCurrentDisplay() instanceof LoadingCanvas))
+			{
+				VikaTouch.setDisplay(VikaTouch.loading);
+				VikaTouch.loading.repaint();
 			}
 		}
 	}

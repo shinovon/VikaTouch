@@ -275,7 +275,7 @@ public class DialogsCanvas
 				
 		}
 		
-		super.pointerReleased(x, y);
+		super.pointerPressed(x, y);
 	}
 
 	protected void scrollHorizontally(int deltaX)

@@ -17,14 +17,20 @@ public class Dialogs
 	
 	public static DialogItem[] dialogs = new DialogItem[15];
 	
+	public static JSONArray profiles;
+	
+	public static JSONArray groups;
+	
 	public static void refreshDialogsList()
 	{
 		try
 		{
-			String x = VikaUtils.download(new URLBuilder("messages.getConversations").addField("filter", "all").addField("extended", "1").addField("count", "" + dialogsCount));
+			String x = VikaUtils.download(new URLBuilder("messages.getConversations").addField("filter", "all").addField("extended", "1").addField("count", dialogsCount));
 			try {
 				final JSONObject response = new JSONObject(x).getJSONObject("response");
 				final JSONArray items = response.getJSONArray("items");
+				profiles = response.getJSONArray("profiles");
+				groups = response.optJSONArray("items");
 				if(VikaTouch.menu != null)
 				{
 					VikaTouch.menu.itemsCount = 0;

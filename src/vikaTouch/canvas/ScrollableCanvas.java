@@ -113,13 +113,13 @@ public abstract class ScrollableCanvas extends GameCanvas {
 			if(scrolled < vmeshautsa - itemsh && scrolled != 0)
 			{
 				scrolled = vmeshautsa - itemsh;
-				d2 |= true;
+				d2 = d2 || true;
 			}
 		}
 		else
 		{
 			canScroll = false;
-			if(!dragging && scrolled < 0)
+			if(scrolled < 0)
 			{
 				scrolled = 0;
 			}

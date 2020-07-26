@@ -14,7 +14,6 @@ import vikaTouch.base.VikaUtils;
 import vikaTouch.newbase.ColorUtils;
 import vikaTouch.newbase.Dialogs;
 import vikaTouch.newbase.DisplayUtils;
-import vikaTouch.newbase.JSONBase;
 
 public class DialogItem
 	extends Item
@@ -32,6 +31,7 @@ public class DialogItem
 	private String time;
 	private String type;
 	private boolean isGroup;
+	private int id;
 	private static Image deleteImg;
 	private static Image unreadImg;
 	
@@ -150,17 +150,55 @@ public class DialogItem
 		try
 		{
 			final JSONObject conv = json.getJSONObject("conversation");
+
+			try
+			{
+				JSONObject chatSettings = conv.getJSONObject("chat_settings");
+				avaurl = fixJSONString(chatSettings.getJSONObject("photo").optString("photo_50"));
+				title = fixJSONString(chatSettings.optString("title"));
+				isGroup = chatSettings.optBoolean("is_group_channel");
+			}
+			catch (Exception e)
+			{
+				//chat_settings может не существовать, так-что это исключение игнорируется
+			}
 			
-			JSONObject chatSettings = conv.getJSONObject("chat_settings");
-			avaurl = fixJSONString(chatSettings.getJSONObject("photo").optString("photo_50"));
-			title = fixJSONString(chatSettings.optString("title"));
-			isGroup = chatSettings.optBoolean("is_group_channel");
+			unread = conv.optInt("unread_count") > 0;
 				
 			final JSONObject peer = conv.getJSONObject("peer");
 			type = fixJSONString(peer.optString("type"));
+			id = peer.optInt("local_id");
+			
+			if(type == "user")
+			{
+				for(int i = 0; i < Dialogs.profiles.length(); i++)
+				{
+					final JSONObject profile = Dialogs.profiles.getJSONObject(i);
+					if(profile.getInt("id") == id)
+					{
+						title = fixJSONString(profile.optString("first_name") + " " + profile.optString("last_name"));
+						avaurl = fixJSONString(profile.optString("photo_50"));
+						break;
+					}
+				}
+			}
+			if(type == "group" && Dialogs.groups != null)
+			{
+				for(int i = 0; i < Dialogs.groups.length(); i++)
+				{
+					final JSONObject group = Dialogs.groups.getJSONObject(i);
+					if(group.getInt("id") == lastmessage.fromid)
+					{
+						title = fixJSONString(group.optString("name"));
+						avaurl = fixJSONString(group.optString("photo_50"));
+						break;
+					}
+				}	
+			}
 		}
 		catch (JSONException e)
 		{
+			VikaTouch.error(e, "Парсинг диалога");
 			e.printStackTrace();
 		}
 		
@@ -173,15 +211,34 @@ public class DialogItem
 			
 			text = lastmessage.text;
 			
-			if("" + lastmessage.fromid == VikaTouch.userId)
+			
+			String nameauthora = "";
+			
+			if(("" + lastmessage.fromid).equalsIgnoreCase(VikaTouch.userId))
 			{
-				text = "Вы: " + text;
+				nameauthora = "Вы";
+			}
+			else if(isGroup || type.equalsIgnoreCase("chat"))
+			{
+				for(int i = 0; i < Dialogs.profiles.length(); i++)
+				{
+					final JSONObject profile = Dialogs.profiles.getJSONObject(i);
+					if(("" + lastmessage.fromid).equalsIgnoreCase("" + profile.optInt("id")))
+					{
+						nameauthora = profile.optString("first_name");
+					}
+				}
+			}
+			
+			if(nameauthora != "")
+			{
+				text = nameauthora + ": " + text;
 			}
 			
 			
-			if(text.length() > 32)
+			if(text.length() > 26)
 			{
-				text = text.substring(0, 32) + "...";
+				text = text.substring(0, 26) + "...";
 			}
 		}
 		catch (Exception e)
@@ -193,6 +250,8 @@ public class DialogItem
 		{
 			title = title.substring(0, 22) + "...";
 		}
+		
+		System.gc();
 	}
 	
 	public void tap(int x, int y)

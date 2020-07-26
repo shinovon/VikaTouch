@@ -24,7 +24,17 @@ public class Commands implements CommandListener {
 		}
 	}
 	
-	public void commandAction(int i, Displayable d) {
+	public void commandAction(int i, Displayable d)
+	{
+		try
+		{
+			VikaTouch.mainThread.join();
+		}
+		catch (Exception e)
+		{
+			
+		}
+		
 		switch(i)
 		{
 			case -1:
