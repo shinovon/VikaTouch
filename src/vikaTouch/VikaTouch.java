@@ -142,6 +142,30 @@ public final class VikaTouch
 
 	public static void setDisplay(Displayable d)
 	{
+		if(d instanceof MenuCanvas)
+		{
+			DisplayUtils.current = DisplayUtils.MENU;
+		}
+		if(d instanceof NewsCanvas)
+		{
+			DisplayUtils.current = DisplayUtils.NEWS;
+		}
+		if(d instanceof DialogsCanvas)
+		{
+			DisplayUtils.current = DisplayUtils.CHATSLIST;
+		}
+		if(d instanceof AboutCanvas)
+		{
+			DisplayUtils.current = DisplayUtils.ABOUT;
+		}
+		if(d instanceof LoginCanvas)
+		{
+			DisplayUtils.current = DisplayUtils.LOGIN;
+		}
+		if(d instanceof ReturnableListCanvas)
+		{
+			DisplayUtils.current = DisplayUtils.TEMPLIST;
+		}
 		if(d instanceof ScrollableCanvas)
 			loadingAnimation = false;
 		Display.getDisplay(inst).setCurrent(d);

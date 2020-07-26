@@ -17,6 +17,7 @@ public class DisplayUtils
 	public static int lheight;
 	public static int current;
 	
+	//Дисплеи
 	public static final int LOGIN = 1;
 	public static final int MENU = 2;
 	public static final int NEWS = 3;
@@ -24,7 +25,9 @@ public class DisplayUtils
 	public static final int CHAT = 5;
 	public static final int ABOUT = 6;
 	public static final int SETTINGS = 7;
+	public static final int TEMPLIST = 8;
 
+	//Экраны
 	public static final int PORTRAIT = 1;
 	public static final int S40 = 2;
 	public static final int ASHA311 = 3;
