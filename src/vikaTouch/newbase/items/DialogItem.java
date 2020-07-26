@@ -107,8 +107,10 @@ public class DialogItem
 			ColorUtils.setcolor(g, -1);
 			g.drawImage(deleteImg, DisplayUtils.width - 25, y + 17, 0);
 		}
-		
-		g.drawString(title, 73, y + 16, 0);
+		if(title != null)
+		{
+			g.drawString(title, 73, y + 16, 0);
+		}
 		
 		if(!selected)
 		{
@@ -117,10 +119,10 @@ public class DialogItem
 		
 		g.drawString(text, 73, y + 40, 0);
 		
-		if(!selected)
+		if(!selected && time != null)
 		{
 			ColorUtils.setcolor(g, 7);
-			g.drawString(time, 73, y + 40, 0);
+			g.drawString(time, DisplayUtils.width - (16 + font.stringWidth(time)), y + 16, 0);
 		}
 		
 		Image ava = getAva();
@@ -133,15 +135,13 @@ public class DialogItem
 		if(!selected)
 		{
 			ColorUtils.setcolor(g, -5);
-			g.drawRect(72, y + itemDrawHeight, DisplayUtils.width, y + itemDrawHeight);
+			g.fillRect(72, y + itemDrawHeight, 640, 1);
 			
 			if(unread)
 			{
 				g.drawImage(unreadImg, DisplayUtils.width - 24, y + 42, 0);
 			}
 			
-			ColorUtils.setcolor(g, 7);
-			g.drawString(time, DisplayUtils.width - (16 + font.stringWidth(time)), y + 16, 0);
 		}
 	}
 
@@ -184,12 +184,12 @@ public class DialogItem
 				text = text.substring(0, 32) + "...";
 			}
 		}
-		catch (JSONException e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 		
-		if(title.length() > 22)
+		if(title != null && title.length() > 22)
 		{
 			title = title.substring(0, 22) + "...";
 		}
@@ -197,14 +197,34 @@ public class DialogItem
 	
 	public void tap(int x, int y)
 	{
-		
 		if(selected)
 		{
 			if(x > DisplayUtils.width - 25 && y > 16 && y < 32)
 			{
-				
+				remove();
 			}
-			Dialogs.openDialog(this);
+			else
+			{
+				Dialogs.openDialog(this);
+			}
+		}
+	}
+	
+	private void remove()
+	{
+		
+	}
+
+	public void pressed()
+	{
+		selected = true;
+	}
+	
+	public void released(boolean dragging)
+	{
+		if(dragging)
+		{
+			selected = false;
 		}
 	}
 	

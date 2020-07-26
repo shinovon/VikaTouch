@@ -25,10 +25,19 @@ public class Dialogs
 			try {
 				final JSONObject response = new JSONObject(x).getJSONObject("response");
 				final JSONArray items = response.getJSONArray("items");
+				if(VikaTouch.menu != null)
+				{
+					VikaTouch.menu.itemsCount = 0;
+				}
 				for(int i = 0; i < items.length(); i++)
 				{
 					final JSONObject item = items.getJSONObject(i);
 					dialogs[i] = new DialogItem(item);
+					dialogs[i].parseJSON();
+					if(VikaTouch.menu != null)
+					{
+						VikaTouch.menu.itemsCount++;
+					}
 				}
 				VikaTouch.has = response.getInt("unread_count");
 			}
@@ -42,6 +51,7 @@ public class Dialogs
 			VikaTouch.warn("Переход в оффлайн режим!");
 			VikaTouch.offlineMode = true;
 		}
+		
 	}
 	
 	public static void refreshDialog()

@@ -28,13 +28,14 @@ public class MessageItem
 	{
 		super.parseJSON();
 		parseAttachments();
+		itemDrawHeight = 32;
 	}
 	
 	public void paint(Graphics g, int y, int scrolled)
 	{
 		if(drawText == null)
 		{
-			drawText = TextBreaker.breakText(text, false, itemDrawHeight, true, DisplayUtils.width - 104);
+			drawText = TextBreaker.breakText(text, false, this, true, DisplayUtils.width - 104);
 			if(itemDrawHeight < 56)
 			{
 				itemDrawHeight = 56;

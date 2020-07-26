@@ -30,20 +30,20 @@ public abstract class MainCanvas
 			}
 			else if(y >= DisplayUtils.height - oneitemheight)
 			{
-				int acenter = (DisplayUtils.width / 2) - wyw;
+				int acenter = (DisplayUtils.width - wyw) / 2;
 				if(x < wyw)
 				{
 					VikaTouch.inst.cmdsInst.commandAction(0, this);
 				}
 
-				if(x > acenter && x < acenter + wyw)
-				{
-					VikaTouch.inst.cmdsInst.commandAction(1, this);
-				}
-
 				if(x > DisplayUtils.width - wyw)
 				{
 					VikaTouch.inst.cmdsInst.commandAction(2, this);
+				}
+
+				if(x > acenter && x < acenter + wyw)
+				{
+					VikaTouch.inst.cmdsInst.commandAction(1, this);
 				}
 			}
 		}

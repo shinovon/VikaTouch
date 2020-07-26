@@ -4,6 +4,7 @@ import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.game.GameCanvas;
 
+import vikaTouch.VikaTouch;
 import vikaTouch.newbase.DisplayUtils;
 
 public abstract class ScrollableCanvas extends GameCanvas {
@@ -123,13 +124,6 @@ public abstract class ScrollableCanvas extends GameCanvas {
 				scrolled = 0;
 			}
 		}
-		if(scrolled > 200)
-		{
-			callRefresh();
-			scrolled = 0;
-		}
-		if(!dragging && scrolled > 0)
-			scrolled = 0;
 		if(d2)
 		{
 			g.translate(0, scrolled+scroll);
@@ -138,6 +132,11 @@ public abstract class ScrollableCanvas extends GameCanvas {
 		}
 		else
 			g.translate(0, scrolled);
+		
+		if(scrolled > 0)
+		{
+			scrolled = 0;
+		}
 	}
 
 	protected void callRefresh()

@@ -1,5 +1,7 @@
 package vikaTouch.canvas;
 
+import java.io.IOException;
+
 import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
@@ -19,11 +21,20 @@ public class DialogsCanvas
 	public DialogsCanvas()
 	{
 		super();
+		DisplayUtils.checkdisplay(this);
 		
 		if(VikaTouch.menu == null)
 			VikaTouch.menu = new MenuCanvas();
 		
-		Dialogs.refreshDialogsList();
+		try
+		{
+			if(menuImg == null)
+				menuImg = Image.createImage("/menu.png");
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	protected final void callRefresh()
@@ -33,6 +44,7 @@ public class DialogsCanvas
 
 	public void paint(Graphics g)
 	{
+		DisplayUtils.checkdisplay(this);
 		double multiplier = (double)DisplayUtils.height / 640.0;
 		double ww = 10.0 * multiplier;
 		int w = (int)ww;
@@ -55,7 +67,7 @@ public class DialogsCanvas
 					if(Dialogs.dialogs[i] != null)
 					{
 						Dialogs.dialogs[i].paint(g, y, scrolled);
-						y += Dialogs.dialogs[i].itemDrawHeight + 8;
+						y += Dialogs.dialogs[i].itemDrawHeight;
 					}
 				}
 			}
@@ -187,36 +199,82 @@ public class DialogsCanvas
 		}
 	}
 	
-	protected final void pointerReleased(int x, int y)
+	public void unselectAll()
 	{
-		if(!dragging)
+		for(int i = 0; i < itemsCount; i++)
 		{
-			switch(DisplayUtils.idispi)
+			if(Dialogs.dialogs[i] != null)
 			{
-				case 5:
-				case 1:
-				{
-					if(y > 58 && y < DisplayUtils.height - oneitemheight)
-					{
-						int yy = 0;
-						for(int i = 0; i < itemsCount; i++)
-						{
-							int y1 = scrolled + 50 + yy;
-							int y2 = y1 + Dialogs.dialogs[i].itemDrawHeight;
-							yy += Dialogs.dialogs[i].itemDrawHeight;
-							if(y > y1 && y < y2)
-							{
-								Dialogs.dialogs[i].tap(x, y1 - y);
-								break;
-							}
-							
-						}
-					}
-					break;
-				}
-				
+				Dialogs.dialogs[i].selected = false;
 			}
 		}
+	}
+	
+	protected final void pointerReleased(int x, int y)
+	{
+		switch(DisplayUtils.idispi)
+		{
+			case 5:
+			case 1:
+			{
+				if(y > 58 && y < DisplayUtils.height - oneitemheight)
+				{
+					int yy = 0;
+					for(int i = 0; i < itemsCount; i++)
+					{
+						int y1 = scrolled + 50 + yy;
+						int y2 = y1 + Dialogs.dialogs[i].itemDrawHeight;
+						yy += Dialogs.dialogs[i].itemDrawHeight;
+						if(y > y1 && y < y2)
+						{
+							unselectAll();
+							if(!dragging)
+							{
+								Dialogs.dialogs[i].tap(x, y1 - y);
+							}
+							Dialogs.dialogs[i].released(dragging);
+							break;
+						}
+							
+					}
+				}
+				break;
+			}
+				
+		}
+		
+		super.pointerReleased(x, y);
+	}
+	
+	protected final void pointerPressed(int x, int y)
+	{
+		switch(DisplayUtils.idispi)
+		{
+			case 5:
+			case 1:
+			{
+				if(y > 58 && y < DisplayUtils.height - oneitemheight)
+				{
+					int yy = 0;
+					for(int i = 0; i < itemsCount; i++)
+					{
+						int y1 = scrolled + 50 + yy;
+						int y2 = y1 + Dialogs.dialogs[i].itemDrawHeight;
+						yy += Dialogs.dialogs[i].itemDrawHeight;
+						unselectAll();
+						if(y > y1 && y < y2)
+						{
+							Dialogs.dialogs[i].pressed();
+							break;
+						}
+							
+					}
+				}
+				break;
+			}
+				
+		}
+		
 		super.pointerReleased(x, y);
 	}
 

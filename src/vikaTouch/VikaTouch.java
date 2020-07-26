@@ -19,6 +19,7 @@ import vikaTouch.newbase.CaptchaObject;
 import vikaTouch.newbase.Commands;
 import vikaTouch.newbase.Dialogs;
 import vikaTouch.newbase.DisplayUtils;
+import vikaTouch.newbase.UIThread;
 import vikaTouch.newbase.URLBuilder;
 
 public final class VikaTouch
@@ -42,14 +43,17 @@ public final class VikaTouch
 	public static RecordStore tokenRMS;
 	public static Image camera;
 	public static Thread mainThread;
+	public static Thread uiThread;
 	public static String userId;
 	public static int has = 0;
 	public static boolean offlineMode;
+	public static boolean loadingAnimation;
+	public static LoadingCanvas loading;
 	public boolean isPaused;
 	public Commands cmdsInst;
 	private String errReason;
 	private String tokenUnswer;
-	private boolean started = false;
+	public boolean started = false;
 
 	public void destroyApp(boolean arg0)
 	{
@@ -70,8 +74,11 @@ public final class VikaTouch
 		{
 			started = true;
 			inst = this;
+			loadingAnimation = true;
 			mainThread = new Thread(this);
 			mainThread.start();
+			uiThread = new Thread(new UIThread());
+			uiThread.start();
 		}
 	}
 	
@@ -132,6 +139,8 @@ public final class VikaTouch
 
 	public static void setDisplay(Displayable d)
 	{
+		if(!(d instanceof LoadingCanvas))
+			VikaTouch.loadingAnimation = false;
 		Display.getDisplay(inst).setCurrent(d);
 	}
 
@@ -386,6 +395,11 @@ public final class VikaTouch
 		final Alert alert = new Alert("Внимание!", string, null, AlertType.WARNING);
 		alert.addCommand(Alert.DISMISS_COMMAND);
 		setDisplay(alert);
+	}
+
+	public static Displayable getCurrentDisplay()
+	{
+		return Display.getDisplay(inst).getCurrent();
 	}
 	
 

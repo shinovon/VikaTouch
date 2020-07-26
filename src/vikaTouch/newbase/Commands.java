@@ -39,6 +39,8 @@ public class Commands implements CommandListener {
 			{
 				//Новости
 				
+				VikaTouch.loadingAnimation = true;
+				
 				if(VikaTouch.news == null)
 					VikaTouch.news = new NewsCanvas();
 				VikaTouch.setDisplay(VikaTouch.news);
@@ -48,6 +50,8 @@ public class Commands implements CommandListener {
 			case 1:
 			{
 				//Сообщения
+				
+				VikaTouch.loadingAnimation = true;
 
 				if(!(d instanceof DialogsCanvas))
 				{
@@ -60,6 +64,7 @@ public class Commands implements CommandListener {
 			case 2:
 			{
 				//Меню
+				
 				if(!(d instanceof MenuCanvas))
 				{
 					if(VikaTouch.menu == null)
@@ -71,6 +76,9 @@ public class Commands implements CommandListener {
 			case 3:
 			{
 				//Логин
+				
+				VikaTouch.loadingAnimation = true;
+				
 				if(d instanceof LoginCanvas)
 				{
 					VikaTouch.inst.login(LoginCanvas.user, LoginCanvas.pass);
