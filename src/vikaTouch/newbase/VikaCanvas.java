@@ -54,7 +54,7 @@ public class VikaCanvas
 	private void drawLoading(Graphics g)
 	{
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
-		g.drawString("Загрузка", DisplayUtils.width / 2, DisplayUtils.height - 64, Graphics.TOP | Graphics.HCENTER);
+		g.drawString("Загрузка", DisplayUtils.width / 2, DisplayUtils.height - 80, Graphics.TOP | Graphics.HCENTER);
 	}
 
 	public void pointerPressed(int x, int y)
