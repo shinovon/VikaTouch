@@ -20,7 +20,8 @@ public class DialogsCanvas
 	public DialogsCanvas()
 	{
 		super();
-		DisplayUtils.checkdisplay(this);
+		
+		VikaTouch.loadingAnimation = true;
 		
 		if(VikaTouch.menu == null)
 		{
@@ -69,26 +70,20 @@ public class DialogsCanvas
 
 	protected final void callRefresh()
 	{
+		VikaTouch.loadingAnimation = true;
 		Dialogs.refreshDialogsList();
 	}
 
 	public void paint(Graphics g)
 	{
-		DisplayUtils.checkdisplay(this);
-		
-		ColorUtils.setcolor(g, -1);
-		g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
 		ColorUtils.setcolor(g, 0);
 		g.setFont(Font.getFont(0, 0, 8));
 		itemsh = Dialogs.itemsCount * 63;
-		DisplayUtils.checkdisplay(this);
 		double multiplier = (double)DisplayUtils.height / 640.0;
 		double ww = 10.0 * multiplier;
 		int w = (int)ww;
 		try
 		{
-			//g.drawString(string, 8, 8, 0);
-			
 			update(g);
 			int y = oneitemheight + w;
 			try
@@ -119,33 +114,22 @@ public class DialogsCanvas
 	
 	public void unselectAll()
 	{
-		try
+		if(Dialogs.selected)
 		{
-			VikaTouch.mainThread.join();
-		}
-		catch (InterruptedException e)
-		{
-			
-		}
-		for(int i = 0; i < Dialogs.itemsCount; i++)
-		{
-			if(Dialogs.dialogs[i] != null)
+			for(int i = 0; i < Dialogs.itemsCount; i++)
 			{
-				Dialogs.dialogs[i].selected = false;
+				if(Dialogs.dialogs[i] != null)
+				{
+					Dialogs.dialogs[i].selected = false;
+				}
+				Thread.yield();
 			}
+			Dialogs.selected = false;
 		}
 	}
 	
-	protected final void pointerReleased(int x, int y)
+	public final void pointerReleased(int x, int y)
 	{
-		try
-		{
-			VikaTouch.mainThread.join();
-		}
-		catch (InterruptedException e)
-		{
-			
-		}
 		switch(DisplayUtils.idispi)
 		{
 			case DisplayUtils.DISPLAY_ALBUM:
@@ -169,6 +153,7 @@ public class DialogsCanvas
 							Dialogs.dialogs[i].released(dragging);
 							break;
 						}
+						Thread.yield();
 							
 					}
 				}
@@ -180,16 +165,8 @@ public class DialogsCanvas
 		super.pointerReleased(x, y);
 	}
 	
-	protected final void pointerPressed(int x, int y)
+	public final void pointerPressed(int x, int y)
 	{
-		try
-		{
-			VikaTouch.mainThread.join();
-		}
-		catch (InterruptedException e)
-		{
-			
-		}
 		switch(DisplayUtils.idispi)
 		{
 			case DisplayUtils.DISPLAY_ALBUM:
@@ -203,20 +180,20 @@ public class DialogsCanvas
 						int y1 = scrolled + 50 + yy;
 						int y2 = y1 + Dialogs.dialogs[i].itemDrawHeight;
 						yy += Dialogs.dialogs[i].itemDrawHeight;
-						unselectAll();
 						if(y > y1 && y < y2)
 						{
+							unselectAll();
 							Dialogs.dialogs[i].pressed();
 							break;
 						}
-							
+						Thread.yield();
 					}
 				}
 				break;
 			}
 				
 		}
-		
+		repaint();
 		super.pointerPressed(x, y);
 	}
 

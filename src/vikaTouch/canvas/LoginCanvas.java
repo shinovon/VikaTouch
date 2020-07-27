@@ -17,8 +17,11 @@ import vikaTouch.VikaTouch;
 import vikaTouch.newbase.ColorUtils;
 import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.TextEditor;
+import vikaTouch.newbase.VikaScreen;
 
-public class LoginCanvas extends GameCanvas {
+public class LoginCanvas
+	extends VikaScreen
+{
 	
 	private static Image diary;
 	private static Image loginpressed;
@@ -31,8 +34,6 @@ public class LoginCanvas extends GameCanvas {
 
 	public LoginCanvas()
 	{
-		super(false);
-		this.setFullScreenMode(true);
 		try
 		{
 			diary = Image.createImage("/vikab48.jpg");
@@ -62,14 +63,11 @@ public class LoginCanvas extends GameCanvas {
 
 	public void paint(Graphics g)
 	{
-		DisplayUtils.checkdisplay(this);
-		ColorUtils.setcolor(g, -1);
-		g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
 		switch(DisplayUtils.idispi)
 		{
 			case DisplayUtils.DISPLAY_PORTRAIT:
 			{
-				ColorUtils.setcolor(g, 1);
+				ColorUtils.setcolor(g, ColorUtils.COLOR1);
 				g.fillRect(0, 0, 360, 50);
 				if(diary != null)
 				{
@@ -83,14 +81,14 @@ public class LoginCanvas extends GameCanvas {
 				{
 					g.drawImage(login, 116, 300, 0);
 				}
-				ColorUtils.setcolor(g, 1);
+				ColorUtils.setcolor(g, ColorUtils.COLOR1);
 				g.fillRect(0, 590, 360, 50);
 				
-				ColorUtils.setcolor(g, -2);
+				ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
 				g.drawRect(60, 200, 240, 40);
 				g.drawRect(60, 248, 240, 40);
 				
-				ColorUtils.setcolor(g, 2);
+				ColorUtils.setcolor(g, ColorUtils.TEXTCOLOR1);
 				if(user != null)
 					g.drawString(user, 70, 210, 0);
 				if(pass != null)
@@ -109,7 +107,7 @@ public class LoginCanvas extends GameCanvas {
 			case DisplayUtils.DISPLAY_ALBUM:
 			{
 
-				ColorUtils.setcolor(g, 1);
+				ColorUtils.setcolor(g, ColorUtils.COLOR1);
 				g.fillRect(0, 0, 640, 25);
 				if(diary != null)
 				{
@@ -124,11 +122,11 @@ public class LoginCanvas extends GameCanvas {
 					g.drawImage(login, 0, 220, 0);
 				}
 				
-				ColorUtils.setcolor(g, -2);
+				ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
 				g.drawRect(0, 100, 240, 40);
 				g.drawRect(0, 148, 240, 40);
 				
-				ColorUtils.setcolor(g, 2);
+				ColorUtils.setcolor(g, ColorUtils.TEXTCOLOR1);
 				if(user != null)
 					g.drawString(user, 10, 110, 0);
 				if(pass != null)
@@ -142,7 +140,7 @@ public class LoginCanvas extends GameCanvas {
 			}
 			default:
 			{
-				ColorUtils.setcolor(g, 2);
+				ColorUtils.setcolor(g, ColorUtils.TEXTCOLOR1);
 				g.drawString("Ваше", 2, 0, 0);
 				g.drawString("разрешение", 2, 15, 0);
 				g.drawString("экрана", 2, 30, 0);
@@ -153,7 +151,7 @@ public class LoginCanvas extends GameCanvas {
 		}
 	}
 	
-	protected final void pointerPressed(int x, int y) {
+	public final void pointerPressed(int x, int y) {
 		switch(DisplayUtils.idispi)
 		{
 			case DisplayUtils.DISPLAY_PORTRAIT:
@@ -242,7 +240,7 @@ public class LoginCanvas extends GameCanvas {
 		}
 	}
 
-	protected final void pointerReleased(int x, int y) {
+	public final void pointerReleased(int x, int y) {
 		if(pressed)
 		{
 			pressed = false;
@@ -262,7 +260,7 @@ public class LoginCanvas extends GameCanvas {
 								if(VikaTouch.DEMO_MODE)
 								{
 									vse = true;
-									Canvas canvas = new MenuCanvas();
+									VikaScreen canvas = new MenuCanvas();
 									VikaTouch.setDisplay(canvas);
 								}
 								else
@@ -306,7 +304,7 @@ public class LoginCanvas extends GameCanvas {
 								if(VikaTouch.DEMO_MODE)
 								{
 									vse = true;
-									Canvas canvas = new MenuCanvas();
+									VikaScreen canvas = new MenuCanvas();
 									VikaTouch.setDisplay(canvas);
 								}
 								else

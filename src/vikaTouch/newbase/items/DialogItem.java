@@ -309,6 +309,7 @@ public class DialogItem
 
 	public void pressed()
 	{
+		Dialogs.selected = true;
 		selected = true;
 	}
 	

@@ -6,8 +6,11 @@ import javax.microedition.lcdui.game.GameCanvas;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.newbase.DisplayUtils;
+import vikaTouch.newbase.VikaScreen;
 
-public abstract class ScrollableCanvas extends GameCanvas {
+public abstract class ScrollableCanvas
+	extends VikaScreen
+{
 	
 	protected int startx;
 	protected int starty;
@@ -27,14 +30,12 @@ public abstract class ScrollableCanvas extends GameCanvas {
 	
 	public ScrollableCanvas()
 	{
-		super(false);
-		this.setFullScreenMode(true);
-		DisplayUtils.checkdisplay(this);
+		super();
 	}
 
 	public abstract void paint(Graphics g);
 
-	protected final void pointerDragged(int x, int y)
+	public final void pointerDragged(int x, int y)
 	{
 		if(!dragging)
 			lasty = starty;
@@ -64,13 +65,13 @@ public abstract class ScrollableCanvas extends GameCanvas {
 
 	protected abstract void scrollHorizontally(int deltaX);
 
-	protected void pointerPressed(int x, int y)
+	public void pointerPressed(int x, int y)
 	{
 		startx = x;
 		starty = y;
 	}
 
-	protected void pointerReleased(int x, int y)
+	public void pointerReleased(int x, int y)
 	{
 		endx = x;
 		endy = y;
@@ -78,7 +79,7 @@ public abstract class ScrollableCanvas extends GameCanvas {
 		repaint();
 	}
 	
-	protected void keyPressed(int key)
+	public void keyPressed(int key)
 	{
 		if(key == -1)
 		{
@@ -91,7 +92,7 @@ public abstract class ScrollableCanvas extends GameCanvas {
 		repaint();
 	}
 	
-	protected void keyRepeated(int key)
+	public void keyRepeated(int key)
 	{
 		if(key == -1)
 		{
@@ -135,7 +136,8 @@ public abstract class ScrollableCanvas extends GameCanvas {
 		}
 		else
 			g.translate(0, scrolled);
-		
+
+		scroll = 0;
 	}
 
 	protected void callRefresh()

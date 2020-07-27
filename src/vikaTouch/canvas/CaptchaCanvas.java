@@ -4,15 +4,16 @@ import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
+import vikaTouch.VikaTouch;
 import vikaTouch.newbase.CaptchaObject;
 import vikaTouch.newbase.ColorUtils;
 import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.TextEditor;
+import vikaTouch.newbase.VikaScreen;
 
 public class CaptchaCanvas
-	extends Canvas
+	extends VikaScreen
 {
-	
 	public Image image;
 	private Thread thread;
 	public static String input;
@@ -21,9 +22,8 @@ public class CaptchaCanvas
 	private int x;
 	private int w;
 
-	protected void paint(Graphics g)
+	public void paint(Graphics g)
 	{
-		DisplayUtils.checkdisplay(this);
 		if(obj != null && image == null)
 		{
 			image = obj.getImage();
@@ -53,7 +53,6 @@ public class CaptchaCanvas
 				public void run()
 				{
 					input = TextEditor.inputString("Капча", "", 32, true);
-					repaint();
 					interrupt();
 				}
 			};
@@ -66,6 +65,7 @@ public class CaptchaCanvas
 		if(x > this.x && y > 150 && y < 186 && x < this.x + this.w)
 		{
 			finished = true;
+			VikaTouch.canvas.showCaptcha = true;
 		}
 	}
 

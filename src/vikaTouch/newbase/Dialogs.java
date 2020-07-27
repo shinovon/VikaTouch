@@ -25,6 +25,8 @@ public class Dialogs
 	public static JSONArray groups;
 
 	public static int itemsCount;
+
+	public static boolean selected;
 	
 	public static void refreshDialogsList()
 	{

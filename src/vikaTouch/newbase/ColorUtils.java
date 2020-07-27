@@ -9,13 +9,14 @@ public class ColorUtils
 	public final static int[] buttoncolor = {81, 129, 184};
 	public final static int[] buttoncolorhover = {102, 144, 192};
 	public final static int[] onlinecolor = {74, 178, 78};
-	private static final int BACKGROUND = -1;
-	private static final int COLOR1 = 1;
-	private static final int TEXTCOLOR1 = 2;
-	private static final int BUTTONCOLOR = 3;
-	private static final int ONLINE = 4;
-	private static final int TEXT = 5;
-	private static final int OUTLINE = 6;
+	public static final int BACKGROUND = -1;
+	public static final int COLOR1 = 1;
+	public static final int TEXTCOLOR1 = 2;
+	public static final int BUTTONCOLOR = 3;
+	public static final int ONLINE = 4;
+	public static final int TEXT = 5;
+	public static final int OUTLINE = 6;
+	public static final int TEXTBOX_OUTLINE = -2;
 	public static boolean isTemnaya = false;
 	
 	
@@ -83,7 +84,7 @@ public class ColorUtils
 					g.setGrayScale(255);
 				break;
 			}
-			case -2:
+			case TEXTBOX_OUTLINE:
 			{
 				if(isTemnaya)
 					g.setGrayScale(35);

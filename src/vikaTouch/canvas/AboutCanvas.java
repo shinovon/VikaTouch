@@ -8,22 +8,14 @@ import vikaTouch.VikaTouch;
 import vikaTouch.newbase.ColorUtils;
 import vikaTouch.newbase.Commands;
 import vikaTouch.newbase.DisplayUtils;
+import vikaTouch.newbase.VikaScreen;
 
 public class AboutCanvas
-	extends Canvas
+	extends VikaScreen
 {
-	
-	public AboutCanvas()
-	{
-		this.addCommand(Commands.back);
-		this.setCommandListener(VikaTouch.inst.cmdsInst);
-	}
 
-	protected void paint(Graphics g)
+	public void paint(Graphics g)
 	{
-		DisplayUtils.checkdisplay(this);
-		ColorUtils.setcolor(g, -1);
-		g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
 		ColorUtils.setcolor(g, 0);
 		
 		g.setFont(Font.getFont(0, Font.STYLE_BOLD, Font.SIZE_LARGE));
@@ -48,7 +40,7 @@ public class AboutCanvas
 		g.drawString("Назад", 0, DisplayUtils.height - 24, 0);
 	}
 	
-	public void pointerPressed(int x, int y)
+	public void pointerReleased(int x, int y)
 	{
 		if(x < 50 && y > DisplayUtils.height - 30)
 		{

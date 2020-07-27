@@ -26,6 +26,8 @@ public class DisplayUtils
 	public static final int CANVAS_ABOUT = 6;
 	public static final int CANVAS_SETTINGS = 7;
 	public static final int CANVAS_TEMPLIST = 8;
+	public static final int CANVAS_LOADING = 9;
+	public static final int CANVAS_MUSICLIST = 10;
 
 	//Экраны
 	public static final int DISPLAY_PORTRAIT = 1;
@@ -71,11 +73,11 @@ public class DisplayUtils
 	}
 	
 
-	public static int checkdisplay(Canvas c)
+	public static int checkdisplay()
 	{
 		int i = 0; 
-		width = c.getWidth();
-		height = c.getHeight();
+		width = VikaTouch.canvas.getWidth();
+		height = VikaTouch.canvas.getHeight();
 		if(width != lwidth || height != lheight)
 		{
 			if(width == 360 && height == 640)
@@ -137,6 +139,28 @@ public class DisplayUtils
 		if(i != 0)
 			idispi = i;
 		return i;
+	}
+
+
+	public static String getCanvasString()
+	{
+		switch(current)
+		{
+			case CANVAS_LOGIN:
+				return "Логин";
+			case CANVAS_MENU:
+				return "Меню";
+			case CANVAS_NEWS:
+				return "Лента";
+			case CANVAS_CHATSLIST:
+				return "Диалоги";
+			case CANVAS_TEMPLIST:
+				return "Список";
+			case CANVAS_MUSICLIST:
+				return "Музыка";
+			default:
+				return "default";
+		}
 	}
 
 }

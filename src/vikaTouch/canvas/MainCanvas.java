@@ -27,7 +27,7 @@ public abstract class MainCanvas
 		}
 	}
 	
-	protected void pointerReleased(int x, int y)
+	public void pointerReleased(int x, int y)
 	{
 		if(!dragging || !canScroll)
 		{
@@ -71,7 +71,7 @@ public abstract class MainCanvas
 		{
 			case DisplayUtils.DISPLAY_PORTRAIT:
 			{
-				ColorUtils.setcolor(g, 3);
+				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 				g.fillRect(0, 0, 360, 58);
 				ColorUtils.setcolor(g, -3);
 				g.fillRect(0, 590, 360, 50);
@@ -117,7 +117,7 @@ public abstract class MainCanvas
 			case DisplayUtils.DISPLAY_S40:
 			case DisplayUtils.DISPLAY_ASHA311:
 			{
-				ColorUtils.setcolor(g, 3);
+				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 				g.fillRect(0, 0, 240, 30);
 				ColorUtils.setcolor(g, -3);
 				g.fillRect(0, 295, 240, 25);
@@ -167,7 +167,7 @@ public abstract class MainCanvas
 
 			case DisplayUtils.DISPLAY_ALBUM:
 			{
-				ColorUtils.setcolor(g, 3);
+				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 				g.fillRect(0, 0, 640, 58);
 				ColorUtils.setcolor(g, -3);
 				g.fillRect(0, 310, 640, 50);
@@ -214,7 +214,7 @@ public abstract class MainCanvas
 			}
 			default:
 			{
-				ColorUtils.setcolor(g, 3);
+				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 				g.fillRect(0, 0, DisplayUtils.width, oneitemheight + w);
 				ColorUtils.setcolor(g, -3);
 				g.fillRect(0, DisplayUtils.height - oneitemheight, DisplayUtils.width, oneitemheight);

@@ -29,7 +29,8 @@ public class NewsCanvas
 	public NewsCanvas()
 	{
 		super();
-		DisplayUtils.checkdisplay(this);
+		
+		VikaTouch.loadingAnimation = true;
 		
 		if(VikaTouch.menu == null)
 			VikaTouch.menu = new MenuCanvas();
@@ -66,6 +67,7 @@ public class NewsCanvas
 	
 	private void loadPosts()
 	{
+		VikaTouch.loadingAnimation = true;
 		try
 		{
 			int requestcount = 20;
@@ -135,8 +137,6 @@ public class NewsCanvas
 		int w = (int)ww;
 		try
 		{
-			DisplayUtils.checkdisplay(this);
-			
 			ColorUtils.setcolor(g, -1);
 			g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
 			ColorUtils.setcolor(g, 0);
@@ -170,7 +170,7 @@ public class NewsCanvas
 		}
 	}
 	
-	protected final void pointerReleased(int x, int y)
+	public final void pointerReleased(int x, int y)
 	{
 		if(!dragging)
 		{

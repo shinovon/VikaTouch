@@ -176,9 +176,6 @@ public class MenuCanvas extends MainCanvas {
 
 	public void paint(Graphics g)
 	{
-		DisplayUtils.checkdisplay(this);
-		ColorUtils.setcolor(g, -1);
-		g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
 		{
 			switch(DisplayUtils.idispi)
 			{
@@ -205,7 +202,7 @@ public class MenuCanvas extends MainCanvas {
 							
 							//Обрезка
 							
-							ColorUtils.setcolor(g, -1);
+							ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 							
 							g.drawRect(15, 120, 51, 2);
 							g.drawRect(15, 70, 51, 1);
@@ -235,8 +232,6 @@ public class MenuCanvas extends MainCanvas {
 							g.drawRect(17, 108, 1, 1);
 							g.fillTriangle(17, 118, 17, 108, 28, 118);
 							
-							ColorUtils.setcolor(g, -1);
-							
 							g.drawArc(15, 70, 51, 51, 0, 360);
 							
 							g.drawRect(65, 106, 1, 14);
@@ -251,7 +246,7 @@ public class MenuCanvas extends MainCanvas {
 							g.drawArc(52, 109, 13, 13, 0, 360);
 							
 							//Онлайн
-							ColorUtils.setcolor(g, 4);
+							ColorUtils.setcolor(g, ColorUtils.ONLINE);
 							g.fillArc(53, 110, 11, 11, 0, 360);
 						}
 						else
@@ -323,7 +318,7 @@ public class MenuCanvas extends MainCanvas {
 						
 					if(DisplayUtils.idispi == DisplayUtils.DISPLAY_PORTRAIT)
 					{
-						ColorUtils.setcolor(g, 3);
+						ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 						g.fillRect(0, 0, 360, 58);
 						ColorUtils.setcolor(g, -3);
 						g.fillRect(0, 590, 360, 50);
@@ -372,7 +367,7 @@ public class MenuCanvas extends MainCanvas {
 					}
 					else if(DisplayUtils.idispi == DisplayUtils.DISPLAY_ALBUM)
 					{
-						ColorUtils.setcolor(g, 3);
+						ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 						g.fillRect(0, 0, 640, 58);
 						ColorUtils.setcolor(g, -3);
 						g.fillRect(0, 310, 640, 50);
@@ -450,7 +445,7 @@ public class MenuCanvas extends MainCanvas {
 						if(hasAva)
 						{
 							g.drawImage(profileimg, 8, 35, 0);
-							ColorUtils.setcolor(g, 4);
+							ColorUtils.setcolor(g, ColorUtils.ONLINE);
 							g.fillArc(27, 54, 6, 6, 0, 360);
 						}
 						else
@@ -558,7 +553,7 @@ public class MenuCanvas extends MainCanvas {
 	
 
 	
-	protected final void pointerPressed(int x, int y)
+	public final void pointerPressed(int x, int y)
 	{
 		/*
 		if(x > 0 && y > 0 && x < 58 && y < 58)
@@ -617,7 +612,7 @@ public class MenuCanvas extends MainCanvas {
 	}
 	
 
-	protected final void pointerReleased(int x, int y)
+	public final void pointerReleased(int x, int y)
 	{
 		if(!dragging)
 		{

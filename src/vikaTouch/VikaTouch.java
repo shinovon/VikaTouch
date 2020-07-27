@@ -12,7 +12,6 @@ import javax.microedition.rms.RecordStoreNotFoundException;
 import org.json.me.JSONObject;
 
 import vikaTouch.base.ImageStorage;
-import vikaTouch.base.InvisibleScreen;
 import vikaTouch.base.VikaUtils;
 import vikaTouch.canvas.*;
 import javax.microedition.lcdui.game.GameCanvas;
@@ -23,6 +22,8 @@ import vikaTouch.newbase.Dialogs;
 import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.UIThread;
 import vikaTouch.newbase.URLBuilder;
+import vikaTouch.newbase.VikaCanvas;
+import vikaTouch.newbase.VikaScreen;
 
 public final class VikaTouch
 	extends MIDlet
@@ -45,13 +46,13 @@ public final class VikaTouch
 	public static RecordStore tokenRMS;
 	public static Image camera;
 	public static Thread mainThread;
-	public static Thread uiThread;
+	public static UIThread uiThread;
 	public static String userId;
 	public static int has = -1;
 	public static boolean offlineMode;
 	public static boolean loadingAnimation;
-	public static LoadingCanvas loading;
 	public static AboutCanvas about;
+	public static VikaCanvas canvas;
 	public boolean isPaused;
 	public Commands cmdsInst;
 	private String errReason;
@@ -80,7 +81,9 @@ public final class VikaTouch
 			loadingAnimation = true;
 			mainThread = new Thread(this);
 			mainThread.start();
-			uiThread = new Thread(new UIThread());
+			canvas = new VikaCanvas();
+			setDisplay(canvas);
+			uiThread = new UIThread();
 			uiThread.start();
 		}
 	}
@@ -140,48 +143,44 @@ public final class VikaTouch
 		return false;
 	}
 
-	public static void setDisplay(Displayable d)
+	public static void setDisplay(VikaScreen s)
 	{
-		if(d instanceof MenuCanvas)
+		inst.isPaused = false;
+		if(s instanceof MenuCanvas)
 		{
 			DisplayUtils.current = DisplayUtils.CANVAS_MENU;
 		}
-		if(d instanceof NewsCanvas)
+		if(s instanceof NewsCanvas)
 		{
 			DisplayUtils.current = DisplayUtils.CANVAS_NEWS;
 		}
-		if(d instanceof DialogsCanvas)
+		if(s instanceof DialogsCanvas)
 		{
 			DisplayUtils.current = DisplayUtils.CANVAS_CHATSLIST;
 		}
-		if(d instanceof AboutCanvas)
+		if(s instanceof AboutCanvas)
 		{
 			DisplayUtils.current = DisplayUtils.CANVAS_ABOUT;
 		}
-		if(d instanceof LoginCanvas)
+		if(s instanceof LoginCanvas)
 		{
 			DisplayUtils.current = DisplayUtils.CANVAS_LOGIN;
 		}
-		if(d instanceof DialogCanvas)
+		if(s instanceof DialogCanvas)
 		{
 			DisplayUtils.current = DisplayUtils.CANVAS_CHAT;
 		}
-		if(d instanceof ReturnableListCanvas)
+		if(s instanceof ReturnableListCanvas)
 		{
 			DisplayUtils.current = DisplayUtils.CANVAS_TEMPLIST;
 		}
-		if(d instanceof ScrollableCanvas)
-			loadingAnimation = false;
-		Display.getDisplay(inst).setCurrent(d);
+		canvas.currentScreen = s;
+		canvas.paint();
+		loadingAnimation = false;
 	}
 
 	public boolean isPaused() {
 		return isPaused;
-	}
-	
-	public final InvisibleScreen setResolution()
-	{
-		return new InvisibleScreen();
 	}
 
 	public boolean login(final String user, final String pass)
@@ -207,7 +206,7 @@ public final class VikaTouch
 					captcha = new CaptchaCanvas();
 					captcha.obj = new CaptchaObject(new JSONObject(tokenUnswer));
 					captcha.obj.parseJSON();
-					setDisplay(captcha);
+					canvas.showCaptcha = true;
 					while(started)
 					{
 						if(captcha != null && CaptchaCanvas.finished)
@@ -235,7 +234,7 @@ public final class VikaTouch
 								accessToken = refreshToken.substring(refreshToken.indexOf("access_token") + 23, refreshToken.length() - 3);
 								tokenUnswer = "{\"access_token\":\"" + accessToken + "\",\"expires_in\":0,\"user_id\":"
 										+ userId + "}";
-								final Canvas canvas = menu = new MenuCanvas();
+								final VikaScreen canvas = menu = new MenuCanvas();
 								setDisplay(canvas);
 								saveToken();
 								Dialogs.refreshDialogsList();
@@ -261,7 +260,7 @@ public final class VikaTouch
 						accessToken = refreshToken.substring(refreshToken.indexOf("access_token") + 23, refreshToken.length() - 3);
 						tokenUnswer = "{\"access_token\":\"" + accessToken + "\",\"expires_in\":0,\"user_id\":"
 								+ userId + "}";
-						final Canvas canvas = menu = new MenuCanvas();
+						final VikaScreen canvas = menu = new MenuCanvas();
 						setDisplay(canvas);
 						saveToken();
 						Dialogs.refreshDialogsList();
@@ -333,9 +332,7 @@ public final class VikaTouch
 
 	public void run()
 	{
-		cmdsInst = new Commands();
-		
-		setResolution();			
+		cmdsInst = new Commands();		
 		
 		ImageStorage.init();
 
@@ -373,8 +370,6 @@ public final class VikaTouch
 			API = "http://vk-api-proxy.xtrafrancyz.net:80";
 		}
 		
-		
-		
 		try
 		{
 			camera = DisplayUtils.resizeava(Image.createImage("/camera.png"));
@@ -393,7 +388,7 @@ public final class VikaTouch
 		try
 		{
 			
-			final Canvas canvas;
+			final VikaScreen canvas;
 			if(DEMO_MODE || getToken())
 			{
 				if(accessToken != "")
@@ -418,6 +413,7 @@ public final class VikaTouch
 		{
 			e.printStackTrace();
 		}
+		Thread.yield();
 	}
 
 	public static void warn(String string)
@@ -435,6 +431,11 @@ public final class VikaTouch
 	public static String getVersion()
 	{
 		return inst.getAppProperty("MIDlet-Version");
+	}
+
+	public static void setDisplay(Displayable d)
+	{
+		Display.getDisplay(inst).setCurrent(d);
 	}
 	
 
