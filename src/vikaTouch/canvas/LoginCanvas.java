@@ -254,7 +254,7 @@ public class LoginCanvas
 						{
 							if(!vse)
 							{
-								VikaTouch.loadingAnimation = true;
+								VikaTouch.loading = true;
 								
 								//логин
 								if(VikaTouch.DEMO_MODE)

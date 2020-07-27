@@ -21,7 +21,7 @@ public class DialogsCanvas
 	{
 		super();
 		
-		VikaTouch.loadingAnimation = true;
+		VikaTouch.loading = true;
 		
 		if(VikaTouch.menu == null)
 		{
@@ -70,7 +70,7 @@ public class DialogsCanvas
 
 	protected final void callRefresh()
 	{
-		VikaTouch.loadingAnimation = true;
+		VikaTouch.loading = true;
 		Dialogs.refreshDialogsList();
 	}
 
@@ -137,8 +137,12 @@ public class DialogsCanvas
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
+					int yy1 = y - scrolled - 50;
+					int yy2 = yy1 / 63;
+					if(yy2 < 0)
+						yy2 = 0;
 					int yy = 0;
-					for(int i = 0; i < Dialogs.itemsCount; i++)
+					for(int i = yy2; i < Dialogs.itemsCount; i++)
 					{
 						int y1 = scrolled + 50 + yy;
 						int y2 = y1 + Dialogs.dialogs[i].itemDrawHeight;
@@ -154,7 +158,6 @@ public class DialogsCanvas
 							break;
 						}
 						Thread.yield();
-							
 					}
 				}
 				break;
@@ -174,8 +177,12 @@ public class DialogsCanvas
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
+					int yy1 = y - scrolled - 50;
+					int yy2 = yy1 / 63; 
+					if(yy2 < 0)
+						yy2 = 0;
 					int yy = 0;
-					for(int i = 0; i < Dialogs.itemsCount; i++)
+					for(int i = yy2; i < Dialogs.itemsCount; i++)
 					{
 						int y1 = scrolled + 50 + yy;
 						int y2 = y1 + Dialogs.dialogs[i].itemDrawHeight;

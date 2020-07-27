@@ -34,6 +34,7 @@ public class DialogItem
 	private String type;
 	private boolean isGroup;
 	private int id;
+	public int peerId;
 	//private static Image deleteImg;
 	private static Image unreadImg;
 	
@@ -174,6 +175,7 @@ public class DialogItem
 				
 			final JSONObject peer = conv.getJSONObject("peer");
 			type = fixJSONString(peer.optString("type"));
+			peerId = peer.optInt("id");
 			id = peer.optInt("local_id");
 			
 			if(type.equalsIgnoreCase("user"))

@@ -30,7 +30,7 @@ public class NewsCanvas
 	{
 		super();
 		
-		VikaTouch.loadingAnimation = true;
+		VikaTouch.loading = true;
 		
 		if(VikaTouch.menu == null)
 			VikaTouch.menu = new MenuCanvas();
@@ -67,7 +67,7 @@ public class NewsCanvas
 	
 	private void loadPosts()
 	{
-		VikaTouch.loadingAnimation = true;
+		VikaTouch.loading = true;
 		try
 		{
 			int requestcount = 20;

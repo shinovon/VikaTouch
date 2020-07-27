@@ -6,7 +6,6 @@ import vikaTouch.VikaTouch;
 
 public abstract class VikaScreen
 {
-
 	public abstract void paint(Graphics g);
 	
 	public void pointerPressed(int x, int y)
@@ -46,5 +45,4 @@ public abstract class VikaScreen
 			VikaTouch.canvas.paint();
 		}
 	}
-	
 }

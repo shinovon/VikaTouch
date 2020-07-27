@@ -47,7 +47,8 @@ public class MenuCanvas extends MainCanvas {
 		itemsCount = 7;
 		try {
 			switch(DisplayUtils.idispi)
-				{
+			{
+				default:
 				case DisplayUtils.DISPLAY_ALBUM:
 				case DisplayUtils.DISPLAY_PORTRAIT:
 				case DisplayUtils.DISPLAY_E6:
@@ -95,12 +96,6 @@ public class MenuCanvas extends MainCanvas {
 					dialImg = VikaUtils.resize(Image.createImage("/msg.png"), 12, 12);
 					newsImg = VikaUtils.resize(Image.createImage("/lenta.png"), 11, 12);
 					dialImg2 = VikaUtils.resize(Image.createImage("/msgh.png"), 18, 14);
-					break;
-				}
-				
-				default:
-				{
-					
 					break;
 				}
 			}
@@ -482,7 +477,7 @@ public class MenuCanvas extends MainCanvas {
 					ColorUtils.setcolor(g, 3);
 					g.fillRect(0, 0, 240, 30);
 					ColorUtils.setcolor(g, -3);
-					g.fillRect(0, 295, 240, 25);
+					g.fillRect(0, DisplayUtils.height - 25, 240, 25);
 
 					if(logoImg != null)
 					{
@@ -641,7 +636,7 @@ public class MenuCanvas extends MainCanvas {
 				case DisplayUtils.DISPLAY_ASHA311:
 				case DisplayUtils.DISPLAY_EQWERTY:
 				{
-					if(y > 30 && y < 295)
+					if(y > 30 && y < DisplayUtils.height - 25)
 					{
 						for(int i = 0; i < itemsCount; i++)
 						{

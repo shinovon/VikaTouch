@@ -28,51 +28,74 @@ public class Dialogs
 
 	public static boolean selected;
 	
+	public static Thread downloaderThread;
+	
 	public static void refreshDialogsList()
 	{
-		try
-		{
-			String x = VikaUtils.download(new URLBuilder("messages.getConversations").addField("count", "0"));
-			try
-			{
-				JSONObject response = new JSONObject(x).getJSONObject("response");
-				int has = response.optInt("unread_count");
-				if(VikaTouch.has != has || has > 0)
-				{
-					VikaTouch.has = has;
-					x = VikaUtils.download(new URLBuilder("messages.getConversations").addField("filter", "all").addField("extended", "1").addField("count", dialogsCount));
-					response = new JSONObject(x).getJSONObject("response");
-					final JSONArray items = response.getJSONArray("items");
-					profiles = response.getJSONArray("profiles");
-					groups = response.optJSONArray("items");
-					itemsCount = response.optInt("count");
-					if(itemsCount > dialogsCount)
-					{
-						itemsCount = dialogsCount;
-					}
-					for(int i = 0; i < items.length(); i++)
-					{
-						final JSONObject item = items.getJSONObject(i);
-						dialogs[i] = new DialogItem(item);
-						dialogs[i].parseJSON();
-					}
-				}
-			}
-			catch (JSONException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		catch (NullPointerException e)
-		{
-			VikaTouch.warn("Переход в оффлайн режим!");
-			VikaTouch.offlineMode = true;
-		}
-		catch (Exception e)
-		{
-			VikaTouch.warn("Не удалось обновить диалоги!");
-		}
+		if(downloaderThread != null && downloaderThread.isAlive())
+			downloaderThread.interrupt();
 		
+		downloaderThread = new Thread()
+		{
+			public void run()
+			{
+				try
+				{
+					VikaTouch.loading = true;
+					String x = VikaUtils.download(new URLBuilder("messages.getConversations").addField("count", "1"));
+					try
+					{
+						VikaTouch.loading = true;
+						JSONObject response = new JSONObject(x).getJSONObject("response");
+						JSONArray items = response.getJSONArray("items");
+						JSONObject item = items.getJSONObject(0);
+						boolean u = dialogs[0] == null || item.getJSONObject("last_message").optString("text").substring(0, 7).equalsIgnoreCase(dialogs[0].lastmessage.text.substring(0, 7));
+						int has = response.optInt("unread_count");
+						itemsCount = response.optInt("count");
+						if(VikaTouch.has != has || has > 0 || u)
+						{
+							VikaTouch.has = has;
+							VikaTouch.loading = true;
+							x = VikaUtils.download(new URLBuilder("messages.getConversations").addField("filter", "all").addField("extended", "1").addField("count", dialogsCount));
+							VikaTouch.loading = true;
+							response = new JSONObject(x).getJSONObject("response");
+							items = response.getJSONArray("items");
+							profiles = response.getJSONArray("profiles");
+							groups = response.optJSONArray("groups");
+							if(itemsCount > dialogsCount)
+							{
+								itemsCount = dialogsCount;
+							}
+							for(int i = 0; i < itemsCount; i++)
+							{
+								item = items.getJSONObject(i);
+								dialogs[i] = new DialogItem(item);
+								dialogs[i].parseJSON();
+							}
+						}
+					}
+					catch (JSONException e)
+					{
+						e.printStackTrace();
+					}
+
+					VikaTouch.loading = false;
+				}
+				catch (NullPointerException e)
+				{
+					VikaTouch.warn("Переход в оффлайн режим!");
+					VikaTouch.offlineMode = true;
+					e.printStackTrace();
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+				VikaTouch.loading = false;
+			}
+		};
+		
+		downloaderThread.start();
 	}
 	
 	public static void refreshDialog()
@@ -81,6 +104,11 @@ public class Dialogs
 	}
 
 	public static void openDialog(DialogItem dialogItem)
+	{
+		openDialog(dialogItem.peerId);
+	}
+
+	public static void openDialog(int peerId)
 	{
 		
 	}

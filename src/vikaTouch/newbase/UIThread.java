@@ -15,8 +15,9 @@ public class UIThread
 		{
 			try
 			{
+				if(VikaTouch.loading)
+					VikaTouch.canvas.updategif();
 				VikaTouch.canvas.paint();
-				Thread.sleep(100L);
 			}
 			catch (Exception e)
 			{

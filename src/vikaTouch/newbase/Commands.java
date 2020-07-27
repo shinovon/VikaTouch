@@ -49,7 +49,7 @@ public class Commands
 		
 						if(!(s instanceof NewsCanvas))
 						{
-							VikaTouch.loadingAnimation = true;
+							VikaTouch.loading = true;
 							
 							if(VikaTouch.news == null)
 								VikaTouch.news = new NewsCanvas();
@@ -63,7 +63,7 @@ public class Commands
 						
 						if(!(s instanceof DialogsCanvas))
 						{
-							VikaTouch.loadingAnimation = true;
+							VikaTouch.loading = true;
 		
 							if(VikaTouch.dialogs == null)
 								VikaTouch.dialogs = new DialogsCanvas();
@@ -87,7 +87,7 @@ public class Commands
 					{
 						//Логин
 						
-						VikaTouch.loadingAnimation = true;
+						VikaTouch.loading = true;
 						
 						if(s instanceof LoginCanvas)
 						{

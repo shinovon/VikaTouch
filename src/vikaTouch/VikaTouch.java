@@ -50,7 +50,7 @@ public final class VikaTouch
 	public static String userId;
 	public static int has = -1;
 	public static boolean offlineMode;
-	public static boolean loadingAnimation;
+	public static boolean loading;
 	public static AboutCanvas about;
 	public static VikaCanvas canvas;
 	public boolean isPaused;
@@ -78,13 +78,14 @@ public final class VikaTouch
 		{
 			started = true;
 			inst = this;
-			loadingAnimation = true;
+			loading = true;
 			mainThread = new Thread(this);
 			mainThread.start();
 			canvas = new VikaCanvas();
 			setDisplay(canvas);
 			uiThread = new UIThread();
 			uiThread.start();
+			DisplayUtils.checkdisplay();
 		}
 	}
 	
@@ -176,7 +177,7 @@ public final class VikaTouch
 		}
 		canvas.currentScreen = s;
 		canvas.paint();
-		loadingAnimation = false;
+		loading = false;
 	}
 
 	public boolean isPaused() {

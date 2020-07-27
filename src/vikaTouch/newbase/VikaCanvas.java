@@ -1,20 +1,41 @@
 package vikaTouch.newbase;
 
+import java.io.InputStream;
+
 import javax.microedition.lcdui.Graphics;
+import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
 
 import vikaTouch.VikaTouch;
+import vikaTouch.base.GifDecoder;
 
 public class VikaCanvas
 	extends GameCanvas
 {
 	public VikaScreen currentScreen;
 	public boolean showCaptcha;
+	private Image frame;
+	private GifDecoder d;
 
 	public VikaCanvas()
 	{
 		super(false);
 		this.setFullScreenMode(true);
+
+		try
+		{
+			final InputStream in = this.getClass().getResourceAsStream("/loading.gif");
+			d = new GifDecoder();
+			int err = d.read(in);
+	        if (err == 0)
+	        {
+	           frame = d.getImage();
+	        }
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public void paint(Graphics g)
@@ -45,7 +66,7 @@ public class VikaCanvas
 			VikaTouch.captcha.paint(g);
 		}
 		
-		if(VikaTouch.loadingAnimation)
+		if(VikaTouch.loading)
 		{
 			drawLoading(g);
 		}
@@ -55,7 +76,31 @@ public class VikaCanvas
 	{
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
 		g.drawString("Загрузка", DisplayUtils.width / 2, DisplayUtils.height - 80, Graphics.TOP | Graphics.HCENTER);
+		
+		if(frame != null)
+		{
+			g.drawImage(frame, DisplayUtils.width / 2, DisplayUtils.height - 128, Graphics.TOP | Graphics.HCENTER);
+		}
 	}
+	
+	public void updategif()
+	{
+        int n = d.getFrameCount();
+        for (int i = 0; i < n; i++)
+        {
+            frame = d.getFrame(i);
+            repaint();
+            serviceRepaints();
+            try
+            {
+            	Thread.sleep(25);
+            }
+            catch (Exception e)
+            {
+            	e.printStackTrace();
+            }
+        }
+    }
 
 	public void pointerPressed(int x, int y)
 	{

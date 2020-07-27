@@ -49,9 +49,13 @@ public class PostItem
 	private boolean largefont;
 	private int sourceid;
 	private boolean full;
+	private String reposterName;
+	private String type;
+	private String data;
 	
 	public void parseJSON()
 	{
+		super.parseJSON();
 		super.parseAttachments();
 		try
 		{
@@ -76,6 +80,20 @@ public class PostItem
 		{
 			e.printStackTrace();
 		}
+		
+
+		try
+		{
+			final JSONObject postSource = json2.getJSONObject("post_source");
+			data = postSource.optString("data");
+		}
+		catch (Exception e)
+		{
+			
+		}
+		
+		type = json2.optString("type"); 
+		
 		copyright = json2.optString("copyright");
 		ownerid = json2.optInt("owner_id");
 		sourceid = json2.optInt("source_id");
@@ -125,38 +143,47 @@ public class PostItem
 					}
 				}
 			}
-			else if(xx > 0)
-			{
-				for(int i = 0; i < NewsCanvas.profiles.length(); i++)
-				{
-					System.out.println(i);
-					try
-					{
-						JSONObject profile = NewsCanvas.profiles.getJSONObject(i);
-						int uid = profile.optInt("id");
-						if(uid == xx)
-						{
-							name = "" + profile.optString("first_name") + " " + profile.optString("last_name");
-							JSONObject jo2 = new JSONObject(VikaUtils.download(new URLBuilder("users.get").addField("user_ids", ""+profile.optInt("id")).addField("fields", "photo_50"))).getJSONArray("response").getJSONObject(0);
-							avaurl = fixJSONString(jo2.optString("photo_50"));
-							break labelgetnameandphoto;
-						}
-					}
-					catch (Exception e)
-					{
-						VikaTouch.error(e, "Получение аватарки и автора поста: Пользователи");
-						e.printStackTrace();
-					}
-				}
-			}
 		}
 		
-		if(name == null)
+		boolean b1 = false;
+		boolean b2 = false;
+		for(int i = 0; i < NewsCanvas.profiles.length(); i++)
 		{
-			VikaTouch.error("Обратите внимание! Текст поста равен null!", false);
-			name = "null";
+			try
+			{
+				JSONObject profile = NewsCanvas.profiles.getJSONObject(i);
+				int uid = profile.optInt("id");
+				if(sourceid <= 0)
+				{
+					b2 = true;
+				}
+				if(!b2 && uid == sourceid)
+				{
+					reposterName = "" + profile.optString("first_name") + " " + profile.optString("last_name");
+					b2 = true;
+				}
+				if(xx < 0)
+				{
+					b1 = true;
+				}
+				if(!b1 && uid == xx)
+				{
+					name = "" + profile.optString("first_name") + " " + profile.optString("last_name");
+					b1 = true;
+					JSONObject jo2 = new JSONObject(VikaUtils.download(new URLBuilder("users.get").addField("user_ids", ""+profile.optInt("id")).addField("fields", "photo_50"))).getJSONArray("response").getJSONObject(0);
+					avaurl = fixJSONString(jo2.optString("photo_50"));
+				}
+				if(b1 && b2)
+				{
+					break;
+				}
+			}
+			catch (Exception e)
+			{
+				VikaTouch.error(e, "Получение аватарки и автора поста: Пользователи");
+				e.printStackTrace();
+			}
 		}
-
 		
 		try
 		{
@@ -168,7 +195,11 @@ public class PostItem
 		catch (Exception e)
 		{
 		}
-		boolean b = false;
+		
+		if(reposterName != null)
+		{
+			itemDrawHeight += 43;
+		}
 
 		try
 		{
@@ -206,11 +237,12 @@ public class PostItem
 			VikaTouch.error(e, "Получение фотографии поста");
 			e.printStackTrace();
 		}
-		//text = "== ТЕСТ VIKA TOUCH ==\n" + 
-		//		"1 2 3 4 5 6 7 8 9 0\n" + 
-		//		"1234567890 123456789012345678901234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 vv 1234567890 1234567890\n" + 
-		//		"Сплошник\n" + 
-		//		"123456789012345678901234567890123456789012345678901234567890а12345678901234567890123456789012345678901234567890123456789012а345678901234567890123456789012345678901234567890123456789012а3456789012345678901234567890123456789012345678901234567890123а456789012345678901234567890";
+		
+		if(data != null && data.equalsIgnoreCase("profile_photo"))
+		{
+			text = "обновил фотографию на странице";
+		}
+		
 		drawText = TextBreaker.breakText(text, largefont, this, full, DisplayUtils.width - 32);
 		
 		System.gc();
@@ -218,12 +250,18 @@ public class PostItem
 	
 	public void paint(Graphics g, int y, int scrolled)
 	{
-		int yy = 72 + y;
+		int yy = 10 + y;
 		
 		if(ava != null)
+		{
 			g.drawImage(ava, 16, 10 + y, 0);
+			yy += ava.getHeight() + 12;
+		}
 		else
+		{
 			g.drawImage(VikaTouch.camera, 16, 10 + y, 0);
+			yy += VikaTouch.camera.getHeight() + 12;
+		}
 		
 		ColorUtils.setcolor(g, 5);
 		
@@ -242,6 +280,7 @@ public class PostItem
 				{
 					if(i == 9 && drawText.length == 10)
 						g.setColor(68, 104, 143);
+					
 					g.drawString(""+drawText[i], 16, yy, 0);
 					
 					ColorUtils.setcolor(g, 5);
@@ -262,8 +301,6 @@ public class PostItem
 			int ix = (DisplayUtils.width - prevImage.getWidth()) / 2;
 			g.drawImage(prevImage, ix, yy + 3, 0);
 		}
-		
-
 	}
 
 	public void tap(int x, int y)
