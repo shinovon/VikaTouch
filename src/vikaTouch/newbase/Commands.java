@@ -9,6 +9,7 @@ import javax.microedition.lcdui.Displayable;
 import vikaTouch.VikaTouch;
 import vikaTouch.canvas.AboutCanvas;
 import vikaTouch.canvas.DialogsCanvas;
+import vikaTouch.canvas.DocsCanvas;
 import vikaTouch.canvas.LoginCanvas;
 import vikaTouch.canvas.MenuCanvas;
 import vikaTouch.canvas.NewsCanvas;
@@ -147,13 +148,15 @@ public class Commands
 					}
 					case 9:
 					{
-						//Фотки
-						if(s instanceof MenuCanvas)
+						if(!(s instanceof DocsCanvas))
 						{
-							final Alert alert = new Alert("нажато","доки", null, AlertType.INFO);
-							VikaTouch.setDisplay(alert);
+							VikaTouch.loading = true;
+		
+							if(VikaTouch.docs == null)
+								VikaTouch.docs = new DocsCanvas();
+							VikaTouch.docs.LoadDocs(0,DocsCanvas.loadDocsCount);
+							VikaTouch.setDisplay(VikaTouch.docs);
 						}
-						break;
 					}
 					case 10:
 					{/*

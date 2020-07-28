@@ -21,3 +21,4 @@ hs_err_pid*
 src.rar
 deployed/
 build.properties
+.idea/*

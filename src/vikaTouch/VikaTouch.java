@@ -41,6 +41,7 @@ public final class VikaTouch
 	public static LoginCanvas login;
 	public static MenuCanvas menu;
 	public static DialogsCanvas dialogs;
+	public static DocsCanvas docs;
 	public static NewsCanvas news;
 	public static CaptchaCanvas captcha;
 	public static RecordStore tokenRMS;
