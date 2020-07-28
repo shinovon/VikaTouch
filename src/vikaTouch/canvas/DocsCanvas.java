@@ -172,27 +172,30 @@ public class DocsCanvas extends MainCanvas {
 		{
 			update(g);
 			int y = oneitemheight + w;
-			try
-			{
-				for(int i = 0; i < itemsCount; i++)
+			if(docsNames!=null&&docsSizes!=null&&docsIcons!=null) {
+				try
 				{
-					ColorUtils.setcolor(g, 0);
-					g.drawString(docsNames[i], 73, y + 16, 0);
-					ColorUtils.setcolor(g, 6);
-					g.drawString(docsSizes[i]/1000 + "кб", 73, y + 40, 0);
-					if(docsIcons[i] != null)
+					for(int i = 0; i < itemsCount; i++)
 					{
-						//System.out.println("Иконка "+i);
-						g.drawImage(docsIcons[i], 14, y + 8, 0);
+						ColorUtils.setcolor(g, 0);
+						if(docsNames[i]!=null)
+							g.drawString(docsNames[i], 73, y + 16, 0);
+						ColorUtils.setcolor(g, 6);
+						g.drawString(docsSizes[i]/1000 + "кб", 73, y + 40, 0);
+						if(docsIcons[i] != null)
+						{
+							g.drawImage(docsIcons[i], 14, y + 8, 0);
+						}
+						 
+						y += 50;
+						
 					}
-					 
-					y += 50;
-					
 				}
-			}
-			catch (Exception e)
-			{
-				VikaTouch.error(e, "Прорисовка объектов: Доки");
+				catch (Exception e)
+				{
+					VikaTouch.error(e, "Прорисовка объектов: Доки");
+				}
+			
 			}
 			g.translate(0, -g.getTranslateY());
 			
