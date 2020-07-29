@@ -28,6 +28,8 @@ public class DocItem
 	private String ext;
 	private int type;
 	private String time;
+	
+	private static Image downloadBI = null;
 
 	public static final int BORDER = 1;
 
@@ -170,6 +172,15 @@ public class DocItem
 			//System.out.println("Иконка "+i);
 			g.drawImage(iconImg, 14, y + BORDER, 0);
 		}
+		try {
+			if(downloadBI == null) {
+				downloadBI = Image.createImage("/downloadBtn.png");
+			}
+			g.drawImage(downloadBI, DisplayUtils.width-downloadBI.getWidth(), y, 0);
+		} 
+		catch (Exception e) {
+			
+		}
 	}
 
 	private Image getPreviewImage()
@@ -239,7 +250,7 @@ public class DocItem
 	{
 		try
 		{
-			if(true) // проверка кнопки скачивания, потом допишу что-то типа (x>width-50)
+			if(x<DisplayUtils.width - 50)
 			{
 				if(type == TYPE_PHOTO)
 				{
@@ -270,7 +281,9 @@ public class DocItem
 				}
 			}
 			else
+			{
 				VikaTouch.inst.platformRequest(url);
+			}
 		}
 		catch (Exception e)
 		{

@@ -20,7 +20,7 @@ import vikaTouch.newbase.items.DocItem;
 public class DocsCanvas
 	extends MainCanvas
 {
-	
+
 	public DocsCanvas()
 	{
 		super();
@@ -28,7 +28,7 @@ public class DocsCanvas
 		VikaTouch.loading = true;
 		if(VikaTouch.menuCanv == null)
 			VikaTouch.menuCanv = new MenuCanvas();
-		
+
 		try
 		{
 			switch(DisplayUtils.idispi)
@@ -61,24 +61,24 @@ public class DocsCanvas
 		}
 	}
 
-	
-	public final static int loadDocsCount = 10;
+
+	public final static int loadDocsCount = 15;
 	public int fromDoc = 0;
 	public int docsCount = 0;
 	public int totalDocs = 0;
 	private static DocItem[] docs;
 	public static Thread downloaderThread;
-	
+
 	public boolean isPreviewShown = false;
 	public Image previewImage = null;
 	public int previewY = 0;
-	
+
 	public void LoadDocs(final int from, final int count)
 	{
 		docs = new DocItem[count];
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
-		
+
 		downloaderThread = new Thread()
 		{
 			public void run()
@@ -104,7 +104,7 @@ public class DocsCanvas
 							docs[i] = new DocItem(item);
 							docs[i].parseJSON();
 						}
-						
+
 					}
 					catch (JSONException e)
 					{
@@ -126,7 +126,7 @@ public class DocsCanvas
 				VikaTouch.loading = false;
 			}
 		};
-		
+
 		downloaderThread.start();
 	}
 	public void paint(Graphics g)
@@ -150,7 +150,7 @@ public class DocsCanvas
 						docs[i].paint(g, y, scrolled);
 						y += docs[i].itemDrawHeight;
 					}
-					
+
 				}
 			}
 			catch (Exception e)
@@ -158,9 +158,9 @@ public class DocsCanvas
 				VikaTouch.error(e, "Прорисовка объектов: Доки");
 			}
 			g.translate(0, -g.getTranslateY());
-			
+
 			drawHeaders(g, "Документы");
-			
+
 		}
 		catch (Exception e)
 		{
@@ -182,11 +182,11 @@ public class DocsCanvas
 			VikaTouch.error(e, "Прорисовка: превью картинки");
 			e.printStackTrace();
 		}
-		
+
 	}
 	public final void pointerReleased(int x, int y)
 	{
-		if(isPreviewShown) 
+		if(isPreviewShown)
 		{
 			isPreviewShown = false;
 			previewImage = null;
@@ -199,30 +199,6 @@ public class DocsCanvas
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
-<<<<<<< HEAD
-					int yy1 =/* y - */(scrolled + 58);
-					int yy2 = yy1 / (48 + (DocItem.BORDER * 2));
-					if(yy2 < 0)
-						yy2 = 0;
-					int yy = 0;
-					if(yy2 > 0)
-						yy = yy1;
-					for(int i = yy2; i < itemsCount; i++)
-					{
-						int y1 = scrolled + 58 + yy;
-						int y2 = y1 + docs[i].itemDrawHeight;
-						System.out.println("pointerY:"+y+" yy:"+yy+" y1:"+y1+" y2:"+y2);
-						yy += docs[i].itemDrawHeight;
-						if(y > y1 && y < y2)
-						{
-							if(!dragging)
-							{
-								docs[i].tap(x, y - y1);
-							}
-							break;
-						}
-						Thread.yield();
-=======
 					int h = 48 + (DocItem.BORDER * 2);
 					int yy1 = y - (scrolled + 58);
 					int i = yy1 / h;
@@ -234,15 +210,14 @@ public class DocsCanvas
 					if(!dragging)
 					{
 						docs[i].tap(x, yy);
->>>>>>> 37e8ef142b38de45c27db918ad1d5fff78456aa0
 					}
 					break;
 				}
 				break;
 			}
-				
+
 		}
-		
+
 		super.pointerReleased(x, y);
 	}
 
