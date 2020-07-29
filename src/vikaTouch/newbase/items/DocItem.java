@@ -175,7 +175,7 @@ public class DocItem
 	{
 		Image img = null;
 		try
-		{ System.out.println(iconUrl);
+		{
 			img = DisplayUtils.resizeItemPreview(VikaUtils.downloadImage(iconUrl));
 		}
 		catch (Exception e)
@@ -228,7 +228,38 @@ public class DocItem
 	{
 		try
 		{
-			VikaTouch.inst.platformRequest(url);
+			if(true) // проверка кнопки скачивания, потом допишу что-то типа (x>width-50)
+			{
+				if(type == TYPE_PHOTO) 
+				{
+					VikaTouch.docsCanv.isPreviewShown = true;
+					(new Thread()
+					{
+						public void run()
+						{
+							try
+							{
+								System.out.println("Начато скачивание превью");
+								Image img = VikaUtils.downloadImage(prevImgUrl);
+								System.out.println("Ресайз превью");
+								double aspectR = (double)img.getWidth() / (double)img.getHeight();
+								int w = 0; int h = 0;
+								w = DisplayUtils.width;
+								h = (int)(w/aspectR);
+								VikaTouch.docsCanv.previewY = (DisplayUtils.height - h)/2;
+								VikaTouch.docsCanv.previewImage = VikaUtils.resize(img, w, h);
+							}
+							catch(Exception e)
+							{
+								VikaTouch.docsCanv.isPreviewShown = false;
+								VikaTouch.error(e, "Скачивание превью");
+							}
+						} 
+					}).start();
+				}
+			}
+			else
+				VikaTouch.inst.platformRequest(url);
 		}
 		catch (Exception e)
 		{

@@ -28,6 +28,7 @@ public class DocsCanvas
 	public DocsCanvas()
 	{
 		super();
+		isPreviewShown = false;
 		VikaTouch.loading = true;
 		if(VikaTouch.menuCanv == null)
 			VikaTouch.menuCanv = new MenuCanvas();
@@ -71,6 +72,10 @@ public class DocsCanvas
 	public int totalDocs = 0;
 	private static DocItem[] docs;
 	public static Thread downloaderThread;
+	
+	public boolean isPreviewShown = false;
+	public Image previewImage = null;
+	public int previewY = 0;
 	
 	public void LoadDocs(final int from, final int count)
 	{
@@ -159,15 +164,38 @@ public class DocsCanvas
 			g.translate(0, -g.getTranslateY());
 			
 			drawHeaders(g, "Документы");
+			
 		}
 		catch (Exception e)
 		{
 			VikaTouch.error(e, "Прорисовка: Доки");
 			e.printStackTrace();
 		}
+		try {
+			if(isPreviewShown) {
+				if(previewImage == null) {
+					VikaTouch.loading = true;
+				} else {
+					VikaTouch.loading = false;
+					g.drawImage(previewImage, 0, previewY, 0);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			VikaTouch.error(e, "Прорисовка: превью картинки");
+			e.printStackTrace();
+		}
+		
 	}
 	public final void pointerReleased(int x, int y)
 	{
+		if(isPreviewShown) 
+		{
+			isPreviewShown = false;
+			previewImage = null;
+			return;
+		}
 		switch(DisplayUtils.idispi)
 		{
 			case DisplayUtils.DISPLAY_ALBUM:
