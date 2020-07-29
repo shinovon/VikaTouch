@@ -28,9 +28,9 @@ public class DocItem
 	private String ext;
 	private int type;
 	private String time;
-	
+
 	public static final int BORDER = 1;
-	
+
 	//типы вложения
 	private static final int TYPE_TEXT = 1;
 	private static final int TYPE_ARCHIVE = 2;
@@ -47,11 +47,11 @@ public class DocItem
 		super(json);
 		itemDrawHeight = 50;
 	}
-	
+
 	public void parseJSON()
 	{
 		System.out.println(json.toString());
-		
+
 		try
 		{
 			date = json.optInt("date");
@@ -60,14 +60,14 @@ public class DocItem
 			size = json.optInt("size");
 			ext = json.optString("ext");
 			type = json.optInt("type");
-			
+
 			if(!json.isNull("preview"))
 			{
 				prevSizes = PhotoSize.parseSizes(json.getJSONObject("preview").getJSONObject("photo").getJSONArray("sizes"));
-				
+
 				PhotoSize iconPs = null;
 				PhotoSize prevPs = null;
-				
+
 				try
 				{
 					iconPs = PhotoSize.getSize(prevSizes, "s");
@@ -98,12 +98,12 @@ public class DocItem
 						//не достучались до превьюхи..
 					}
 				}
-				
+
 				if(iconPs != null)
 				{
 					iconUrl = fixJSONString(iconPs.url);
 				}
-				
+
 				if(prevPs != null)
 				{
 					prevImgUrl = fixJSONString(prevPs.url);
@@ -120,12 +120,12 @@ public class DocItem
 			e.printStackTrace();
 			VikaTouch.error(e, "Обработка объектов: Документ");
 		}
-		
+
 		setDrawHeight();
 
-		System.gc(); 
+		System.gc();
 	}
-	
+
 	private void setDrawHeight()
 	{
 		switch(DisplayUtils.idispi)
@@ -157,7 +157,7 @@ public class DocItem
 	{
 		if(iconImg == null)
 			iconImg = getPreviewImage();
-		
+
 		if(time == null)
 			time = getTime();
 		ColorUtils.setcolor(g, 0);
@@ -229,21 +229,52 @@ public class DocItem
 			}
 			catch (Exception e2)
 			{
-				
+
 			}
 		}
 		return img;
 	}
-	
+
 	public void tap(int x, int y)
 	{
 		try
 		{
-			VikaTouch.inst.platformRequest(url);
+			if(true) // проверка кнопки скачивания, потом допишу что-то типа (x>width-50)
+			{
+				if(type == TYPE_PHOTO)
+				{
+					VikaTouch.docsCanv.isPreviewShown = true;
+					(new Thread()
+					{
+						public void run()
+						{
+							try
+							{
+								System.out.println("Начато скачивание превью");
+								Image img = VikaUtils.downloadImage(prevImgUrl);
+								System.out.println("Ресайз превью");
+								double aspectR = (double)img.getWidth() / (double)img.getHeight();
+								int w = 0; int h = 0;
+								w = DisplayUtils.width;
+								h = (int)(w/aspectR);
+								VikaTouch.docsCanv.previewY = (DisplayUtils.height - h)/2;
+								VikaTouch.docsCanv.previewImage = VikaUtils.resize(img, w, h);
+							}
+							catch(Exception e)
+							{
+								VikaTouch.docsCanv.isPreviewShown = false;
+								VikaTouch.error(e, "Скачивание превью");
+							}
+						}
+					}).start();
+				}
+			}
+			else
+				VikaTouch.inst.platformRequest(url);
 		}
 		catch (Exception e)
 		{
-			
+
 		}
 	}
 
