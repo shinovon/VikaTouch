@@ -2,10 +2,10 @@ package vikaTouch.newbase.items;
 
 import org.json.me.JSONObject;
 
-public abstract class IndialogItem
+public abstract class ChatItem
 	extends Item
 {
-	public IndialogItem(JSONObject json)
+	public ChatItem(JSONObject json)
 	{
 		super(json);
 	}

@@ -17,12 +17,12 @@ import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.attachments.AudioAttachment;
 import vikaTouch.newbase.attachments.PhotoAttachment;
 
-public class DialogItem
+public class ConversationItem
 	extends Item
 {
 	public String text;
 	public String title;
-	public MessageItem lastmessage;
+	public MsgItem lastmessage;
 	public long chatid;
 	public boolean ls;
 	public long date;
@@ -38,7 +38,7 @@ public class DialogItem
 	//private static Image deleteImg;
 	private static Image unreadImg;
 	
-	public DialogItem(JSONObject json)
+	public ConversationItem(JSONObject json)
 	{
 		super(json);
 		itemDrawHeight = 63;
@@ -213,7 +213,7 @@ public class DialogItem
 		
 		try
 		{
-			lastmessage = new MessageItem(json.getJSONObject("last_message"));
+			lastmessage = new MsgItem(json.getJSONObject("last_message"));
 			lastmessage.parseJSON();
 
 			date = lastmessage.date;

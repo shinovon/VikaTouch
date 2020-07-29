@@ -14,7 +14,7 @@ import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.JSONBase;
 import vikaTouch.newbase.attachments.PhotoSize;
 
-public class DocumentItem
+public class DocItem
 	extends Item
 {
 	private String name;
@@ -28,7 +28,7 @@ public class DocumentItem
 	private String ext;
 	private int type;
 	
-	public static final int BORDER = 2;
+	public static final int BORDER = 1;
 	
 	//типы вложения
 	private static final int TYPE_TEXT = 1;
@@ -41,7 +41,7 @@ public class DocumentItem
 	private static final int TYPE_UNKNOWN = 8;
 	private static final int TYPE_UNDEFINED = 0;
 
-	public DocumentItem(JSONObject json)
+	public DocItem(JSONObject json)
 	{
 		super(json);
 		itemDrawHeight = 50;
@@ -73,6 +73,7 @@ public class DocumentItem
 				}
 				catch (Exception e)
 				{
+					
 				}
 
 				try
@@ -142,7 +143,7 @@ public class DocumentItem
 				break;
 			}
 		}
-		itemDrawHeight += BORDER;
+		itemDrawHeight += BORDER * 2;
 	}
 
 	public void paint(Graphics g, int y, int scrolled)
@@ -150,13 +151,13 @@ public class DocumentItem
 		if(iconImg == null)
 			iconImg = getPreviewImage();
 		ColorUtils.setcolor(g, 0);
-		g.drawString(name, 73, y + 16, 0);
+		g.drawString(name, 73, y, 0);
 		ColorUtils.setcolor(g, 6);
-		g.drawString(size / 1000 + "кб", 73, y + 40, 0);
+		g.drawString(size / 1000 + "кб", 73, y + 24, 0);
 		if(iconImg != null)
 		{
 			//System.out.println("Иконка "+i);
-			g.drawImage(iconImg, 14, y + (BORDER / 2), 0);
+			g.drawImage(iconImg, 14, y + BORDER, 0);
 		}
 	}
 

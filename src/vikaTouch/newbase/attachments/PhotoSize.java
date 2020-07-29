@@ -50,7 +50,7 @@ public class PhotoSize
 	{
 		for(int i = 0; i < sizes.length; i++)
 		{
-			if(sizes[i].type == String.valueOf(type))
+			if(sizes[i] != null && sizes[i].type.equalsIgnoreCase("" + type))
 			{
 				return sizes[i];
 			}

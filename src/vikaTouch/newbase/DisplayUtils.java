@@ -189,7 +189,7 @@ public class DisplayUtils
 			case DISPLAY_UNDEFINED:
 			default:
 			{
-				need = 50;
+				need = 48;
 				break;
 			}
 		}

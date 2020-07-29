@@ -10,7 +10,7 @@ import org.json.me.JSONObject;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
-import vikaTouch.newbase.items.DialogItem;
+import vikaTouch.newbase.items.ConversationItem;
 
 public class Dialogs
 	extends TimerTask
@@ -18,7 +18,7 @@ public class Dialogs
 	
 	private static final int dialogsCount = 15;
 	
-	public static DialogItem[] dialogs = new DialogItem[15];
+	public static ConversationItem[] dialogs = new ConversationItem[15];
 	
 	public static JSONArray profiles;
 	
@@ -69,7 +69,7 @@ public class Dialogs
 							for(int i = 0; i < itemsCount; i++)
 							{
 								item = items.getJSONObject(i);
-								dialogs[i] = new DialogItem(item);
+								dialogs[i] = new ConversationItem(item);
 								dialogs[i].parseJSON();
 							}
 						}
@@ -103,7 +103,7 @@ public class Dialogs
 		
 	}
 
-	public static void openDialog(DialogItem dialogItem)
+	public static void openDialog(ConversationItem dialogItem)
 	{
 		openDialog(dialogItem.peerId);
 	}

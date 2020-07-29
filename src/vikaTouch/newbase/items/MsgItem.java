@@ -12,10 +12,10 @@ import vikaTouch.base.VikaUtils;
 import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.TextBreaker;
 
-public class MessageItem
-	extends IndialogItem
+public class MsgItem
+	extends ChatItem
 {
-	public MessageItem(JSONObject json)
+	public MsgItem(JSONObject json)
 	{
 		super(json);
 	}

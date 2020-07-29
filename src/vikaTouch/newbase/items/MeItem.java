@@ -3,7 +3,7 @@ package vikaTouch.newbase.items;
 import org.json.me.JSONObject;
 
 public class MeItem
-	extends IndialogItem
+	extends ChatItem
 {
 
 	public MeItem(JSONObject json)

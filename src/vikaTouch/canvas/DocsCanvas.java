@@ -18,8 +18,8 @@ import vikaTouch.newbase.Dialogs;
 import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.JSONBase;
 import vikaTouch.newbase.URLBuilder;
-import vikaTouch.newbase.items.DialogItem;
-import vikaTouch.newbase.items.DocumentItem;
+import vikaTouch.newbase.items.ConversationItem;
+import vikaTouch.newbase.items.DocItem;
 
 public class DocsCanvas
 	extends MainCanvas
@@ -71,12 +71,12 @@ public class DocsCanvas
 	public int fromDoc = 0;
 	public int docsCount = 0;
 	public int totalDocs = 0;
-	private DocumentItem[] docs;
+	private DocItem[] docs;
 	public static Thread downloaderThread;
 	
 	public void LoadDocs(final int from, final int count)
 	{
-		docs = new DocumentItem[count];
+		docs = new DocItem[count];
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
 		
@@ -102,7 +102,7 @@ public class DocsCanvas
 						for(int i = 0; i < itemsCount; i++)
 						{
 							JSONObject item = items.getJSONObject(i);
-							docs[i] = new DocumentItem(item);
+							docs[i] = new DocItem(item);
 							docs[i].parseJSON();
 						}
 						
@@ -178,23 +178,21 @@ public class DocsCanvas
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
 					int yy1 = y - scrolled - 50;
-					int yy2 = yy1 / (48 + DocumentItem.BORDER);
+					int yy2 = yy1 / (48 + (DocItem.BORDER * 2));
 					if(yy2 < 0)
 						yy2 = 0;
 					int yy = 0;
-					for(int i = yy2; i < Dialogs.itemsCount; i++)
+					for(int i = yy2; i < itemsCount; i++)
 					{
 						int y1 = scrolled + 50 + yy;
-						int y2 = y1 + Dialogs.dialogs[i].itemDrawHeight;
-						yy += Dialogs.dialogs[i].itemDrawHeight;
+						int y2 = y1 + docs[i].itemDrawHeight;
+						yy += docs[i].itemDrawHeight;
 						if(y > y1 && y < y2)
 						{
-							//DocsCanvas.class.unselectAll();
 							if(!dragging)
 							{
-								Dialogs.dialogs[i].tap(x, y1 - y);
+								docs[i].tap(x, y1 - y);
 							}
-							Dialogs.dialogs[i].released(dragging);
 							break;
 						}
 						Thread.yield();

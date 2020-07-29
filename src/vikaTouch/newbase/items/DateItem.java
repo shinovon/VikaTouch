@@ -10,7 +10,7 @@ import vikaTouch.newbase.ColorUtils;
 import vikaTouch.newbase.DisplayUtils;
 
 public final class DateItem
-	extends IndialogItem
+	extends ChatItem
 {
 	private int width;
 	private String stringDate;
