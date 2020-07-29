@@ -224,15 +224,18 @@ public final class VikaUtils
 		}
 		catch (UnsupportedEncodingException e)
 		{
-			
+			System.out.println("Failed to download " + url);
+			e.printStackTrace();
 		}
 		catch (IOException e)
 		{
-			
+			System.out.println("Failed to download " + url);
+			e.printStackTrace();
 		}
 		catch (NullPointerException e)
 		{
-			
+			System.out.println("Failed to download " + url);
+			e.printStackTrace();
 		}
 
 		try
@@ -241,7 +244,8 @@ public final class VikaUtils
 		}
 		catch (Exception e)
 		{
-			
+			System.out.println("Failed to close stream");
+			e.printStackTrace();
 		}
 
 		try
@@ -250,7 +254,8 @@ public final class VikaUtils
 		}
 		catch (Exception e)
 		{
-			
+			System.out.println("Failed to close stream");
+			e.printStackTrace();
 		}
 
 		try
@@ -259,7 +264,8 @@ public final class VikaUtils
 		}
 		catch (Exception e)
 		{
-			
+			System.out.println("Failed to close stream");
+			e.printStackTrace();
 		}
 
 		try
@@ -271,7 +277,8 @@ public final class VikaUtils
 		}
 		catch (NullPointerException e)
 		{
-			
+			System.out.println("WARNING!! Response from " + url + " is null!");
+			e.printStackTrace();
 		}
 
 		return result;
