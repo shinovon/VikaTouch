@@ -188,18 +188,28 @@ public class DocItem
 					case TYPE_GIF:
 						return DisplayUtils.resizeItemPreview(VikaTouch.cameraImg);
 					case TYPE_AUDIO:
-					case TYPE_VIDEO:
 						return DisplayUtils.resizeItemPreview(Image.createImage("/docmus.png"));
+					case TYPE_VIDEO:
+						return DisplayUtils.resizeItemPreview(Image.createImage("/docvid.png"));
 					case TYPE_ARCHIVE:
 						return DisplayUtils.resizeItemPreview(Image.createImage("/doczip.png"));
 					case TYPE_TEXT:
 					case TYPE_EBOOK:
+						return DisplayUtils.resizeItemPreview(Image.createImage("/doctxt.png"));
 					case TYPE_UNKNOWN:
 					default:
-						if(ext.toLowerCase().indexOf("jar") != VikaTouch.INDEX_FALSE)
+						if(ext.toLowerCase().indexOf("jar") != VikaTouch.INDEX_FALSE || ext.toLowerCase().indexOf("jad") != VikaTouch.INDEX_FALSE)
 						{
 							return DisplayUtils.resizeItemPreview(Image.createImage("/docjar.png"));
 						}
+						else if(ext.toLowerCase().indexOf("sis") != VikaTouch.INDEX_FALSE)
+						{
+							return DisplayUtils.resizeItemPreview(Image.createImage("/docsis.png"));
+						}
+						/*else if(ext.toLowerCase().indexOf("torrent") != VikaTouch.INDEX_FALSE)
+						{
+							return DisplayUtils.resizeItemPreview(Image.createImage("/doctorr.png"));
+						}*/
 						else
 						{
 							return DisplayUtils.resizeItemPreview(Image.createImage("/docfile.png"));
