@@ -284,6 +284,7 @@ public final class VikaTouch
 			catch (NullPointerException e)
 			{
 				errReason = "no internet: "+e.toString();
+				e.printStackTrace();
 				return false;
 			}
 			catch (Exception e)
