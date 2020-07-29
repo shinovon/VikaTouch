@@ -131,6 +131,7 @@ public class ImageStorage
      */
     protected static void restoreImagesFromRMS()
     {
+    	/*
         int[] intArrayOfRGBforImage = null;
         int w = 0;//width of image
         int h = 0;//height of image
@@ -143,8 +144,8 @@ public class ImageStorage
             RecordEnumeration re = recordStore.enumerateRecords(null, null, true);
  
             /* Here you can place code for taking additional info for re-cashing into RMS (you should simply skip it)
-             * because it is already processed) */
-            /*...*/
+             * because it is already processed) 
+            /*...
  
             try
             {
@@ -183,6 +184,7 @@ public class ImageStorage
         {
             rse.printStackTrace();
         }
+        */
     }
  
     /**
@@ -192,6 +194,7 @@ public class ImageStorage
      */
     public static void storeImagesInRMS()
     {
+    	/*
         int w, h, l;
         int[] rgbImage = new int[MAX_AREA_OF_IMAGE];
         try
@@ -209,8 +212,8 @@ public class ImageStorage
             }
             RecordStore recordStore = RecordStore.openRecordStore(RMS_IMAGES, true);
  
-            /*save additional info for checking necessity of re-cashing into RMS*/
-            /*...*/
+            /*save additional info for checking necessity of re-cashing into RMS
+            /*...
             Image curImage;
             Enumeration e = images.elements();
             String x = null;
@@ -252,6 +255,7 @@ public class ImageStorage
         {
         	
         }
+        */
     }
  
     /**
@@ -267,7 +271,7 @@ public class ImageStorage
         RecordStore recordStore = RecordStore.openRecordStore(RMS_IMAGES, true);
         if (recordStore.getNumRecords() == 0)
         {
-            storeImagesInRMS();
+        //    storeImagesInRMS();
         }
         restoreImagesFromRMS();
         isLoaded = true;
