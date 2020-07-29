@@ -27,6 +27,7 @@ public class DocItem
 	private int documentType;
 	private String ext;
 	private int type;
+	private String time;
 	
 	public static final int BORDER = 1;
 	
@@ -78,13 +79,13 @@ public class DocItem
 
 				try
 				{
-					prevPs = PhotoSize.getSize(prevSizes, 'o');
+					prevPs = PhotoSize.getSize(prevSizes, 'x');
 				}
 				catch (Exception e1)
 				{
 					try
 					{
-						prevPs = PhotoSize.getSize(prevSizes, 'x');
+						prevPs = PhotoSize.getSize(prevSizes, 'o');
 					}
 					catch (Exception e2)
 					{
@@ -150,10 +151,13 @@ public class DocItem
 	{
 		if(iconImg == null)
 			iconImg = getPreviewImage();
+		
+		if(time == null)
+			time = getTime();
 		ColorUtils.setcolor(g, 0);
 		g.drawString(name, 73, y, 0);
 		ColorUtils.setcolor(g, 6);
-		g.drawString(size / 1000 + "кб", 73, y + 24, 0);
+		g.drawString(size / 1000 + "кб, " + time, 73, y + 24, 0);
 		if(iconImg != null)
 		{
 			//System.out.println("Иконка "+i);
@@ -176,7 +180,7 @@ public class DocItem
 				{
 					case TYPE_PHOTO:
 					case TYPE_GIF:
-						return DisplayUtils.resizeItemPreview(VikaTouch.camera);
+						return DisplayUtils.resizeItemPreview(VikaTouch.cameraImg);
 					case TYPE_AUDIO:
 					case TYPE_VIDEO:
 						return DisplayUtils.resizeItemPreview(Image.createImage("/docmus.png"));

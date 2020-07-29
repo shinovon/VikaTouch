@@ -23,9 +23,9 @@ public class DialogsCanvas
 		
 		VikaTouch.loading = true;
 		
-		if(VikaTouch.menu == null)
+		if(VikaTouch.menuCanv == null)
 		{
-			VikaTouch.menu = new MenuCanvas();
+			VikaTouch.menuCanv = new MenuCanvas();
 		}
 		
 		try
@@ -137,14 +137,14 @@ public class DialogsCanvas
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
-					int yy1 = y - scrolled - 50;
+					int yy1 = y - scrolled - 58;
 					int yy2 = yy1 / 63;
 					if(yy2 < 0)
 						yy2 = 0;
 					int yy = 0;
 					for(int i = yy2; i < Dialogs.itemsCount; i++)
 					{
-						int y1 = scrolled + 50 + yy;
+						int y1 = scrolled + 58 + yy;
 						int y2 = y1 + Dialogs.dialogs[i].itemDrawHeight;
 						yy += Dialogs.dialogs[i].itemDrawHeight;
 						if(y > y1 && y < y2)

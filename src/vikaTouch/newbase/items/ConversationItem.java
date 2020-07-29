@@ -227,11 +227,14 @@ public class ConversationItem
 			{
 				if(lastmessage.attachments[0] != null)
 				{
-					if(lastmessage.attachments[1] != null)
-					{
-						text = "Вложения";
+					try
+						{
+						if(lastmessage.attachments[1] != null)
+						{
+							text = "Вложения";
+						}
 					}
-					else
+					catch (ArrayIndexOutOfBoundsException e)
 					{
 						if(lastmessage.attachments[0] instanceof PhotoAttachment)
 						{

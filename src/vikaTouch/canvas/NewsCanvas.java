@@ -32,8 +32,8 @@ public class NewsCanvas
 		
 		VikaTouch.loading = true;
 		
-		if(VikaTouch.menu == null)
-			VikaTouch.menu = new MenuCanvas();
+		if(VikaTouch.menuCanv == null)
+			VikaTouch.menuCanv = new MenuCanvas();
 		
 		loadPosts();
 		

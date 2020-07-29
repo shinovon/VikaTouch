@@ -63,7 +63,7 @@ public class VikaCanvas
 		
 		if(showCaptcha)
 		{
-			VikaTouch.captcha.paint(g);
+			VikaTouch.captchaCanv.paint(g);
 		}
 		
 		if(VikaTouch.loading)
@@ -106,7 +106,7 @@ public class VikaCanvas
 	{
 		if(showCaptcha)
 		{
-			VikaTouch.captcha.pointerPressed(x, y);
+			VikaTouch.captchaCanv.pointerPressed(x, y);
 		}
 		else if(currentScreen != null)
 		{
@@ -118,7 +118,7 @@ public class VikaCanvas
 	{
 		if(showCaptcha)
 		{
-			VikaTouch.captcha.pointerReleased(x, y);
+			VikaTouch.captchaCanv.pointerReleased(x, y);
 		}
 		else if(currentScreen != null)
 		{

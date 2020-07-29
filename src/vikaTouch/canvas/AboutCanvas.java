@@ -44,7 +44,7 @@ public class AboutCanvas
 	{
 		if(x < 50 && y > DisplayUtils.height - 30)
 		{
-			VikaTouch.setDisplay(VikaTouch.menu);
+			VikaTouch.setDisplay(VikaTouch.menuCanv);
 		}
 	}
 

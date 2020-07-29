@@ -29,8 +29,8 @@ public class DocsCanvas
 	{
 		super();
 		VikaTouch.loading = true;
-		if(VikaTouch.menu == null)
-			VikaTouch.menu = new MenuCanvas();
+		if(VikaTouch.menuCanv == null)
+			VikaTouch.menuCanv = new MenuCanvas();
 		
 		try
 		{
@@ -71,7 +71,7 @@ public class DocsCanvas
 	public int fromDoc = 0;
 	public int docsCount = 0;
 	public int totalDocs = 0;
-	private DocItem[] docs;
+	private static DocItem[] docs;
 	public static Thread downloaderThread;
 	
 	public void LoadDocs(final int from, final int count)
@@ -177,14 +177,14 @@ public class DocsCanvas
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
-					int yy1 = y - scrolled - 50;
+					int yy1 = y - scrolled - 58;
 					int yy2 = yy1 / (48 + (DocItem.BORDER * 2));
 					if(yy2 < 0)
 						yy2 = 0;
 					int yy = 0;
 					for(int i = yy2; i < itemsCount; i++)
 					{
-						int y1 = scrolled + 50 + yy;
+						int y1 = scrolled + 58 + yy;
 						int y2 = y1 + docs[i].itemDrawHeight;
 						yy += docs[i].itemDrawHeight;
 						if(y > y1 && y < y2)

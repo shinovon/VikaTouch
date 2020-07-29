@@ -113,7 +113,7 @@ public final class VikaUtils
 	    {
 		    if(dayDelta == 0)
 		    {
-		    	result = time;
+		    	result = "Сегодня в " + time;
 		    	break parsing;
 		    }
 		    else if(dayDelta == 1)

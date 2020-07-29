@@ -50,7 +50,7 @@ public class MsgItem
 		if(ava != null)
 			g.drawImage(ava, 16, 0 + y, 0);
 		else
-			g.drawImage(VikaTouch.camera, 16, 10 + y, 0);
+			g.drawImage(VikaTouch.cameraImg, 16, 10 + y, 0);
 	}
 	
 	private Image getAva()

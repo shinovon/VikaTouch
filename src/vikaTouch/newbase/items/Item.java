@@ -65,7 +65,7 @@ public abstract class Item
 	
 	public String getTime()
 	{
-		return VikaUtils.parseShortTime(date);
+		return VikaUtils.parseTime(date);
 	}
 	
 	public void tap(int x, int y)

@@ -39,13 +39,13 @@ public final class VikaTouch
 	public static String mobilePlatform;
 	public static VikaTouch inst;
 	public static LoginCanvas login;
-	public static MenuCanvas menu;
-	public static DialogsCanvas dialogs;
-	public static DocsCanvas docs;
-	public static NewsCanvas news;
-	public static CaptchaCanvas captcha;
+	public static MenuCanvas menuCanv;
+	public static DialogsCanvas dialogsCanv;
+	public static DocsCanvas docsCanv;
+	public static NewsCanvas newsCanv;
+	public static CaptchaCanvas captchaCanv;
 	public static RecordStore tokenRMS;
-	public static Image camera;
+	public static Image cameraImg;
 	public static Thread mainThread;
 	public static UIThread uiThread;
 	public static String userId;
@@ -181,8 +181,9 @@ public final class VikaTouch
 		loading = false;
 	}
 
-	public boolean isPaused() {
-		return isPaused;
+	public static boolean isPaused()
+	{
+		return inst.isPaused;
 	}
 
 	public boolean login(final String user, final String pass)
@@ -205,13 +206,13 @@ public final class VikaTouch
 				errReason = tokenUnswer;
 				if(tokenUnswer.indexOf("need_captcha") > 0)
 				{
-					captcha = new CaptchaCanvas();
-					captcha.obj = new CaptchaObject(new JSONObject(tokenUnswer));
-					captcha.obj.parseJSON();
+					captchaCanv = new CaptchaCanvas();
+					captchaCanv.obj = new CaptchaObject(new JSONObject(tokenUnswer));
+					captchaCanv.obj.parseJSON();
 					canvas.showCaptcha = true;
 					while(started)
 					{
-						if(captcha != null && CaptchaCanvas.finished)
+						if(captchaCanv != null && CaptchaCanvas.finished)
 						{
 							tokenUnswer = VikaUtils.download(
 							new URLBuilder(OAUTH, "token")
@@ -221,7 +222,7 @@ public final class VikaTouch
 								.addField("username", user)
 								.addField("password", pass)
 								.addField("scope", "notify,friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,notifications,stats,ads,offline")
-								.addField("captcha_sid", captcha.obj.captchasid)
+								.addField("captcha_sid", captchaCanv.obj.captchasid)
 								.addField("key", CaptchaCanvas.input)
 								.toString()
 							);
@@ -232,11 +233,11 @@ public final class VikaTouch
 									tokenUnswer.indexOf("}") - 0);
 							VikaUtils.download(URLBuilder.makeSimpleURL("audio.get"));
 							String var5 = ":APA91bFAM-gVwLCkCABy5DJPPRH5TNDHW9xcGu_OLhmdUSA8zuUsBiU_DexHrTLLZWtzWHZTT5QUaVkBk_GJVQyCE_yQj9UId3pU3vxvizffCPQISmh2k93Fs7XH1qPbDvezEiMyeuLDXb5ebOVGehtbdk_9u5pwUw";
-							if ((refreshToken = VikaUtils.download(new URLBuilder("auth.refreshToken").addField("receipt", var5).toString())).indexOf("method") <= 0) {
+							if ((refreshToken = VikaUtils.download(new URLBuilder("auth.refreshToken").addField("receipt", var5).toString())).indexOf("method") == INDEX_FALSE) {
 								accessToken = refreshToken.substring(refreshToken.indexOf("access_token") + 23, refreshToken.length() - 3);
 								tokenUnswer = "{\"access_token\":\"" + accessToken + "\",\"expires_in\":0,\"user_id\":"
 										+ userId + "}";
-								final VikaScreen canvas = menu = new MenuCanvas();
+								final VikaScreen canvas = menuCanv = new MenuCanvas();
 								setDisplay(canvas);
 								saveToken();
 								Dialogs.refreshDialogsList();
@@ -258,11 +259,11 @@ public final class VikaTouch
 					userId = tokenUnswer.substring(tokenUnswer.indexOf("user_id") + 9, tokenUnswer.indexOf("}") - 0);
 					VikaUtils.download(URLBuilder.makeSimpleURL("audio.get"));
 					String var5 = ":APA91bFAM-gVwLCkCABy5DJPPRH5TNDHW9xcGu_OLhmdUSA8zuUsBiU_DexHrTLLZWtzWHZTT5QUaVkBk_GJVQyCE_yQj9UId3pU3vxvizffCPQISmh2k93Fs7XH1qPbDvezEiMyeuLDXb5ebOVGehtbdk_9u5pwUw";
-					if ((refreshToken = VikaUtils.download(new URLBuilder("auth.refreshToken").addField("receipt", var5).toString())).indexOf("method") <= 0) {
+					if ((refreshToken = VikaUtils.download(new URLBuilder("auth.refreshToken").addField("receipt", var5).toString())).indexOf("method") == INDEX_FALSE) {
 						accessToken = refreshToken.substring(refreshToken.indexOf("access_token") + 23, refreshToken.length() - 3);
 						tokenUnswer = "{\"access_token\":\"" + accessToken + "\",\"expires_in\":0,\"user_id\":"
 								+ userId + "}";
-						final VikaScreen canvas = menu = new MenuCanvas();
+						final VikaScreen canvas = menuCanv = new MenuCanvas();
 						setDisplay(canvas);
 						saveToken();
 						Dialogs.refreshDialogsList();
@@ -334,14 +335,14 @@ public final class VikaTouch
 
 	public void run()
 	{
-		cmdsInst = new Commands();		
-		
 		ImageStorage.init();
+		
+		cmdsInst = new Commands();	
 
 		//Выбор сервера 
 		if (mobilePlatform.indexOf("S60") > 0)
 		{
-			if (mobilePlatform.indexOf("5.3") == -1 && mobilePlatform.indexOf("5.2") <= 0 && mobilePlatform.indexOf("5.1") <= 0 && mobilePlatform.indexOf("5.0") <= 0)
+			if (mobilePlatform.indexOf("5.3") == INDEX_FALSE && mobilePlatform.indexOf("5.2") == INDEX_FALSE && mobilePlatform.indexOf("5.1") == INDEX_FALSE && mobilePlatform.indexOf("5.0") == INDEX_FALSE)
 			{
 				if (mobilePlatform.indexOf("3.2") > 0)
 				{
@@ -374,7 +375,7 @@ public final class VikaTouch
 		
 		try
 		{
-			camera = DisplayUtils.resizeava(Image.createImage("/camera.png"));
+			cameraImg = DisplayUtils.resizeava(Image.createImage("/camera.png"));
 		}
 		catch (IOException e1)
 		{
@@ -403,7 +404,7 @@ public final class VikaTouch
 					if(!offlineMode)
 						Dialogs.refreshDialogsList();
 				}
-				canvas = menu = new MenuCanvas();
+				canvas = menuCanv = new MenuCanvas();
 			}
 			else
 			{
@@ -439,6 +440,4 @@ public final class VikaTouch
 	{
 		Display.getDisplay(inst).setCurrent(d);
 	}
-	
-
 }

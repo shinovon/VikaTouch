@@ -259,8 +259,8 @@ public class PostItem
 		}
 		else
 		{
-			g.drawImage(VikaTouch.camera, 16, 10 + y, 0);
-			yy += VikaTouch.camera.getHeight() + 12;
+			g.drawImage(VikaTouch.cameraImg, 16, 10 + y, 0);
+			yy += VikaTouch.cameraImg.getHeight() + 12;
 		}
 		
 		ColorUtils.setcolor(g, 5);

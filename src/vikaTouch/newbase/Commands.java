@@ -52,9 +52,9 @@ public class Commands
 						{
 							VikaTouch.loading = true;
 							
-							if(VikaTouch.news == null)
-								VikaTouch.news = new NewsCanvas();
-							VikaTouch.setDisplay(VikaTouch.news);
+							if(VikaTouch.newsCanv == null)
+								VikaTouch.newsCanv = new NewsCanvas();
+							VikaTouch.setDisplay(VikaTouch.newsCanv);
 						}
 						break;
 					}
@@ -66,9 +66,9 @@ public class Commands
 						{
 							VikaTouch.loading = true;
 		
-							if(VikaTouch.dialogs == null)
-								VikaTouch.dialogs = new DialogsCanvas();
-							VikaTouch.setDisplay(VikaTouch.dialogs);
+							if(VikaTouch.dialogsCanv == null)
+								VikaTouch.dialogsCanv = new DialogsCanvas();
+							VikaTouch.setDisplay(VikaTouch.dialogsCanv);
 						}
 						break;
 					}
@@ -78,9 +78,9 @@ public class Commands
 						
 						if(!(s instanceof MenuCanvas))
 						{
-							if(VikaTouch.menu == null)
-								VikaTouch.menu = new MenuCanvas();
-							VikaTouch.setDisplay(VikaTouch.menu);
+							if(VikaTouch.menuCanv == null)
+								VikaTouch.menuCanv = new MenuCanvas();
+							VikaTouch.setDisplay(VikaTouch.menuCanv);
 						}
 						break;
 					}
@@ -152,10 +152,10 @@ public class Commands
 						{
 							VikaTouch.loading = true;
 		
-							if(VikaTouch.docs == null)
-								VikaTouch.docs = new DocsCanvas();
-							VikaTouch.docs.LoadDocs(0,DocsCanvas.loadDocsCount);
-							VikaTouch.setDisplay(VikaTouch.docs);
+							if(VikaTouch.docsCanv == null)
+								VikaTouch.docsCanv = new DocsCanvas();
+							VikaTouch.docsCanv.LoadDocs(0,DocsCanvas.loadDocsCount);
+							VikaTouch.setDisplay(VikaTouch.docsCanv);
 						}
 					}
 					case 10:
