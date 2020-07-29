@@ -203,6 +203,10 @@ public final class VikaTouch
 					.addField("scope", "notify,friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,notifications,stats,ads,offline")
 					.toString()
 				);
+				if(tokenUnswer == null) {
+					errReason = "Network error on token getting";
+					return false;
+				}
 				errReason = tokenUnswer;
 				if(tokenUnswer.indexOf("need_captcha") > 0)
 				{
@@ -274,11 +278,6 @@ public final class VikaTouch
 						errReason = "failed auth";
 					}
 				}
-			}
-			catch (NullPointerException e)
-			{
-				errReason = "no internet: "+e.toString();
-				return false;
 			}
 			catch (Exception e)
 			{
