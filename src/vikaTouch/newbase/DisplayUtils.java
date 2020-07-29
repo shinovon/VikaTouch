@@ -28,6 +28,10 @@ public class DisplayUtils
 	public static final int CANVAS_TEMPLIST = 8;
 	public static final int CANVAS_LOADING = 9;
 	public static final int CANVAS_MUSICLIST = 10;
+	public static final int CANVAS_DOCSLIST = 11;
+	public static final int CANVAS_VIDEOSLIST = 12;
+	public static final int CANVAS_FRIENDSLIST = 13;
+	public static final int CANVAS_GROUPSLIST = 14;
 
 	//Экраны
 	public static final int DISPLAY_PORTRAIT = 1;

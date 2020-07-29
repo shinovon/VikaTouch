@@ -170,7 +170,7 @@ public class LoginCanvas
 					{
 						public void run()
 						{
-							user = TextEditor.inputString("Логин", "", 20, false);
+							user = TextEditor.inputString("Логин", "", 28, false);
 							repaint();
 							interrupt();
 						}
@@ -213,7 +213,7 @@ public class LoginCanvas
 					{
 						public void run()
 						{
-							user = TextEditor.inputString("Логин", "", 20, false);
+							user = TextEditor.inputString("Логин", "", 28, false);
 							repaint();
 							interrupt();
 						}

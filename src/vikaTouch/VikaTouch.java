@@ -151,6 +151,7 @@ public final class VikaTouch
 		if(s instanceof MenuCanvas)
 		{
 			DisplayUtils.current = DisplayUtils.CANVAS_MENU;
+			MainCanvas.lastMenu = DisplayUtils.CANVAS_MENU; 
 		}
 		if(s instanceof NewsCanvas)
 		{
@@ -175,6 +176,11 @@ public final class VikaTouch
 		if(s instanceof ReturnableListCanvas)
 		{
 			DisplayUtils.current = DisplayUtils.CANVAS_TEMPLIST;
+		}
+		if(s instanceof DocsCanvas)
+		{
+			DisplayUtils.current = DisplayUtils.CANVAS_DOCSLIST;
+			MainCanvas.lastMenu = DisplayUtils.CANVAS_DOCSLIST; 
 		}
 		canvas.currentScreen = s;
 		canvas.paint();

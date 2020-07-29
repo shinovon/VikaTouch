@@ -12,6 +12,7 @@ public abstract class MainCanvas
 	extends ScrollableCanvas 
 {
 
+	public static int lastMenu;
 	protected Image menuImg;
 	protected Image newsImg;
 
