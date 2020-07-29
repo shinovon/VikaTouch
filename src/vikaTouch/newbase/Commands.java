@@ -10,6 +10,7 @@ import vikaTouch.VikaTouch;
 import vikaTouch.canvas.AboutCanvas;
 import vikaTouch.canvas.DialogsCanvas;
 import vikaTouch.canvas.DocsCanvas;
+import vikaTouch.canvas.GroupsCanvas;
 import vikaTouch.canvas.LoginCanvas;
 import vikaTouch.canvas.MenuCanvas;
 import vikaTouch.canvas.NewsCanvas;
@@ -115,11 +116,15 @@ public class Commands
 					}
 					case 5:
 					{
-						//Группы
-						if(s instanceof MenuCanvas)
+						if(!(s instanceof GroupsCanvas))
 						{
-							final Alert alert = new Alert("нажато","группы", null, AlertType.INFO);
-							VikaTouch.setDisplay(alert);
+							VikaTouch.loading = true;
+		
+							if(VikaTouch.grCanv == null)
+								VikaTouch.grCanv = new GroupsCanvas();
+							if(!GroupsCanvas.isReady())
+								VikaTouch.grCanv.LoadGroups();
+							VikaTouch.setDisplay(VikaTouch.grCanv);
 						}
 						break;
 					}
