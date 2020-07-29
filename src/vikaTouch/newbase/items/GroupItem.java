@@ -41,7 +41,19 @@ public class GroupItem
 			isAdmin = json.optInt("is_admin") == 1;
 			members = json.optInt("members_count");
 			try {
-				ava = DisplayUtils.resizeava(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
+				ava = VikaUtils.downloadImage(fixJSONString(json.optString("photo_50")));
+				switch(DisplayUtils.idispi)
+				{
+					case DisplayUtils.DISPLAY_S40:
+					case DisplayUtils.DISPLAY_ASHA311:
+					case DisplayUtils.DISPLAY_EQWERTY:
+					{
+						ava = DisplayUtils.resizeava(ava);
+						break;
+					}
+					default:
+						break;
+				}
 			} catch (Exception e) {
 				System.out.println("Группа "+link+": ошибка аватарки");
 				//System.out.println(json.toString());
