@@ -25,15 +25,21 @@ public class DocumentItem
 	private PhotoSize[] prevSizes;
 	private Image iconImg;
 	private int documentType;
+	private String ext;
+	private int type;
 	
 	public static final int BORDER = 2;
 	
 	//типы вложения
-	private static final int TYPE_PHOTO = 1;
-	private static final int TYPE_AUDIO = 2;
-	private static final int TYPE_TEXT = 3;
-	private static final int TYPE_FILE = 4;
-	private static final int TYPE_UNDEFINED = -1;
+	private static final int TYPE_TEXT = 1;
+	private static final int TYPE_ARCHIVE = 2;
+	private static final int TYPE_GIF = 3;
+	private static final int TYPE_PHOTO = 4;
+	private static final int TYPE_AUDIO = 5;
+	private static final int TYPE_VIDEO = 6;
+	private static final int TYPE_EBOOK = 7;
+	private static final int TYPE_UNKNOWN = 8;
+	private static final int TYPE_UNDEFINED = 0;
 
 	public DocumentItem(JSONObject json)
 	{
@@ -44,11 +50,15 @@ public class DocumentItem
 	public void parseJSON()
 	{
 		prevSizes = new PhotoSize[10];
+		
 		try
 		{
 			name = json.optString("title");
 			url = json.optString("url");
 			size = json.optInt("size");
+			ext = json.optString("ext");
+			type = json.optInt("type");
+			
 			if(!json.isNull("preview"))
 			{
 				prevSizes = PhotoSize.parseSizes(json.getJSONObject("preview").getJSONObject("photo").getJSONArray("sizes"));
@@ -88,7 +98,7 @@ public class DocumentItem
 				
 				if(prevPs != null)
 				{
-					prevImgUrl = iconPs.url;
+					prevImgUrl = prevPs.url;
 				}
 			}
 		}
@@ -128,7 +138,7 @@ public class DocumentItem
 			}
 			default:
 			{
-				itemDrawHeight = 24;
+				itemDrawHeight = 48;
 				break;
 			}
 		}
@@ -161,14 +171,18 @@ public class DocumentItem
 		{
 			try
 			{
-				switch(documentType)
+				switch(type)
 				{
 					case TYPE_PHOTO:
+					case TYPE_GIF:
 						return DisplayUtils.resizeItemPreview(VikaTouch.camera);
 					case TYPE_AUDIO:
+					case TYPE_VIDEO:
 						return DisplayUtils.resizeItemPreview(Image.createImage("/docmus.png"));
 					case TYPE_TEXT:
-					case TYPE_FILE:
+					case TYPE_ARCHIVE:
+					case TYPE_EBOOK:
+					case TYPE_UNKNOWN:
 						return DisplayUtils.resizeItemPreview(Image.createImage("/docfile.png"));
 					default:
 						return null;

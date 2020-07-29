@@ -76,6 +76,7 @@ public class DocsCanvas
 	
 	public void LoadDocs(final int from, final int count)
 	{
+		docs = new DocumentItem[count];
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
 		
@@ -148,8 +149,8 @@ public class DocsCanvas
 					if(docs[i] != null)
 					{
 						docs[i].paint(g, y, scrolled);
+						y += docs[i].itemDrawHeight;
 					}
-					y += docs[i].itemDrawHeight;
 					
 				}
 			}
