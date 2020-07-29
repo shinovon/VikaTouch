@@ -138,34 +138,18 @@ public class DialogsCanvas
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
 					int yy1 = (y - 58) - scrolled;
-					int yy2 = yy1 / 63;
-					if(yy2 < 0)
-						yy2 = 0;
-					int yy = 0;
-					if(yy2 > 0)
-						yy = yy1;
-					System.out.println("r y: " + y);
-					System.out.println("r yy2: " + yy2);
-					System.out.println("r yy1: " + yy1);
-					System.out.println("r yy: " + yy);
-					for(int i = yy2; i < Dialogs.itemsCount; i++)
+					int i = yy1 / 63;
+					if(i < 0)
+						i = 0;
+					unselectAll();
+					if(!dragging)
 					{
-						int y1 = scrolled + 58 + yy;
-						int y2 = y1 + Dialogs.dialogs[i].itemDrawHeight;
-						yy += Dialogs.dialogs[i].itemDrawHeight;
-						if(y > y1 && y < y2)
-						{
-							unselectAll();
-							if(!dragging)
-							{
-								Dialogs.dialogs[i].tap(x, y1 - y);
-							}
-							Dialogs.dialogs[i].released(dragging);
-							break;
-						}
-						Thread.yield();
+						Dialogs.dialogs[i].tap(x, yy1 - (63 * i));
 					}
+					Dialogs.dialogs[i].released(dragging);
+					break;
 				}
+				
 				break;
 			}
 				
@@ -183,31 +167,15 @@ public class DialogsCanvas
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
+
 					int yy1 = (y - 58) - scrolled;
-					int yy2 = yy1 / 63;
-					if(yy2 < 0)
-						yy2 = 0;
-					int yy = 0;
-					if(yy2 > 0)
-						yy = yy1;
-					System.out.println("p y: " + y);
-					System.out.println("p yy2: " + yy2);
-					System.out.println("p yy1: " + yy1);
-					System.out.println("p yy: " + yy);
-					for(int i = yy2; i < Dialogs.itemsCount; i++)
-					{
-						int y1 = scrolled + 58 + yy;
-						int y2 = y1 + Dialogs.dialogs[i].itemDrawHeight;
-						yy += Dialogs.dialogs[i].itemDrawHeight;
-						if(y > y1 && y < y2)
-						{
-							unselectAll();
-							Dialogs.dialogs[i].pressed();
-							repaint();
-							break;
-						}
-						Thread.yield();
-					}
+					int i = yy1 / 63;
+					if(i < 0)
+						i = 0;
+					unselectAll();
+					Dialogs.dialogs[i].pressed();
+					repaint();
+					break;
 				}
 				break;
 			}
