@@ -67,7 +67,7 @@ public class ConversationItem
 		Image img = null;
 		try
 		{
-			img = Image.createImage("/camera.png");
+			img = VikaTouch.cameraImg;
 			if(avaurl != null)	
 			{
 				try

@@ -268,12 +268,14 @@ public class ImageStorage
     public static void loadImages()
     		throws Exception
     {
+    	/*
         RecordStore recordStore = RecordStore.openRecordStore(RMS_IMAGES, true);
         if (recordStore.getNumRecords() == 0)
         {
         //    storeImagesInRMS();
         }
         restoreImagesFromRMS();
+        */
         isLoaded = true;
     }
  

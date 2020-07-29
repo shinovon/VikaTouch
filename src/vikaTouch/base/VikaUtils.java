@@ -415,7 +415,6 @@ public final class VikaUtils
 	public static Image downloadImage(String url) 
 			throws IOException
 	{
-		VikaTouch.mobilePlatform = System.getProperty("microedition.platform");
 		// кеширование картинок включается если запрос http
 		boolean caching = !startsWith(url, "file");
 		String filename = null;
