@@ -64,7 +64,7 @@ public class GroupsCanvas extends MainCanvas {
 		return gi!=null;
 	}
 	
-	public final static int loadGroupsCount = 200;
+	public final static int loadGroupsCount = 100;
 	private static GroupItem[] gi = null;
 	public static Thread downloaderThread;
 
@@ -80,12 +80,13 @@ public class GroupsCanvas extends MainCanvas {
 				try
 				{
 					VikaTouch.loading = true;
-					String x = VikaUtils.download(new URLBuilder("groups.get").addField("count", loadGroupsCount).addField("fields", "members_count,counters"));
+					String x = VikaUtils.download(new URLBuilder("groups.get").addField("extended", "1").addField("count", loadGroupsCount).addField("fields", "members_count,counters"));
 					try
 					{
 						VikaTouch.loading = true;
 						JSONObject response = new JSONObject(x).getJSONObject("response");
 						JSONArray items = response.getJSONArray("items");
+						System.out.println(items.toString());
 						itemsCount = items.length();
 						gi = new GroupItem[items.length()];
 						for(int i = 0; i < itemsCount; i++)
