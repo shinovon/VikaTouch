@@ -55,7 +55,7 @@ public class DocItem
 		try
 		{
 			name = json.optString("title");
-			url = json.optString("url");
+			url = fixJSONString(json.optString("url"));
 			size = json.optInt("size");
 			ext = json.optString("ext");
 			type = json.optInt("type");
@@ -65,7 +65,6 @@ public class DocItem
 				prevSizes = PhotoSize.parseSizes(json.getJSONObject("preview").getJSONObject("photo").getJSONArray("sizes"));
 				
 				PhotoSize iconPs = null;
-				
 				PhotoSize prevPs = null;
 				
 				try
@@ -74,9 +73,7 @@ public class DocItem
 				}
 				catch (Exception e)
 				{
-					
 				}
-
 				try
 				{
 					prevPs = PhotoSize.getSize(prevSizes, 'x');
@@ -95,12 +92,12 @@ public class DocItem
 				
 				if(iconPs != null)
 				{
-					iconUrl = iconPs.url;
+					iconUrl = fixJSONString(iconPs.url);
 				}
 				
 				if(prevPs != null)
 				{
-					prevImgUrl = prevPs.url;
+					prevImgUrl = fixJSONString(prevPs.url);
 				}
 			}
 		}
@@ -169,11 +166,13 @@ public class DocItem
 	{
 		Image img = null;
 		try
-		{
+		{ System.out.println(iconUrl);
 			img = DisplayUtils.resizeItemPreview(VikaUtils.downloadImage(iconUrl));
 		}
 		catch (Exception e)
 		{
+			
+			e.printStackTrace();
 			try
 			{
 				switch(type)
@@ -184,13 +183,17 @@ public class DocItem
 					case TYPE_AUDIO:
 					case TYPE_VIDEO:
 						return DisplayUtils.resizeItemPreview(Image.createImage("/docmus.png"));
-					case TYPE_TEXT:
 					case TYPE_ARCHIVE:
+						return DisplayUtils.resizeItemPreview(Image.createImage("/doczip.png"));
+					case TYPE_TEXT:
 					case TYPE_EBOOK:
 					case TYPE_UNKNOWN:
-						return DisplayUtils.resizeItemPreview(Image.createImage("/docfile.png"));
 					default:
-						return null;
+						if(ext.toLowerCase().indexOf("jar")!=-1) {
+							return DisplayUtils.resizeItemPreview(Image.createImage("/docjar.png"));
+						} else {
+							return DisplayUtils.resizeItemPreview(Image.createImage("/docfile.png"));
+						}
 				}
 			}
 			catch (Exception e2)
