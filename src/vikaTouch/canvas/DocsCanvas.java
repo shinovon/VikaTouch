@@ -133,7 +133,7 @@ public class DocsCanvas
 	{
 		ColorUtils.setcolor(g, 0);
 		g.setFont(Font.getFont(0, 0, 8));
-		itemsh = itemsCount * 63;
+		itemsh = itemsCount * 52;
 		double multiplier = (double)DisplayUtils.height / 640.0;
 		double ww = 10.0 * multiplier;
 		int w = (int)ww;
@@ -199,7 +199,7 @@ public class DocsCanvas
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
-					int yy1 = y - (scrolled + 58);
+					int yy1 =/* y - */(scrolled + 58);
 					int yy2 = yy1 / (48 + (DocItem.BORDER * 2));
 					if(yy2 < 0)
 						yy2 = 0;
@@ -207,15 +207,16 @@ public class DocsCanvas
 					if(yy2 > 0)
 						yy = yy1;
 					for(int i = yy2; i < itemsCount; i++)
-					{  
+					{
 						int y1 = scrolled + 58 + yy;
 						int y2 = y1 + docs[i].itemDrawHeight;
+						System.out.println("pointerY:"+y+" yy:"+yy+" y1:"+y1+" y2:"+y2);
 						yy += docs[i].itemDrawHeight;
 						if(y > y1 && y < y2)
 						{
 							if(!dragging)
 							{
-								docs[i].tap(x, y1 - y);
+								docs[i].tap(x, y - y1);
 							}
 							break;
 						}
