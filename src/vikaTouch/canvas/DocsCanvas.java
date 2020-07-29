@@ -62,8 +62,6 @@ public class DocsCanvas
 		{
 			e.printStackTrace();
 		}
-		
-		LoadDocs(0,20);
 	}
 
 	
