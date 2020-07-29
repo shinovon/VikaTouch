@@ -161,7 +161,8 @@ public class DocItem
 		if(time == null)
 			time = getTime();
 		ColorUtils.setcolor(g, 0);
-		g.drawString(name, 73, y, 0);
+		if(name != null)
+			g.drawString(name, 73, y, 0);
 		ColorUtils.setcolor(g, 6);
 		g.drawString(size / 1000 + "кб, " + time, 73, y + 24, 0);
 		if(iconImg != null)

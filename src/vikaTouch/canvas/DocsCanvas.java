@@ -2,7 +2,6 @@ package vikaTouch.canvas;
 
 import java.io.IOException;
 
-import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -14,11 +13,8 @@ import org.json.me.JSONObject;
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
 import vikaTouch.newbase.ColorUtils;
-import vikaTouch.newbase.Dialogs;
 import vikaTouch.newbase.DisplayUtils;
-import vikaTouch.newbase.JSONBase;
 import vikaTouch.newbase.URLBuilder;
-import vikaTouch.newbase.items.ConversationItem;
 import vikaTouch.newbase.items.DocItem;
 
 public class DocsCanvas
@@ -175,11 +171,13 @@ public class DocsCanvas
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
-					int yy1 = y - scrolled - 58;
+					int yy1 = y - (scrolled + 58);
 					int yy2 = yy1 / (48 + (DocItem.BORDER * 2));
 					if(yy2 < 0)
 						yy2 = 0;
 					int yy = 0;
+					if(yy2 > 0)
+						yy = yy1;
 					for(int i = yy2; i < itemsCount; i++)
 					{  
 						int y1 = scrolled + 58 + yy;

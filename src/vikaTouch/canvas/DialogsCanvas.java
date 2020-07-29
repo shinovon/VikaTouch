@@ -137,11 +137,13 @@ public class DialogsCanvas
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
-					int yy1 = y - scrolled - 58;
+					int yy1 = y - (scrolled + 58);
 					int yy2 = yy1 / 63;
 					if(yy2 < 0)
 						yy2 = 0;
 					int yy = 0;
+					if(yy2 > 0)
+						yy = yy1;
 					for(int i = yy2; i < Dialogs.itemsCount; i++)
 					{
 						int y1 = scrolled + 58 + yy;
