@@ -28,9 +28,9 @@ public class DocItem
 	private String ext;
 	private int type;
 	private String time;
-	
+
 	public static final int BORDER = 1;
-	
+
 	//типы вложения
 	private static final int TYPE_TEXT = 1;
 	private static final int TYPE_ARCHIVE = 2;
@@ -47,11 +47,11 @@ public class DocItem
 		super(json);
 		itemDrawHeight = 50;
 	}
-	
+
 	public void parseJSON()
 	{
 		System.out.println(json.toString());
-		
+
 		try
 		{
 			date = json.optInt("date");
@@ -60,14 +60,14 @@ public class DocItem
 			size = json.optInt("size");
 			ext = json.optString("ext");
 			type = json.optInt("type");
-			
+
 			if(!json.isNull("preview"))
 			{
 				prevSizes = PhotoSize.parseSizes(json.getJSONObject("preview").getJSONObject("photo").getJSONArray("sizes"));
-				
+
 				PhotoSize iconPs = null;
 				PhotoSize prevPs = null;
-				
+
 				try
 				{
 					iconPs = PhotoSize.getSize(prevSizes, "s");
@@ -98,12 +98,12 @@ public class DocItem
 						//не достучались до превьюхи..
 					}
 				}
-				
+
 				if(iconPs != null)
 				{
 					iconUrl = fixJSONString(iconPs.url);
 				}
-				
+
 				if(prevPs != null)
 				{
 					prevImgUrl = fixJSONString(prevPs.url);
@@ -120,12 +120,12 @@ public class DocItem
 			e.printStackTrace();
 			VikaTouch.error(e, "Обработка объектов: Документ");
 		}
-		
+
 		setDrawHeight();
 
-		System.gc(); 
+		System.gc();
 	}
-	
+
 	private void setDrawHeight()
 	{
 		switch(DisplayUtils.idispi)
@@ -157,7 +157,7 @@ public class DocItem
 	{
 		if(iconImg == null)
 			iconImg = getPreviewImage();
-		
+
 		if(time == null)
 			time = getTime();
 		ColorUtils.setcolor(g, 0);
@@ -176,6 +176,7 @@ public class DocItem
 		Image img = null;
 		try
 		{
+			System.out.println(iconUrl);
 			img = DisplayUtils.resizeItemPreview(VikaUtils.downloadImage(iconUrl));
 		}
 		catch (Exception e)
@@ -197,6 +198,7 @@ public class DocItem
 					case TYPE_EBOOK:
 						return DisplayUtils.resizeItemPreview(Image.createImage("/doctxt.png"));
 					case TYPE_UNKNOWN:
+					case TYPE_UNDEFINED:
 					default:
 						if(ext.toLowerCase().indexOf("jar") != VikaTouch.INDEX_FALSE || ext.toLowerCase().indexOf("jad") != VikaTouch.INDEX_FALSE)
 						{
@@ -205,6 +207,14 @@ public class DocItem
 						else if(ext.toLowerCase().indexOf("sis") != VikaTouch.INDEX_FALSE)
 						{
 							return DisplayUtils.resizeItemPreview(Image.createImage("/docsis.png"));
+						}
+						else if(ext.toLowerCase().indexOf("rar") != VikaTouch.INDEX_FALSE)
+						{
+							return DisplayUtils.resizeItemPreview(Image.createImage("/doczip.png"));
+						}
+						else if(ext.toLowerCase().indexOf("7z") != VikaTouch.INDEX_FALSE)
+						{
+							return DisplayUtils.resizeItemPreview(Image.createImage("/doczip.png"));
 						}
 						/*else if(ext.toLowerCase().indexOf("torrent") != VikaTouch.INDEX_FALSE)
 						{
@@ -218,19 +228,19 @@ public class DocItem
 			}
 			catch (Exception e2)
 			{
-				
+
 			}
 		}
 		return img;
 	}
-	
+
 	public void tap(int x, int y)
 	{
 		try
 		{
 			if(true) // проверка кнопки скачивания, потом допишу что-то типа (x>width-50)
 			{
-				if(type == TYPE_PHOTO) 
+				if(type == TYPE_PHOTO)
 				{
 					VikaTouch.docsCanv.isPreviewShown = true;
 					(new Thread()
@@ -254,7 +264,7 @@ public class DocItem
 								VikaTouch.docsCanv.isPreviewShown = false;
 								VikaTouch.error(e, "Скачивание превью");
 							}
-						} 
+						}
 					}).start();
 				}
 			}
@@ -263,7 +273,7 @@ public class DocItem
 		}
 		catch (Exception e)
 		{
-			
+
 		}
 	}
 
