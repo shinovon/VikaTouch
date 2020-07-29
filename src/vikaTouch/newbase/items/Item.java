@@ -60,7 +60,7 @@ public abstract class Item
 	
 	public void paint(Graphics g, int y, int scrolled)
 	{
-		
+		throw new RuntimeException("Cannot paint empty item!");
 	}
 	
 	public String getTime()

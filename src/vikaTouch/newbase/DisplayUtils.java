@@ -163,4 +163,41 @@ public class DisplayUtils
 		}
 	}
 
+
+	public static Image resizeItemPreview(Image img)
+	{
+		int h = img.getHeight();
+		int need = h;
+		switch(idispi)
+		{
+			case DISPLAY_E6:
+			case DISPLAY_PORTRAIT:
+			case DISPLAY_ALBUM:
+			{
+				need = 48;
+				break;
+			}
+			
+			case DISPLAY_S40:
+			case DISPLAY_ASHA311:
+			case DISPLAY_EQWERTY:
+			{
+				need = 24;
+				break;
+			}
+
+			case DISPLAY_UNDEFINED:
+			default:
+			{
+				need = 50;
+				break;
+			}
+		}
+		if(h != need)
+		{
+			return VikaUtils.resize(img, need, need);
+		}
+		return img;
+	}
+
 }

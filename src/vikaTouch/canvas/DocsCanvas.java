@@ -19,10 +19,14 @@ import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.JSONBase;
 import vikaTouch.newbase.URLBuilder;
 import vikaTouch.newbase.items.DialogItem;
+import vikaTouch.newbase.items.DocumentItem;
 
-public class DocsCanvas extends MainCanvas {
+public class DocsCanvas
+	extends MainCanvas
+{
 	
-	public DocsCanvas () {
+	public DocsCanvas()
+	{
 		super();
 		VikaTouch.loading = true;
 		if(VikaTouch.menu == null)
@@ -58,12 +62,8 @@ public class DocsCanvas extends MainCanvas {
 		{
 			e.printStackTrace();
 		}
-		try {
-			LoadDocs(0,20);
-		} catch (Exception e) {
-			e.printStackTrace();
-			VikaTouch.error(e, "Загрузка списка документов");
-		}
+		
+		LoadDocs(0,20);
 	}
 
 	
@@ -71,14 +71,11 @@ public class DocsCanvas extends MainCanvas {
 	public int fromDoc = 0;
 	public int docsCount = 0;
 	public int totalDocs = 0;
-	public Image[] docsIcons = null;
-	public String[] docsNames = null;
-	public String[] docsUrls = null;
-	public String[] docsPreview = null;
-	public int[] docsSizes = null;
+	private DocumentItem[] docs;
 	public static Thread downloaderThread;
 	
-	public void LoadDocs(final int from, final int count) {
+	public void LoadDocs(final int from, final int count)
+	{
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
 		
@@ -94,65 +91,37 @@ public class DocsCanvas extends MainCanvas {
 					{
 						VikaTouch.loading = true;
 						JSONObject response = new JSONObject(x).getJSONObject("response");
-						totalDocs = response.getInt("count");
 						JSONArray items = response.getJSONArray("items");
-						itemsCount = items.length();
+						itemsCount = response.getInt("count");
+						if(itemsCount > count)
+						{
+							itemsCount = count;
+						}
 						System.out.println("Получено "+itemsCount+" документов");
-						docsNames = new String[itemsCount];
-						docsPreview = new String[itemsCount];
-						docsUrls = new String[itemsCount];
-						docsIcons = new Image[itemsCount];
-						docsSizes = new int[itemsCount];
-						System.gc(); // форс удаления старых массивов
 						for(int i = 0; i < itemsCount; i++)
 						{
 							JSONObject item = items.getJSONObject(i);
-							docsNames[i] = item.getString("title");
-							docsUrls[i] = item.getString("url");
-							docsSizes[i] = item.getInt("size");
-							try {
-								JSONArray previews = item.getJSONObject("preview").getJSONObject("photo").getJSONArray("sizes");
-								boolean hasXPrew = false;
-								for(int j = 0; j < previews.length(); j++) {
-									String pt = previews.getJSONObject(j).getString("type"); // свитч не дал, типа строки не умеет
-									System.out.println(i+" "+j+" "+pt);
-									if(pt.equals("s")) {
-										//System.out.println("Иконка есть! "+i+" "+j);
-										docsIcons[i] = DisplayUtils.resizeava(VikaUtils.downloadImage(JSONBase.fixJSONString(previews.getJSONObject(j).getString("src"))));
-									} else if(pt.equals("x")) {
-										hasXPrew = true;
-										docsPreview[i] = JSONBase.fixJSONString(previews.getJSONObject(j).getString("src"));
-									} else if(pt.equals("o")) {
-										if(!hasXPrew) {
-											docsPreview[i] = JSONBase.fixJSONString(previews.getJSONObject(j).getString("src"));
-										}
-									}
-								}
-							}
-							catch (JSONException e)
-							{
-								//System.out.println("Предпросмотр сожрали неко. "+i);
-								//Предпросмотр не завезли - видимо не картинка. Ну и ладно.
-							}
+							docs[i] = new DocumentItem(item);
+							docs[i].parseJSON();
 						}
 						
 					}
 					catch (JSONException e)
 					{
-						e.printStackTrace(); VikaTouch.error(e, "Парс списка документов");
+						e.printStackTrace();
+						VikaTouch.error(e, "Парс списка документов");
 					}
 
 					VikaTouch.loading = false;
 				}
 				catch (NullPointerException e)
 				{
-					VikaTouch.warn("Переход в оффлайн режим!");
-					VikaTouch.offlineMode = true;
 					e.printStackTrace();
 				}
 				catch (Exception e)
 				{
-					e.printStackTrace(); VikaTouch.error(e, "Загрузка списка документов");
+					e.printStackTrace();
+					VikaTouch.error(e, "Загрузка списка документов");
 				}
 				VikaTouch.loading = false;
 			}
@@ -172,30 +141,21 @@ public class DocsCanvas extends MainCanvas {
 		{
 			update(g);
 			int y = oneitemheight + w;
-			if(docsNames!=null&&docsSizes!=null&&docsIcons!=null) {
-				try
+			try
+			{
+				for(int i = 0; i < itemsCount; i++)
 				{
-					for(int i = 0; i < itemsCount; i++)
+					if(docs[i] != null)
 					{
-						ColorUtils.setcolor(g, 0);
-						if(docsNames[i]!=null)
-							g.drawString(docsNames[i], 73, y + 16, 0);
-						ColorUtils.setcolor(g, 6);
-						g.drawString(docsSizes[i]/1000 + "кб", 73, y + 40, 0);
-						if(docsIcons[i] != null)
-						{
-							g.drawImage(docsIcons[i], 14, y + 8, 0);
-						}
-						 
-						y += 50;
-						
+						docs[i].paint(g, y, scrolled);
 					}
+					y += docs[i].itemDrawHeight;
+					
 				}
-				catch (Exception e)
-				{
-					VikaTouch.error(e, "Прорисовка объектов: Доки");
-				}
-			
+			}
+			catch (Exception e)
+			{
+				VikaTouch.error(e, "Прорисовка объектов: Доки");
 			}
 			g.translate(0, -g.getTranslateY());
 			
@@ -217,7 +177,7 @@ public class DocsCanvas extends MainCanvas {
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
 					int yy1 = y - scrolled - 50;
-					int yy2 = yy1 / 63;
+					int yy2 = yy1 / (48 + DocumentItem.BORDER);
 					if(yy2 < 0)
 						yy2 = 0;
 					int yy = 0;
@@ -245,42 +205,6 @@ public class DocsCanvas extends MainCanvas {
 		}
 		
 		super.pointerReleased(x, y);
-	}
-	
-	public final void pointerPressed(int x, int y)
-	{
-		switch(DisplayUtils.idispi)
-		{
-			case DisplayUtils.DISPLAY_ALBUM:
-			case DisplayUtils.DISPLAY_PORTRAIT:
-			{
-				if(y > 58 && y < DisplayUtils.height - oneitemheight)
-				{
-					int yy1 = y - scrolled - 50;
-					int yy2 = yy1 / 63; 
-					if(yy2 < 0)
-						yy2 = 0;
-					int yy = 0;
-					for(int i = yy2; i < Dialogs.itemsCount; i++)
-					{
-						int y1 = scrolled + 50 + yy;
-						int y2 = y1 + Dialogs.dialogs[i].itemDrawHeight;
-						yy += Dialogs.dialogs[i].itemDrawHeight;
-						if(y > y1 && y < y2)
-						{
-							//unselectAll();
-							Dialogs.dialogs[i].pressed();
-							break;
-						}
-						Thread.yield();
-					}
-				}
-				break;
-			}
-				
-		}
-		repaint();
-		super.pointerPressed(x, y);
 	}
 
 }

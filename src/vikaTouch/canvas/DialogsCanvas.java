@@ -191,6 +191,7 @@ public class DialogsCanvas
 						{
 							unselectAll();
 							Dialogs.dialogs[i].pressed();
+							repaint();
 							break;
 						}
 						Thread.yield();
@@ -200,7 +201,6 @@ public class DialogsCanvas
 			}
 				
 		}
-		repaint();
 		super.pointerPressed(x, y);
 	}
 

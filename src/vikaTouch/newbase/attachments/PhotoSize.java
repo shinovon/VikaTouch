@@ -45,4 +45,16 @@ public class PhotoSize
 		ps.width = jsonObject.optInt("width");
 		return ps;
 	}
+	
+	public static PhotoSize getSize(PhotoSize[] sizes, char type)
+	{
+		for(int i = 0; i < sizes.length; i++)
+		{
+			if(sizes[i].type == String.valueOf(type))
+			{
+				return sizes[i];
+			}
+		}
+		return null;
+	}
 }
