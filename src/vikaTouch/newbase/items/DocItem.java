@@ -175,7 +175,8 @@ public class DocItem
 	{
 		Image img = null;
 		try
-		{ System.out.println(iconUrl);
+		{
+			System.out.println(iconUrl);
 			img = DisplayUtils.resizeItemPreview(VikaUtils.downloadImage(iconUrl));
 		}
 		catch (Exception e)
@@ -197,6 +198,7 @@ public class DocItem
 					case TYPE_EBOOK:
 						return DisplayUtils.resizeItemPreview(Image.createImage("/doctxt.png"));
 					case TYPE_UNKNOWN:
+					case TYPE_UNDEFINED:
 					default:
 						if(ext.toLowerCase().indexOf("jar") != VikaTouch.INDEX_FALSE || ext.toLowerCase().indexOf("jad") != VikaTouch.INDEX_FALSE)
 						{
@@ -205,6 +207,14 @@ public class DocItem
 						else if(ext.toLowerCase().indexOf("sis") != VikaTouch.INDEX_FALSE)
 						{
 							return DisplayUtils.resizeItemPreview(Image.createImage("/docsis.png"));
+						}
+						else if(ext.toLowerCase().indexOf("rar") != VikaTouch.INDEX_FALSE)
+						{
+							return DisplayUtils.resizeItemPreview(Image.createImage("/doczip.png"));
+						}
+						else if(ext.toLowerCase().indexOf("7z") != VikaTouch.INDEX_FALSE)
+						{
+							return DisplayUtils.resizeItemPreview(Image.createImage("/doczip.png"));
 						}
 						/*else if(ext.toLowerCase().indexOf("torrent") != VikaTouch.INDEX_FALSE)
 						{
