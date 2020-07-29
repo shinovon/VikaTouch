@@ -31,7 +31,7 @@ public class PhotoSize
 		}
 		catch (Exception e)
 		{
-			
+			e.printStackTrace();
 		}
 		return sizes;
 	}
@@ -40,17 +40,24 @@ public class PhotoSize
 	{
 		PhotoSize ps = new PhotoSize();
 		ps.height = jsonObject.optInt("height");
-		ps.url = JSONBase.fixJSONString(jsonObject.optString("url"));
+		if(!jsonObject.isNull("url"))
+		{
+			ps.url = JSONBase.fixJSONString(jsonObject.optString("url"));
+		}
+		else
+		{
+			ps.url = JSONBase.fixJSONString(jsonObject.optString("src"));
+		}
 		ps.type = jsonObject.optString("type");
 		ps.width = jsonObject.optInt("width");
 		return ps;
 	}
 	
-	public static PhotoSize getSize(PhotoSize[] sizes, char type)
+	public static PhotoSize getSize(PhotoSize[] sizes, String type)
 	{
 		for(int i = 0; i < sizes.length; i++)
 		{
-			if(sizes[i] != null && sizes[i].type.equalsIgnoreCase("" + type))
+			if(sizes[i] != null && sizes[i].type.equalsIgnoreCase(type))
 			{
 				return sizes[i];
 			}

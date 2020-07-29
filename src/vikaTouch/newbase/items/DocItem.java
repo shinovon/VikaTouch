@@ -70,20 +70,28 @@ public class DocItem
 				
 				try
 				{
-					iconPs = PhotoSize.getSize(prevSizes, 's');
+					iconPs = PhotoSize.getSize(prevSizes, "s");
 				}
 				catch (Exception e)
 				{
+					try
+					{
+						iconPs = PhotoSize.getSize(prevSizes, "d");
+					}
+					catch (Exception e3)
+					{
+						e3.printStackTrace();
+					}
 				}
 				try
 				{
-					prevPs = PhotoSize.getSize(prevSizes, 'x');
+					prevPs = PhotoSize.getSize(prevSizes, "x");
 				}
 				catch (Exception e1)
 				{
 					try
 					{
-						prevPs = PhotoSize.getSize(prevSizes, 'o');
+						prevPs = PhotoSize.getSize(prevSizes, "o");
 					}
 					catch (Exception e2)
 					{
@@ -172,8 +180,6 @@ public class DocItem
 		}
 		catch (Exception e)
 		{
-			
-			e.printStackTrace();
 			try
 			{
 				switch(type)
@@ -190,9 +196,12 @@ public class DocItem
 					case TYPE_EBOOK:
 					case TYPE_UNKNOWN:
 					default:
-						if(ext.toLowerCase().indexOf("jar")!=-1) {
+						if(ext.toLowerCase().indexOf("jar") != VikaTouch.INDEX_FALSE)
+						{
 							return DisplayUtils.resizeItemPreview(Image.createImage("/docjar.png"));
-						} else {
+						}
+						else
+						{
 							return DisplayUtils.resizeItemPreview(Image.createImage("/docfile.png"));
 						}
 				}
