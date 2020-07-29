@@ -338,14 +338,14 @@ public class MenuCanvas extends MainCanvas {
 							g.drawImage(settingsImg, 325, 18, 0);
 						}
 						
-						if(VikaTouch.has > 0)
+						if(VikaTouch.unreadCount > 0)
 						{
 	
 							if(dialImg2 != null)
 							{
 								g.drawImage(dialImg2, 168, 599, 0);
 								g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
-								g.drawString("" + VikaTouch.has, 191, 598, 0);
+								g.drawString("" + VikaTouch.unreadCount, 191, 598, 0);
 							}
 							else if(dialImg != null)
 							{
@@ -382,14 +382,14 @@ public class MenuCanvas extends MainCanvas {
 							g.drawImage(settingsImg, 605, 18, 0);
 						}
 						
-						if(VikaTouch.has > 0)
+						if(VikaTouch.unreadCount > 0)
 						{
 
 							if(dialImg2 != null)
 							{
 								g.drawImage(MenuCanvas.dialImg2, 308, 319, 0);
 								g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
-								g.drawString("" + VikaTouch.has, 330, 318, 0);
+								g.drawString("" + VikaTouch.unreadCount, 330, 318, 0);
 							}
 							else if(dialImg != null)
 							{
@@ -504,13 +504,13 @@ public class MenuCanvas extends MainCanvas {
 						g.drawImage(newsImg, 18, 301, 0);
 					}
 					
-					if(VikaTouch.has > 0)
+					if(VikaTouch.unreadCount > 0)
 					{
 						if(dialImg2 != null)
 						{
 							g.drawImage(dialImg2, 114, 299, 0);
 							g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
-							g.drawString(""+VikaTouch.has, 126, 300, 0);
+							g.drawString(""+VikaTouch.unreadCount, 126, 300, 0);
 						}
 						else if(dialImg != null)
 						{

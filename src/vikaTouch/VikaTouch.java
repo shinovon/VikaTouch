@@ -49,7 +49,7 @@ public final class VikaTouch
 	public static Thread mainThread;
 	public static UIThread uiThread;
 	public static String userId;
-	public static int has = -1;
+	public static int unreadCount = -1;
 	public static boolean offlineMode;
 	public static boolean loading;
 	public static AboutCanvas about;

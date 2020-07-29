@@ -52,9 +52,9 @@ public class Dialogs
 						boolean u = dialogs[0] == null || item.getJSONObject("last_message").optString("text").substring(0, 7).equalsIgnoreCase(dialogs[0].lastmessage.text.substring(0, 7));
 						int has = response.optInt("unread_count");
 						itemsCount = response.optInt("count");
-						if(VikaTouch.has != has || has > 0 || u)
+						if(VikaTouch.unreadCount != has || has > 0 || u)
 						{
-							VikaTouch.has = has;
+							VikaTouch.unreadCount = has;
 							VikaTouch.loading = true;
 							x = VikaUtils.download(new URLBuilder("messages.getConversations").addField("filter", "all").addField("extended", "1").addField("count", dialogsCount));
 							VikaTouch.loading = true;
