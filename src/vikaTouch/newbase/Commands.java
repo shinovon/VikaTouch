@@ -76,11 +76,18 @@ public class Commands
 					{
 						//Меню
 						
-						if(!(s instanceof MenuCanvas))
+						if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_MENU || s instanceof DocsCanvas /* || s instanceof GroupsCanvas || s instanceof VideosCanvas || s instanceof FriendsCanvas */)
 						{
-							if(VikaTouch.menuCanv == null)
-								VikaTouch.menuCanv = new MenuCanvas();
-							VikaTouch.setDisplay(VikaTouch.menuCanv);
+							if(!(s instanceof MenuCanvas))
+							{
+								if(VikaTouch.menuCanv == null)
+									VikaTouch.menuCanv = new MenuCanvas();
+								VikaTouch.setDisplay(VikaTouch.menuCanv);
+							}
+						}
+						else if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_DOCSLIST)
+						{
+							VikaTouch.setDisplay(VikaTouch.docsCanv);
 						}
 						break;
 					}
@@ -159,7 +166,8 @@ public class Commands
 						}
 					}
 					case 10:
-					{/*
+					{
+						/*
 						//свайп влево
 						if(d instanceof MenuCanvas)
 						{

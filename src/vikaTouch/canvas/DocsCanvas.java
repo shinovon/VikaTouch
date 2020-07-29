@@ -183,7 +183,7 @@ public class DocsCanvas
 						yy2 = 0;
 					int yy = 0;
 					for(int i = yy2; i < itemsCount; i++)
-					{
+					{  
 						int y1 = scrolled + 58 + yy;
 						int y2 = y1 + docs[i].itemDrawHeight;
 						yy += docs[i].itemDrawHeight;
