@@ -80,7 +80,6 @@ public class ImageStorage
     
     public static void save(String s, Image i)
     {
-    	
 		images.put(s, i);
 		if(images.size() > lastSize)
 			storeImagesInRMS();
@@ -217,38 +216,41 @@ public class ImageStorage
             String x = null;
             for (curImage = null; e.hasMoreElements(); curImage = (Image) images.get(x = (String) e.nextElement()))
             {
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                DataOutputStream outputStream = new DataOutputStream(baos);
- 
-                w = curImage.getWidth();
-                h = curImage.getHeight();
-                l = w * h;
-                //if (l > MAX_AREA_OF_IMAGE)
-                //    rgbImage = new int[l];
- 
-                getRGB(rgbImage, curImage, w, h, l);
-                try {
-                    outputStream.writeUTF(x);
-                    outputStream.writeInt(l);
-                    outputStream.writeInt(w);
-                    outputStream.writeInt(h);
-                    for (int j = 0; j < l; j++)
-                        outputStream.writeInt(rgbImage[j]);
-                    System.gc();
-                }
-                catch (IOException ioe)
-                {
-                    ioe.printStackTrace();
-                }
- 
-                byte[] b = baos.toByteArray();
-                int id = recordStore.addRecord(b, 0, b.length);
+            	if(curImage != null)
+	            {
+	                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	                DataOutputStream outputStream = new DataOutputStream(baos);
+	 
+	                w = curImage.getWidth();
+	                h = curImage.getHeight();
+	                l = w * h;
+	                if (l > MAX_AREA_OF_IMAGE)
+	                    rgbImage = new int[l];
+	 
+	                getRGB(rgbImage, curImage, w, h, l);
+	                try {
+	                    outputStream.writeUTF(x);
+	                    outputStream.writeInt(l);
+	                    outputStream.writeInt(w);
+	                    outputStream.writeInt(h);
+	                    for (int j = 0; j < l; j++)
+	                        outputStream.writeInt(rgbImage[j]);
+	                    System.gc();
+	                }
+	                catch (IOException ioe)
+	                {
+	                    ioe.printStackTrace();
+	                }
+	 
+	                byte[] b = baos.toByteArray();
+	                int id = recordStore.addRecord(b, 0, b.length);
+            	}
             }
             recordStore.closeRecordStore();
         }
-        catch (Exception rse)
+        catch (Exception e)
         {
-            rse.printStackTrace();
+        	
         }
     }
  

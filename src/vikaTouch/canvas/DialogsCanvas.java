@@ -137,13 +137,17 @@ public class DialogsCanvas
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
-					int yy1 = y - (scrolled + 58);
+					int yy1 = (y - 58) - scrolled;
 					int yy2 = yy1 / 63;
 					if(yy2 < 0)
 						yy2 = 0;
 					int yy = 0;
 					if(yy2 > 0)
 						yy = yy1;
+					System.out.println("r y: " + y);
+					System.out.println("r yy2: " + yy2);
+					System.out.println("r yy1: " + yy1);
+					System.out.println("r yy: " + yy);
 					for(int i = yy2; i < Dialogs.itemsCount; i++)
 					{
 						int y1 = scrolled + 58 + yy;
@@ -179,14 +183,20 @@ public class DialogsCanvas
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
-					int yy1 = y - scrolled - 50;
-					int yy2 = yy1 / 63; 
+					int yy1 = (y - 58) - scrolled;
+					int yy2 = yy1 / 63;
 					if(yy2 < 0)
 						yy2 = 0;
 					int yy = 0;
+					if(yy2 > 0)
+						yy = yy1;
+					System.out.println("p y: " + y);
+					System.out.println("p yy2: " + yy2);
+					System.out.println("p yy1: " + yy1);
+					System.out.println("p yy: " + yy);
 					for(int i = yy2; i < Dialogs.itemsCount; i++)
 					{
-						int y1 = scrolled + 50 + yy;
+						int y1 = scrolled + 58 + yy;
 						int y2 = y1 + Dialogs.dialogs[i].itemDrawHeight;
 						yy += Dialogs.dialogs[i].itemDrawHeight;
 						if(y > y1 && y < y2)
