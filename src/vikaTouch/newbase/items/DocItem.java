@@ -50,10 +50,11 @@ public class DocItem
 	
 	public void parseJSON()
 	{
-		prevSizes = new PhotoSize[10];
+		System.out.println(json.toString());
 		
 		try
 		{
+			date = json.optInt("date");
 			name = json.optString("title");
 			url = fixJSONString(json.optString("url"));
 			size = json.optInt("size");
