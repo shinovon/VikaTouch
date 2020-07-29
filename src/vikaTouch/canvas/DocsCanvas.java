@@ -199,6 +199,7 @@ public class DocsCanvas
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
+<<<<<<< HEAD
 					int yy1 =/* y - */(scrolled + 58);
 					int yy2 = yy1 / (48 + (DocItem.BORDER * 2));
 					if(yy2 < 0)
@@ -221,7 +222,21 @@ public class DocsCanvas
 							break;
 						}
 						Thread.yield();
+=======
+					int h = 48 + (DocItem.BORDER * 2);
+					int yy1 = y - (scrolled + 58);
+					int i = yy1 / h;
+					if(i < 0)
+						i = 0;
+					int yy = 0;
+					int y1 = scrolled + 58 + yy;
+					yy += docs[i].itemDrawHeight;
+					if(!dragging)
+					{
+						docs[i].tap(x, yy);
+>>>>>>> 37e8ef142b38de45c27db918ad1d5fff78456aa0
 					}
+					break;
 				}
 				break;
 			}

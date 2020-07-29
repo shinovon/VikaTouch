@@ -80,7 +80,6 @@ public class ImageStorage
     
     public static void save(String s, Image i)
     {
-    	
 		images.put(s, i);
 		if(images.size() > lastSize)
 			storeImagesInRMS();
@@ -132,6 +131,7 @@ public class ImageStorage
      */
     protected static void restoreImagesFromRMS()
     {
+    	/*
         int[] intArrayOfRGBforImage = null;
         int w = 0;//width of image
         int h = 0;//height of image
@@ -144,8 +144,8 @@ public class ImageStorage
             RecordEnumeration re = recordStore.enumerateRecords(null, null, true);
  
             /* Here you can place code for taking additional info for re-cashing into RMS (you should simply skip it)
-             * because it is already processed) */
-            /*...*/
+             * because it is already processed) 
+            /*...
  
             try
             {
@@ -184,6 +184,7 @@ public class ImageStorage
         {
             rse.printStackTrace();
         }
+        */
     }
  
     /**
@@ -193,6 +194,7 @@ public class ImageStorage
      */
     public static void storeImagesInRMS()
     {
+    	/*
         int w, h, l;
         int[] rgbImage = new int[MAX_AREA_OF_IMAGE];
         try
@@ -210,46 +212,50 @@ public class ImageStorage
             }
             RecordStore recordStore = RecordStore.openRecordStore(RMS_IMAGES, true);
  
-            /*save additional info for checking necessity of re-cashing into RMS*/
-            /*...*/
+            /*save additional info for checking necessity of re-cashing into RMS
+            /*...
             Image curImage;
             Enumeration e = images.elements();
             String x = null;
             for (curImage = null; e.hasMoreElements(); curImage = (Image) images.get(x = (String) e.nextElement()))
             {
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                DataOutputStream outputStream = new DataOutputStream(baos);
- 
-                w = curImage.getWidth();
-                h = curImage.getHeight();
-                l = w * h;
-                //if (l > MAX_AREA_OF_IMAGE)
-                //    rgbImage = new int[l];
- 
-                getRGB(rgbImage, curImage, w, h, l);
-                try {
-                    outputStream.writeUTF(x);
-                    outputStream.writeInt(l);
-                    outputStream.writeInt(w);
-                    outputStream.writeInt(h);
-                    for (int j = 0; j < l; j++)
-                        outputStream.writeInt(rgbImage[j]);
-                    System.gc();
-                }
-                catch (IOException ioe)
-                {
-                    ioe.printStackTrace();
-                }
- 
-                byte[] b = baos.toByteArray();
-                int id = recordStore.addRecord(b, 0, b.length);
+            	if(curImage != null)
+	            {
+	                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	                DataOutputStream outputStream = new DataOutputStream(baos);
+	 
+	                w = curImage.getWidth();
+	                h = curImage.getHeight();
+	                l = w * h;
+	                if (l > MAX_AREA_OF_IMAGE)
+	                    rgbImage = new int[l];
+	 
+	                getRGB(rgbImage, curImage, w, h, l);
+	                try {
+	                    outputStream.writeUTF(x);
+	                    outputStream.writeInt(l);
+	                    outputStream.writeInt(w);
+	                    outputStream.writeInt(h);
+	                    for (int j = 0; j < l; j++)
+	                        outputStream.writeInt(rgbImage[j]);
+	                    System.gc();
+	                }
+	                catch (IOException ioe)
+	                {
+	                    ioe.printStackTrace();
+	                }
+	 
+	                byte[] b = baos.toByteArray();
+	                int id = recordStore.addRecord(b, 0, b.length);
+            	}
             }
             recordStore.closeRecordStore();
         }
-        catch (Exception rse)
+        catch (Exception e)
         {
-            rse.printStackTrace();
+        	
         }
+        */
     }
  
     /**
@@ -262,12 +268,14 @@ public class ImageStorage
     public static void loadImages()
     		throws Exception
     {
+    	/*
         RecordStore recordStore = RecordStore.openRecordStore(RMS_IMAGES, true);
         if (recordStore.getNumRecords() == 0)
         {
-            storeImagesInRMS();
+        //    storeImagesInRMS();
         }
         restoreImagesFromRMS();
+        */
         isLoaded = true;
     }
  

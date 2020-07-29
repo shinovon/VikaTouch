@@ -137,31 +137,19 @@ public class DialogsCanvas
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
-					int yy1 = y - (scrolled + 58);
-					int yy2 = yy1 / 63;
-					if(yy2 < 0)
-						yy2 = 0;
-					int yy = 0;
-					if(yy2 > 0)
-						yy = yy1;
-					for(int i = yy2; i < Dialogs.itemsCount; i++)
+					int yy1 = (y - 58) - scrolled;
+					int i = yy1 / 63;
+					if(i < 0)
+						i = 0;
+					unselectAll();
+					if(!dragging)
 					{
-						int y1 = scrolled + 58 + yy;
-						int y2 = y1 + Dialogs.dialogs[i].itemDrawHeight;
-						yy += Dialogs.dialogs[i].itemDrawHeight;
-						if(y > y1 && y < y2)
-						{
-							unselectAll();
-							if(!dragging)
-							{
-								Dialogs.dialogs[i].tap(x, y1 - y);
-							}
-							Dialogs.dialogs[i].released(dragging);
-							break;
-						}
-						Thread.yield();
+						Dialogs.dialogs[i].tap(x, yy1 - (63 * i));
 					}
+					Dialogs.dialogs[i].released(dragging);
+					break;
 				}
+				
 				break;
 			}
 				
@@ -179,25 +167,15 @@ public class DialogsCanvas
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
-					int yy1 = y - scrolled - 50;
-					int yy2 = yy1 / 63; 
-					if(yy2 < 0)
-						yy2 = 0;
-					int yy = 0;
-					for(int i = yy2; i < Dialogs.itemsCount; i++)
-					{
-						int y1 = scrolled + 50 + yy;
-						int y2 = y1 + Dialogs.dialogs[i].itemDrawHeight;
-						yy += Dialogs.dialogs[i].itemDrawHeight;
-						if(y > y1 && y < y2)
-						{
-							unselectAll();
-							Dialogs.dialogs[i].pressed();
-							repaint();
-							break;
-						}
-						Thread.yield();
-					}
+
+					int yy1 = (y - 58) - scrolled;
+					int i = yy1 / 63;
+					if(i < 0)
+						i = 0;
+					unselectAll();
+					Dialogs.dialogs[i].pressed();
+					repaint();
+					break;
 				}
 				break;
 			}
