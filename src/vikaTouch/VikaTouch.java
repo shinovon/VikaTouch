@@ -17,7 +17,6 @@ import vikaTouch.canvas.*;
 import vikaTouch.canvas.menu.DocsCanvas;
 import vikaTouch.canvas.menu.FriendsCanvas;
 import vikaTouch.canvas.menu.GroupsCanvas;
-import vikaTouch.canvas.menu.LoginCanvas;
 import vikaTouch.canvas.menu.MenuCanvas;
 import vikaTouch.canvas.menu.PhotosCanvas;
 

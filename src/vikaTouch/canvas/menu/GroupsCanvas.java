@@ -20,7 +20,9 @@ import vikaTouch.newbase.items.DocItem;
 import vikaTouch.newbase.items.GroupItem;
 
 
-public class GroupsCanvas extends MainCanvas {
+public class GroupsCanvas
+	extends MainCanvas
+{
 
 	public GroupsCanvas()
 	{
@@ -29,39 +31,12 @@ public class GroupsCanvas extends MainCanvas {
 		if(VikaTouch.menuCanv == null)
 			VikaTouch.menuCanv = new MenuCanvas();
 
-		try
-		{
-			switch(DisplayUtils.idispi)
-			{
-				case DisplayUtils.DISPLAY_PORTRAIT:
-				case DisplayUtils.DISPLAY_ALBUM:
-				case DisplayUtils.DISPLAY_E6:
-				{
-					if(menuImg == null)
-						menuImg = Image.createImage("/menu.png");
-					if(newsImg == null)
-						newsImg = Image.createImage("/lenta.png");
-					break;
-				}
-				case DisplayUtils.DISPLAY_S40:
-				case DisplayUtils.DISPLAY_ASHA311:
-				case DisplayUtils.DISPLAY_EQWERTY:
-				{
-					if(menuImg == null)
-						menuImg = VikaUtils.resize(Image.createImage("/menu.png"), 10, 9);
-					if(newsImg == null)
-						newsImg = VikaUtils.resize(Image.createImage("/lenta.png"), 11, 12);
-					break;
-				}
-			}
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		this.menuImg = MenuCanvas.menuImg;
+		this.newsImg = VikaTouch.menuCanv.newsImg;
 	}
 
-	public static boolean isReady() {
+	public static boolean isReady()
+	{
 		return gi != null;
 	}
 	

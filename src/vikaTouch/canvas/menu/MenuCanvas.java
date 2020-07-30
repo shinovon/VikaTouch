@@ -23,9 +23,9 @@ import vikaTouch.newbase.URLBuilder;
 
 public class MenuCanvas extends MainCanvas {
 
-	protected static Image logoImg;
-	private static Image menuImg;
-	protected static Image dialImg;
+	public static Image logoImg;
+	public static Image menuImg;
+	public static Image dialImg;
 	private static Image profileimg;
 	private static Image friendimg;
 	private static Image groupimg;
@@ -37,8 +37,8 @@ public class MenuCanvas extends MainCanvas {
 	private static Image videosimg;
 	private static Image photosimg;
 	private static int[] itemscmd = {4, 5, 6, 7, 8, 9, -1};
-	protected static Image dialImg2;
-	private static Image docsimg;
+	public static Image dialImg2;
+	public static Image docsimg;
 	private Image exit;
 	private Image settingsImg;
 

@@ -1,4 +1,4 @@
-package vikaTouch.canvas.menu;
+package vikaTouch.canvas;
 
 import java.io.IOException;
 
@@ -14,6 +14,7 @@ import javax.microedition.lcdui.TextField;
 import javax.microedition.lcdui.game.GameCanvas;
 
 import vikaTouch.VikaTouch;
+import vikaTouch.canvas.menu.MenuCanvas;
 import vikaTouch.newbase.ColorUtils;
 import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.TextEditor;

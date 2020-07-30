@@ -9,11 +9,11 @@ import javax.microedition.lcdui.Displayable;
 import vikaTouch.VikaTouch;
 import vikaTouch.canvas.AboutCanvas;
 import vikaTouch.canvas.DialogsCanvas;
+import vikaTouch.canvas.LoginCanvas;
 import vikaTouch.canvas.NewsCanvas;
 import vikaTouch.canvas.menu.DocsCanvas;
 import vikaTouch.canvas.menu.FriendsCanvas;
 import vikaTouch.canvas.menu.GroupsCanvas;
-import vikaTouch.canvas.menu.LoginCanvas;
 import vikaTouch.canvas.menu.MenuCanvas;
 import vikaTouch.canvas.menu.PhotosCanvas;
 import vikaTouch.canvas.menu.VideosCanvas;
@@ -43,7 +43,6 @@ public class Commands
 					case -1:
 					{
 						//Выход
-						
 						VikaTouch.inst.destroyApp(false);
 						
 						break;
@@ -51,7 +50,6 @@ public class Commands
 					case 0:
 					{
 						//Новости
-		
 						if(!(s instanceof NewsCanvas))
 						{
 							VikaTouch.loading = true;
@@ -65,7 +63,6 @@ public class Commands
 					case 1:
 					{
 						//Сообщения
-						
 						if(!(s instanceof DialogsCanvas))
 						{
 							VikaTouch.loading = true;
@@ -79,8 +76,7 @@ public class Commands
 					case 2:
 					{
 						//Меню
-						
-						if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_MENU || s instanceof DocsCanvas  || s instanceof GroupsCanvas || s instanceof VideosCanvas || s instanceof FriendsCanvas)
+						if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_MENU || s instanceof DocsCanvas  || s instanceof GroupsCanvas || s instanceof VideosCanvas || s instanceof FriendsCanvas || s instanceof PhotosCanvas)
 						{
 							if(!(s instanceof MenuCanvas))
 							{
@@ -114,7 +110,6 @@ public class Commands
 					case 3:
 					{
 						//Логин
-						
 						VikaTouch.loading = true;
 						
 						if(s instanceof LoginCanvas)
@@ -136,6 +131,7 @@ public class Commands
 					}
 					case 5:
 					{
+						//Группы
 						if(s instanceof MenuCanvas)
 						{
 							if(VikaTouch.grCanv == null)

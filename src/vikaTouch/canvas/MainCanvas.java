@@ -14,8 +14,8 @@ public abstract class MainCanvas
 {
 
 	public static int lastMenu;
-	protected Image menuImg;
-	protected Image newsImg;
+	public Image menuImg;
+	public Image newsImg;
 
 	protected void scrollHorizontally(int deltaX)
 	{
