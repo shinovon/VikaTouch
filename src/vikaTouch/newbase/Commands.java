@@ -15,6 +15,7 @@ import vikaTouch.canvas.menu.FriendsCanvas;
 import vikaTouch.canvas.menu.GroupsCanvas;
 import vikaTouch.canvas.menu.LoginCanvas;
 import vikaTouch.canvas.menu.MenuCanvas;
+import vikaTouch.canvas.menu.PhotosCanvas;
 import vikaTouch.canvas.menu.VideosCanvas;
 
 public class Commands
@@ -92,6 +93,22 @@ public class Commands
 						{
 							VikaTouch.setDisplay(VikaTouch.docsCanv);
 						}
+						else if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_PHOTOSLIST)
+						{
+							VikaTouch.setDisplay(VikaTouch.photosCanv);
+						}
+						else if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_FRIENDSLIST)
+						{
+							VikaTouch.setDisplay(VikaTouch.friendsCanv);
+						}
+						else if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_GROUPSLIST)
+						{
+							VikaTouch.setDisplay(VikaTouch.grCanv);
+						}
+						else if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_VIDEOSLIST)
+						{
+							VikaTouch.setDisplay(VikaTouch.videosCanv);
+						}
 						break;
 					}
 					case 3:
@@ -111,8 +128,9 @@ public class Commands
 						//Друзья
 						if(s instanceof MenuCanvas)
 						{
-							final Alert alert = new Alert("нажато","друзья", null, AlertType.INFO);
-							VikaTouch.setDisplay(alert);
+							if(VikaTouch.friendsCanv == null)
+								VikaTouch.friendsCanv = new FriendsCanvas();
+							VikaTouch.setDisplay(VikaTouch.friendsCanv);
 						}
 						break;
 					}
@@ -161,6 +179,7 @@ public class Commands
 					}
 					case 9:
 					{
+						//Документы
 						if(s instanceof MenuCanvas)
 						{
 							if(VikaTouch.docsCanv == null)

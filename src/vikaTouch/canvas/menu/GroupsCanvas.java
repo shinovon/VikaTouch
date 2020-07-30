@@ -62,7 +62,7 @@ public class GroupsCanvas extends MainCanvas {
 	}
 
 	public static boolean isReady() {
-		return gi!=null;
+		return gi != null;
 	}
 	
 	public final static int loadGroupsCount = 100;
@@ -135,7 +135,7 @@ public class GroupsCanvas extends MainCanvas {
 			int y = oneitemheight + w;
 			try
 			{
-				if(gi!=null)
+				if(gi != null)
 				{
 					for(int i = 0; i < itemsCount; i++)
 					{

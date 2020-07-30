@@ -203,6 +203,11 @@ public final class VikaTouch
 			DisplayUtils.current = DisplayUtils.CANVAS_FRIENDSLIST;
 			MainCanvas.lastMenu = DisplayUtils.CANVAS_FRIENDSLIST; 
 		}
+		if(s instanceof PhotosCanvas)
+		{
+			DisplayUtils.current = DisplayUtils.CANVAS_PHOTOSLIST;
+			MainCanvas.lastMenu = DisplayUtils.CANVAS_PHOTOSLIST; 
+		}
 		canvas.currentScreen = s;
 		canvas.paint();
 		loading = false;
