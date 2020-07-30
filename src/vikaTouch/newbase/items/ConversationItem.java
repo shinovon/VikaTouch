@@ -11,14 +11,14 @@ import org.json.me.JSONObject;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
-import vikaTouch.newbase.ColorUtils;
 import vikaTouch.newbase.Dialogs;
-import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.attachments.AudioAttachment;
 import vikaTouch.newbase.attachments.PhotoAttachment;
+import vikaUI.ColorUtils;
+import vikaUI.DisplayUtils;
 
 public class ConversationItem
-	extends Item
+	extends JSONUIItem
 {
 	public String text;
 	public String title;
@@ -29,7 +29,6 @@ public class ConversationItem
 	public boolean unread;
 	public boolean isMuted;
 	public String avaurl;
-	public boolean selected;
 	private String time;
 	private String type;
 	private boolean isGroup;
@@ -307,9 +306,9 @@ public class ConversationItem
 		*/
 	}
 	
-	private void remove()
+	public void keyPressed(int key)
 	{
-		
+		Dialogs.openDialog(this);
 	}
 
 	public void pressed()

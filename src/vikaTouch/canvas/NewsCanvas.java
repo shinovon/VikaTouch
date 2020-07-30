@@ -14,16 +14,15 @@ import org.json.me.JSONObject;
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
 import vikaTouch.canvas.menu.MenuCanvas;
-import vikaTouch.newbase.ColorUtils;
-import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.URLBuilder;
 import vikaTouch.newbase.items.PostItem;
+import vikaUI.ColorUtils;
+import vikaUI.DisplayUtils;
 
 public class NewsCanvas
 	extends MainCanvas
 {
 	
-	public static PostItem[] postitems = new PostItem[10];
 	public static JSONArray profiles;
 	public static JSONArray groups;
 	
@@ -104,15 +103,15 @@ public class NewsCanvas
 				{
 					itemCopy = item;
 				}
-				postitems[i] = new PostItem(itemCopy, item);
-				postitems[i].parseJSON();
-				if(postitems[i].text == "" && postitems[i].prevImage == null)
+				uiItems[i] = new PostItem(itemCopy, item);
+				((PostItem) uiItems[i]).parseJSON();
+				if(((PostItem) uiItems[i]).text == "" && ((PostItem) uiItems[i]).prevImage == null)
 				{
-					postitems[i] = null;
+					uiItems[i] = null;
 					i--;
 				}
 				else
-					itemsh += postitems[i].itemDrawHeight;
+					itemsh += uiItems[i].getDrawHeight() + 8;
 				i2++;
 			}
 			this.itemsCount = postscount;
@@ -150,10 +149,10 @@ public class NewsCanvas
 			{
 				for(int i = 0; i < itemsCount; i++)
 				{
-					if(postitems[i] != null)
+					if(uiItems[i] != null)
 					{
-						postitems[i].paint(g, y, scrolled);
-						y += postitems[i].itemDrawHeight + 8;
+						uiItems[i].paint(g, y, scrolled);
+						y += uiItems[i].getDrawHeight() + 8;
 					}
 				}
 			}
@@ -186,15 +185,15 @@ public class NewsCanvas
 						for(int i = 0; i < itemsCount; i++)
 						{
 							int y1 = scrolled + 50 + yy;
-							int y2 = y1 + postitems[i].itemDrawHeight;
-							yy += postitems[i].itemDrawHeight;
+							int y2 = y1 + uiItems[i].getDrawHeight();
+							yy += uiItems[i].getDrawHeight();
 							if(y > y1 && y < y2)
 							{
-								postitems[i].tap(x, y1 - y);
+								uiItems[i].tap(x, y1 - y);
 								itemsh = 0;
 								for(int i2 = 0; i2 < itemsCount; i2++)
 								{
-									itemsh += postitems[i2].itemDrawHeight;
+									itemsh += uiItems[i2].getDrawHeight();
 								}
 								break;
 							}

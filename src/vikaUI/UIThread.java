@@ -1,4 +1,4 @@
-package vikaTouch.newbase;
+package vikaUI;
 
 import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.game.GameCanvas;

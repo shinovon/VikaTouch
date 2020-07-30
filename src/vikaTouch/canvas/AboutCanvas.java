@@ -5,10 +5,10 @@ import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 
 import vikaTouch.VikaTouch;
-import vikaTouch.newbase.ColorUtils;
-import vikaTouch.newbase.Commands;
-import vikaTouch.newbase.DisplayUtils;
-import vikaTouch.newbase.VikaScreen;
+import vikaTouch.newbase.CommandsImpl;
+import vikaUI.ColorUtils;
+import vikaUI.DisplayUtils;
+import vikaUI.VikaScreen;
 
 public class AboutCanvas
 	extends VikaScreen

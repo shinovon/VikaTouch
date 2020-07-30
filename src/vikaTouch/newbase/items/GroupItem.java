@@ -8,12 +8,12 @@ import org.json.me.JSONObject;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
-import vikaTouch.newbase.ColorUtils;
-import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.attachments.PhotoSize;
+import vikaUI.ColorUtils;
+import vikaUI.DisplayUtils;
 
 public class GroupItem
-	extends Item
+	extends JSONUIItem
 {
 
 	private String name;
@@ -105,6 +105,11 @@ public class GroupItem
 		{
 
 		}
+	}
+
+	public void keyPressed(int key)
+	{
+		
 	}
 
 }

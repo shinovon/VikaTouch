@@ -12,15 +12,16 @@ import org.json.me.JSONObject;
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
 import vikaTouch.canvas.NewsCanvas;
-import vikaTouch.newbase.ColorUtils;
-import vikaTouch.newbase.DisplayUtils;
-import vikaTouch.newbase.TextBreaker;
 import vikaTouch.newbase.URLBuilder;
 import vikaTouch.newbase.attachments.Attachment;
 import vikaTouch.newbase.attachments.PhotoAttachment;
+import vikaUI.ColorUtils;
+import vikaUI.DisplayUtils;
+import vikaUI.TextBreaker;
+import vikaUI.UIItem;
 
 public class PostItem
-	extends Item
+	extends JSONUIItem
 {
 	
 	private JSONObject json2;
@@ -307,5 +308,10 @@ public class PostItem
 	{
 		full = true;
 		parseJSON();
+	}
+
+	public void keyPressed(int key)
+	{
+		
 	}
 }

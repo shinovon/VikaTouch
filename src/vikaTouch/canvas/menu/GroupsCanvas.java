@@ -13,11 +13,11 @@ import org.json.me.JSONObject;
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
 import vikaTouch.canvas.MainCanvas;
-import vikaTouch.newbase.ColorUtils;
-import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.URLBuilder;
 import vikaTouch.newbase.items.DocItem;
 import vikaTouch.newbase.items.GroupItem;
+import vikaUI.ColorUtils;
+import vikaUI.DisplayUtils;
 
 
 public class GroupsCanvas
@@ -35,13 +35,12 @@ public class GroupsCanvas
 		this.newsImg = VikaTouch.menuCanv.newsImg;
 	}
 
-	public static boolean isReady()
+	public boolean isReady()
 	{
-		return gi != null;
+		return uiItems != null;
 	}
 	
 	public final static int loadGroupsCount = 100;
-	private static GroupItem[] gi = null;
 	public static Thread downloaderThread;
 
 	public void LoadGroups()
@@ -64,12 +63,12 @@ public class GroupsCanvas
 						JSONArray items = response.getJSONArray("items");
 						System.out.println(items.toString());
 						itemsCount = items.length();
-						gi = new GroupItem[items.length()];
+						uiItems = new GroupItem[items.length()];
 						for(int i = 0; i < itemsCount; i++)
 						{
 							JSONObject item = items.getJSONObject(i);
-							gi[i] = new GroupItem(item);
-							gi[i].parseJSON();
+							uiItems[i] = new GroupItem(item);
+							((DocItem) uiItems[i]).parseJSON();
 						}
 
 					}
@@ -110,14 +109,14 @@ public class GroupsCanvas
 			int y = oneitemheight + w;
 			try
 			{
-				if(gi != null)
+				if(uiItems != null)
 				{
 					for(int i = 0; i < itemsCount; i++)
 					{
-						if(gi[i] != null)
+						if(uiItems[i] != null)
 						{
-							gi[i].paint(g, y, scrolled);
-							y += gi[i].itemDrawHeight;
+							uiItems[i].paint(g, y, scrolled);
+							y += uiItems[i].getDrawHeight();
 						}
 	
 					}
@@ -155,7 +154,7 @@ public class GroupsCanvas
 						i = 0;
 					if(!dragging)
 					{
-						gi[i].tap(x, yy1 - (h * i));
+						uiItems[i].tap(x, yy1 - (h * i));
 					}
 					break;
 				}

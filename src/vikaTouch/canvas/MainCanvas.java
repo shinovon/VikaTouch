@@ -6,8 +6,9 @@ import javax.microedition.lcdui.Image;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.canvas.menu.MenuCanvas;
-import vikaTouch.newbase.ColorUtils;
-import vikaTouch.newbase.DisplayUtils;
+import vikaUI.ColorUtils;
+import vikaUI.DisplayUtils;
+import vikaUI.ScrollableCanvas;
 
 public abstract class MainCanvas 
 	extends ScrollableCanvas 
@@ -19,6 +20,7 @@ public abstract class MainCanvas
 
 	protected void scrollHorizontally(int deltaX)
 	{
+		/*
 		if(deltaX < -7)
 		{
 			VikaTouch.inst.cmdsInst.commandAction(10, this);
@@ -27,6 +29,7 @@ public abstract class MainCanvas
 		{
 			VikaTouch.inst.cmdsInst.commandAction(11, this);
 		}
+		*/
 	}
 	
 	public void pointerReleased(int x, int y)

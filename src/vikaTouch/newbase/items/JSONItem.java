@@ -1,7 +1,5 @@
 package vikaTouch.newbase.items;
 
-import javax.microedition.lcdui.Graphics;
-
 import org.json.me.JSONArray;
 import org.json.me.JSONObject;
 
@@ -9,10 +7,10 @@ import vikaTouch.base.VikaUtils;
 import vikaTouch.newbase.JSONBase;
 import vikaTouch.newbase.attachments.Attachment;
 
-public abstract class Item
+public class JSONItem
 	extends JSONBase
 {
-	public Item(JSONObject json)
+	public JSONItem(JSONObject json)
 	{
 		this.json = json;
 	}
@@ -22,7 +20,6 @@ public abstract class Item
 	public int fromid;
 	public String text;
 	public long date;
-	public int itemDrawHeight = 50;
 	
 	public void parseJSON()
 	{
@@ -58,18 +55,8 @@ public abstract class Item
 		}
 	}
 	
-	public void paint(Graphics g, int y, int scrolled)
-	{
-		throw new RuntimeException("Cannot paint empty item!");
-	}
-	
 	public String getTime()
 	{
 		return VikaUtils.parseTime(date);
-	}
-	
-	public void tap(int x, int y)
-	{
-		
 	}
 }

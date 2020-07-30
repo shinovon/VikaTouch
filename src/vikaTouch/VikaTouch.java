@@ -23,13 +23,13 @@ import vikaTouch.canvas.menu.PhotosCanvas;
 import javax.microedition.lcdui.game.GameCanvas;
 
 import vikaTouch.newbase.CaptchaObject;
-import vikaTouch.newbase.Commands;
+import vikaTouch.newbase.CommandsImpl;
 import vikaTouch.newbase.Dialogs;
-import vikaTouch.newbase.DisplayUtils;
-import vikaTouch.newbase.UIThread;
 import vikaTouch.newbase.URLBuilder;
-import vikaTouch.newbase.VikaCanvas;
-import vikaTouch.newbase.VikaScreen;
+import vikaUI.DisplayUtils;
+import vikaUI.UIThread;
+import vikaUI.VikaCanvas;
+import vikaUI.VikaScreen;
 
 public final class VikaTouch
 	extends MIDlet
@@ -65,7 +65,7 @@ public final class VikaTouch
 	public static AboutCanvas about;
 	public static VikaCanvas canvas;
 	public boolean isPaused;
-	public Commands cmdsInst;
+	public CommandsImpl cmdsInst;
 	private String errReason;
 	private String tokenUnswer;
 	public boolean started = false;
@@ -93,6 +93,7 @@ public final class VikaTouch
 			mainThread = new Thread(this);
 			mainThread.start();
 			canvas = new VikaCanvas();
+			DisplayUtils.checkdisplay();
 			setDisplay(canvas);
 			uiThread = new UIThread();
 			uiThread.start();
@@ -345,7 +346,7 @@ public final class VikaTouch
 		if(fatal)
 		{
 			alert.setCommandListener(inst.cmdsInst);
-			alert.addCommand(Commands.close);
+			alert.addCommand(CommandsImpl.close);
 		}
 		else
 		{
@@ -362,7 +363,7 @@ public final class VikaTouch
 		if(fatal)
 		{
 			alert.setCommandListener(inst.cmdsInst);
-			alert.addCommand(Commands.close);
+			alert.addCommand(CommandsImpl.close);
 		}
 		else
 		{
@@ -375,7 +376,7 @@ public final class VikaTouch
 	{
 		ImageStorage.init();
 		
-		cmdsInst = new Commands();	
+		cmdsInst = new CommandsImpl();	
 
 		//Выбор сервера 
 		if (mobilePlatform.indexOf("S60") > 0)

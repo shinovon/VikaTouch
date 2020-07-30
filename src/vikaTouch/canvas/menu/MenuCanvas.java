@@ -16,10 +16,10 @@ import org.json.me.JSONObject;
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
 import vikaTouch.canvas.MainCanvas;
-import vikaTouch.newbase.ColorUtils;
-import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.JSONBase;
 import vikaTouch.newbase.URLBuilder;
+import vikaUI.ColorUtils;
+import vikaUI.DisplayUtils;
 
 public class MenuCanvas extends MainCanvas {
 
@@ -41,6 +41,8 @@ public class MenuCanvas extends MainCanvas {
 	public static Image docsimg;
 	private Image exit;
 	private Image settingsImg;
+	private int selectedBtn;
+	private int btnsLen = 8;
 
 	public MenuCanvas()
 	{
@@ -167,7 +169,19 @@ public class MenuCanvas extends MainCanvas {
 		}
 	}
 
+	public void up()
+	{
+		selectedBtn--;
+		if(selectedBtn < 0)
+			selectedBtn = 0;
+	}
 	
+	public void down()
+	{
+		selectedBtn++;
+		if(selectedBtn >= btnsLen )
+			selectedBtn = btnsLen - 1;
+	}
 	
 
 	public void paint(Graphics g)
@@ -546,67 +560,6 @@ public class MenuCanvas extends MainCanvas {
 			}
 		}
 	}
-	
-
-	
-	public final void pointerPressed(int x, int y)
-	{
-		/*
-		if(x > 0 && y > 0 && x < 58 && y < 58)
-		{
-			ColorUtils.isTemnaya = !ColorUtils.isTemnaya;
-			try {
-				switch(DisplayUtils.idispi)
-				{
-					case DisplayUtils.PORTRAIT:
-					{
-
-						more = Image.createImage("/more.png");
-						if(ColorUtils.isTemnaya)
-						{
-							dial = Image.createImage("/msg1.png");
-							img = Image.createImage("/lenta1.png");
-							diary = Image.createImage("/vikahead.png");
-							friendimg = Image.createImage("/friend1.png");
-							groupimg = null;
-						}
-						else
-						{
-							dial = Image.createImage("/msg.png");
-							img = Image.createImage("/lenta.png");
-							diary = Image.createImage("/vikahead.jpg");
-							friendimg = Image.createImage("/friend.png");
-							groupimg = Image.createImage("/group.png");
-						}
-						if(!hasAva)
-							profileimg = Image.createImage("/ava.png");
-						break;
-					}
-					
-					case DisplayUtils.S40:
-					{
-
-						if(!hasAva)
-							profileimg = Image.createImage("/ava25.png");
-						diary = Image.createImage("/vikaheadsmall.png");
-						groupimg = Image.createImage("/group12.png");
-						friendimg = Image.createImage("/friend25.png");
-						break;
-					}
-					
-					default:
-					{
-						break;
-					}
-				}
-			} catch (IOException e) {
-			}
-		}
-		*/
-
-		super.pointerPressed(x, y);
-	}
-	
 
 	public final void pointerReleased(int x, int y)
 	{

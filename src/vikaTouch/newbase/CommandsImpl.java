@@ -17,12 +17,14 @@ import vikaTouch.canvas.menu.GroupsCanvas;
 import vikaTouch.canvas.menu.MenuCanvas;
 import vikaTouch.canvas.menu.PhotosCanvas;
 import vikaTouch.canvas.menu.VideosCanvas;
+import vikaUI.DisplayUtils;
+import vikaUI.VikaScreen;
 
-public class Commands
+public class CommandsImpl
 	implements CommandListener
 {
 
-    public static final Command close = new Command("Закрыть", 4, 0);
+    public static final Command close = new Command("Закрыть приложение", 4, 0);
 
 	public void commandAction(Command c, Displayable d)
 	{
@@ -44,67 +46,24 @@ public class Commands
 					{
 						//Выход
 						VikaTouch.inst.destroyApp(false);
-						
 						break;
 					}
 					case 0:
 					{
 						//Новости
-						if(!(s instanceof NewsCanvas))
-						{
-							VikaTouch.loading = true;
-							
-							if(VikaTouch.newsCanv == null)
-								VikaTouch.newsCanv = new NewsCanvas();
-							VikaTouch.setDisplay(VikaTouch.newsCanv);
-						}
+						news(s);
 						break;
 					}
 					case 1:
 					{
 						//Сообщения
-						if(!(s instanceof DialogsCanvas))
-						{
-							VikaTouch.loading = true;
-		
-							if(VikaTouch.dialogsCanv == null)
-								VikaTouch.dialogsCanv = new DialogsCanvas();
-							VikaTouch.setDisplay(VikaTouch.dialogsCanv);
-						}
+						dialogs(s);
 						break;
 					}
 					case 2:
 					{
 						//Меню
-						if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_MENU || s instanceof DocsCanvas  || s instanceof GroupsCanvas || s instanceof VideosCanvas || s instanceof FriendsCanvas || s instanceof PhotosCanvas)
-						{
-							if(!(s instanceof MenuCanvas))
-							{
-								if(VikaTouch.menuCanv == null)
-									VikaTouch.menuCanv = new MenuCanvas();
-								VikaTouch.setDisplay(VikaTouch.menuCanv);
-							}
-						}
-						else if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_DOCSLIST)
-						{
-							VikaTouch.setDisplay(VikaTouch.docsCanv);
-						}
-						else if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_PHOTOSLIST)
-						{
-							VikaTouch.setDisplay(VikaTouch.photosCanv);
-						}
-						else if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_FRIENDSLIST)
-						{
-							VikaTouch.setDisplay(VikaTouch.friendsCanv);
-						}
-						else if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_GROUPSLIST)
-						{
-							VikaTouch.setDisplay(VikaTouch.grCanv);
-						}
-						else if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_VIDEOSLIST)
-						{
-							VikaTouch.setDisplay(VikaTouch.videosCanv);
-						}
+						menu(s);
 						break;
 					}
 					case 3:
@@ -116,6 +75,8 @@ public class Commands
 						{
 							VikaTouch.inst.login(LoginCanvas.user, LoginCanvas.pass);
 						}
+
+						VikaTouch.loading = false;
 						break;
 					}
 					case 4:
@@ -136,7 +97,7 @@ public class Commands
 						{
 							if(VikaTouch.grCanv == null)
 								VikaTouch.grCanv = new GroupsCanvas();
-							if(!GroupsCanvas.isReady())
+							if(!VikaTouch.grCanv.isReady())
 								VikaTouch.grCanv.LoadGroups();
 							VikaTouch.setDisplay(VikaTouch.grCanv);
 						}
@@ -186,50 +147,30 @@ public class Commands
 					}
 					case 10:
 					{
-						/*
 						//свайп влево
-						if(d instanceof MenuCanvas)
+						if(s instanceof MenuCanvas)
 						{
-							//final Alert alert = new Alert("свайпнуто","влево, диалоги", null, AlertType.INFO);
-							//VikaTouch.setDisplay(alert);
-		
-							if(VikaTouch.dialogs == null)
-								VikaTouch.dialogs = new DialogsCanvas();
-							VikaTouch.setDisplay(VikaTouch.dialogs);
+							dialogs(s);
 						}
-						if(d instanceof DialogsCanvas)
+						if(s instanceof DialogsCanvas)
 						{
-							//final Alert alert = new Alert("свайпнуто","влево, лента", null, AlertType.INFO);
-							//VikaTouch.setDisplay(alert);
-		
-							if(VikaTouch.news == null)
-								VikaTouch.news = new NewsCanvas();
-							VikaTouch.setDisplay(VikaTouch.news);
-						}*/
+							news(s);
+						}
 						break;
 					}
 					case 11:
 					{
-						/*
+						
 						//свайп вправо
-						if(d instanceof DialogsCanvas)
+						if(s instanceof DialogsCanvas)
 						{
-							//final Alert alert = new Alert("свайпнуто","вправо, главная", null, AlertType.INFO);
-							//VikaTouch.setDisplay(alert);if(VikaTouch.menu == null)
-							if(VikaTouch.menu == null)
-								VikaTouch.menu = new MenuCanvas();
-							VikaTouch.setDisplay(VikaTouch.menu);
+							menu(s);
 						}
 		
-						if(d instanceof NewsCanvas)
+						if(s instanceof NewsCanvas)
 						{
-							//final Alert alert = new Alert("свайпнуто","влево, диалоги", null, AlertType.INFO);
-							//VikaTouch.setDisplay(alert);
-		
-							if(VikaTouch.dialogs == null)
-								VikaTouch.dialogs = new DialogsCanvas();
-							VikaTouch.setDisplay(VikaTouch.dialogs);
-						}*/
+							dialogs(s);
+						}
 						break;
 					}
 					case 13:
@@ -249,6 +190,63 @@ public class Commands
 			}
 		};
 		t.start();
+	}
+
+	protected void news(VikaScreen s)
+	{
+		if(!(s instanceof NewsCanvas))
+		{
+			VikaTouch.loading = true;
+			
+			if(VikaTouch.newsCanv == null)
+				VikaTouch.newsCanv = new NewsCanvas();
+			VikaTouch.setDisplay(VikaTouch.newsCanv);
+		}
+	}
+
+	protected void dialogs(VikaScreen s)
+	{
+		if(!(s instanceof DialogsCanvas))
+		{
+			VikaTouch.loading = true;
+
+			if(VikaTouch.dialogsCanv == null)
+				VikaTouch.dialogsCanv = new DialogsCanvas();
+			VikaTouch.setDisplay(VikaTouch.dialogsCanv);
+		}
+	}
+
+	protected void menu(VikaScreen s)
+	{
+		if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_MENU || s instanceof DocsCanvas  || s instanceof GroupsCanvas || s instanceof VideosCanvas || s instanceof FriendsCanvas || s instanceof PhotosCanvas)
+		{
+			if(!(s instanceof MenuCanvas))
+			{
+				if(VikaTouch.menuCanv == null)
+					VikaTouch.menuCanv = new MenuCanvas();
+				VikaTouch.setDisplay(VikaTouch.menuCanv);
+			}
+		}
+		else if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_DOCSLIST)
+		{
+			VikaTouch.setDisplay(VikaTouch.docsCanv);
+		}
+		else if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_PHOTOSLIST)
+		{
+			VikaTouch.setDisplay(VikaTouch.photosCanv);
+		}
+		else if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_FRIENDSLIST)
+		{
+			VikaTouch.setDisplay(VikaTouch.friendsCanv);
+		}
+		else if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_GROUPSLIST)
+		{
+			VikaTouch.setDisplay(VikaTouch.grCanv);
+		}
+		else if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_VIDEOSLIST)
+		{
+			VikaTouch.setDisplay(VikaTouch.videosCanv);
+		}
 	}
 
 }

@@ -5,8 +5,10 @@ import javax.microedition.lcdui.Image;
 
 import org.json.me.JSONObject;
 
+import vikaUI.UIItem;
+
 public class PhotoItem
-	extends Item
+	extends JSONUIItem
 {
 	public int itemDrawWidth = 50;
 	private String iconUrl;
@@ -23,6 +25,16 @@ public class PhotoItem
 	}
 	
 	public void paint(Graphics g, int y, int scrolled)
+	{
+		
+	}
+
+	public void tap(int x, int y)
+	{
+		
+	}
+
+	public void keyPressed(int key)
 	{
 		
 	}

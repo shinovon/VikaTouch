@@ -1,12 +1,10 @@
-package vikaTouch.canvas;
+package vikaUI;
 
 import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.game.GameCanvas;
 
 import vikaTouch.VikaTouch;
-import vikaTouch.newbase.DisplayUtils;
-import vikaTouch.newbase.VikaScreen;
 
 public abstract class ScrollableCanvas
 	extends VikaScreen
@@ -27,6 +25,10 @@ public abstract class ScrollableCanvas
 	private int lastx;
 	public static int vmeshautsa = 528;
 	public static final double speed = 2.1;
+	public PressableUIItem[] uiItems;
+	public int scrollOffset;
+	public int currentItem;
+	public static boolean keysMode = false;
 	
 	public ScrollableCanvas()
 	{
@@ -37,6 +39,7 @@ public abstract class ScrollableCanvas
 
 	public final void pointerDragged(int x, int y)
 	{
+		keysMode = false;
 		if(!dragging)
 			lasty = starty;
 		final int deltaX = lastx - x;
@@ -67,12 +70,14 @@ public abstract class ScrollableCanvas
 
 	public void pointerPressed(int x, int y)
 	{
+		keysMode = false;
 		startx = x;
 		starty = y;
 	}
 
 	public void pointerReleased(int x, int y)
 	{
+		keysMode = false;
 		endx = x;
 		endy = y;
 		dragging = false;
@@ -81,30 +86,56 @@ public abstract class ScrollableCanvas
 	
 	public void keyPressed(int key)
 	{
+		keysMode = true;
 		if(key == -1)
 		{
-			scroll += 25;
+			up();
 		}
-		if(key == -2)
+		else if(key == Canvas.DOWN)
 		{
-			scroll -= 25;
+			down();
+		}
+		else if(key == 0)
+		{
+			
+		}
+		else
+		{
+			uiItems[currentItem].keyPressed(key);
 		}
 		repaint();
 	}
 	
 	public void keyRepeated(int key)
 	{
+		keysMode = true;
 		if(key == -1)
 		{
-			scroll += 75;
+			up();
 		}
 		if(key == -2)
 		{
-			scroll -= 75;
+			down();
 		}
 		repaint();
 	}
 	
+	private void down()
+	{
+		currentItem--;
+		if(currentItem < 0)
+			currentItem = 0;
+		scrolled += uiItems[currentItem].getDrawHeight();
+	}
+
+	private void up()
+	{
+		currentItem++;
+		if(currentItem >= itemsCount)
+			currentItem = itemsCount - 1;
+		scrolled -= uiItems[currentItem].getDrawHeight();
+	}
+
 	protected final void update(Graphics g)
 	{
 		boolean d2 = scroll != 0;

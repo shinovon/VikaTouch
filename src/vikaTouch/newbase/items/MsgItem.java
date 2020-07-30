@@ -9,8 +9,8 @@ import org.json.me.JSONObject;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
-import vikaTouch.newbase.DisplayUtils;
-import vikaTouch.newbase.TextBreaker;
+import vikaUI.DisplayUtils;
+import vikaUI.TextBreaker;
 
 public class MsgItem
 	extends ChatItem
@@ -61,6 +61,16 @@ public class MsgItem
 	public String getTime()
 	{
 		return VikaUtils.time(new Date(date * 1000L));
+	}
+
+	public void tap(int x, int y)
+	{
+		
+	}
+
+	public void keyPressed(int key)
+	{
+		
 	}
 
 }

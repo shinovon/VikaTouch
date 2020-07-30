@@ -1,14 +1,14 @@
-package vikaTouch.newbase;
+package vikaUI;
 
 import javax.microedition.lcdui.Font;
 
-import vikaTouch.newbase.items.Item;
+import vikaTouch.newbase.items.JSONUIItem;
 import vikaTouch.newbase.items.PostItem;
 
 public class TextBreaker
 {
 	
-	public static String[] breakText(final String text, boolean shortText, Item item, final boolean full, final int width)
+	public static String[] breakText(final String text, boolean shortText, JSONUIItem item, final boolean full, final int width)
 	{
 		Font font = Font.getFont(0, 0, 8);
 		String[] result;

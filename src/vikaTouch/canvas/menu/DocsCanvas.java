@@ -13,10 +13,10 @@ import org.json.me.JSONObject;
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
 import vikaTouch.canvas.MainCanvas;
-import vikaTouch.newbase.ColorUtils;
-import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.URLBuilder;
 import vikaTouch.newbase.items.DocItem;
+import vikaUI.ColorUtils;
+import vikaUI.DisplayUtils;
 
 public class DocsCanvas
 	extends MainCanvas
@@ -67,7 +67,6 @@ public class DocsCanvas
 	public int fromDoc = 0;
 	public int docsCount = 0;
 	public int totalDocs = 0;
-	private static DocItem[] docs;
 	public static Thread downloaderThread;
 
 	public boolean isPreviewShown = false;
@@ -76,7 +75,7 @@ public class DocsCanvas
 
 	public void LoadDocs(final int from, final int count)
 	{
-		docs = new DocItem[count];
+		uiItems = new DocItem[count];
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
 
@@ -102,8 +101,8 @@ public class DocsCanvas
 						for(int i = 0; i < itemsCount; i++)
 						{
 							JSONObject item = items.getJSONObject(i);
-							docs[i] = new DocItem(item);
-							docs[i].parseJSON();
+							uiItems[i] = new DocItem(item);
+							((DocItem) uiItems[i]).parseJSON();
 						}
 
 					}
@@ -146,10 +145,10 @@ public class DocsCanvas
 			{
 				for(int i = 0; i < itemsCount; i++)
 				{
-					if(docs[i] != null)
+					if(uiItems[i] != null)
 					{
-						docs[i].paint(g, y, scrolled);
-						y += docs[i].itemDrawHeight;
+						uiItems[i].paint(g, y, scrolled);
+						y += uiItems[i].getDrawHeight();
 					}
 
 				}
@@ -207,7 +206,7 @@ public class DocsCanvas
 						i = 0;
 					if(!dragging)
 					{
-						docs[i].tap(x, yy1 - (h * i));
+						uiItems[i].tap(x, yy1 - (h * i));
 					}
 					break;
 				}

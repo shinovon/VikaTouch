@@ -15,10 +15,10 @@ import javax.microedition.lcdui.game.GameCanvas;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.canvas.menu.MenuCanvas;
-import vikaTouch.newbase.ColorUtils;
-import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.TextEditor;
-import vikaTouch.newbase.VikaScreen;
+import vikaUI.ColorUtils;
+import vikaUI.DisplayUtils;
+import vikaUI.VikaScreen;
 
 public class LoginCanvas
 	extends VikaScreen

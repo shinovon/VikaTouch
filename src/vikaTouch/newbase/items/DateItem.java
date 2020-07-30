@@ -6,8 +6,8 @@ import javax.microedition.lcdui.Graphics;
 import org.json.me.JSONObject;
 
 import vikaTouch.base.VikaUtils;
-import vikaTouch.newbase.ColorUtils;
-import vikaTouch.newbase.DisplayUtils;
+import vikaUI.ColorUtils;
+import vikaUI.DisplayUtils;
 
 public final class DateItem
 	extends ChatItem
@@ -49,4 +49,14 @@ public final class DateItem
 			g.fillRoundRect((DisplayUtils.width - this.width) / 2, 56, this.width, this.itemDrawHeight, 10, 10);
 		}
 	}
+
+	public void tap(int x, int y)
+	{
+		
+	}
+	public void keyPressed(int key)
+	{
+		
+	}
+
 }

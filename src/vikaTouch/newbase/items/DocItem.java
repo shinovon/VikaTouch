@@ -1,5 +1,6 @@
 package vikaTouch.newbase.items;
 
+import javax.microedition.io.ConnectionNotFoundException;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
@@ -9,13 +10,13 @@ import org.json.me.JSONObject;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
-import vikaTouch.newbase.ColorUtils;
-import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.JSONBase;
 import vikaTouch.newbase.attachments.PhotoSize;
+import vikaUI.ColorUtils;
+import vikaUI.DisplayUtils;
 
 public class DocItem
-	extends Item
+	extends JSONUIItem
 {
 	private String name;
 	private String url;
@@ -290,5 +291,16 @@ public class DocItem
 
 		}
 	}
-
+	
+	public void keyPressed(int key)
+	{
+		try
+		{
+			VikaTouch.inst.platformRequest(url);
+		}
+		catch (ConnectionNotFoundException e) 
+		{
+			
+		}
+	}
 }

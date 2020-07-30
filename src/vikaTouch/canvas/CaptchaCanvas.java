@@ -6,10 +6,10 @@ import javax.microedition.lcdui.Image;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.newbase.CaptchaObject;
-import vikaTouch.newbase.ColorUtils;
-import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.TextEditor;
-import vikaTouch.newbase.VikaScreen;
+import vikaUI.ColorUtils;
+import vikaUI.DisplayUtils;
+import vikaUI.VikaScreen;
 
 public class CaptchaCanvas
 	extends VikaScreen
