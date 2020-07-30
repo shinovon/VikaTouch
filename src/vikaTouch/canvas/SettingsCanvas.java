@@ -8,7 +8,7 @@ public class SettingsCanvas
 
 	public void paint(Graphics g)
 	{
-		
+		drawHeaders(g, "Настройки");
 	}
 
 }

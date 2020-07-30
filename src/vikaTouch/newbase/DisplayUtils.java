@@ -5,8 +5,8 @@ import javax.microedition.lcdui.Image;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
-import vikaTouch.canvas.MenuCanvas;
 import vikaTouch.canvas.ScrollableCanvas;
+import vikaTouch.canvas.menu.MenuCanvas;
 
 public class DisplayUtils
 {

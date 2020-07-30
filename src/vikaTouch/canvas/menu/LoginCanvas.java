@@ -1,4 +1,4 @@
-package vikaTouch.canvas;
+package vikaTouch.canvas.menu;
 
 import java.io.IOException;
 

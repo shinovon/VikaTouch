@@ -14,6 +14,13 @@ import org.json.me.JSONObject;
 import vikaTouch.base.ImageStorage;
 import vikaTouch.base.VikaUtils;
 import vikaTouch.canvas.*;
+import vikaTouch.canvas.menu.DocsCanvas;
+import vikaTouch.canvas.menu.FriendsCanvas;
+import vikaTouch.canvas.menu.GroupsCanvas;
+import vikaTouch.canvas.menu.LoginCanvas;
+import vikaTouch.canvas.menu.MenuCanvas;
+import vikaTouch.canvas.menu.PhotosCanvas;
+
 import javax.microedition.lcdui.game.GameCanvas;
 
 import vikaTouch.newbase.CaptchaObject;
@@ -43,8 +50,10 @@ public final class VikaTouch
 	public static DialogsCanvas dialogsCanv;
 	public static DocsCanvas docsCanv;
 	public static GroupsCanvas grCanv;
-	//public static FriendsCanvas friendsCanv;
+	public static VikaScreen videosCanv;
+	public static FriendsCanvas friendsCanv;
 	public static NewsCanvas newsCanv;
+	public static PhotosCanvas photosCanv;
 	public static CaptchaCanvas captchaCanv;
 	public static RecordStore tokenRMS;
 	public static Image cameraImg;
@@ -183,6 +192,16 @@ public final class VikaTouch
 		{
 			DisplayUtils.current = DisplayUtils.CANVAS_DOCSLIST;
 			MainCanvas.lastMenu = DisplayUtils.CANVAS_DOCSLIST; 
+		}
+		if(s instanceof GroupsCanvas)
+		{
+			DisplayUtils.current = DisplayUtils.CANVAS_GROUPSLIST;
+			MainCanvas.lastMenu = DisplayUtils.CANVAS_GROUPSLIST; 
+		}
+		if(s instanceof FriendsCanvas)
+		{
+			DisplayUtils.current = DisplayUtils.CANVAS_FRIENDSLIST;
+			MainCanvas.lastMenu = DisplayUtils.CANVAS_FRIENDSLIST; 
 		}
 		canvas.currentScreen = s;
 		canvas.paint();

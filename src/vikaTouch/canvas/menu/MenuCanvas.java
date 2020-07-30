@@ -1,4 +1,4 @@
-package vikaTouch.canvas;
+package vikaTouch.canvas.menu;
 
 import java.io.IOException;
 import java.util.Date;
@@ -15,6 +15,7 @@ import org.json.me.JSONObject;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
+import vikaTouch.canvas.MainCanvas;
 import vikaTouch.newbase.ColorUtils;
 import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.JSONBase;

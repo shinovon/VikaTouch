@@ -1,4 +1,4 @@
-package vikaTouch.canvas;
+package vikaTouch.canvas.menu;
 
 import java.io.IOException;
 
@@ -12,6 +12,7 @@ import org.json.me.JSONObject;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
+import vikaTouch.canvas.MainCanvas;
 import vikaTouch.newbase.ColorUtils;
 import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.URLBuilder;
@@ -204,12 +205,9 @@ public class DocsCanvas
 					int i = yy1 / h;
 					if(i < 0)
 						i = 0;
-					int yy = 0;
-					int y1 = scrolled + 58 + yy;
-					yy += docs[i].itemDrawHeight;
 					if(!dragging)
 					{
-						docs[i].tap(x, yy);
+						docs[i].tap(x, yy1 - (h * i));
 					}
 					break;
 				}

@@ -5,6 +5,7 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 import vikaTouch.VikaTouch;
+import vikaTouch.canvas.menu.MenuCanvas;
 import vikaTouch.newbase.ColorUtils;
 import vikaTouch.newbase.DisplayUtils;
 

@@ -13,6 +13,7 @@ import org.json.me.JSONObject;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
+import vikaTouch.canvas.menu.MenuCanvas;
 import vikaTouch.newbase.ColorUtils;
 import vikaTouch.newbase.DisplayUtils;
 import vikaTouch.newbase.URLBuilder;

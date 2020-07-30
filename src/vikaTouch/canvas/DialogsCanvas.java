@@ -9,6 +9,7 @@ import javax.microedition.lcdui.Image;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
+import vikaTouch.canvas.menu.MenuCanvas;
 import vikaTouch.newbase.ColorUtils;
 import vikaTouch.newbase.Dialogs;
 import vikaTouch.newbase.DisplayUtils;

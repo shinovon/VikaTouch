@@ -9,11 +9,13 @@ import javax.microedition.lcdui.Displayable;
 import vikaTouch.VikaTouch;
 import vikaTouch.canvas.AboutCanvas;
 import vikaTouch.canvas.DialogsCanvas;
-import vikaTouch.canvas.DocsCanvas;
-import vikaTouch.canvas.GroupsCanvas;
-import vikaTouch.canvas.LoginCanvas;
-import vikaTouch.canvas.MenuCanvas;
 import vikaTouch.canvas.NewsCanvas;
+import vikaTouch.canvas.menu.DocsCanvas;
+import vikaTouch.canvas.menu.FriendsCanvas;
+import vikaTouch.canvas.menu.GroupsCanvas;
+import vikaTouch.canvas.menu.LoginCanvas;
+import vikaTouch.canvas.menu.MenuCanvas;
+import vikaTouch.canvas.menu.VideosCanvas;
 
 public class Commands
 	implements CommandListener
@@ -77,7 +79,7 @@ public class Commands
 					{
 						//Меню
 						
-						if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_MENU || s instanceof DocsCanvas /* || s instanceof GroupsCanvas || s instanceof VideosCanvas || s instanceof FriendsCanvas */)
+						if(MenuCanvas.lastMenu == DisplayUtils.CANVAS_MENU || s instanceof DocsCanvas  || s instanceof GroupsCanvas || s instanceof VideosCanvas || s instanceof FriendsCanvas)
 						{
 							if(!(s instanceof MenuCanvas))
 							{
@@ -116,10 +118,8 @@ public class Commands
 					}
 					case 5:
 					{
-						if(!(s instanceof GroupsCanvas))
+						if(s instanceof MenuCanvas)
 						{
-							VikaTouch.loading = true;
-		
 							if(VikaTouch.grCanv == null)
 								VikaTouch.grCanv = new GroupsCanvas();
 							if(!GroupsCanvas.isReady())
@@ -133,8 +133,7 @@ public class Commands
 						//Музыка
 						if(s instanceof MenuCanvas)
 						{
-							final Alert alert = new Alert("нажато","музыка", null, AlertType.INFO);
-							VikaTouch.setDisplay(alert);
+							VikaTouch.warn("Данная кнопка не фунцкионирует.");
 						}
 						break;
 					}
@@ -143,8 +142,9 @@ public class Commands
 						//Видео
 						if(s instanceof MenuCanvas)
 						{
-							final Alert alert = new Alert("нажато","видео", null, AlertType.INFO);
-							VikaTouch.setDisplay(alert);
+							if(VikaTouch.videosCanv == null)
+								VikaTouch.videosCanv = new VideosCanvas();
+							VikaTouch.setDisplay(VikaTouch.videosCanv);
 						}
 						break;
 					}
@@ -153,20 +153,19 @@ public class Commands
 						//Фотки
 						if(s instanceof MenuCanvas)
 						{
-							final Alert alert = new Alert("нажато","фотки", null, AlertType.INFO);
-							VikaTouch.setDisplay(alert);
+							if(VikaTouch.photosCanv == null)
+								VikaTouch.photosCanv = new PhotosCanvas();
+							VikaTouch.setDisplay(VikaTouch.photosCanv);
 						}
 						break;
 					}
 					case 9:
 					{
-						if(!(s instanceof DocsCanvas))
+						if(s instanceof MenuCanvas)
 						{
-							VikaTouch.loading = true;
-		
 							if(VikaTouch.docsCanv == null)
 								VikaTouch.docsCanv = new DocsCanvas();
-							VikaTouch.docsCanv.LoadDocs(0,DocsCanvas.loadDocsCount);
+							VikaTouch.docsCanv.LoadDocs(0, DocsCanvas.loadDocsCount);
 							VikaTouch.setDisplay(VikaTouch.docsCanv);
 						}
 					}
