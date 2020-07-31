@@ -40,9 +40,12 @@ public class GroupItem
 			id = json.optInt("id");
 			isAdmin = json.optInt("is_admin") == 1;
 			members = json.optInt("members_count");
-			try {
-				ava = DisplayUtils.resizeava(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
-			} catch (Exception e) {
+			try
+			{
+				ava = DisplayUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
+			}
+			catch (Exception e)
+			{
 				System.out.println("Группа "+link+": ошибка аватарки");
 				//System.out.println(json.toString());
 			}
@@ -83,10 +86,15 @@ public class GroupItem
 
 	public void paint(Graphics g, int y, int scrolled)
 	{
+		if(isSelected())
+		{
+			ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
+			g.fillRect(0, y, DisplayUtils.width, getDrawHeight());
+		}
 		ColorUtils.setcolor(g, 0);
 		if(name != null)
 			g.drawString(name, 73, y, 0);
-		ColorUtils.setcolor(g, 6);
+		ColorUtils.setcolor(g, ColorUtils.OUTLINE);
 		String descrS = (isAdmin ? "Администрирование, ":"")+(members>9999?((members/1000)+"K участников"):(members+" участников"));
 		g.drawString(descrS, 73, y + 24, 0);
 		if(ava != null)

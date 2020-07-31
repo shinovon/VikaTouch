@@ -47,5 +47,13 @@ public class AboutCanvas
 			VikaTouch.setDisplay(VikaTouch.menuCanv);
 		}
 	}
+	
+	public void keyPressed(int key)
+	{
+		if(key == 8 || key == -6)
+		{
+			VikaTouch.setDisplay(VikaTouch.menuCanv);
+		}
+	}
 
 }

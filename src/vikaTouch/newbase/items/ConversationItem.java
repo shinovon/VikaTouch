@@ -78,7 +78,7 @@ public class ConversationItem
 					
 				}
 			}
-			return DisplayUtils.resizeava(img);
+			return DisplayUtils.resizeChatAva(img);
 		}
 		catch (Exception e)
 		{
@@ -105,9 +105,9 @@ public class ConversationItem
 		
 		if(selected)
 		{
-			ColorUtils.setcolor(g, 3);
+			ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 			g.fillRect(0, y - 1, DisplayUtils.width, itemDrawHeight + 1);
-			ColorUtils.setcolor(g, -1);
+			ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 			//g.drawImage(deleteImg, DisplayUtils.width - 25, y + 17, 0);
 		}
 		if(title != null)
@@ -117,7 +117,7 @@ public class ConversationItem
 		
 		if(!selected)
 		{
-			ColorUtils.setcolor(g, 6);
+			ColorUtils.setcolor(g, ColorUtils.OUTLINE);
 		}
 		
 		g.drawString(text, 73, y + 40, 0);
@@ -260,7 +260,7 @@ public class ConversationItem
 				for(int i = 0; i < Dialogs.profiles.length(); i++)
 				{
 					final JSONObject profile = Dialogs.profiles.getJSONObject(i);
-					if(("" + lastmessage.fromid).equalsIgnoreCase("" + profile.optInt("id")))
+					if(lastmessage.fromid == profile.optInt("id"))
 					{
 						nameauthora = profile.optString("first_name");
 					}

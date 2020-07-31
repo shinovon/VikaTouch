@@ -68,7 +68,7 @@ public class GroupsCanvas
 						{
 							JSONObject item = items.getJSONObject(i);
 							uiItems[i] = new GroupItem(item);
-							((DocItem) uiItems[i]).parseJSON();
+							((GroupItem) uiItems[i]).parseJSON();
 						}
 
 					}

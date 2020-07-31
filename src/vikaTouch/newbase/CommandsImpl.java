@@ -144,6 +144,7 @@ public class CommandsImpl
 							VikaTouch.docsCanv.LoadDocs(0, DocsCanvas.loadDocsCount);
 							VikaTouch.setDisplay(VikaTouch.docsCanv);
 						}
+						break;
 					}
 					case 10:
 					{
@@ -181,6 +182,12 @@ public class CommandsImpl
 						VikaTouch.setDisplay(VikaTouch.about);
 						break;
 					}
+					case 14:
+					{
+						//Назад
+						back(s);
+						break;
+					}
 					default:
 					{
 						break;
@@ -190,6 +197,16 @@ public class CommandsImpl
 			}
 		};
 		t.start();
+	}
+
+	protected void back(VikaScreen s)
+	{
+		if(s instanceof AboutCanvas || s instanceof DocsCanvas  || s instanceof GroupsCanvas || s instanceof VideosCanvas || s instanceof FriendsCanvas || s instanceof PhotosCanvas)
+		{
+			if(VikaTouch.menuCanv == null)
+				VikaTouch.menuCanv = new MenuCanvas();
+			VikaTouch.setDisplay(VikaTouch.menuCanv);
+		}
 	}
 
 	protected void news(VikaScreen s)

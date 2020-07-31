@@ -125,11 +125,11 @@ public abstract class MainCanvas
 				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 				g.fillRect(0, 0, 240, 30);
 				ColorUtils.setcolor(g, -3);
-				g.fillRect(0, 295, 240, 25);
+				g.fillRect(0, DisplayUtils.height - 25, 240, 25);
 				
 				if(MenuCanvas.logoImg != null)
 				{
-					g.drawImage(MenuCanvas.logoImg, 2, 2, 0);
+					g.drawImage(MenuCanvas.logoImg, 2, 1, 0);
 				}
 				
 				if(menuImg != null)
@@ -165,7 +165,7 @@ public abstract class MainCanvas
 				}
 				
 				g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
-				g.drawString(title, 52, 2, 0);
+				g.drawString(title, 52, 0, 0);
 				g.setFont(Font.getFont(0, 0, 8));
 				break;
 			}
@@ -217,6 +217,57 @@ public abstract class MainCanvas
 				
 				break;
 			}
+			
+			case DisplayUtils.DISPLAY_EQWERTY:
+			{
+				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
+				g.fillRect(0, 0, 320, 30);
+				ColorUtils.setcolor(g, -3);
+				g.fillRect(0, 215, 320, 25);
+				
+				if(MenuCanvas.logoImg != null)
+				{
+					g.drawImage(MenuCanvas.logoImg, 2, 1, 0);
+				}
+				
+				if(menuImg != null)
+				{
+					g.drawImage(menuImg, 292, 303-75, 0);
+				}
+				
+				if(newsImg != null)
+				{
+					g.drawImage(newsImg, 18, 301-75, 0);
+				}
+				
+				if(VikaTouch.unreadCount > 0)
+				{
+					if(MenuCanvas.dialImg2 != null)
+					{
+						g.drawImage(MenuCanvas.dialImg2, 114, 299-75, 0);
+						g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
+						g.drawString(""+VikaTouch.unreadCount, 126, 300-75, 0);
+					}
+					else if(MenuCanvas.dialImg != null)
+					{
+						g.drawImage(MenuCanvas.dialImg, 114, 302-75, 0);
+					}
+
+				}
+				else
+				{
+					if(MenuCanvas.dialImg != null)
+					{
+						g.drawImage(MenuCanvas.dialImg, 114, 302-75, 0);
+					}
+				}
+				
+				g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
+				g.drawString(title, 52, 0, 0);
+				g.setFont(Font.getFont(0, 0, 8));
+				break;
+			}
+			
 			default:
 			{
 				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
@@ -226,10 +277,10 @@ public abstract class MainCanvas
 				
 				if(MenuCanvas.logoImg != null)
 				{
-					g.drawImage(MenuCanvas.logoImg, 2, 2, 0);
+					g.drawImage(MenuCanvas.logoImg, 2, 1, 0);
 				}
 
-				g.drawString(title, 72, 14, 0);
+				g.drawString(title, 72, 0, 0);
 			}
 		}
 	}

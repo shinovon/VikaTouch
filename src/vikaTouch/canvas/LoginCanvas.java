@@ -32,6 +32,8 @@ public class LoginCanvas
 	public static String user = "";
 	public static String pass;
 	public static Thread thread;
+	private int selectedBtn;
+	private boolean keysMode;
 
 	public LoginCanvas()
 	{
@@ -60,6 +62,97 @@ public class LoginCanvas
 			
 		}
 		pressed = false;
+	}
+	
+	public final void keyPressed(int key)
+	{
+		keysMode = true;
+		if(key == -5)
+		{
+			if(selectedBtn == 0)
+			{
+				if(thread != null)
+					thread.interrupt();
+				thread = new Thread()
+				{
+					public void run()
+					{
+						user = TextEditor.inputString("Логин", "", 28, false);
+						repaint();
+						interrupt();
+					}
+				};
+				thread.start();
+			}
+			if(selectedBtn == 1)
+			{
+				if(thread != null)
+					thread.interrupt();
+				thread = new Thread()
+				{
+					public void run()
+					{
+						pass = TextEditor.inputString("Пароль", "", 32, false);
+						repaint();
+						interrupt();
+					}
+				};
+				thread.start();
+			}
+			if(selectedBtn == 2)
+			{
+				if(user != null && user.length() >= 5 && pass != null && pass.length() >= 6)
+				{
+					if(!vse)
+					{
+						VikaTouch.loading = true;
+						
+						//логин
+						if(VikaTouch.DEMO_MODE)
+						{
+							vse = true;
+							VikaScreen canvas = new MenuCanvas();
+							VikaTouch.setDisplay(canvas);
+						}
+						else
+						{
+							vse = VikaTouch.inst.login(user, pass);
+						}
+						String reason;
+						if(!vse && (reason = VikaTouch.getReason()) != null)
+						{
+							VikaTouch.setDisplay(new Alert("Не удалось ввойти", reason, null, AlertType.ERROR));
+						}
+					}
+				}
+				else
+				{
+					VikaTouch.setDisplay(new Alert("","Не введен логин или пароль!", null, AlertType.INFO));
+				}
+			}
+		}
+		if(key == -2)
+		{
+			selectedBtn++;
+			if(selectedBtn > 2)
+			{
+				selectedBtn = 2;
+			}
+			if(selectedBtn == 2)
+			{
+				pressed = true;
+			}
+		}
+		if(key == -1)
+		{
+			selectedBtn--;
+			if(selectedBtn == 1)
+			{
+				pressed = false;
+			}
+			if(selectedBtn < 0)
+				selectedBtn = 0;
+		}
 	}
 
 	public void paint(Graphics g)
@@ -110,10 +203,10 @@ public class LoginCanvas
 
 				ColorUtils.setcolor(g, ColorUtils.COLOR1);
 				g.fillRect(0, 0, 640, 25);
-				if(diary != null)
-				{
-					g.drawImage(diary, 156, 2, 0);
-				}
+				//if(diary != null)
+				//{
+				//	g.drawImage(diary, 156, 2, 0);
+				//}
 				if(loginpressed != null && pressed)
 				{
 					g.drawImage(loginpressed, 0, 220, 0);
@@ -124,7 +217,12 @@ public class LoginCanvas
 				}
 				
 				ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
+				if(keysMode && selectedBtn == 0)
+					ColorUtils.setcolor(g, 0);
 				g.drawRect(0, 100, 240, 40);
+				ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
+				if(keysMode && selectedBtn == 1)
+					ColorUtils.setcolor(g, 0);
 				g.drawRect(0, 148, 240, 40);
 				
 				ColorUtils.setcolor(g, ColorUtils.TEXTCOLOR1);
@@ -153,6 +251,7 @@ public class LoginCanvas
 	}
 	
 	public final void pointerPressed(int x, int y) {
+		keysMode = false;
 		switch(DisplayUtils.idispi)
 		{
 			case DisplayUtils.DISPLAY_PORTRAIT:

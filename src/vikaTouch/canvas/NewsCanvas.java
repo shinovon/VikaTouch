@@ -73,6 +73,7 @@ public class NewsCanvas
 			int requestcount = 20;
 			int startswith = 0;
 			int postscount = 10;
+			uiItems = new PostItem[postscount];
 			int len2 = postscount;
 			final String s = VikaUtils.download(
 					new URLBuilder("newsfeed.get")
@@ -168,6 +169,18 @@ public class NewsCanvas
 			VikaTouch.error(e, "Прорисовка: Лента");
 			e.printStackTrace();
 		}
+	}
+	
+	protected final void up()
+	{
+		scroll += 25;
+		repaint();
+	}
+	
+	protected final void down()
+	{
+		scroll -= 25;
+		repaint();
 	}
 	
 	public final void pointerReleased(int x, int y)

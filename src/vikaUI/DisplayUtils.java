@@ -50,6 +50,7 @@ public class DisplayUtils
 		{
 			case DISPLAY_E6:
 			case DISPLAY_PORTRAIT:
+			case DISPLAY_ALBUM:
 			{
 				need = 50;
 				break;
@@ -71,7 +72,42 @@ public class DisplayUtils
 		}
 		if(h != need)
 		{
-			return VikaUtils.resize(img, need, need);
+			return VikaUtils.resize(img, need, -1);
+		}
+		return img;
+	}
+
+	public static Image resizeChatAva(Image img)
+	{
+		int h = img.getHeight();
+		int need = h;
+		switch(idispi)
+		{
+			case DISPLAY_E6:
+			case DISPLAY_PORTRAIT:
+			case DISPLAY_ALBUM:
+			{
+				need = 50;
+				break;
+			}
+			
+			case DISPLAY_S40:
+			case DISPLAY_ASHA311:
+			case DISPLAY_EQWERTY:
+			{
+				need = 50;
+				break;
+			}
+			
+			default:
+			{
+				need = 50;
+				break;
+			}
+		}
+		if(h != need)
+		{
+			return VikaUtils.resize(img, need, -1);
 		}
 		return img;
 	}
@@ -186,7 +222,7 @@ public class DisplayUtils
 			case DISPLAY_ASHA311:
 			case DISPLAY_EQWERTY:
 			{
-				need = 24;
+				need = 48;
 				break;
 			}
 
@@ -199,7 +235,7 @@ public class DisplayUtils
 		}
 		if(h != need)
 		{
-			return VikaUtils.resize(img, need, need);
+			return VikaUtils.resize(img, need, -1);
 		}
 		return img;
 	}

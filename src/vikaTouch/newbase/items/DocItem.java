@@ -14,6 +14,7 @@ import vikaTouch.newbase.JSONBase;
 import vikaTouch.newbase.attachments.PhotoSize;
 import vikaUI.ColorUtils;
 import vikaUI.DisplayUtils;
+import vikaUI.ScrollableCanvas;
 
 public class DocItem
 	extends JSONUIItem
@@ -131,33 +132,17 @@ public class DocItem
 
 	private void setDrawHeight()
 	{
-		switch(DisplayUtils.idispi)
-		{
-			case DisplayUtils.DISPLAY_PORTRAIT:
-			case DisplayUtils.DISPLAY_ALBUM:
-			case DisplayUtils.DISPLAY_E6:
-			{
-				itemDrawHeight = 48;
-				break;
-			}
-			case DisplayUtils.DISPLAY_S40:
-			case DisplayUtils.DISPLAY_ASHA311:
-			case DisplayUtils.DISPLAY_EQWERTY:
-			{
-				itemDrawHeight = 24;
-				break;
-			}
-			default:
-			{
-				itemDrawHeight = 48;
-				break;
-			}
-		}
-		itemDrawHeight += BORDER * 2;
+		itemDrawHeight = 48 + (BORDER * 2);
 	}
 
 	public void paint(Graphics g, int y, int scrolled)
 	{
+		if(selected)
+		{
+			ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
+			g.fillRect(0, y, DisplayUtils.width, itemDrawHeight);
+		}
+		
 		if(iconImg == null)
 			iconImg = getPreviewImage();
 
@@ -166,21 +151,26 @@ public class DocItem
 		ColorUtils.setcolor(g, 0);
 		if(name != null)
 			g.drawString(name, 73, y, 0);
-		ColorUtils.setcolor(g, 6);
+		ColorUtils.setcolor(g, ColorUtils.OUTLINE);
 		g.drawString(size / 1000 + "кб, " + time, 73, y + 24, 0);
 		if(iconImg != null)
 		{
-			//System.out.println("Иконка "+i);
 			g.drawImage(iconImg, 14, y + BORDER, 0);
 		}
-		try {
-			if(downloadBI == null) {
-				downloadBI = Image.createImage("/downloadBtn.png");
+		if(!ScrollableCanvas.keysMode)
+		{
+			try
+			{
+				if(downloadBI == null)
+				{
+					downloadBI = Image.createImage("/downloadBtn.png");
+				}
+				g.drawImage(downloadBI, DisplayUtils.width-downloadBI.getWidth(), y, 0);
+			} 
+			catch (Exception e)
+			{
+				
 			}
-			g.drawImage(downloadBI, DisplayUtils.width-downloadBI.getWidth(), y, 0);
-		} 
-		catch (Exception e) {
-			
 		}
 	}
 
@@ -294,13 +284,37 @@ public class DocItem
 	
 	public void keyPressed(int key)
 	{
-		try
+		if(type == TYPE_PHOTO)
 		{
-			VikaTouch.inst.platformRequest(url);
+			if(key == KEY_FUNC)
+			{
+				try
+				{
+					VikaTouch.inst.platformRequest(url);
+				}
+				catch (ConnectionNotFoundException e) 
+				{
+					
+				}
+			}
+			if(key == KEY_OK)
+			{
+				VikaTouch.warn("Временно не функционирует!");
+			}
 		}
-		catch (ConnectionNotFoundException e) 
+		else
 		{
-			
+			if(key == KEY_OK)
+			{
+				try
+				{
+					VikaTouch.inst.platformRequest(url);
+				}
+				catch (ConnectionNotFoundException e) 
+				{
+					
+				}
+			}
 		}
 	}
 }

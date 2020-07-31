@@ -19,6 +19,7 @@ import vikaTouch.canvas.menu.FriendsCanvas;
 import vikaTouch.canvas.menu.GroupsCanvas;
 import vikaTouch.canvas.menu.MenuCanvas;
 import vikaTouch.canvas.menu.PhotosCanvas;
+import vikaTouch.canvas.menu.VideosCanvas;
 
 import javax.microedition.lcdui.game.GameCanvas;
 
@@ -207,6 +208,11 @@ public final class VikaTouch
 		{
 			DisplayUtils.current = DisplayUtils.CANVAS_PHOTOSLIST;
 			MainCanvas.lastMenu = DisplayUtils.CANVAS_PHOTOSLIST; 
+		}
+		if(s instanceof VideosCanvas)
+		{
+			DisplayUtils.current = DisplayUtils.CANVAS_VIDEOSLIST;
+			MainCanvas.lastMenu = DisplayUtils.CANVAS_VIDEOSLIST; 
 		}
 		canvas.currentScreen = s;
 		canvas.paint();

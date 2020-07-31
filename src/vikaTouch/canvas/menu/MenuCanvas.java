@@ -20,6 +20,7 @@ import vikaTouch.newbase.JSONBase;
 import vikaTouch.newbase.URLBuilder;
 import vikaUI.ColorUtils;
 import vikaUI.DisplayUtils;
+import vikaUI.VikaCanvas;
 
 public class MenuCanvas extends MainCanvas {
 
@@ -169,22 +170,44 @@ public class MenuCanvas extends MainCanvas {
 		}
 	}
 
-	public void up()
+	protected final void up()
 	{
 		selectedBtn--;
 		if(selectedBtn < 0)
 			selectedBtn = 0;
+		scroll += oneitemheight;
+		
 	}
 	
-	public void down()
+	protected final void down()
 	{
 		selectedBtn++;
-		if(selectedBtn >= btnsLen )
+		if(selectedBtn >= btnsLen)
 			selectedBtn = btnsLen - 1;
+		if(selectedBtn > 3)
+			scroll -= oneitemheight;
 	}
 	
+	public final void keyPressed(int key)
+	{
+		keysMode = true;
+		if(key == -5)
+		{
+			if(selectedBtn == 0)
+			{
+				VikaTouch.inst.cmdsInst.commandAction(13, this);
+			}
+			else
+			{
+				VikaTouch.inst.cmdsInst.commandAction(itemscmd[selectedBtn - 1], this);
+			}
+		}
+		else
+			super.keyPressed(key);
+		repaint();
+	}
 
-	public void paint(Graphics g)
+	public final void paint(Graphics g)
 	{
 		{
 			switch(DisplayUtils.idispi)
@@ -278,6 +301,14 @@ public class MenuCanvas extends MainCanvas {
 						//g.drawString(""+d/50, 20, 150+d, 0);
 					}
 
+					if(keysMode)
+					{
+						ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
+						if(selectedBtn > 0)
+						{
+							g.fillRect(0, 140 + (oneitemheight * (selectedBtn - 1)), 650, oneitemheight);
+						}
+					}
 					if(friendimg != null)
 					{
 						g.drawImage(friendimg, 16, 162, 0);
@@ -313,14 +344,42 @@ public class MenuCanvas extends MainCanvas {
 						g.drawImage(exit, 20, 466, 0);
 					}
 					
-					ColorUtils.setcolor(g, 5);
+					ColorUtils.setcolor(g, ColorUtils.TEXT);
 					g.drawString(name+" "+lastname, 82, 80, 0);
+					if(keysMode && selectedBtn == 1)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
 					g.drawString("Друзья", 56, 158, 0);
+					if(keysMode && selectedBtn == 2)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
 					g.drawString("Сообщества", 56, 208, 0);
+					if(keysMode && selectedBtn == 3)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
 					g.drawString("Музыка", 56, 258, 0);
+					if(keysMode && selectedBtn == 4)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
 					g.drawString("Видео", 56, 308, 0);
+					if(keysMode && selectedBtn == 5)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
 					g.drawString("Фотографии", 56, 358, 0);
+					if(keysMode && selectedBtn == 6)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
 					g.drawString("Документы", 56, 408, 0);
+					if(keysMode && selectedBtn == 7)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
 					g.drawString("Выход", 56, 458, 0);
 					//g.drawString("", 56, 408, 0);
 						
@@ -351,6 +410,12 @@ public class MenuCanvas extends MainCanvas {
 						if(settingsImg != null)
 						{
 							g.drawImage(settingsImg, 325, 18, 0);
+						}
+						
+						if(keysMode && selectedBtn == 0)
+						{
+							ColorUtils.setcolor(g, ColorUtils.TEXTCOLOR1);
+							g.drawRect(325, 18, 24, 24);
 						}
 						
 						if(VikaTouch.unreadCount > 0)
@@ -397,6 +462,12 @@ public class MenuCanvas extends MainCanvas {
 							g.drawImage(settingsImg, 605, 18, 0);
 						}
 						
+						if(keysMode && selectedBtn == 0)
+						{
+							ColorUtils.setcolor(g, ColorUtils.TEXTCOLOR1);
+							g.drawRect(605, 18, 24, 24);
+						}
+						
 						if(VikaTouch.unreadCount > 0)
 						{
 
@@ -427,7 +498,8 @@ public class MenuCanvas extends MainCanvas {
 					}
 					break;
 				}
-				
+
+				case DisplayUtils.DISPLAY_EQWERTY:
 				case DisplayUtils.DISPLAY_S40:
 				case DisplayUtils.DISPLAY_ASHA311:
 				{
@@ -461,6 +533,15 @@ public class MenuCanvas extends MainCanvas {
 						else
 						{
 							g.drawImage(profileimg, 8, 35, 0);
+						}
+					}
+					
+					if(keysMode)
+					{
+						ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
+						if(selectedBtn > 0)
+						{
+							g.fillRect(0, 70 + (oneitemheight * (selectedBtn - 1)), 240, oneitemheight);
 						}
 					}
 
@@ -506,7 +587,7 @@ public class MenuCanvas extends MainCanvas {
 
 					if(exit != null)
 					{
-						g.drawImage(exit, 9, 233, 0);
+						g.drawImage(exit, 9, 209, 0);
 					}
 					
 					if(menuImg != null)
@@ -544,7 +625,6 @@ public class MenuCanvas extends MainCanvas {
 					break;
 				}
 				
-				case DisplayUtils.DISPLAY_EQWERTY:
 				case DisplayUtils.DISPLAY_UNDEFINED:
 					
 				default:

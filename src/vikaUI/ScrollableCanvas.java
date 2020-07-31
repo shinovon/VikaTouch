@@ -87,17 +87,26 @@ public abstract class ScrollableCanvas
 	public void keyPressed(int key)
 	{
 		keysMode = true;
+		VikaCanvas.debugString = "" + key + " " + VikaTouch.canvas.getKeyName(key);
 		if(key == -1)
 		{
 			up();
 		}
-		else if(key == Canvas.DOWN)
+		else if(key == -2)
 		{
 			down();
 		}
-		else if(key == 0)
+		else if(key == -3)
 		{
-			
+			VikaTouch.inst.cmdsInst.commandAction(10, this);
+		}
+		else if(key == -4)
+		{
+			VikaTouch.inst.cmdsInst.commandAction(11, this);
+		}
+		else if(key == -6)
+		{
+			VikaTouch.inst.cmdsInst.commandAction(14, this);
 		}
 		else
 		{
@@ -120,20 +129,24 @@ public abstract class ScrollableCanvas
 		repaint();
 	}
 	
-	private void down()
+	protected void down()
 	{
+		uiItems[currentItem].setSelected(false);
 		currentItem--;
-		if(currentItem < 0)
-			currentItem = 0;
-		scrolled += uiItems[currentItem].getDrawHeight();
-	}
-
-	private void up()
-	{
-		currentItem++;
 		if(currentItem >= itemsCount)
 			currentItem = itemsCount - 1;
 		scrolled -= uiItems[currentItem].getDrawHeight();
+		uiItems[currentItem].setSelected(true);
+	}
+
+	protected void up()
+	{
+		uiItems[currentItem].setSelected(false);
+		currentItem++;
+		if(currentItem < 0)
+			currentItem = 0;
+		scrolled += uiItems[currentItem].getDrawHeight();
+		uiItems[currentItem].setSelected(true);
 	}
 
 	protected final void update(Graphics g)

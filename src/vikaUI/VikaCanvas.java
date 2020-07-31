@@ -12,6 +12,7 @@ import vikaTouch.base.GifDecoder;
 public class VikaCanvas
 	extends GameCanvas
 {
+	public static String debugString;
 	public VikaScreen currentScreen;
 	public boolean showCaptcha;
 	private Image frame;
@@ -69,6 +70,11 @@ public class VikaCanvas
 		if(VikaTouch.loading)
 		{
 			drawLoading(g);
+		}
+		if(debugString != null)
+		{
+			g.setColor(0xffff00);
+			g.drawString(debugString, 65, 2, 0);
 		}
 	}
 	
