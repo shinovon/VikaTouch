@@ -20,6 +20,7 @@ import vikaTouch.newbase.JSONBase;
 import vikaTouch.newbase.URLBuilder;
 import vikaUI.ColorUtils;
 import vikaUI.DisplayUtils;
+import vikaUI.ScrollableCanvas;
 import vikaUI.VikaCanvas;
 
 public class MenuCanvas extends MainCanvas {
@@ -49,6 +50,7 @@ public class MenuCanvas extends MainCanvas {
 	{
 		super();
 		itemsCount = 7;
+		itemsh = (itemsCount * ScrollableCanvas.oneitemheight) + ScrollableCanvas.oneitemheight * 2;
 		try {
 			switch(DisplayUtils.idispi)
 			{

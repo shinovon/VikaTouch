@@ -49,9 +49,22 @@ public class Dialogs
 						JSONObject response = new JSONObject(x).getJSONObject("response");
 						JSONArray items = response.getJSONArray("items");
 						JSONObject item = items.getJSONObject(0);
-						boolean u = dialogs[0] == null || item.getJSONObject("last_message").optString("text").substring(0, 7).equalsIgnoreCase(dialogs[0].lastmessage.text.substring(0, 7));
-						int has = response.optInt("unread_count");
+						boolean u = dialogs[0] == null;
+						int has = 0;
+						try
+						{
+							u = dialogs[0] == null || !item.getJSONObject("last_message").optString("text").substring(0, 7).equalsIgnoreCase(dialogs[0].lastmessage.text.substring(0, 7));
+						}
+						catch (Exception e)
+						{
+							
+						}
+						has = response.optInt("unread_count");
 						itemsCount = response.optInt("count");
+						if(itemsCount > dialogsCount)
+						{
+							itemsCount = dialogsCount;
+						}
 						if(VikaTouch.unreadCount != has || has > 0 || u)
 						{
 							VikaTouch.unreadCount = has;

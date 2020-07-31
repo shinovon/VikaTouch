@@ -117,7 +117,7 @@ public class DialogsCanvas
 		}
 		else
 		{
-			scroll += 1900;
+			scroll += 63;
 		}
 		Dialogs.dialogs[currentItem].setSelected(true);
 	}
@@ -140,7 +140,7 @@ public class DialogsCanvas
 		}
 		else
 		{
-			scroll -= 1900;
+			scroll -= 63;
 		}
 		Dialogs.dialogs[currentItem].setSelected(true);
 	}

@@ -125,8 +125,6 @@ public class DisplayUtils
 				i = DISPLAY_PORTRAIT;
 				ScrollableCanvas.oneitemheight = 50;
 				ScrollableCanvas.vmeshautsa = 528;
-				if(VikaTouch.menuCanv != null)
-					VikaTouch.menuCanv.itemsh = (VikaTouch.menuCanv.itemsCount * ScrollableCanvas.oneitemheight) + ScrollableCanvas.oneitemheight * 2;
 			} 
 			else if(width == 240)
 			{
@@ -135,15 +133,11 @@ public class DisplayUtils
 					i = DISPLAY_S40;
 					ScrollableCanvas.oneitemheight = 25;
 					ScrollableCanvas.vmeshautsa = 265;
-					if(VikaTouch.menuCanv != null)
-						VikaTouch.menuCanv.itemsh = (VikaTouch.menuCanv.itemsCount * ScrollableCanvas.oneitemheight) + ScrollableCanvas.oneitemheight * 2;
 				}
 				else if(height == 400)
 				{
 					i = DISPLAY_ASHA311;
 					ScrollableCanvas.oneitemheight = 25;
-					if(VikaTouch.menuCanv != null)
-						VikaTouch.menuCanv.itemsh = (VikaTouch.menuCanv.itemsCount * ScrollableCanvas.oneitemheight) + ScrollableCanvas.oneitemheight * 2;
 				}
 			}
 			else if(width == 320)
@@ -153,8 +147,6 @@ public class DisplayUtils
 					i = DISPLAY_EQWERTY;
 					ScrollableCanvas.oneitemheight = 25;
 					ScrollableCanvas.vmeshautsa = 185;
-					if(VikaTouch.menuCanv != null)
-						VikaTouch.menuCanv.itemsh = (VikaTouch.menuCanv.itemsCount * ScrollableCanvas.oneitemheight) + ScrollableCanvas.oneitemheight * 2;
 				}
 			}
 			else if(width == 640)
@@ -164,8 +156,6 @@ public class DisplayUtils
 					i = DISPLAY_ALBUM;
 					ScrollableCanvas.oneitemheight = 50;
 					ScrollableCanvas.vmeshautsa = 248;
-					if(VikaTouch.menuCanv != null)
-						VikaTouch.menuCanv.itemsh = (VikaTouch.menuCanv.itemsCount * ScrollableCanvas.oneitemheight) + ScrollableCanvas.oneitemheight * 2;
 				}
 				else if(height == 480)
 				{
@@ -177,6 +167,9 @@ public class DisplayUtils
 			else
 				i = DISPLAY_UNDEFINED;
 		}
+		
+		if(VikaTouch.menuCanv != null)
+			VikaTouch.menuCanv.itemsh = (7 * ScrollableCanvas.oneitemheight) + ScrollableCanvas.oneitemheight * 2;
 		
 		lwidth = width;
 		lheight = height;

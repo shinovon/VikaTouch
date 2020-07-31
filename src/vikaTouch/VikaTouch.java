@@ -216,6 +216,7 @@ public final class VikaTouch
 		}
 		canvas.currentScreen = s;
 		canvas.paint();
+		DisplayUtils.checkdisplay();
 		loading = false;
 	}
 
