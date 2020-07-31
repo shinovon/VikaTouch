@@ -137,7 +137,7 @@ public class DocItem
 
 	public void paint(Graphics g, int y, int scrolled)
 	{
-		if(selected)
+		if(ScrollableCanvas.keysMode && selected)
 		{
 			ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 			g.fillRect(0, y, DisplayUtils.width, itemDrawHeight);

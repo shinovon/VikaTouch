@@ -126,7 +126,7 @@ public class DisplayUtils
 				ScrollableCanvas.oneitemheight = 50;
 				ScrollableCanvas.vmeshautsa = 528;
 				if(VikaTouch.menuCanv != null)
-					VikaTouch.menuCanv.itemsh = (VikaTouch.menuCanv.itemsCount * ScrollableCanvas.oneitemheight) + ScrollableCanvas.oneitemheight;
+					VikaTouch.menuCanv.itemsh = (VikaTouch.menuCanv.itemsCount * ScrollableCanvas.oneitemheight) + ScrollableCanvas.oneitemheight * 2;
 			} 
 			else if(width == 240)
 			{
@@ -136,21 +136,25 @@ public class DisplayUtils
 					ScrollableCanvas.oneitemheight = 25;
 					ScrollableCanvas.vmeshautsa = 265;
 					if(VikaTouch.menuCanv != null)
-						VikaTouch.menuCanv.itemsh = (VikaTouch.menuCanv.itemsCount * ScrollableCanvas.oneitemheight) + ScrollableCanvas.oneitemheight;
+						VikaTouch.menuCanv.itemsh = (VikaTouch.menuCanv.itemsCount * ScrollableCanvas.oneitemheight) + ScrollableCanvas.oneitemheight * 2;
 				}
 				else if(height == 400)
 				{
-					ScrollableCanvas.oneitemheight = 32;
 					i = DISPLAY_ASHA311;
+					ScrollableCanvas.oneitemheight = 25;
+					if(VikaTouch.menuCanv != null)
+						VikaTouch.menuCanv.itemsh = (VikaTouch.menuCanv.itemsCount * ScrollableCanvas.oneitemheight) + ScrollableCanvas.oneitemheight * 2;
 				}
 			}
 			else if(width == 320)
 			{
 				if(height == 240)
 				{
+					i = DISPLAY_EQWERTY;
 					ScrollableCanvas.oneitemheight = 25;
 					ScrollableCanvas.vmeshautsa = 185;
-					i = DISPLAY_EQWERTY;
+					if(VikaTouch.menuCanv != null)
+						VikaTouch.menuCanv.itemsh = (VikaTouch.menuCanv.itemsCount * ScrollableCanvas.oneitemheight) + ScrollableCanvas.oneitemheight * 2;
 				}
 			}
 			else if(width == 640)
@@ -161,7 +165,7 @@ public class DisplayUtils
 					ScrollableCanvas.oneitemheight = 50;
 					ScrollableCanvas.vmeshautsa = 248;
 					if(VikaTouch.menuCanv != null)
-						VikaTouch.menuCanv.itemsh = (VikaTouch.menuCanv.itemsCount * ScrollableCanvas.oneitemheight) + ScrollableCanvas.oneitemheight;
+						VikaTouch.menuCanv.itemsh = (VikaTouch.menuCanv.itemsCount * ScrollableCanvas.oneitemheight) + ScrollableCanvas.oneitemheight * 2;
 				}
 				else if(height == 480)
 				{

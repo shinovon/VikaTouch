@@ -176,7 +176,6 @@ public class MenuCanvas extends MainCanvas {
 		if(selectedBtn < 0)
 			selectedBtn = 0;
 		scroll += oneitemheight;
-		
 	}
 	
 	protected final void down()

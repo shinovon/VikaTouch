@@ -87,7 +87,6 @@ public abstract class ScrollableCanvas
 	public void keyPressed(int key)
 	{
 		keysMode = true;
-		VikaCanvas.debugString = "" + key + " " + VikaTouch.canvas.getKeyName(key);
 		if(key == -1)
 		{
 			up();
@@ -104,7 +103,7 @@ public abstract class ScrollableCanvas
 		{
 			VikaTouch.inst.cmdsInst.commandAction(11, this);
 		}
-		else if(key == -6)
+		else if(key == -7)
 		{
 			VikaTouch.inst.cmdsInst.commandAction(14, this);
 		}
@@ -113,6 +112,7 @@ public abstract class ScrollableCanvas
 			uiItems[currentItem].keyPressed(key);
 		}
 		repaint();
+		VikaCanvas.debugString = "" + key + " " + VikaTouch.canvas.getKeyName(key) + " " + currentItem + " " + itemsCount + " " + uiItems[currentItem].isSelected();
 	}
 	
 	public void keyRepeated(int key)
@@ -131,21 +131,43 @@ public abstract class ScrollableCanvas
 	
 	protected void down()
 	{
-		uiItems[currentItem].setSelected(false);
-		currentItem--;
+		try
+		{
+			uiItems[currentItem].setSelected(false);
+		}
+		catch (Exception e)
+		{
+			
+		}
+		currentItem++;
 		if(currentItem >= itemsCount)
-			currentItem = itemsCount - 1;
-		scrolled -= uiItems[currentItem].getDrawHeight();
+		{
+			currentItem = 0;
+			scrolled += 1900;
+		}
+		else
+			scrolled -= uiItems[currentItem].getDrawHeight();
 		uiItems[currentItem].setSelected(true);
 	}
 
 	protected void up()
 	{
-		uiItems[currentItem].setSelected(false);
-		currentItem++;
+		try
+		{
+			uiItems[currentItem].setSelected(false);
+		}
+		catch (Exception e)
+		{
+			
+		}
+		currentItem--;
 		if(currentItem < 0)
-			currentItem = 0;
-		scrolled += uiItems[currentItem].getDrawHeight();
+		{
+			currentItem = itemsCount - 1;
+			scrolled -= 1900;
+		}
+		else
+			scrolled += uiItems[currentItem].getDrawHeight();
 		uiItems[currentItem].setSelected(true);
 	}
 
@@ -179,8 +201,17 @@ public abstract class ScrollableCanvas
 			scroll = 0;
 		}
 		else
+		{
+			if(scrolled > 0)
+			{
+				scrolled = 0;
+			}
+			if(scrolled < vmeshautsa - itemsh && scrolled != 0)
+			{
+				scrolled = vmeshautsa - itemsh;
+			}
 			g.translate(0, scrolled);
-
+		}
 		scroll = 0;
 	}
 

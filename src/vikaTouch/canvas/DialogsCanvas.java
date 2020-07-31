@@ -74,6 +74,76 @@ public class DialogsCanvas
 		VikaTouch.loading = true;
 		Dialogs.refreshDialogsList();
 	}
+	
+	public final void keyPressed(int key)
+	{
+		keysMode = true;
+		if(key == -5)
+		{
+			Dialogs.dialogs[currentItem].keyPressed(-5);
+		}
+		else if(key == -6)
+		{
+			callRefresh();
+			repaint();
+		}
+		else if(key == -1)
+		{
+			up();
+		}
+		else if(key == -2)
+		{
+			down();
+		}
+		else
+			super.keyPressed(key);
+	}
+	
+	protected final void up()
+	{
+		try
+		{
+			Dialogs.dialogs[currentItem].setSelected(false);
+		}
+		catch (Exception e)
+		{
+			
+		}
+		currentItem--;
+		if(currentItem < 0)
+		{
+			currentItem = Dialogs.itemsCount - 1;
+			scroll -= 1900;
+		}
+		else
+		{
+			scroll += 1900;
+		}
+		Dialogs.dialogs[currentItem].setSelected(true);
+	}
+	
+	protected final void down()
+	{
+		try
+		{
+			Dialogs.dialogs[currentItem].setSelected(false);
+		}
+		catch (Exception e)
+		{
+			
+		}
+		currentItem++;
+		if(currentItem >= Dialogs.itemsCount)
+		{
+			currentItem = 0;
+			scroll += 1900;
+		}
+		else
+		{
+			scroll -= 1900;
+		}
+		Dialogs.dialogs[currentItem].setSelected(true);
+	}
 
 	public void paint(Graphics g)
 	{

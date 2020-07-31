@@ -149,7 +149,7 @@ public class CommandsImpl
 					case 10:
 					{
 						//свайп влево
-						if(s instanceof MenuCanvas)
+						if(s instanceof MenuCanvas || s instanceof DocsCanvas  || s instanceof GroupsCanvas || s instanceof VideosCanvas || s instanceof FriendsCanvas || s instanceof PhotosCanvas)
 						{
 							dialogs(s);
 						}

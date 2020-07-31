@@ -86,10 +86,10 @@ public class GroupItem
 
 	public void paint(Graphics g, int y, int scrolled)
 	{
-		if(isSelected())
+		if(selected)
 		{
 			ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
-			g.fillRect(0, y, DisplayUtils.width, getDrawHeight());
+			g.fillRect(0, y, DisplayUtils.width, itemDrawHeight);
 		}
 		ColorUtils.setcolor(g, 0);
 		if(name != null)
