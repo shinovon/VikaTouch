@@ -11,6 +11,7 @@ import javax.microedition.rms.RecordStoreNotFoundException;
 
 import org.json.me.JSONObject;
 
+import vikaTouch.base.IconsManager;
 import vikaTouch.base.ImageStorage;
 import vikaTouch.base.VikaUtils;
 import vikaTouch.canvas.*;
@@ -383,7 +384,9 @@ public final class VikaTouch
 	public void run()
 	{
 		ImageStorage.init();
-		
+		try {
+			IconsManager.Load();
+		} catch (Exception e) { }
 		cmdsInst = new CommandsImpl();	
 
 		//Выбор сервера 
