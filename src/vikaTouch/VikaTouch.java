@@ -26,6 +26,7 @@ import javax.microedition.lcdui.game.GameCanvas;
 import vikaTouch.newbase.CaptchaObject;
 import vikaTouch.newbase.CommandsImpl;
 import vikaTouch.newbase.Dialogs;
+import vikaTouch.newbase.Settings;
 import vikaTouch.newbase.URLBuilder;
 import vikaUI.DisplayUtils;
 import vikaUI.UIThread;
@@ -397,13 +398,15 @@ public final class VikaTouch
 				}
 				else if (mobilePlatform.indexOf("3.1") > 0)
 				{
-					OAUTH = "http://vk-oauth-proxy.xtrafrancyz.net:80";
-					API = "http://vk-api-proxy.xtrafrancyz.net:80";
+					OAUTH = Settings.proxyOAuth;
+					API = Settings.proxyApi;
+					Settings.proxy = true;
 				}
 				else
 				{
-					OAUTH = "http://vk-oauth-proxy.xtrafrancyz.net:80";
-					API = "http://vk-api-proxy.xtrafrancyz.net:80";
+					OAUTH = Settings.proxyOAuth;
+					API = Settings.proxyApi;
+					Settings.proxy = true;
 				}
 			}
 			else
@@ -415,8 +418,9 @@ public final class VikaTouch
 		}
 		else
 		{
-			OAUTH = "http://vk-oauth-proxy.xtrafrancyz.net:80";
-			API = "http://vk-api-proxy.xtrafrancyz.net:80";
+			OAUTH = Settings.proxyOAuth;
+			API = Settings.proxyApi;
+			Settings.proxy = true;
 		}
 		
 		try

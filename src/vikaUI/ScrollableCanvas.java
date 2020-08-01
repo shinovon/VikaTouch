@@ -5,6 +5,7 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.game.GameCanvas;
 
 import vikaTouch.VikaTouch;
+import vikaTouch.newbase.Settings;
 
 public abstract class ScrollableCanvas
 	extends VikaScreen
@@ -57,9 +58,19 @@ public abstract class ScrollableCanvas
 				scrollHorizontally(deltaX);
 			}
 		}
-		if(ndeltaY > 0 || ndeltaX > 0)
+		if(Settings.sensorMode == Settings.SENSOR_OK)
 		{
-			dragging = true;
+			if(ndeltaY > 0 || ndeltaX > 0)
+			{
+				dragging = true;
+			}
+		}
+		else if(Settings.sensorMode == Settings.SENSOR_J2MELOADER)
+		{
+			if(ndeltaY > 1 || ndeltaX > 1)
+			{
+				dragging = true;
+			}
 		}
 		repaint();
 		lastx = x;
