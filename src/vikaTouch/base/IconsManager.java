@@ -17,7 +17,13 @@ public class IconsManager {
 			ico[i] = Image.createImage(sheet, i*24, 0, 24, 24, 0);
 			selIco[i] = Image.createImage(sheet, i*24, 24, 24, 24, 0);
 		}
+		
+		ac = Image.createImage("/avaMask.png");
+		acs = Image.createImage("/avaMaskSelected.png");
 	}
+	
+	public static Image ac;
+	public static Image acs;
 	
 	public static final int FRIENDS = 0;
 	public static final int GROUPS = 1;

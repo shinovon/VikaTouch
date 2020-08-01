@@ -10,6 +10,7 @@ import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
 import vikaTouch.VikaTouch;
+import vikaTouch.base.IconsManager;
 import vikaTouch.base.VikaUtils;
 import vikaTouch.newbase.Dialogs;
 import vikaTouch.newbase.attachments.AudioAttachment;
@@ -137,7 +138,11 @@ public class ConversationItem
 		if(ava != null)
 		{
 			g.drawImage(ava, 14, y + 8, 0);
+			if(IconsManager.ac == null) { System.out.print("F"); } else
+			g.drawImage(selected?IconsManager.acs:IconsManager.ac, 14, y + 8, 0);
+			
 		}
+		
 		
 		if(!selected)
 		{

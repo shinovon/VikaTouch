@@ -86,6 +86,8 @@ public class CommandsImpl
 						{
 							if(VikaTouch.friendsCanv == null)
 								VikaTouch.friendsCanv = new FriendsCanvas();
+							if(!VikaTouch.friendsCanv.isReady())
+								VikaTouch.friendsCanv.LoadFriends();
 							VikaTouch.setDisplay(VikaTouch.friendsCanv);
 						}
 						break;
@@ -141,7 +143,7 @@ public class CommandsImpl
 						{
 							if(VikaTouch.docsCanv == null)
 								VikaTouch.docsCanv = new DocsCanvas();
-							VikaTouch.docsCanv.LoadDocs(0, DocsCanvas.loadDocsCount);
+							VikaTouch.docsCanv.LoadDocs(0, DocsCanvas.loadDocsCount, 0);
 							VikaTouch.setDisplay(VikaTouch.docsCanv);
 						}
 						break;

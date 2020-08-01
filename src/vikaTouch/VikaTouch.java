@@ -386,7 +386,7 @@ public final class VikaTouch
 		ImageStorage.init();
 		try {
 			IconsManager.Load();
-		} catch (Exception e) { }
+		} catch (Exception e) { System.out.println("Сбой иконок"); e.printStackTrace(); }
 		cmdsInst = new CommandsImpl();	
 
 		//Выбор сервера 

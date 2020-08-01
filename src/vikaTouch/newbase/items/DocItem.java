@@ -254,7 +254,8 @@ public class DocItem
 							{
 								System.out.println("Начато скачивание превью");
 								Image img = VikaUtils.downloadImage(prevImgUrl);
-								System.out.println("Ресайз превью");
+								System.out.println("Ресайз превью: исходное "+img.getWidth()+"х"+img.getHeight());
+								
 								double aspectR = (double)img.getWidth() / (double)img.getHeight();
 								int w = 0; int h = 0;
 								w = DisplayUtils.width;

@@ -44,8 +44,10 @@ public class DocsCanvas
 	public boolean isPreviewShown = false;
 	public Image previewImage = null;
 	public int previewY = 0;
+	
+	public String whose = null;
 
-	public void LoadDocs(final int from, final int count)
+	public void LoadDocs(final int from, final int count, final int id)
 	{
 		uiItems = new DocItem[count];
 		if(downloaderThread != null && downloaderThread.isAlive())
@@ -58,7 +60,7 @@ public class DocsCanvas
 				try
 				{
 					VikaTouch.loading = true;
-					String x = VikaUtils.download(new URLBuilder("docs.get").addField("count", count).addField("offset", from));
+					String x = VikaUtils.download(new URLBuilder("docs.get").addField("owner_id", id).addField("count", count).addField("offset", from));
 					try
 					{
 						VikaTouch.loading = true;
