@@ -418,8 +418,6 @@ public final class VikaTouch
 			OAUTH = "http://vk-oauth-proxy.xtrafrancyz.net:80";
 			API = "http://vk-api-proxy.xtrafrancyz.net:80";
 		}
-
-		OAUTH = "https://oauth.vk.com:443";
 		
 		try
 		{
