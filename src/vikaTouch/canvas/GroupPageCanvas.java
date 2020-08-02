@@ -204,7 +204,7 @@ public class GroupPageCanvas extends MainCanvas {
 						if(i==8) {
 							DocsCanvas dc = new DocsCanvas();
 							VikaTouch.setDisplay(dc);
-							dc.LoadDocs(0, 50, -this_id, name);
+							dc.LoadDocs(0, -this_id, name);
 						}
 						break;
 					}

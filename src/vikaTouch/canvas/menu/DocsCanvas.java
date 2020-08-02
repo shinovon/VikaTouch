@@ -12,14 +12,17 @@ import org.json.me.JSONObject;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
+import vikaTouch.canvas.INextLoadable;
 import vikaTouch.canvas.MainCanvas;
 import vikaTouch.newbase.URLBuilder;
 import vikaTouch.newbase.items.DocItem;
+import vikaTouch.newbase.items.LoadMoreButtonItem;
 import vikaUI.ColorUtils;
 import vikaUI.DisplayUtils;
+import vikaUI.PressableUIItem;
 
 public class DocsCanvas
-	extends MainCanvas
+	extends MainCanvas implements INextLoadable
 {
 
 	public DocsCanvas()
@@ -35,10 +38,10 @@ public class DocsCanvas
 	}
 
 
-	public final static int loadDocsCount = 15;
+	public final static int loadDocsCount = 20;
 	public int fromDoc = 0;
-	public int docsCount = 0;
 	public int totalDocs = 0;
+	public int currId;
 	public static Thread downloaderThread;
 
 	public boolean isPreviewShown = false;
@@ -46,10 +49,17 @@ public class DocsCanvas
 	public int previewY = 0;
 	
 	public String whose = null;
+	public String range = null;
+	
+	public boolean canLoadMore = true;
 
-	public void LoadDocs(final int from, final int count, final int id, String name)
+	public void LoadDocs(final int from, final int id, String name)
 	{
-		uiItems = new DocItem[count];
+		uiItems = null;
+		final DocsCanvas thisC = this;
+		final int count = loadDocsCount;
+		fromDoc = from;
+		currId = id;
 		whose = name;
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
@@ -67,19 +77,22 @@ public class DocsCanvas
 						VikaTouch.loading = true;
 						JSONObject response = new JSONObject(x).getJSONObject("response");
 						JSONArray items = response.getJSONArray("items");
-						itemsCount = response.getInt("count");
-						if(itemsCount > count)
-						{
-							itemsCount = count;
-						}
-						System.out.println("Получено "+itemsCount+" документов");
+						totalDocs = response.getInt("count");
+						itemsCount = items.length();
+						canLoadMore = !(itemsCount<count);
+						uiItems = new PressableUIItem[itemsCount+(canLoadMore?1:0)];
 						for(int i = 0; i < itemsCount; i++)
 						{
 							JSONObject item = items.getJSONObject(i);
 							uiItems[i] = new DocItem(item);
 							((DocItem) uiItems[i]).parseJSON();
 						}
-
+						range = " ("+(from+1)+"-"+(itemsCount+from)+")";
+						if(canLoadMore) {
+							uiItems[itemsCount] = new LoadMoreButtonItem(thisC);
+							
+							itemsCount++;
+						}
 					}
 					catch (JSONException e)
 					{
@@ -88,10 +101,6 @@ public class DocsCanvas
 					}
 
 					VikaTouch.loading = false;
-				}
-				catch (NullPointerException e)
-				{
-					e.printStackTrace();
 				}
 				catch (Exception e)
 				{
@@ -118,7 +127,7 @@ public class DocsCanvas
 			int y = oneitemheight + w;
 			try
 			{
-				for(int i = 0; i < itemsCount; i++)
+				if(uiItems!=null) for(int i = 0; i < itemsCount; i++)
 				{
 					if(uiItems[i] != null)
 					{
@@ -134,7 +143,7 @@ public class DocsCanvas
 			}
 			g.translate(0, -g.getTranslateY());
 
-			drawHeaders(g, "Документы "+(whose==null?"":whose));
+			drawHeaders(g, "Документы"+(range==null?"":range)+" "+(whose==null?"":whose));
 
 		}
 		catch (Exception e)
@@ -191,6 +200,9 @@ public class DocsCanvas
 		}
 
 		super.pointerReleased(x, y);
+	}
+	public void LoadNext() {
+		LoadDocs(fromDoc+loadDocsCount, currId, whose);
 	}
 
 }

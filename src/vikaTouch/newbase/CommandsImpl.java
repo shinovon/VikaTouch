@@ -143,7 +143,7 @@ public class CommandsImpl
 						{
 							if(VikaTouch.docsCanv == null)
 								VikaTouch.docsCanv = new DocsCanvas();
-							VikaTouch.docsCanv.LoadDocs(0, DocsCanvas.loadDocsCount, 0, null);
+							VikaTouch.docsCanv.LoadDocs(0, 0, null);
 							VikaTouch.setDisplay(VikaTouch.docsCanv);
 						}
 						break;

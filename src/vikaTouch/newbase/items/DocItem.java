@@ -54,7 +54,7 @@ public class DocItem
 
 	public void parseJSON()
 	{
-		System.out.println(json.toString());
+		//System.out.println(json.toString());
 
 		try
 		{
@@ -116,7 +116,7 @@ public class DocItem
 		}
 		catch (JSONException e)
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 			//Предпросмотр не завезли - видимо не картинка. Ну и ладно.
 		}
 		catch (Exception e)
@@ -179,7 +179,7 @@ public class DocItem
 		Image img = null;
 		try
 		{
-			System.out.println(iconUrl);
+			//System.out.println(iconUrl);
 			img = DisplayUtils.resizeItemPreview(VikaUtils.downloadImage(iconUrl));
 		}
 		catch (Exception e)
@@ -301,7 +301,7 @@ public class DocItem
 		}
 		else
 		{
-			if(key == KEY_OK)
+			if(key == KEY_OK || key == KEY_FUNC)
 			{
 				try
 				{
