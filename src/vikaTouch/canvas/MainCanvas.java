@@ -77,9 +77,9 @@ public abstract class MainCanvas
 			case DisplayUtils.DISPLAY_PORTRAIT:
 			{
 				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
-				g.fillRect(0, 0, 360, 58);
+				g.fillRect(0, 0, DisplayUtils.width, 58);
 				ColorUtils.setcolor(g, -3);
-				g.fillRect(0, 590, 360, 50);
+				g.fillRect(0, DisplayUtils.height - 50, DisplayUtils.width, 50);
 
 				if(menuImg != null)
 				{
@@ -115,7 +115,7 @@ public abstract class MainCanvas
 					}
 				}
 				g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
-				g.drawString(title, 72, 14, 0);
+				g.drawString(title, 72, 29-g.getFont().getHeight()/2, 0);
 				g.setFont(Font.getFont(0, 0, 8));
 				break;
 			}
