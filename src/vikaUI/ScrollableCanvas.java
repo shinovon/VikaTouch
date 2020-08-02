@@ -123,7 +123,9 @@ public abstract class ScrollableCanvas
 			uiItems[currentItem].keyPressed(key);
 		}
 		repaint();
-		VikaCanvas.debugString = "" + key + " " + VikaTouch.canvas.getKeyName(key) + " " + currentItem + " " + itemsCount + " " + uiItems[currentItem].isSelected();
+		try {
+			VikaCanvas.debugString = "" + key + " " + VikaTouch.canvas.getKeyName(key) + " " + currentItem + " " + itemsCount + " " + uiItems[currentItem].isSelected();
+		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
 	public void keyRepeated(int key)

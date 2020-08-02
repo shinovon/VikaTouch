@@ -37,6 +37,7 @@ public class DocsCanvas
 		this.newsImg = VikaTouch.menuCanv.newsImg;
 	}
 
+	public static DocsCanvas current;
 
 	public final static int loadDocsCount = 30;
 	public int fromDoc = 0;
@@ -57,7 +58,7 @@ public class DocsCanvas
 	{
 		scrolled = 0;
 		uiItems = null;
-		final DocsCanvas thisC = this;
+		final DocsCanvas thisC = current = this;
 		final int count = loadDocsCount;
 		fromDoc = from;
 		currId = id;
@@ -159,6 +160,8 @@ public class DocsCanvas
 					VikaTouch.loading = true;
 				} else {
 					VikaTouch.loading = false;
+					g.setGrayScale(200);
+					g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
 					g.drawImage(previewImage, 0, previewY, 0);
 				}
 			}
@@ -214,7 +217,9 @@ public class DocsCanvas
 		super.pointerReleased(x, y);
 	}
 	public void LoadNext() {
+		down();
 		LoadDocs(fromDoc+loadDocsCount, currId, whose);
+		
 	}
 
 }
