@@ -55,6 +55,7 @@ public class DocsCanvas
 
 	public void LoadDocs(final int from, final int id, String name)
 	{
+		scrolled = 0;
 		uiItems = null;
 		final DocsCanvas thisC = this;
 		final int count = loadDocsCount;
