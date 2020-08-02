@@ -8,6 +8,7 @@ import org.json.me.JSONObject;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
+import vikaTouch.canvas.GroupPageCanvas;
 import vikaTouch.newbase.attachments.PhotoSize;
 import vikaUI.ColorUtils;
 import vikaUI.DisplayUtils;
@@ -107,7 +108,8 @@ public class GroupItem
 	{
 		try
 		{
-			VikaTouch.error("Функционал групп ещё не готов. Группа: "+link, false);
+			VikaTouch.setDisplay(new GroupPageCanvas(id));
+			//VikaTouch.error("Функционал групп ещё не готов. Группа: "+link, false);
 		}
 		catch (Exception e)
 		{

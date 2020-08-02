@@ -1,17 +1,13 @@
 package vikaTouch.newbase.items;
 
-import java.io.IOException;
-
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
-import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.base.IconsManager;
 import vikaTouch.base.VikaUtils;
-import vikaTouch.newbase.attachments.PhotoSize;
 import vikaUI.ColorUtils;
 import vikaUI.DisplayUtils;
 

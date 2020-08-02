@@ -1,14 +1,11 @@
 package vikaTouch.canvas;
 
-import java.util.Random;
 
-import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 import org.json.me.JSONArray;
-import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
 import vikaTouch.VikaTouch;

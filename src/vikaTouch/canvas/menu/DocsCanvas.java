@@ -47,9 +47,10 @@ public class DocsCanvas
 	
 	public String whose = null;
 
-	public void LoadDocs(final int from, final int count, final int id)
+	public void LoadDocs(final int from, final int count, final int id, String name)
 	{
 		uiItems = new DocItem[count];
+		whose = name;
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
 
@@ -133,7 +134,7 @@ public class DocsCanvas
 			}
 			g.translate(0, -g.getTranslateY());
 
-			drawHeaders(g, "Документы");
+			drawHeaders(g, "Документы "+(whose==null?"":whose));
 
 		}
 		catch (Exception e)

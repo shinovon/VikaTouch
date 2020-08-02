@@ -211,11 +211,7 @@ public class DocItem
 						{
 							return DisplayUtils.resizeItemPreview(Image.createImage("/docsis.png"));
 						}
-						else if(ext.toLowerCase().indexOf("rar") != VikaTouch.INDEX_FALSE)
-						{
-							return DisplayUtils.resizeItemPreview(Image.createImage("/doczip.png"));
-						}
-						else if(ext.toLowerCase().indexOf("7z") != VikaTouch.INDEX_FALSE)
+						else if(ext.toLowerCase().indexOf("rar") != VikaTouch.INDEX_FALSE || ext.toLowerCase().indexOf("zip") != VikaTouch.INDEX_FALSE || ext.toLowerCase().indexOf("tar") != VikaTouch.INDEX_FALSE || ext.toLowerCase().indexOf("7z") != VikaTouch.INDEX_FALSE)
 						{
 							return DisplayUtils.resizeItemPreview(Image.createImage("/doczip.png"));
 						}
