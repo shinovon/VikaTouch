@@ -38,7 +38,7 @@ public class DocsCanvas
 	}
 
 
-	public final static int loadDocsCount = 20;
+	public final static int loadDocsCount = 30;
 	public int fromDoc = 0;
 	public int totalDocs = 0;
 	public int currId;
@@ -81,6 +81,7 @@ public class DocsCanvas
 						totalDocs = response.getInt("count");
 						itemsCount = items.length();
 						canLoadMore = !(itemsCount<count);
+						if(totalDocs == from+count) { canLoadMore = false; }
 						uiItems = new PressableUIItem[itemsCount+(canLoadMore?1:0)];
 						for(int i = 0; i < itemsCount; i++)
 						{
@@ -171,35 +172,45 @@ public class DocsCanvas
 	}
 	public final void pointerReleased(int x, int y)
 	{
-		if(isPreviewShown)
+		try
 		{
-			isPreviewShown = false;
-			previewImage = null;
-			return;
-		}
-		switch(DisplayUtils.idispi)
-		{
-			case DisplayUtils.DISPLAY_ALBUM:
-			case DisplayUtils.DISPLAY_PORTRAIT:
+			if(isPreviewShown)
 			{
-				if(y > 58 && y < DisplayUtils.height - oneitemheight)
+				isPreviewShown = false;
+				previewImage = null;
+				return;
+			}
+			switch(DisplayUtils.idispi)
+			{
+				case DisplayUtils.DISPLAY_ALBUM:
+				case DisplayUtils.DISPLAY_PORTRAIT:
 				{
-					int h = 48 + (DocItem.BORDER * 2);
-					int yy1 = y - (scrolled + 58);
-					int i = yy1 / h;
-					if(i < 0)
-						i = 0;
-					if(!dragging)
+					if(y > 58 && y < DisplayUtils.height - oneitemheight)
 					{
-						uiItems[i].tap(x, yy1 - (h * i));
+						int h = 48 + (DocItem.BORDER * 2);
+						int yy1 = y - (scrolled + 58);
+						int i = yy1 / h;
+						if(i < 0)
+							i = 0;
+						if(!dragging)
+						{
+							uiItems[i].tap(x, yy1 - (h * i));
+						}
+						break;
 					}
 					break;
 				}
-				break;
+	
 			}
-
 		}
-
+		catch (ArrayIndexOutOfBoundsException e) 
+		{ 
+			// Всё нормально, просто тапнули ПОД последним элементом.
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
 		super.pointerReleased(x, y);
 	}
 	public void LoadNext() {

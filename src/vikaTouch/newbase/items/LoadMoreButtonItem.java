@@ -34,7 +34,7 @@ public class LoadMoreButtonItem implements PressableUIItem {
 		}
 		ColorUtils.setcolor(g, 0);
 		g.setFont(f);
-		g.drawString(text, DisplayUtils.width/2 - (w/2), y + (40 - (h/2)), 0);
+		g.drawString(text, DisplayUtils.width/2 - (w/2), y + (20 - (h/2)), 0);
 	}
 
 	public int getDrawHeight() {
