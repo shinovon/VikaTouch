@@ -201,11 +201,7 @@ public class GroupPageCanvas extends MainCanvas {
 					if(y > y1 && y < y2)
 					{
 						System.out.println(i);
-						if(i==8) {
-							DocsCanvas dc = new DocsCanvas();
-							VikaTouch.setDisplay(dc);
-							dc.LoadDocs(0, -this_id, name);
-						}
+						MenuAction(i);
 						break;
 					}
 					
@@ -214,6 +210,35 @@ public class GroupPageCanvas extends MainCanvas {
 			
 		}
 		super.pointerReleased(x, y);
+	}
+	
+	public final void MenuAction (int i)
+	{
+		switch (i) 
+		{
+			case 2:
+				VikaTouch.loading = true;
+				(new Thread() {
+					public void run() {
+				
+						if(isMember)
+						{
+							VikaUtils.download(new URLBuilder("groups.leave").addField("group_id", this_id));
+						}
+						else
+						{
+							VikaUtils.download(new URLBuilder("groups.join").addField("group_id", this_id));
+						}
+						Load();
+					}
+				}).start();
+				break;
+			case 8:
+				DocsCanvas dc = new DocsCanvas();
+				VikaTouch.setDisplay(dc);
+				dc.LoadDocs(0, -this_id, name);
+				break;
+		}
 	}
 
 }
