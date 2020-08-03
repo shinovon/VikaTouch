@@ -23,6 +23,7 @@ public class GroupItem
 	private Image ava = null;
 	private int members;
 	private boolean isAdmin;
+	private boolean bool;
 
 	public static final int BORDER = 1;
 
@@ -41,15 +42,6 @@ public class GroupItem
 			id = json.optInt("id");
 			isAdmin = json.optInt("is_admin") == 1;
 			members = json.optInt("members_count");
-			try
-			{
-			//	ava = DisplayUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
-			}
-			catch (Exception e)
-			{
-				System.out.println("Группа "+link+": ошибка аватарки");
-				//System.out.println(json.toString());
-			}
 		}
 		catch (Exception e)
 		{
@@ -89,6 +81,19 @@ public class GroupItem
 
 	public void paint(Graphics g, int y, int scrolled)
 	{
+		if(ava == null && !bool)
+		{
+			try
+			{
+				ava = DisplayUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
+			}
+			catch (Exception e)
+			{
+				System.out.println("Группа "+link+": ошибка аватарки");
+				//System.out.println(json.toString());
+			}
+			bool = true;
+		}
 		if(selected)
 		{
 			ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
