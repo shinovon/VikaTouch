@@ -96,7 +96,7 @@ public class VikaCanvas
 		if(Settings.debugInfo)
 		{
 			g.setColor(0x00ffff);
-			g.drawString(debugString, 65, 2, 0);
+			g.drawString("", 65, 2, 0);
 		}
 	}
 	
