@@ -6,34 +6,34 @@ import vikaTouch.VikaTouch;
 
 public abstract class VikaScreen
 {
-	public abstract void paint(Graphics g);
+	public abstract void draw(Graphics g);
 	
-	public void pointerPressed(int x, int y)
-	{
-		
-	}
-	
-	public void pointerReleased(int x, int y)
+	public void press(int x, int y)
 	{
 		
 	}
 	
-	public void pointerDragged(int x, int y)
+	public void release(int x, int y)
+	{
+		
+	}
+	
+	public void drag(int x, int y)
 	{
 		
 	}
 
-	public void keyPressed(int i)
+	public void press(int i)
 	{
 		
 	}
 
-	public void keyReleased(int i)
+	public void release(int i)
 	{
 		
 	}
 
-	public void keyRepeated(int i)
+	public void repeat(int i)
 	{
 		
 	}

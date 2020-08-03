@@ -64,7 +64,7 @@ public class LoginCanvas
 		pressed = false;
 	}
 	
-	public final void keyPressed(int key)
+	public final void press(int key)
 	{
 		keysMode = true;
 		if(key == -5)
@@ -155,7 +155,7 @@ public class LoginCanvas
 		}
 	}
 
-	public void paint(Graphics g)
+	public void draw(Graphics g)
 	{
 		switch(DisplayUtils.idispi)
 		{
@@ -250,7 +250,7 @@ public class LoginCanvas
 		}
 	}
 	
-	public final void pointerPressed(int x, int y) {
+	public final void press(int x, int y) {
 		keysMode = false;
 		switch(DisplayUtils.idispi)
 		{
@@ -340,7 +340,7 @@ public class LoginCanvas
 		}
 	}
 
-	public final void pointerReleased(int x, int y) {
+	public final void release(int x, int y) {
 		if(pressed)
 		{
 			pressed = false;

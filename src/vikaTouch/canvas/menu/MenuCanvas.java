@@ -189,7 +189,7 @@ public class MenuCanvas extends MainCanvas {
 			scroll -= oneitemheight;
 	}
 	
-	public final void keyPressed(int key)
+	public final void press(int key)
 	{
 		keysMode = true;
 		if(key == -5)
@@ -204,11 +204,11 @@ public class MenuCanvas extends MainCanvas {
 			}
 		}
 		else
-			super.keyPressed(key);
+			super.press(key);
 		repaint();
 	}
 
-	public final void paint(Graphics g)
+	public final void draw(Graphics g)
 	{
 		{
 			switch(DisplayUtils.idispi)
@@ -642,7 +642,7 @@ public class MenuCanvas extends MainCanvas {
 		}
 	}
 
-	public final void pointerReleased(int x, int y)
+	public final void release(int x, int y)
 	{
 		if(!dragging)
 		{
@@ -713,7 +713,7 @@ public class MenuCanvas extends MainCanvas {
 				}
 			}
 		}
-		super.pointerReleased(x, y);
+		super.release(x, y);
 	}
 
 }

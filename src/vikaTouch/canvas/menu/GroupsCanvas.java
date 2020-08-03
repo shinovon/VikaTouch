@@ -95,7 +95,7 @@ public class GroupsCanvas
 
 		downloaderThread.start();
 	}
-	public void paint(Graphics g)
+	public void draw(Graphics g)
 	{
 		ColorUtils.setcolor(g, 0);
 		g.setFont(Font.getFont(0, 0, 8));
@@ -138,7 +138,7 @@ public class GroupsCanvas
 		}
 
 	}
-	public final void pointerReleased(int x, int y)
+	public final void release(int x, int y)
 	{
 		switch(DisplayUtils.idispi)
 		{
@@ -163,6 +163,6 @@ public class GroupsCanvas
 
 		}
 
-		super.pointerReleased(x, y);
+		super.release(x, y);
 	}
 }

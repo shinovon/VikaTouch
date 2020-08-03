@@ -22,7 +22,7 @@ public class CaptchaCanvas
 	private int x;
 	private int w;
 
-	public void paint(Graphics g)
+	public void draw(Graphics g)
 	{
 		if(obj != null && image == null)
 		{
@@ -42,7 +42,7 @@ public class CaptchaCanvas
 		g.fillRect(x, 150, w, 36);
 	}
 	
-	public final void pointerPressed(int x, int y)
+	public final void press(int x, int y)
 	{
 		if(y > 100 && y < 140 && x < 240)
 		{
@@ -60,7 +60,7 @@ public class CaptchaCanvas
 		}
 	}
 	
-	public final void pointerReleased(int x, int y)
+	public final void release(int x, int y)
 	{
 		if(x > this.x && y > 150 && y < 186 && x < this.x + this.w)
 		{

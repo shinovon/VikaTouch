@@ -15,7 +15,7 @@ public class PhotosCanvas
 		this.newsImg = VikaTouch.menuCanv.newsImg;
 	}
 	
-	public void paint(Graphics g)
+	public void draw(Graphics g)
 	{
 		drawHeaders(g, "Фотографии");
 	}

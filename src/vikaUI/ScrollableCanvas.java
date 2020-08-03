@@ -36,9 +36,9 @@ public abstract class ScrollableCanvas
 		super();
 	}
 
-	public abstract void paint(Graphics g);
+	public abstract void draw(Graphics g);
 
-	public final void pointerDragged(int x, int y)
+	public final void drag(int x, int y)
 	{
 		keysMode = false;
 		if(!dragging)
@@ -79,14 +79,14 @@ public abstract class ScrollableCanvas
 
 	protected abstract void scrollHorizontally(int deltaX);
 
-	public void pointerPressed(int x, int y)
+	public void press(int x, int y)
 	{
 		keysMode = false;
 		startx = x;
 		starty = y;
 	}
 
-	public void pointerReleased(int x, int y)
+	public void release(int x, int y)
 	{
 		keysMode = false;
 		endx = x;
@@ -95,7 +95,7 @@ public abstract class ScrollableCanvas
 		repaint();
 	}
 	
-	public void keyPressed(int key)
+	public void press(int key)
 	{
 		keysMode = true;
 		if(key == -1)
@@ -128,7 +128,7 @@ public abstract class ScrollableCanvas
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
-	public void keyRepeated(int key)
+	public void repeat(int key)
 	{
 		keysMode = true;
 		if(key == -1)

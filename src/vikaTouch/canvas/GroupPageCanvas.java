@@ -108,7 +108,7 @@ public class GroupPageCanvas extends MainCanvas implements IMenu {
 		uiItems[0] = new OptionItem(this, "Участники ("+membersCount+")", IconsManager.GROUPS, 0, 50);
 	}
 	
-	public void paint(Graphics g) {
+	public void draw(Graphics g) {
 		update(g);
 		ColorUtils.setcolor(g, -2);
 		g.fillRect(0, 132, 640, 8);
@@ -193,7 +193,7 @@ public class GroupPageCanvas extends MainCanvas implements IMenu {
 			ColorUtils.setcolor(g, ColorUtils.TEXT);
 	}
 	
-	public final void pointerReleased(int x, int y)
+	public final void release(int x, int y)
 	{
 		if(!dragging)
 		{
@@ -215,7 +215,7 @@ public class GroupPageCanvas extends MainCanvas implements IMenu {
 			}
 			
 		}
-		super.pointerReleased(x, y);
+		super.release(x, y);
 	}
 
 	public void OnItemPress(int i) {

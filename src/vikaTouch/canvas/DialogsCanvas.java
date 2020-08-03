@@ -75,7 +75,7 @@ public class DialogsCanvas
 		Dialogs.refreshDialogsList();
 	}
 	
-	public final void keyPressed(int key)
+	public final void press(int key)
 	{
 		keysMode = true;
 		if(key == -5)
@@ -96,7 +96,7 @@ public class DialogsCanvas
 			down();
 		}
 		else
-			super.keyPressed(key);
+			super.press(key);
 	}
 	
 	protected final void up()
@@ -145,7 +145,7 @@ public class DialogsCanvas
 		Dialogs.dialogs[currentItem].setSelected(true);
 	}
 
-	public void paint(Graphics g)
+	public void draw(Graphics g)
 	{
 		ColorUtils.setcolor(g, 0);
 		g.setFont(Font.getFont(0, 0, 8));
@@ -199,7 +199,7 @@ public class DialogsCanvas
 		}
 	}
 	
-	public final void pointerReleased(int x, int y)
+	public final void release(int x, int y)
 	{
 		switch(DisplayUtils.idispi)
 		{
@@ -226,10 +226,10 @@ public class DialogsCanvas
 				
 		}
 		
-		super.pointerReleased(x, y);
+		super.release(x, y);
 	}
 	
-	public final void pointerPressed(int x, int y)
+	public final void press(int x, int y)
 	{
 		switch(DisplayUtils.idispi)
 		{
@@ -252,7 +252,7 @@ public class DialogsCanvas
 			}
 				
 		}
-		super.pointerPressed(x, y);
+		super.press(x, y);
 	}
 
 	protected void scrollHorizontally(int deltaX)

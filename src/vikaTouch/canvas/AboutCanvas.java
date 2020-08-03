@@ -14,7 +14,7 @@ public class AboutCanvas
 	extends VikaScreen
 {
 
-	public void paint(Graphics g)
+	public void draw(Graphics g)
 	{
 		ColorUtils.setcolor(g, 0);
 		
@@ -40,7 +40,7 @@ public class AboutCanvas
 		g.drawString("Назад", 0, DisplayUtils.height - 24, 0);
 	}
 	
-	public void pointerReleased(int x, int y)
+	public void release(int x, int y)
 	{
 		if(x < 50 && y > DisplayUtils.height - 30)
 		{
@@ -48,7 +48,7 @@ public class AboutCanvas
 		}
 	}
 	
-	public void keyPressed(int key)
+	public void press(int key)
 	{
 		if(key == 8 || key == -6)
 		{

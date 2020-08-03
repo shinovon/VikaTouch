@@ -6,7 +6,7 @@ public class DialogCanvas
 	extends ReturnableListCanvas
 {
 
-	public void paint(Graphics g)
+	public void draw(Graphics g)
 	{
 		
 	}

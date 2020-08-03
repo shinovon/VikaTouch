@@ -32,7 +32,7 @@ public abstract class MainCanvas
 		*/
 	}
 	
-	public void pointerReleased(int x, int y)
+	public void release(int x, int y)
 	{
 		if(!dragging || !canScroll)
 		{
@@ -64,7 +64,7 @@ public abstract class MainCanvas
 			}
 		}
 
-		super.pointerReleased(x, y);
+		super.release(x, y);
 	}
 	
 	protected void drawHeaders(Graphics g, String title)

@@ -117,7 +117,7 @@ public class DocsCanvas
 
 		downloaderThread.start();
 	}
-	public void paint(Graphics g)
+	public void draw(Graphics g)
 	{
 		ColorUtils.setcolor(g, 0);
 		g.setFont(Font.getFont(0, 0, 8));
@@ -174,7 +174,7 @@ public class DocsCanvas
 		}
 
 	}
-	public final void pointerReleased(int x, int y)
+	public final void release(int x, int y)
 	{
 		try
 		{
@@ -215,7 +215,7 @@ public class DocsCanvas
 		{
 			e.printStackTrace();
 		}
-		super.pointerReleased(x, y);
+		super.release(x, y);
 	}
 	public void LoadNext() {
 		down();

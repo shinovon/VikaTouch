@@ -128,7 +128,7 @@ public class NewsCanvas
 		loadPosts();
 	}
 
-	public void paint(Graphics g)
+	public void draw(Graphics g)
 	{
 		double multiplier = (double)DisplayUtils.height / 640.0;
 		double ww = 10.0 * multiplier;
@@ -180,7 +180,7 @@ public class NewsCanvas
 		repaint();
 	}
 	
-	public final void pointerReleased(int x, int y)
+	public final void release(int x, int y)
 	{
 		if(!dragging)
 		{
@@ -215,7 +215,7 @@ public class NewsCanvas
 				
 			}
 		}
-		super.pointerReleased(x, y);
+		super.release(x, y);
 	}
 
 	protected void scrollHorizontally(int deltaX)

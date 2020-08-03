@@ -59,12 +59,12 @@ public class VikaCanvas
 		
 		if(currentScreen != null)
 		{
-			currentScreen.paint(g);
+			currentScreen.draw(g);
 		}
 		
 		if(showCaptcha)
 		{
-			VikaTouch.captchaCanv.paint(g);
+			VikaTouch.captchaCanv.draw(g);
 		}
 		
 		if(VikaTouch.loading)
@@ -96,7 +96,6 @@ public class VikaCanvas
         {
             frame = d.getFrame(i);
             repaint();
-            serviceRepaints();
             try
             {
             	Thread.sleep(25);
@@ -112,11 +111,11 @@ public class VikaCanvas
 	{
 		if(showCaptcha)
 		{
-			VikaTouch.captchaCanv.pointerPressed(x, y);
+			VikaTouch.captchaCanv.press(x, y);
 		}
 		else if(currentScreen != null)
 		{
-			currentScreen.pointerPressed(x, y);
+			currentScreen.press(x, y);
 		}
 	}
 	
@@ -124,11 +123,11 @@ public class VikaCanvas
 	{
 		if(showCaptcha)
 		{
-			VikaTouch.captchaCanv.pointerReleased(x, y);
+			VikaTouch.captchaCanv.release(x, y);
 		}
 		else if(currentScreen != null)
 		{
-			currentScreen.pointerReleased(x, y);
+			currentScreen.release(x, y);
 		}
 	}
 	
@@ -136,7 +135,7 @@ public class VikaCanvas
 	{
 		if(currentScreen != null)
 		{
-			currentScreen.pointerDragged(x, y);
+			currentScreen.drag(x, y);
 		}
 	}
 	
@@ -144,7 +143,7 @@ public class VikaCanvas
 	{
 		if(currentScreen != null)
 		{
-			currentScreen.keyPressed(i);
+			currentScreen.press(i);
 		}
 	}
 	
@@ -152,7 +151,7 @@ public class VikaCanvas
 	{
 		if(currentScreen != null)
 		{
-			currentScreen.keyRepeated(i);
+			currentScreen.repeat(i);
 		}
 	}
 	
@@ -160,7 +159,7 @@ public class VikaCanvas
 	{
 		if(currentScreen != null)
 		{
-			currentScreen.keyReleased(i);
+			currentScreen.release(i);
 		}
 	}
 
