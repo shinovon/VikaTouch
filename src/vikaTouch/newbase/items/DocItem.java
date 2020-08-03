@@ -76,6 +76,7 @@ public class DocItem
 				try
 				{
 					iconPs = PhotoSize.getSize(prevSizes, "s");
+					if(iconPs==null) throw new Exception();
 				}
 				catch (Exception e)
 				{
@@ -91,6 +92,7 @@ public class DocItem
 				try
 				{
 					prevPs = PhotoSize.getSize(prevSizes, "x");
+					if(prevPs==null) throw new Exception();
 				}
 				catch (Exception e1)
 				{
@@ -237,6 +239,8 @@ public class DocItem
 	public void StartPreview() {
 		if(type == TYPE_PHOTO)
 		{
+			
+			if(prevImgUrl==null) { return; }
 			VikaTouch.docsCanv.isPreviewShown = true;
 			(new Thread()
 			{
@@ -249,9 +253,19 @@ public class DocItem
 						System.out.println("Ресайз превью: исходное "+img.getWidth()+"х"+img.getHeight());
 						
 						double aspectR = (double)img.getWidth() / (double)img.getHeight();
+						double SAR = (double)DisplayUtils.width / (double)DisplayUtils.height;
+						boolean vertical = aspectR < SAR;
 						int w = 0; int h = 0;
-						w = DisplayUtils.width;
-						h = (int)(w/aspectR);
+						if(vertical) {
+							h = DisplayUtils.height;
+							w = (int)(h*aspectR);
+						}
+						else
+						{
+							w = DisplayUtils.width;
+							h = (int)(w/aspectR);
+						}
+						VikaTouch.docsCanv.previewX = (DisplayUtils.width - w)/2;
 						VikaTouch.docsCanv.previewY = (DisplayUtils.height - h)/2;
 						VikaTouch.docsCanv.previewImage = VikaUtils.resize(img, w, h);
 					}

@@ -47,6 +47,7 @@ public class DocsCanvas
 
 	public boolean isPreviewShown = false;
 	public Image previewImage = null;
+	public int previewX = 0;
 	public int previewY = 0;
 	
 	public String whose = null;
@@ -65,7 +66,7 @@ public class DocsCanvas
 		whose = name;
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
-
+		
 		downloaderThread = new Thread()
 		{
 			public void run()
@@ -162,7 +163,7 @@ public class DocsCanvas
 					VikaTouch.loading = false;
 					g.setGrayScale(200);
 					g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
-					g.drawImage(previewImage, 0, previewY, 0);
+					g.drawImage(previewImage, previewX, previewY, 0);
 				}
 			}
 		}
