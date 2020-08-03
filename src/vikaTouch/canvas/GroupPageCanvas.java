@@ -16,6 +16,7 @@ import vikaTouch.canvas.menu.MenuCanvas;
 import vikaTouch.newbase.JSONBase;
 import vikaTouch.newbase.URLBuilder;
 import vikaTouch.newbase.items.FriendItem;
+import vikaTouch.newbase.items.OptionItem;
 import vikaUI.ColorUtils;
 import vikaUI.DisplayUtils;
 import vikaUI.PressableUIItem;
@@ -102,6 +103,9 @@ public class GroupPageCanvas extends MainCanvas implements IMenu {
 		};
 
 		downloaderThread.start();
+		
+		uiItems = new OptionItem[12];
+		uiItems[0] = new OptionItem(this, "Участники ("+membersCount+")", IconsManager.GROUPS, 0, 50);
 	}
 	
 	public void paint(Graphics g) {
