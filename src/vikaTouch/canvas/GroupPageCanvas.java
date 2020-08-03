@@ -200,6 +200,7 @@ public class GroupPageCanvas extends MainCanvas {
 					int y2 = y1 + oneitemheight;
 					if(y > y1 && y < y2)
 					{
+						System.out.println();
 						System.out.println(i);
 						MenuAction(i);
 						break;
@@ -216,7 +217,7 @@ public class GroupPageCanvas extends MainCanvas {
 	{
 		switch (i) 
 		{
-			case 2:
+			case 1:
 				VikaTouch.loading = true;
 				(new Thread() {
 					public void run() {
