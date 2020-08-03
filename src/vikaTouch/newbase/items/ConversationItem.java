@@ -229,7 +229,7 @@ public class ConversationItem
 			
 			if(text == "" || text == null || text.length() == 0 || text.length() == 1)
 			{
-				if(lastmessage.attachments[0] != null)
+				if(lastmessage.attachments != null && lastmessage.attachments.length != 0 && lastmessage.attachments[0] != null)
 				{
 					try
 						{

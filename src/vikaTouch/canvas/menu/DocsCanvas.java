@@ -90,11 +90,11 @@ public class DocsCanvas
 							JSONObject item = items.getJSONObject(i);
 							uiItems[i] = new DocItem(item);
 							((DocItem) uiItems[i]).parseJSON();
+							//Thread.yield();
 						}
 						range = " ("+(from+1)+"-"+(itemsCount+from)+")";
 						if(canLoadMore) {
 							uiItems[itemsCount] = new LoadMoreButtonItem(thisC);
-							
 							itemsCount++;
 						}
 					}
@@ -147,7 +147,7 @@ public class DocsCanvas
 			}
 			g.translate(0, -g.getTranslateY());
 
-			drawHeaders(g, "Документы"+(range==null?"":range)+" "+(whose==null?"":whose));
+			drawHeaders(g, uiItems==null?"Документы (загрузка...)":"Документы"+(range==null?"":range)+" "+(whose==null?"":whose));
 
 		}
 		catch (Exception e)

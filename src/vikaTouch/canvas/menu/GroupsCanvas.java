@@ -12,16 +12,19 @@ import org.json.me.JSONObject;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
+import vikaTouch.canvas.INextLoadable;
 import vikaTouch.canvas.MainCanvas;
 import vikaTouch.newbase.URLBuilder;
 import vikaTouch.newbase.items.DocItem;
 import vikaTouch.newbase.items.GroupItem;
+import vikaTouch.newbase.items.LoadMoreButtonItem;
 import vikaUI.ColorUtils;
 import vikaUI.DisplayUtils;
+import vikaUI.PressableUIItem;
 
 
 public class GroupsCanvas
-	extends MainCanvas
+	extends MainCanvas implements INextLoadable
 {
 
 	public GroupsCanvas()
@@ -39,14 +42,34 @@ public class GroupsCanvas
 	{
 		return uiItems != null;
 	}
+	public static void AbortLoading() {
+		try {
+			if(downloaderThread != null && downloaderThread.isAlive())
+				downloaderThread.interrupt();
+		} catch (Exception e) { }
+	}
+	public static GroupsCanvas current;
 	
-	public final static int loadGroupsCount = 100;
+	public final static int loadGroupsCount = 50;
 	public static Thread downloaderThread;
+	
+	public int currId;
+	public int fromG;
+	public String whose = null;
+	public String range = null;
+	public int totalItems;
+	public boolean canLoadMore = true;
 
-	public void LoadGroups()
+	public void LoadGroups(final int from, final int id, final String name)
 	{
-		if(downloaderThread != null && downloaderThread.isAlive())
-			downloaderThread.interrupt();
+		scrolled = 0;
+		uiItems = null;
+		final GroupsCanvas thisC = current = this;
+		fromG = from;
+		currId = id;
+		whose = name;
+		
+		AbortLoading();
 
 		downloaderThread = new Thread()
 		{
@@ -61,23 +84,40 @@ public class GroupsCanvas
 						VikaTouch.loading = true;
 						JSONObject response = new JSONObject(x).getJSONObject("response");
 						JSONArray items = response.getJSONArray("items");
-						System.out.println(items.toString());
+						totalItems = response.getInt("count");
 						itemsCount = items.length();
-						uiItems = new GroupItem[items.length()];
+						canLoadMore = !(itemsCount<loadGroupsCount);
+						if(totalItems == from+loadGroupsCount) { canLoadMore = false; }
+						uiItems = new PressableUIItem[itemsCount+(canLoadMore?1:0)];
 						for(int i = 0; i < itemsCount; i++)
 						{
+							VikaTouch.loading = true;
 							JSONObject item = items.getJSONObject(i);
 							uiItems[i] = new GroupItem(item);
 							((GroupItem) uiItems[i]).parseJSON();
+							//Thread.yield();
 						}
-
+						range = " ("+(from+1)+"-"+(itemsCount+from)+")";
+						if(canLoadMore) {
+							uiItems[itemsCount] = new LoadMoreButtonItem(thisC);
+							itemsCount++;
+						}
 					}
 					catch (JSONException e)
 					{
 						e.printStackTrace();
 						VikaTouch.error(e, "Парс списка групп");
 					}
-
+					System.out.println("Groups list OK");
+					VikaTouch.loading = true;
+					repaint();
+					Thread.sleep(1500);
+					VikaTouch.loading = true;
+					for(int i = 0; i < itemsCount - (canLoadMore?1:0); i++)
+					{
+						VikaTouch.loading = true;
+						((GroupItem) uiItems[i]).GetAva();
+					}
 					VikaTouch.loading = false;
 				}
 				catch (NullPointerException e)
@@ -128,7 +168,7 @@ public class GroupsCanvas
 			}
 			g.translate(0, -g.getTranslateY());
 
-			drawHeaders(g, "Группы");
+			drawHeaders(g, uiItems==null?"Группы (загрузка...)":"Группы"+(range==null?"":range)+" "+(whose==null?"":whose));
 
 		}
 		catch (Exception e)
@@ -140,29 +180,44 @@ public class GroupsCanvas
 	}
 	public final void release(int x, int y)
 	{
-		switch(DisplayUtils.idispi)
+		try
 		{
-			case DisplayUtils.DISPLAY_ALBUM:
-			case DisplayUtils.DISPLAY_PORTRAIT:
+			switch(DisplayUtils.idispi)
 			{
-				if(y > 58 && y < DisplayUtils.height - oneitemheight)
+				case DisplayUtils.DISPLAY_ALBUM:
+				case DisplayUtils.DISPLAY_PORTRAIT:
 				{
-					int h = 48 + (DocItem.BORDER * 2);
-					int yy1 = y - (scrolled + 58);
-					int i = yy1 / h;
-					if(i < 0)
-						i = 0;
-					if(!dragging)
+					if(y > 58 && y < DisplayUtils.height - oneitemheight)
 					{
-						uiItems[i].tap(x, yy1 - (h * i));
+						int h = 48 + (DocItem.BORDER * 2);
+						int yy1 = y - (scrolled + 58);
+						int i = yy1 / h;
+						if(i < 0)
+							i = 0;
+						if(!dragging)
+						{
+							uiItems[i].tap(x, yy1 - (h * i));
+						}
+						break;
 					}
 					break;
 				}
-				break;
+	
 			}
-
 		}
-
+		catch (ArrayIndexOutOfBoundsException e) 
+		{ 
+			// Всё нормально, просто тапнули ПОД последним элементом.
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
 		super.release(x, y);
+	}
+
+	public void LoadNext() {
+		down();
+		LoadGroups(fromG+loadGroupsCount, currId, whose);
 	}
 }

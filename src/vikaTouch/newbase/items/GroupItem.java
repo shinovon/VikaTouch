@@ -1,5 +1,7 @@
 package vikaTouch.newbase.items;
 
+import java.io.IOException;
+
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
@@ -9,6 +11,7 @@ import org.json.me.JSONObject;
 import vikaTouch.VikaTouch;
 import vikaTouch.base.VikaUtils;
 import vikaTouch.canvas.GroupPageCanvas;
+import vikaTouch.canvas.menu.GroupsCanvas;
 import vikaTouch.newbase.attachments.PhotoSize;
 import vikaUI.ColorUtils;
 import vikaUI.DisplayUtils;
@@ -23,7 +26,6 @@ public class GroupItem
 	private Image ava = null;
 	private int members;
 	private boolean isAdmin;
-	private boolean bool;
 
 	public static final int BORDER = 1;
 
@@ -79,21 +81,17 @@ public class GroupItem
 		itemDrawHeight += BORDER * 2;
 	}
 
+	public void GetAva() {
+		try {
+			ava = DisplayUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void paint(Graphics g, int y, int scrolled)
 	{
-		if(ava == null && !bool)
-		{
-			try
-			{
-				ava = DisplayUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
-			}
-			catch (Exception e)
-			{
-				System.out.println("Группа "+link+": ошибка аватарки");
-				//System.out.println(json.toString());
-			}
-			bool = true;
-		}
+		
 		if(selected)
 		{
 			ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
@@ -115,8 +113,8 @@ public class GroupItem
 	{
 		try
 		{
+			GroupsCanvas.AbortLoading();
 			VikaTouch.setDisplay(new GroupPageCanvas(id));
-			//VikaTouch.error("Функционал групп ещё не готов. Группа: "+link, false);
 		}
 		catch (Exception e)
 		{
@@ -126,7 +124,7 @@ public class GroupItem
 
 	public void keyPressed(int key)
 	{
-		
+		if(key == KEY_OK) tap(20,20);
 	}
 
 }

@@ -51,14 +51,14 @@ public class GroupPageCanvas extends MainCanvas implements IMenu {
 	public GroupPageCanvas(int id) {
 		this.menuImg = MenuCanvas.menuImg;
 		this.newsImg = VikaTouch.menuCanv.newsImg;
-		itemsCount = 20;
 		this_id = id; Load();
 	}
 	
 	public void Load() {
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
-
+		System.gc();
+		final GroupPageCanvas thisC = this;
 		downloaderThread = new Thread()
 		{
 			public void run()
@@ -66,7 +66,8 @@ public class GroupPageCanvas extends MainCanvas implements IMenu {
 				try
 				{
 					VikaTouch.loading = true;
-					String x = VikaUtils.download(new URLBuilder("groups.getById").addField("group_id", this_id).addField("fields", "description,contacts,members_count,counters,status,links,fixed_post,site,ban_info"));
+					String x = VikaUtils.download(new URLBuilder("groups.getById").addField("group_id", this_id)
+							.addField("fields", "description,contacts,members_count,counters,status,links,fixed_post,site,ban_info"));
 					try
 					{
 						VikaTouch.loading = true;
@@ -77,9 +78,32 @@ public class GroupPageCanvas extends MainCanvas implements IMenu {
 						isAdmin = res.optInt("is_admin") == 1;
 						isMember = res.optInt("is_member") == 1;
 						membersCount = res.optInt("members_count");
+						JSONObject counters = res.getJSONObject("counters");
+						System.out.println(counters.toString());
+						docs = counters.optInt("docs");
+						topics = counters.optInt("topics");
+						music = counters.optInt("audios");
+						videos = counters.optInt("videos");
+						photos = counters.optInt("photos");
 						try {
 							ava = VikaUtils.downloadImage(JSONBase.fixJSONString(res.optString("photo_50")));
 						} catch (Exception e) { }
+						itemsCount = 13;
+						uiItems = new OptionItem[13];
+						uiItems[0] = new OptionItem(thisC, "Участники ("+membersCount+")", IconsManager.GROUPS, 0, 50);
+						uiItems[1] = new OptionItem(thisC, isMember?"Выйти из группы":"Вступить в группу", 
+								isMember?IconsManager.CLOSE:IconsManager.ADD, 1, 50);
+						uiItems[2] = new OptionItem(thisC, canMsg?"Написать сообщение":"[нельзя писать]", IconsManager.MSGS, 2, 50);
+						uiItems[3] = new OptionItem(thisC, "Стена", IconsManager.NEWS, 3, 50);
+						uiItems[4] = new OptionItem(thisC, "Информация", IconsManager.INFO, 4, 50);
+						uiItems[5] = new OptionItem(thisC, "Фотографии ("+photos+")", IconsManager.PHOTOS, 5, 50);
+						uiItems[6] = new OptionItem(thisC, "Музыка ("+music+")", IconsManager.MUSIC, 6, 50);
+						uiItems[7] = new OptionItem(thisC, "Видео ("+videos+")", IconsManager.VIDEOS, 7, 50);
+						uiItems[8] = new OptionItem(thisC, "Документы ("+docs+")", IconsManager.DOCS, 8, 50);
+						uiItems[9] = new OptionItem(thisC, "Обсуждения ("+topics+")", IconsManager.COMMENTS, 9, 50);
+						uiItems[10] = new OptionItem(thisC, "Сайт", IconsManager.REPOST, 10, 50);
+						uiItems[11] = new OptionItem(thisC, "Ссылки", IconsManager.REPOST, 11, 50);
+						uiItems[12] = new OptionItem(thisC, "Контакты", IconsManager.GROUPS, 11, 50);
 					}
 					catch (JSONException e)
 					{
@@ -99,13 +123,11 @@ public class GroupPageCanvas extends MainCanvas implements IMenu {
 					VikaTouch.error(e, "Загрузка группы");
 				}
 				VikaTouch.loading = false;
+				System.gc();
 			}
 		};
 
 		downloaderThread.start();
-		
-		uiItems = new OptionItem[12];
-		uiItems[0] = new OptionItem(this, "Участники ("+membersCount+")", IconsManager.GROUPS, 0, 50);
 	}
 	
 	public void draw(Graphics g) {
@@ -139,46 +161,14 @@ public class GroupPageCanvas extends MainCanvas implements IMenu {
 			g.drawRect(0, 140+(d*oneitemheight), DisplayUtils.width, 50);
 			//g.drawString(""+d/50, 20, 150+d, 0);
 		}
-
-		if(keysMode)
+		int y = 140; // init offset
+		if(uiItems!=null) for (int i=0;i<uiItems.length;i++)
 		{
-			ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
-			if(selectedBtn > 0)
-			{
-				g.fillRect(0, 140 + (oneitemheight * (selectedBtn - 1)), 650, oneitemheight);
+			if(uiItems[i]!=null) {
+				uiItems[i].paint(g, y, scrolled);
+				y+=uiItems[i].getDrawHeight();
 			}
 		}
-		Stc(g, 1);
-		g.drawImage(IconsManager.ico[IconsManager.GROUPS], 16, 154, 0);
-		g.drawString("Участники", 56, 158, 0);
-		Stc(g, 2);
-		g.drawImage(IconsManager.ico[isMember?IconsManager.CLOSE:IconsManager.ADD], 16, 204, 0);
-		g.drawString(isMember?"Выйти из группы":"Вступить в группу", 56, 208, 0);
-		Stc(g, 3);
-		g.drawString(canMsg?"Написать сообщение":"[вы не можете отправлять сообщения]", 56, 258, 0);
-		Stc(g, 4);
-		g.drawImage(IconsManager.ico[IconsManager.NEWS], 16, 304, 0);
-		g.drawString("Стена", 56, 308, 0);
-		Stc(g, 5);
-		g.drawImage(IconsManager.ico[IconsManager.PHOTOS], 16, 354, 0);
-		g.drawString("Фотографии", 56, 358, 0);
-		Stc(g, 6);
-		g.drawString("Музыка", 56, 408, 0);
-		Stc(g, 7);
-		g.drawString("Видео", 56, 458, 0);
-		Stc(g, 8);
-		g.drawString("Музыка", 56, 508, 0);
-		Stc(g, 9);
-		g.drawImage(IconsManager.ico[IconsManager.DOCS], 16, 554, 0);
-		g.drawString("Документы", 56, 558, 0);
-		Stc(g, 10);
-		g.drawString("Обсуждения", 56, 608, 0);
-		Stc(g, 11);
-		g.drawString("Контакты", 56, 658, 0);
-		Stc(g, 12);
-		g.drawString("Ссылки", 56, 708, 0);
-		Stc(g, 13);
-		g.drawString("Сайт", 56, 758, 0);
 			
 		drawHeaders(g, link==null?"Группа":link);
 		

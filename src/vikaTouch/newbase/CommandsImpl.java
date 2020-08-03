@@ -100,7 +100,7 @@ public class CommandsImpl
 							if(VikaTouch.grCanv == null)
 								VikaTouch.grCanv = new GroupsCanvas();
 							if(!VikaTouch.grCanv.isReady())
-								VikaTouch.grCanv.LoadGroups();
+								VikaTouch.grCanv.LoadGroups(0, 0, null);
 							VikaTouch.setDisplay(VikaTouch.grCanv);
 						}
 						break;
