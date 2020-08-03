@@ -18,8 +18,9 @@ import vikaTouch.newbase.URLBuilder;
 import vikaTouch.newbase.items.FriendItem;
 import vikaUI.ColorUtils;
 import vikaUI.DisplayUtils;
+import vikaUI.PressableUIItem;
 
-public class GroupPageCanvas extends MainCanvas {
+public class GroupPageCanvas extends MainCanvas implements IMenu {
 	
 	public int this_id;
 	
@@ -202,7 +203,7 @@ public class GroupPageCanvas extends MainCanvas {
 					{
 						System.out.println();
 						System.out.println(i);
-						MenuAction(i);
+						OnItemPress(i);
 						break;
 					}
 					
@@ -212,9 +213,8 @@ public class GroupPageCanvas extends MainCanvas {
 		}
 		super.pointerReleased(x, y);
 	}
-	
-	public final void MenuAction (int i)
-	{
+
+	public void OnItemPress(int i) {
 		switch (i) 
 		{
 			case 1:
@@ -240,6 +240,11 @@ public class GroupPageCanvas extends MainCanvas {
 				dc.LoadDocs(0, -this_id, name);
 				break;
 		}
+	}
+
+	public void OnItemOption(int i) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
