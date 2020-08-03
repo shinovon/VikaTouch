@@ -199,7 +199,12 @@ public class DocItem
 					case TYPE_VIDEO:
 						return DisplayUtils.resizeItemPreview(Image.createImage("/docvid.png"));
 					case TYPE_ARCHIVE:
-						return DisplayUtils.resizeItemPreview(Image.createImage("/doczip.png"));
+						if(ext.toLowerCase().indexOf("sis") != VikaTouch.INDEX_FALSE)
+						{
+							return DisplayUtils.resizeItemPreview(Image.createImage("/docsis.png"));
+						}
+						else
+							return DisplayUtils.resizeItemPreview(Image.createImage("/doczip.png"));
 					case TYPE_TEXT:
 					case TYPE_EBOOK:
 						return DisplayUtils.resizeItemPreview(Image.createImage("/doctxt.png"));

@@ -16,6 +16,8 @@ public class Settings
 	public static String proxyOAuth = "http://vk-oauth-proxy.xtrafrancyz.net:80";
 	
 	public static int sensorMode;
+
+	public static boolean debugInfo;
 	
 	public static final int SENSOR_OK = 0;
 	public static final int SENSOR_J2MELOADER = 1;
@@ -42,6 +44,7 @@ public class Settings
 		animateTransition = false;
 		proxy = false;
 		https = false;
+		debugInfo = false;
 		proxyApi = "http://vk-api-proxy.xtrafrancyz.net:80";
 		proxyOAuth = "http://vk-oauth-proxy.xtrafrancyz.net:80";
 		sensorMode = SENSOR_OK;

@@ -6,6 +6,7 @@ import javax.microedition.lcdui.Image;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.canvas.menu.MenuCanvas;
+import vikaTouch.newbase.Settings;
 import vikaUI.ColorUtils;
 import vikaUI.DisplayUtils;
 import vikaUI.ScrollableCanvas;
@@ -282,6 +283,22 @@ public abstract class MainCanvas
 
 				g.drawString(title, 72, 0, 0);
 			}
+		}
+		if(Settings.debugInfo)
+		{
+			g.setColor(0xffff00);
+			int xx = endx;
+			int yy = endy;
+			if(xx == -1)
+			{
+				xx = lastx;
+				yy = lasty;
+			}
+			g.drawLine(startx, starty, xx, yy);
+			g.drawRect(startx-2, starty-2, 4, 4);
+			g.setColor(0xff0000);
+			g.drawRect(endx-2, endy-2, 4, 4);
+			g.drawString("cs"+scroll + " sc" + scrolled + " d" + drift + " ds" + driftSpeed + " st" + scrollingTimer + " sp" + scrollPrev + " t" + timer, 0, 30, 0);
 		}
 	}
 

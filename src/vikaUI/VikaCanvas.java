@@ -8,6 +8,7 @@ import javax.microedition.lcdui.game.GameCanvas;
 
 import vikaTouch.VikaTouch;
 import vikaTouch.base.GifDecoder;
+import vikaTouch.newbase.Settings;
 
 public class VikaCanvas
 	extends GameCanvas
@@ -71,10 +72,13 @@ public class VikaCanvas
 		{
 			drawLoading(g);
 		}
-		if(debugString != null)
+		if(Settings.debugInfo)
 		{
-			g.setColor(0xffff00);
-			g.drawString(debugString, 65, 2, 0);
+			if(debugString != null)
+			{
+				g.setColor(0xffff00);
+				g.drawString(debugString, 65, 2, 0);
+			}
 		}
 	}
 	
@@ -87,6 +91,13 @@ public class VikaCanvas
 		{
 			g.drawImage(frame, DisplayUtils.width / 2, DisplayUtils.height - 128, Graphics.TOP | Graphics.HCENTER);
 		}
+		
+
+		if(Settings.debugInfo)
+		{
+			g.setColor(0x00ffff);
+			g.drawString(debugString, 65, 2, 0);
+		}
 	}
 	
 	public void updategif()
@@ -98,7 +109,7 @@ public class VikaCanvas
             repaint();
             try
             {
-            	Thread.sleep(25);
+            	Thread.sleep(40);
             }
             catch (Exception e)
             {

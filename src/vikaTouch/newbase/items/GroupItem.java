@@ -43,7 +43,7 @@ public class GroupItem
 			members = json.optInt("members_count");
 			try
 			{
-				ava = DisplayUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
+			//	ava = DisplayUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
 			}
 			catch (Exception e)
 			{
@@ -64,6 +64,7 @@ public class GroupItem
 
 	private void setDrawHeight()
 	{
+		/*
 		switch(DisplayUtils.idispi)
 		{
 			case DisplayUtils.DISPLAY_S40:
@@ -78,10 +79,11 @@ public class GroupItem
 			case DisplayUtils.DISPLAY_E6:
 			default:
 			{
-				itemDrawHeight = 50;
+				itemDrawHeight = 48;
 				break;
 			}
-		}
+		}*/
+		itemDrawHeight = 48;
 		itemDrawHeight += BORDER * 2;
 	}
 

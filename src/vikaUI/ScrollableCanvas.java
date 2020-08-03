@@ -23,13 +23,19 @@ public abstract class ScrollableCanvas
 	public static int oneitemheight = 50;
 	public int itemsCount = 5;
 	public int itemsh = itemsCount * oneitemheight;
-	private int lastx;
+	protected int lastx;
 	public static int vmeshautsa = 528;
-	public static final double speed = 2.1;
+	public static final double scrollSpeed = 2.7;
 	public PressableUIItem[] uiItems;
 	public int scrollOffset;
 	public int currentItem;
 	public static boolean keysMode = false;
+	
+	public int drift;
+	public int driftSpeed;
+	public int scrollingTimer;
+	protected int scrollPrev;
+	protected int timer;
 	
 	public ScrollableCanvas()
 	{
@@ -51,7 +57,11 @@ public abstract class ScrollableCanvas
 		{
 			if(ndeltaY > ndeltaX)
 			{
-				scroll = (int)((double) -deltaY * speed);
+				scroll = (int)((double) -deltaY * scrollSpeed);
+				scrollPrev += scroll;
+				scrollingTimer += Math.abs(scroll) / 14;
+				if(Math.abs(scroll / 3) > Math.abs(driftSpeed))
+					driftSpeed = scroll / 3;
 			}
 			else
 			{
@@ -72,22 +82,38 @@ public abstract class ScrollableCanvas
 				dragging = true;
 			}
 		}
-		repaint();
 		lastx = x;
 		lasty = y;
+		timer = 0;
 	}
 
 	protected abstract void scrollHorizontally(int deltaX);
 
 	public void press(int x, int y)
 	{
+		timer = 0;
+		VikaCanvas.debugString = "pressed " + x +" " +y;
+		scrollingTimer = 0;
+		drift = 0;
+		driftSpeed = 0;
+		scrollPrev = 0;
 		keysMode = false;
 		startx = x;
 		starty = y;
+		endx = -1;
+		endy = -1;
 	}
 
 	public void release(int x, int y)
 	{
+		VikaCanvas.debugString = "released " + x +" " +y;
+		if(timer < 7)
+		{
+			if(scrollPrev > 0)
+				drag(x, y);
+			drift = scrollPrev;
+		}
+		scrollPrev = 0;
 		keysMode = false;
 		endx = x;
 		endy = y;
@@ -186,6 +212,23 @@ public abstract class ScrollableCanvas
 
 	protected final void update(Graphics g)
 	{
+		try
+		{
+			timer++;
+			if(scrollingTimer > 0)
+				scrollingTimer--;
+			
+			if(drift != 0 && driftSpeed != 0 && scrollingTimer > 5)
+			{
+				scroll += driftSpeed;
+				drift -= driftSpeed;
+				driftSpeed *= 0.975;
+			}
+		}
+		catch(ArithmeticException e)
+		{
+			
+		}
 		boolean d2 = scroll != 0;
 		if(itemsh > vmeshautsa)
 		{
