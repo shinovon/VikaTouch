@@ -21,6 +21,7 @@ import vikatouch.base.VikaTouch;
 import vikatouch.base.items.FriendItem;
 import vikatouch.base.items.OptionItem;
 import vikatouch.screens.menu.DocsScreen;
+import vikatouch.screens.menu.FriendsScreen;
 import vikatouch.screens.menu.MenuScreen;
 
 public class GroupPageScreen extends MainScreen implements IMenu {
@@ -85,7 +86,6 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 						isMember = res.optInt("is_member") == 1;
 						membersCount = res.optInt("members_count");
 						JSONObject counters = res.getJSONObject("counters");
-						System.out.println(counters.toString());
 						docs = counters.optInt("docs");
 						topics = counters.optInt("topics");
 						music = counters.optInt("audios");
@@ -202,8 +202,6 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 					int y2 = y1 + oneitemheight;
 					if(y > y1 && y < y2)
 					{
-						System.out.println();
-						System.out.println(i);
 						onItemPress(i);
 						break;
 					}
@@ -218,6 +216,10 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 	{
 		switch (i) 
 		{
+			case 0:
+				FriendsScreen fs = new FriendsScreen();
+				VikaTouch.setDisplay(fs);
+				fs.LoadFriends(0, -id, name);
 			case 1:
 				VikaTouch.loading = true;
 				(new Thread()
@@ -239,9 +241,11 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 				).start();
 				break;
 			case 8:
-				DocsScreen dc = new DocsScreen();
-				VikaTouch.setDisplay(dc);
-				dc.loadDocs(0, -id, name);
+				if(docs>0) {
+					DocsScreen dc = new DocsScreen();
+					VikaTouch.setDisplay(dc);
+					dc.loadDocs(0, -id, name);
+				}
 				break;
 		}
 	}

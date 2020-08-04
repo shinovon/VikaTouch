@@ -73,7 +73,14 @@ public class FriendsScreen
 					System.out.println("Friends list");
 					VikaTouch.loading = true;
 					repaint();
-					String x = VikaUtils.download(new URLBuilder("friends.get").addField("count", Settings.simpleListsLength).addField("fields", "domain,last_seen,photo_50").addField("offset", from).addField("user_id", id));
+					String x;
+					if(id<0) {
+						// как участники
+						x = VikaUtils.download(new URLBuilder("groups.getMembers").addField("count", Settings.simpleListsLength).addField("fields", "domain,last_seen,photo_50").addField("offset", from).addField("group_id", -id));
+					} else {
+						// как друзья
+						x = VikaUtils.download(new URLBuilder("friends.get").addField("count", Settings.simpleListsLength).addField("fields", "domain,last_seen,photo_50").addField("offset", from).addField("user_id", id));
+					}
 					try
 					{
 						VikaTouch.loading = true;
