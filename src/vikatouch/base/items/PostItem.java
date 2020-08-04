@@ -236,7 +236,7 @@ public class PostItem
 		}
 		catch (Exception e)
 		{
-			VikaTouch.error(e, "Получение фотографии поста");
+			VikaTouch.error(e, ErrorCodes.POSTIMAGE);
 			e.printStackTrace();
 		}
 		

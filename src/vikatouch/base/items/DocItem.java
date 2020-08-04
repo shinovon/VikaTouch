@@ -11,6 +11,7 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.ScrollableCanvas;
+import vikamobilebase.ErrorCodes;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.JSONBase;
 import vikatouch.base.ResizeUtils;
@@ -126,7 +127,7 @@ public class DocItem
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			VikaTouch.error(e, "Обработка объектов: Документ");
+			VikaTouch.error(e, ErrorCodes.DOCPARSE);
 		}
 
 		setDrawHeight();
@@ -278,7 +279,7 @@ public class DocItem
 					catch(Exception e)
 					{
 						VikaTouch.docsCanv.isPreviewShown = false;
-						VikaTouch.error(e, "Скачивание превью");
+						VikaTouch.error(e, ErrorCodes.DOCPREVIEWLOAD);
 					}
 				}
 			}).start();

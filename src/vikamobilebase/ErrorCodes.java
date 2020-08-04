@@ -38,5 +38,7 @@ public class ErrorCodes
 	public static final int POSTAVAGROUPS = 33;
 	public static final int POSTAVAPROFILES = 34;
 	public static final int POSTIMAGE = 35;
+	public static final int GROUPSITEMDRAW = 36;
+	public static final int GROUPSDRAW = 37;
 
 }
