@@ -86,7 +86,19 @@ public class FriendItem extends JSONUIItem
 	
 	public void GetAva() {
 		try {
-			ava = ResizeUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
+			ava = VikaUtils.downloadImage(fixJSONString(json.optString("photo_50")));
+			switch(DisplayUtils.idispi)
+			{
+				case DisplayUtils.DISPLAY_S40:
+				case DisplayUtils.DISPLAY_ASHA311:
+				case DisplayUtils.DISPLAY_EQWERTY:
+				{
+					ava = ResizeUtils.resizeava(ava);
+					break;
+				}
+				default:
+					break;
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

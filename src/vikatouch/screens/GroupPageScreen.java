@@ -57,10 +57,10 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 		this.menuImg = MenuScreen.menuImg;
 		this.newsImg = VikaTouch.menuCanv.newsImg;
 		this.id = id;
-		load();
+		Load();
 	}
 	
-	public void load()
+	public void Load()
 	{
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
@@ -138,17 +138,19 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 	
 	public void draw(Graphics g)
 	{
+		int y = 140; // init offset
+		itemsh = itemsCount * 50 + y;
 		update(g);
 		ColorUtils.setcolor(g, -2);
-		g.fillRect(0, 132, 640, 8);
+		g.fillRect(0, 132, DisplayUtils.width, 8);
 		ColorUtils.setcolor(g, -10);
-		g.fillRect(0, 133, 640, 1);
+		g.fillRect(0, 133, DisplayUtils.width, 1);
 		ColorUtils.setcolor(g, -11);
-		g.fillRect(0, 134, 640, 1);
+		g.fillRect(0, 134, DisplayUtils.width, 1);
 		ColorUtils.setcolor(g, -7);
-		g.fillRect(0, 139, 640, 1);
+		g.fillRect(0, 139, DisplayUtils.width, 1);
 		ColorUtils.setcolor(g, -12);
-		g.fillRect(0, 140, 640, 1);
+		g.fillRect(0, 140, DisplayUtils.width, 1);
 		if(ava != null)
 		{
 			g.drawImage(ava, 16, 71, 0);
@@ -161,33 +163,19 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 		g.drawString(status==null?"":status, 74, 98, 0);
 		
 		ColorUtils.setcolor(g, -3);
-		g.drawRect(0, 140, 360, 50);
-		//g.drawRect(0, 58, 20, items);
-		for(int d = 0; d<(itemsh/oneitemheight); d++)
-		{
-			g.drawRect(0, 140+(d*oneitemheight), DisplayUtils.width, 50);
-			//g.drawString(""+d/50, 20, 150+d, 0);
-		}
-		int y = 140; // init offset
+		g.drawRect(0, 140, DisplayUtils.width, 50);
+		
 		if(uiItems!=null)
-		for (int i=0;i<uiItems.length;i++)
-		{
-			if(uiItems[i]!=null) {
-				uiItems[i].paint(g, y, scrolled);
-				y+=uiItems[i].getDrawHeight();
+			for (int i=0;i<uiItems.length;i++)
+			{
+				if(uiItems[i]!=null) {
+					uiItems[i].paint(g, y, scrolled);
+					y+=uiItems[i].getDrawHeight();
+				}
 			}
-		}
-			
+		
+		g.translate(0, -g.getTranslateY());
 		drawHeaders(g, link==null?"Группа":link);
-	}
-	
-	// Switch Text Color
-	private void stc(Graphics g, int n)
-	{
-		if(keysMode && selectedBtn == n)
-			ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
-		else
-			ColorUtils.setcolor(g, ColorUtils.TEXT);
 	}
 	
 	public final void release(int x, int y)
@@ -220,6 +208,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 				FriendsScreen fs = new FriendsScreen();
 				VikaTouch.setDisplay(fs);
 				fs.LoadFriends(0, -id, name);
+				break;
 			case 1:
 				VikaTouch.loading = true;
 				(new Thread()
@@ -235,7 +224,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 						{
 							VikaUtils.download(new URLBuilder("groups.join").addField("group_id", id));
 						}
-						load();
+						Load();
 					}
 				}
 				).start();

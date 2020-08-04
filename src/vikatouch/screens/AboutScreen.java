@@ -1,6 +1,5 @@
 package vikatouch.screens;
 
-import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 

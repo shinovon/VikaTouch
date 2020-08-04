@@ -195,19 +195,22 @@ public abstract class ScrollableCanvas
 		{
 			uiItems[currentItem].setSelected(false);
 		}
-		catch (Exception e)
-		{
-			
-		}
+		catch (Exception e) { }
 		currentItem--;
 		if(currentItem < 0)
 		{
-			currentItem = itemsCount--;
+			currentItem = (short) (itemsCount-1);
 			scrolled -= 1900;
 		}
 		else
+		{
 			scrolled += uiItems[currentItem].getDrawHeight();
-		uiItems[currentItem].setSelected(true);
+		}
+		try 
+		{
+			uiItems[currentItem].setSelected(true);
+		}
+		catch (Exception e) { }
 	}
 
 	protected final void update(Graphics g)
