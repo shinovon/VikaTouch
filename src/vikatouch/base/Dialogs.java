@@ -24,7 +24,7 @@ public class Dialogs
 	
 	public static JSONArray groups;
 
-	public static int itemsCount;
+	public static short itemsCount;
 
 	public static boolean selected;
 	
@@ -50,7 +50,7 @@ public class Dialogs
 						JSONArray items = response.getJSONArray("items");
 						JSONObject item = items.getJSONObject(0);
 						boolean u = dialogs[0] == null;
-						int has = 0;
+						short has = 0;
 						try
 						{
 							u = dialogs[0] == null || !item.getJSONObject("last_message").optString("text").substring(0, 7).equalsIgnoreCase(dialogs[0].lastmessage.text.substring(0, 7));
@@ -59,8 +59,8 @@ public class Dialogs
 						{
 							
 						}
-						has = response.optInt("unread_count");
-						itemsCount = response.optInt("count");
+						has = (short) response.optInt("unread_count");
+						itemsCount = (short) response.optInt("count");
 						if(itemsCount > dialogsCount)
 						{
 							itemsCount = dialogsCount;

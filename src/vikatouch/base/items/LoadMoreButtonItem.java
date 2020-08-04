@@ -46,13 +46,13 @@ public class LoadMoreButtonItem
 	}
 
 	public void tap(int x, int y) {
-		l.LoadNext();
+		l.loadNext();
 	}
 
 	public void keyPressed(int key) {
 		if(key == KEY_OK)
 		{
-			l.LoadNext();
+			l.loadNext();
 		}
 	}
 

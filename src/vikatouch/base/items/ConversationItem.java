@@ -11,6 +11,7 @@ import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
+import vikamobilebase.ErrorCodes;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.Dialogs;
 import vikatouch.base.IconsManager;
@@ -212,7 +213,7 @@ public class ConversationItem
 		}
 		catch (JSONException e)
 		{
-			VikaTouch.error(e, "Парсинг диалога");
+			VikaTouch.error(e, ErrorCodes.CONVERPARSE);
 			e.printStackTrace();
 		}
 		

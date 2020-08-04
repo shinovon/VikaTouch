@@ -9,6 +9,7 @@ import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
+import vikamobilebase.ErrorCodes;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;
@@ -53,7 +54,7 @@ public class FriendsScreen
 						JSONObject response = new JSONObject(x).getJSONObject("response");
 						JSONArray items = response.getJSONArray("items");
 						System.out.println(items.toString());
-						itemsCount = items.length();
+						itemsCount = (short) items.length();
 						uiItems = new FriendItem[items.length()];
 						for(int i = 0; i < itemsCount; i++)
 						{
@@ -66,7 +67,7 @@ public class FriendsScreen
 					catch (JSONException e)
 					{
 						e.printStackTrace();
-						VikaTouch.error(e, "Парс списка друзей");
+						VikaTouch.error(e, ErrorCodes.FRIENDSPARSE);
 					}
 
 					VikaTouch.loading = false;
@@ -78,7 +79,7 @@ public class FriendsScreen
 				catch (Exception e)
 				{
 					e.printStackTrace();
-					VikaTouch.error(e, "Загрузка списка друзей");
+					VikaTouch.error(e, ErrorCodes.FRIENDSLOAD);
 				}
 				VikaTouch.loading = false;
 			}
@@ -115,7 +116,7 @@ public class FriendsScreen
 			}
 			catch (Exception e)
 			{
-				VikaTouch.error(e, "Прорисовка объектов: друзья");
+				VikaTouch.error(e, ErrorCodes.FRIENDSITEMDRAW);
 			}
 			g.translate(0, -g.getTranslateY());
 
@@ -124,7 +125,7 @@ public class FriendsScreen
 		}
 		catch (Exception e)
 		{
-			VikaTouch.error(e, "Прорисовка: друзья");
+			VikaTouch.error(e, ErrorCodes.FRIENDSDRAW);
 			e.printStackTrace();
 		}
 

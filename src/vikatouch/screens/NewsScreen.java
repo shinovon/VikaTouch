@@ -10,6 +10,7 @@ import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
+import vikamobilebase.ErrorCodes;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;
@@ -67,9 +68,9 @@ public class NewsScreen
 		VikaTouch.loading = true;
 		try
 		{
-			int requestcount = 20;
-			int startswith = 0;
-			int postscount = 10;
+			short requestcount = 10;
+			short startswith = 0;
+			short postscount = 10;
 			uiItems = new PostItem[postscount];
 			int len2 = postscount;
 			final String s = VikaUtils.download(
@@ -116,7 +117,7 @@ public class NewsScreen
 		}
 		catch (Exception e)
 		{
-			VikaTouch.error(e, "Обработка объектов: Посты");
+			VikaTouch.error(e, ErrorCodes.NEWSPARSE);
 			e.printStackTrace();
 		}
 		
@@ -156,14 +157,14 @@ public class NewsScreen
 			}
 			catch (Exception e)
 			{
-				VikaTouch.error(e, "Прорисовка объектов: Посты");
+				VikaTouch.error(e, ErrorCodes.NEWSPOSTSDRAW);
 			}
 			
 			g.translate(0, -g.getTranslateY());
 			
 			drawHeaders(g, "Новости");
 		} catch (Exception e) {
-			VikaTouch.error(e, "Прорисовка: Лента");
+			VikaTouch.error(e, ErrorCodes.NEWSDRAW);
 			e.printStackTrace();
 		}
 	}

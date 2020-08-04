@@ -3,11 +3,13 @@ package vikatouch.base;
 import java.io.UnsupportedEncodingException;
 import java.util.Hashtable;
 
-public final class URLDecoder {
+public final class URLDecoder
+{
 	
 	private static Hashtable dict;
 
-	static {
+	static
+	{
 		dict = new Hashtable();
 		dict.put(" ", "%20");
 		dict.put("а", "%D0%B0");
@@ -224,12 +226,16 @@ public final class URLDecoder {
 	{
 		String result = "";
 
-		for (int i = 0; i < s.length(); ++i) {
-			char var3 = s.charAt(i);
+		for (int i = 0; i < s.length(); ++i)
+		{
+			char c = s.charAt(i);
 			Object obj;
-			if ((obj = dict.get(String.valueOf(var3))) == null) {
-				result += var3;
-			} else {
+			if ((obj = dict.get(String.valueOf(c))) == null)
+			{
+				result += c;
+			}
+			else
+			{
 				result += String.valueOf(obj);
 			}
 		}

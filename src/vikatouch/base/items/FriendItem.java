@@ -7,6 +7,7 @@ import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
+import vikamobilebase.ErrorCodes;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.IconsManager;
 import vikatouch.base.ResizeUtils;
@@ -68,7 +69,7 @@ public class FriendItem extends JSONUIItem
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			VikaTouch.error(e, "Обработка объектов: друзья");
+			VikaTouch.error(e, ErrorCodes.FRIENDPARSE);
 		}
 
 		setDrawHeight();

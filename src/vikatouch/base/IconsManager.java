@@ -9,11 +9,15 @@ public class IconsManager {
 	public static Image[] ico;
 	public static Image[] selIco;
 	
-	public static void Load() throws IOException {
+	public static void Load()
+			throws IOException
+	{
 		Image sheet = Image.createImage("/Icons.png");
 		int c /*count*/ = sheet.getWidth() / 24;
-		ico = new Image[c]; selIco = new Image[c];
-		for(int i=0;i<c;i++) {
+		ico = new Image[c];
+		selIco = new Image[c];
+		for(int i = 0; i < c; i++)
+		{
 			ico[i] = Image.createImage(sheet, i*24, 0, 24, 24, 0);
 			selIco[i] = Image.createImage(sheet, i*24, 24, 24, 24, 0);
 		}

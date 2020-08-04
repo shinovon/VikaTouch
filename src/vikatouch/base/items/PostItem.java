@@ -13,6 +13,7 @@ import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.TextBreaker;
 import ru.nnproject.vikaui.UIItem;
+import vikamobilebase.ErrorCodes;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;
@@ -67,7 +68,7 @@ public class PostItem
 		}
 		catch (Exception e)
 		{
-			VikaTouch.error(e, "Получение текста поста");
+			VikaTouch.error(e, ErrorCodes.POSTTEXT);
 			e.printStackTrace();
 			text = "";
 		}
@@ -139,7 +140,7 @@ public class PostItem
 					}
 					catch (Exception e)
 					{
-						VikaTouch.error(e, "Получение аватарки и автора поста: Группы");
+						VikaTouch.error(e, ErrorCodes.POSTAVAGROUPS);
 						e.printStackTrace();
 					}
 				}
@@ -181,7 +182,7 @@ public class PostItem
 			}
 			catch (Exception e)
 			{
-				VikaTouch.error(e, "Получение аватарки и автора поста: Пользователи");
+				VikaTouch.error(e, ErrorCodes.POSTAVAPROFILES);
 				e.printStackTrace();
 			}
 		}

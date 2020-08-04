@@ -13,6 +13,7 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.PressableUIItem;
+import vikamobilebase.ErrorCodes;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.INextLoadable;
 import vikatouch.base.URLBuilder;
@@ -60,7 +61,7 @@ public class GroupsScreen
 	public int totalItems;
 	public boolean canLoadMore = true;
 
-	public void LoadGroups(final int from, final int id, final String name)
+	public void loadGroups(final int from, final int id, final String name)
 	{
 		scrolled = 0;
 		uiItems = null;
@@ -85,7 +86,7 @@ public class GroupsScreen
 						JSONObject response = new JSONObject(x).getJSONObject("response");
 						JSONArray items = response.getJSONArray("items");
 						totalItems = response.getInt("count");
-						itemsCount = items.length();
+						itemsCount = (short) items.length();
 						canLoadMore = !(itemsCount<loadGroupsCount);
 						if(totalItems == from+loadGroupsCount) { canLoadMore = false; }
 						uiItems = new PressableUIItem[itemsCount+(canLoadMore?1:0)];
@@ -106,7 +107,7 @@ public class GroupsScreen
 					catch (JSONException e)
 					{
 						e.printStackTrace();
-						VikaTouch.error(e, "Парс списка групп");
+						VikaTouch.error(e, ErrorCodes.GROUPSPARSE);
 					}
 					System.out.println("Groups list OK");
 					VikaTouch.loading = true;
@@ -127,7 +128,7 @@ public class GroupsScreen
 				catch (Exception e)
 				{
 					e.printStackTrace();
-					VikaTouch.error(e, "Загрузка списка групп");
+					VikaTouch.error(e, ErrorCodes.GROUPSLOAD);
 				}
 				VikaTouch.loading = false;
 			}
@@ -164,7 +165,7 @@ public class GroupsScreen
 			}
 			catch (Exception e)
 			{
-				VikaTouch.error(e, "Прорисовка объектов: группы");
+				VikaTouch.error(e, ErrorCodes.GROUPSITEMDRAW);
 			}
 			g.translate(0, -g.getTranslateY());
 
@@ -173,7 +174,7 @@ public class GroupsScreen
 		}
 		catch (Exception e)
 		{
-			VikaTouch.error(e, "Прорисовка: группы");
+			VikaTouch.error(e, ErrorCodes.GROUPSDRAW);
 			e.printStackTrace();
 		}
 
@@ -208,6 +209,7 @@ public class GroupsScreen
 		catch (ArrayIndexOutOfBoundsException e) 
 		{ 
 			// Всё нормально, просто тапнули ПОД последним элементом.
+			// ты на что-то намекаешь?
 		}
 		catch (Exception e) 
 		{
@@ -216,8 +218,8 @@ public class GroupsScreen
 		super.release(x, y);
 	}
 
-	public void LoadNext() {
+	public void loadNext() {
 		down();
-		LoadGroups(fromG+loadGroupsCount, currId, whose);
+		loadGroups(fromG+loadGroupsCount, currId, whose);
 	}
 }

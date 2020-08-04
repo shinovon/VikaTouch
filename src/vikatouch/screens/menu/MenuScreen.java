@@ -16,6 +16,7 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.ScrollableCanvas;
+import vikamobilebase.ErrorCodes;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.JSONBase;
 import vikatouch.base.ResizeUtils;
@@ -111,7 +112,7 @@ public class MenuScreen
 		}
 		catch (Exception e)
 		{
-			VikaTouch.error(e, "Не удалось загрузить одну или несколько элементов меню!");
+			VikaTouch.error(e, ErrorCodes.MENUIMAGE);
 		}
 		if(VikaTouch.DEMO_MODE)
 		{
@@ -151,27 +152,27 @@ public class MenuScreen
 					catch (Exception e)
 					{
 						if(!VikaTouch.offlineMode)
-							VikaTouch.error(e, "Не удалось получить аватарку профиля!");
+							VikaTouch.error(e, ErrorCodes.MENUAVATAR);
 						hasAva = false;
 					}
 				}
 			}
 			catch (StringIndexOutOfBoundsException var19)
 			{
-				VikaTouch.error(var19, "Получение информации о профиле");
+				VikaTouch.error(var19, ErrorCodes.MENUPROFILEINFO1);
 			}
 			catch (NullPointerException var19)
 			{
-				VikaTouch.error(var19, "Получение информации о профиле");
+				VikaTouch.error(var19, ErrorCodes.MENUPROFILEINFO2);
 			}
 			catch (Exception var19)
 			{
-				VikaTouch.error(var19, "Получение информации о профиле");
+				VikaTouch.error(var19, ErrorCodes.MENUPROFILEINFO3);
 			}
 		}
 		else
 		{
-			VikaTouch.error("Обратите внимание! USER_ID равен null!", false);
+			VikaTouch.error(ErrorCodes.MENUAVATAR, false);
 		}
 	}
 
@@ -635,7 +636,7 @@ public class MenuScreen
 				{
 
 					ColorUtils.setcolor(g, 2);
-					g.drawString("Ваше "+DisplayUtils.idispi, 2, 0, 0);
+					g.drawString("Ваше ", 2, 0, 0);
 					g.drawString("разрешение", 2, 15, 0);
 					g.drawString("экрана", 2, 30, 0);
 					g.drawString("не", 2, 45, 0);

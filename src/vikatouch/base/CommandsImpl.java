@@ -101,7 +101,7 @@ public class CommandsImpl
 							if(VikaTouch.grCanv == null)
 								VikaTouch.grCanv = new GroupsScreen();
 							if(!VikaTouch.grCanv.isReady())
-								VikaTouch.grCanv.LoadGroups(0, 0, null);
+								VikaTouch.grCanv.loadGroups(0, 0, null);
 							VikaTouch.setDisplay(VikaTouch.grCanv);
 						}
 						break;
@@ -144,7 +144,7 @@ public class CommandsImpl
 						{
 							if(VikaTouch.docsCanv == null)
 								VikaTouch.docsCanv = new DocsScreen();
-							VikaTouch.docsCanv.LoadDocs(0, 0, null);
+							VikaTouch.docsCanv.loadDocs(0, 0, null);
 							VikaTouch.setDisplay(VikaTouch.docsCanv);
 						}
 						break;

@@ -12,6 +12,7 @@ import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.IMenu;
 import ru.nnproject.vikaui.PressableUIItem;
+import vikamobilebase.ErrorCodes;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.IconsManager;
 import vikatouch.base.JSONBase;
@@ -113,7 +114,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 					catch (JSONException e)
 					{
 						e.printStackTrace();
-						VikaTouch.error(e, "Парс группы");
+						VikaTouch.error(e, ErrorCodes.GROUPPAGEPARSE);
 					}
 
 					VikaTouch.loading = false;
@@ -125,7 +126,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 				catch (Exception e)
 				{
 					e.printStackTrace();
-					VikaTouch.error(e, "Загрузка группы");
+					VikaTouch.error(e, ErrorCodes.GROUPPAGELOAD);
 				}
 				VikaTouch.loading = false;
 				System.gc();
@@ -240,7 +241,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 			case 8:
 				DocsScreen dc = new DocsScreen();
 				VikaTouch.setDisplay(dc);
-				dc.LoadDocs(0, -id, name);
+				dc.loadDocs(0, -id, name);
 				break;
 		}
 	}

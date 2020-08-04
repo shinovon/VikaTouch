@@ -13,6 +13,7 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.PressableUIItem;
+import vikamobilebase.ErrorCodes;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.INextLoadable;
 import vikatouch.base.URLBuilder;
@@ -55,7 +56,7 @@ public class DocsScreen
 	
 	public boolean canLoadMore = true;
 
-	public void LoadDocs(final int from, final int id, String name)
+	public void loadDocs(final int from, final int id, String name)
 	{
 		scrolled = 0;
 		uiItems = null;
@@ -81,7 +82,7 @@ public class DocsScreen
 						JSONObject response = new JSONObject(x).getJSONObject("response");
 						JSONArray items = response.getJSONArray("items");
 						totalDocs = response.getInt("count");
-						itemsCount = items.length();
+						itemsCount = (short) items.length();
 						canLoadMore = !(itemsCount<count);
 						if(totalDocs == from+count) { canLoadMore = false; }
 						uiItems = new PressableUIItem[itemsCount+(canLoadMore?1:0)];
@@ -101,7 +102,7 @@ public class DocsScreen
 					catch (JSONException e)
 					{
 						e.printStackTrace();
-						VikaTouch.error(e, "Парс списка документов");
+						VikaTouch.error(e, ErrorCodes.DOCUMENTSPARSE);
 					}
 
 					VikaTouch.loading = false;
@@ -109,7 +110,7 @@ public class DocsScreen
 				catch (Exception e)
 				{
 					e.printStackTrace();
-					VikaTouch.error(e, "Загрузка списка документов");
+					VikaTouch.error(e, ErrorCodes.DOCUMENTSLOAD);
 				}
 				VikaTouch.loading = false;
 			}
@@ -143,7 +144,7 @@ public class DocsScreen
 			}
 			catch (Exception e)
 			{
-				VikaTouch.error(e, "Прорисовка объектов: Доки");
+				VikaTouch.error(e, ErrorCodes.DOCUMENTSITEMDRAW);
 			}
 			g.translate(0, -g.getTranslateY());
 
@@ -152,7 +153,7 @@ public class DocsScreen
 		}
 		catch (Exception e)
 		{
-			VikaTouch.error(e, "Прорисовка: Доки");
+			VikaTouch.error(e, ErrorCodes.DOCUMENTSDRAW);
 			e.printStackTrace();
 		}
 		try {
@@ -169,7 +170,7 @@ public class DocsScreen
 		}
 		catch (Exception e)
 		{
-			VikaTouch.error(e, "Прорисовка: превью картинки");
+			VikaTouch.error(e, ErrorCodes.DOCPREVIEWDRAW);
 			e.printStackTrace();
 		}
 
@@ -210,6 +211,7 @@ public class DocsScreen
 		catch (ArrayIndexOutOfBoundsException e) 
 		{ 
 			// Всё нормально, просто тапнули ПОД последним элементом.
+			// ты на что-то намекаешь?
 		}
 		catch (Exception e) 
 		{
@@ -217,10 +219,10 @@ public class DocsScreen
 		}
 		super.release(x, y);
 	}
-	public void LoadNext() {
+	public void loadNext()
+	{
 		down();
-		LoadDocs(fromDoc+loadDocsCount, currId, whose);
-		
+		loadDocs(fromDoc+loadDocsCount, currId, whose);
 	}
 
 }

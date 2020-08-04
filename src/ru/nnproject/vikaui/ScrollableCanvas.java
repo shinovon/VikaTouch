@@ -10,27 +10,27 @@ public abstract class ScrollableCanvas
 	protected int starty;
 	protected int endx;
 	protected int endy;
-	protected int scroll;
+	protected short scroll;
 	protected int scrolled;
 	protected int lasty;
 	protected boolean dragging;
 	protected boolean canScroll;
-	public static int oneitemheight = 50;
-	public int itemsCount = 5;
+	public static short oneitemheight = 50;
+	public short itemsCount = 5;
 	public int itemsh = itemsCount * oneitemheight;
 	protected int lastx;
-	public static int vmeshautsa = 528;
-	public static final double scrollSpeed = 2.7;
+	public static short vmeshautsa = 528;
+	public static final double scrollSpeed = 1.8;
 	public PressableUIItem[] uiItems;
-	public int scrollOffset;
-	public int currentItem;
+	public short scrollOffset;
+	public short currentItem;
 	public static boolean keysMode = false;
 	
-	public int drift;
-	public int driftSpeed;
-	public int scrollingTimer;
-	protected int scrollPrev;
-	protected int timer;
+	public short drift;
+	public short driftSpeed;
+	public short scrollingTimer;
+	protected short scrollPrev;
+	protected short timer;
 	
 	public ScrollableCanvas()
 	{
@@ -52,11 +52,11 @@ public abstract class ScrollableCanvas
 		{
 			if(ndeltaY > ndeltaX)
 			{
-				scroll = (int)((double) -deltaY * scrollSpeed);
+				scroll = (short)((double) -deltaY * scrollSpeed);
 				scrollPrev += scroll;
 				scrollingTimer += Math.abs(scroll) / 14;
 				if(Math.abs(scroll / 3) > Math.abs(driftSpeed))
-					driftSpeed = scroll / 3;
+					driftSpeed = (short) (scroll / 3);
 			}
 			else
 			{
@@ -202,7 +202,7 @@ public abstract class ScrollableCanvas
 		currentItem--;
 		if(currentItem < 0)
 		{
-			currentItem = itemsCount - 1;
+			currentItem = itemsCount--;
 			scrolled -= 1900;
 		}
 		else
@@ -214,7 +214,8 @@ public abstract class ScrollableCanvas
 	{
 		try
 		{
-			timer++;
+			if(timer < 3200)
+				timer++;
 			if(scrollingTimer > 0)
 				scrollingTimer--;
 			

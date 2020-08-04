@@ -5,12 +5,12 @@ import javax.microedition.lcdui.Image;
 
 public class DisplayUtils
 {
-	public static int idispi;
-	public static int width;
-	public static int height;
-	public static int lwidth;
-	public static int lheight;
-	public static int current;
+	public static short idispi;
+	public static short width;
+	public static short height;
+	public static short lwidth;
+	public static short lheight;
+	public static byte current;
 	public static VikaCanvas canvas;
 	
 	//Дисплеи
@@ -41,11 +41,11 @@ public class DisplayUtils
 
 	public static int checkdisplay()
 	{
-		int i = 0; 
+		short i = 0; 
 		if(canvas == null)
 			return 0;
-		width = canvas.getWidth();
-		height = canvas.getHeight();
+		width = (short) canvas.getWidth();
+		height = (short) canvas.getHeight();
 		if(width != lwidth || height != lheight)
 		{
 			if(width == 360 && height == 640)
@@ -107,23 +107,7 @@ public class DisplayUtils
 
 	public static String getCanvasString()
 	{
-		switch(current)
-		{
-			case CANVAS_LOGIN:
-				return "Логин";
-			case CANVAS_MENU:
-				return "Меню";
-			case CANVAS_NEWS:
-				return "Лента";
-			case CANVAS_CHATSLIST:
-				return "Диалоги";
-			case CANVAS_TEMPLIST:
-				return "Список";
-			case CANVAS_MUSICLIST:
-				return "Музыка";
-			default:
-				return "default";
-		}
+		return "DEBUG";
 	}
 
 }

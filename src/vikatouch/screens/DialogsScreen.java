@@ -9,6 +9,7 @@ import javax.microedition.lcdui.Image;
 
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
+import vikamobilebase.ErrorCodes;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.Dialogs;
 import vikatouch.base.VikaTouch;
@@ -112,7 +113,7 @@ public class DialogsScreen
 		currentItem--;
 		if(currentItem < 0)
 		{
-			currentItem = Dialogs.itemsCount - 1;
+			currentItem = Dialogs.itemsCount--;
 			scroll -= 1900;
 		}
 		else
@@ -170,7 +171,7 @@ public class DialogsScreen
 			}
 			catch (Exception e)
 			{
-				VikaTouch.error(e, "Прорисовка объектов: Диалоги");
+				VikaTouch.error(e, ErrorCodes.DIALOGSITEMDRAW);
 			}
 			g.translate(0, -g.getTranslateY());
 			
@@ -178,7 +179,7 @@ public class DialogsScreen
 		}
 		catch (Exception e)
 		{
-			VikaTouch.error(e, "Прорисовка: Диалоги");
+			VikaTouch.error(e, ErrorCodes.DIALOGSDRAW);
 			e.printStackTrace();
 		}
 	}

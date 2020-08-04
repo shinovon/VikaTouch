@@ -11,8 +11,8 @@ public class ResizeUtils
 
 	public static Image resizeava(Image img)
 	{
-		int h = img.getHeight();
-		int need = h;
+		short h = (short) img.getHeight();
+		short need = h;
 		switch(DisplayUtils.idispi)
 		{
 			case DisplayUtils.DISPLAY_E6:
@@ -46,8 +46,8 @@ public class ResizeUtils
 
 	public static Image resizeChatAva(Image img)
 	{
-		int h = img.getHeight();
-		int need = h;
+		short h = (short) img.getHeight();
+		short need = h;
 		switch(DisplayUtils.idispi)
 		{
 			case DisplayUtils.DISPLAY_E6:
@@ -82,8 +82,8 @@ public class ResizeUtils
 
 	public static Image resizeItemPreview(Image img)
 	{
-		int h = img.getHeight();
-		int need = h;
+		short h = (short) img.getHeight();
+		short need = h;
 		switch(DisplayUtils.idispi)
 		{
 			case DisplayUtils.DISPLAY_E6:

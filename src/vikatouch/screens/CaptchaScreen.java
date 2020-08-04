@@ -42,7 +42,7 @@ public class CaptchaScreen
 		g.fillRect(x, 150, w, 36);
 	}
 	
-	public final void press(int x, int y)
+	public final void press(short x, short y)
 	{
 		if(y > 100 && y < 140 && x < 240)
 		{
@@ -60,7 +60,7 @@ public class CaptchaScreen
 		}
 	}
 	
-	public final void release(int x, int y)
+	public final void release(short x, short y)
 	{
 		if(x > this.x && y > 150 && y < 186 && x < this.x + this.w)
 		{

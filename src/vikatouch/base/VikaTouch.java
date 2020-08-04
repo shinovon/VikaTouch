@@ -16,6 +16,7 @@ import ru.nnproject.vikatouch.VikaTouchApp;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.UIThread;
 import ru.nnproject.vikaui.VikaScreen;
+import vikamobilebase.ErrorCodes;
 import vikamobilebase.ImageStorage;
 import vikamobilebase.VikaUtils;
 import vikatouch.screens.AboutScreen;
@@ -60,7 +61,7 @@ public class VikaTouch
 	public static Thread mainThread;
 	public static UIThread uiThread;
 	public static String userId;
-	public static int unreadCount = -1;
+	public static short unreadCount = -1;
 	public static boolean offlineMode;
 	public static boolean loading;
 	public static AboutScreen about;
@@ -91,7 +92,7 @@ public class VikaTouch
 		}
 		catch (Exception e)
 		{
-			VikaTouch.error(e, "Сохранение токена");
+			VikaTouch.error(e, ErrorCodes.TOKENSAVE);
 		}
 	}
 	
@@ -121,7 +122,7 @@ public class VikaTouch
 		}
 		catch (Exception e)
 		{
-			VikaTouch.error(e, "Получение токена из сохранений");
+			VikaTouch.error(e, ErrorCodes.TOKENLOAD);
 		}
 		return false;
 	}
@@ -320,22 +321,6 @@ public class VikaTouch
 		return x;
 	}
 
-	public static void error(String s, boolean fatal)
-	{
-		inst.errReason = s;
-		final Alert alert = new Alert("Ошибка!", s, null, AlertType.ERROR);
-		if(fatal)
-		{
-			alert.setCommandListener(inst.cmdsInst);
-			alert.addCommand(CommandsImpl.close);
-		}
-		else
-		{
-			alert.addCommand(Alert.DISMISS_COMMAND);
-		}
-		setDisplay(alert);
-	}
-
 	public static void warn(String string)
 	{
 		final Alert alert = new Alert("Внимание!", string, null, AlertType.WARNING);
@@ -358,12 +343,61 @@ public class VikaTouch
 		Display.getDisplay(appInst).setCurrent(d);
 	}
 
+	public static void error(int i, boolean fatal)
+	{
+		inst.errReason = "errorcode" + i;
+		final Alert alert = new Alert("Ошибка!", "Код ошибки: " + i + "\nобратитесь к разработчику за помощью.", null, AlertType.ERROR);
+		if(fatal)
+		{
+			alert.setCommandListener(inst.cmdsInst);
+			alert.addCommand(CommandsImpl.close);
+		}
+		else
+		{
+			alert.addCommand(Alert.DISMISS_COMMAND);
+		}
+		setDisplay(alert);
+	}
+
+	public static void error(Throwable e, int i)
+	{
+		inst.errReason = e.toString();
+		final Alert alert = new Alert("Ошибка!", "Исключение: \n" + e.toString() + "\nКод ошибки: " + i + "\nобратитесь к разработчику за помощью.", null, AlertType.ERROR);
+		final boolean fatal = e instanceof IOException || e instanceof NullPointerException || e instanceof OutOfMemoryError;
+		if(fatal)
+		{
+			alert.setCommandListener(inst.cmdsInst);
+			alert.addCommand(CommandsImpl.close);
+		}
+		else
+		{
+			alert.addCommand(Alert.DISMISS_COMMAND);
+		}
+		setDisplay(alert);
+	}
+
 	public static void error(Throwable e, String s)
 	{
 		System.out.println(s);
 		inst.errReason = e.toString();
 		final Alert alert = new Alert("Ошибка!", "Необработанное исключение: \n" + e.toString() + "\nВозможное описание: " + s, null, AlertType.ERROR);
-		final boolean fatal = e instanceof IOException || e instanceof NullPointerException;
+		final boolean fatal = e instanceof IOException || e instanceof NullPointerException || e instanceof OutOfMemoryError;
+		if(fatal)
+		{
+			alert.setCommandListener(inst.cmdsInst);
+			alert.addCommand(CommandsImpl.close);
+		}
+		else
+		{
+			alert.addCommand(Alert.DISMISS_COMMAND);
+		}
+		setDisplay(alert);
+	}
+
+	public static void error(String s, boolean fatal)
+	{
+		inst.errReason = s;
+		final Alert alert = new Alert("Ошибка!", s, null, AlertType.ERROR);
 		if(fatal)
 		{
 			alert.setCommandListener(inst.cmdsInst);
