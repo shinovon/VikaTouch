@@ -76,7 +76,7 @@ public class ChatScreen
 				//верхняя панель
 				if(x < 50)
 				{
-					VikaTouch.inst.cmdsInst.command(13, this);
+					VikaTouch.inst.cmdsInst.command(14, this);
 				}
 			}
 		}
