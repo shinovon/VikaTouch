@@ -6,12 +6,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Enumeration;
-import java.util.Hashtable;
 
 import javax.microedition.io.Connection;
 import javax.microedition.io.ConnectionNotFoundException;
@@ -19,17 +16,9 @@ import javax.microedition.io.Connector;
 import javax.microedition.io.ContentConnection;
 import javax.microedition.io.HttpConnection;
 import javax.microedition.io.file.FileConnection;
-import javax.microedition.lcdui.Alert;
-import javax.microedition.lcdui.AlertType;
-import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
-import javax.microedition.lcdui.List;
-import javax.microedition.lcdui.StringItem;
-import javax.microedition.rms.RecordStore;
 
-import org.json.me.JSONArray;
-import org.json.me.JSONObject;
 
 import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;

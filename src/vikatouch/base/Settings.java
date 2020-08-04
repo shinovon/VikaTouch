@@ -19,6 +19,8 @@ public class Settings
 
 	public static boolean debugInfo;
 	
+	public static int simpleListsLength;
+	
 	public static final int SENSOR_OK = 0;
 	public static final int SENSOR_J2MELOADER = 1;
 	public static final int SENSOR_RESISTIVE = 2;
@@ -48,6 +50,7 @@ public class Settings
 		proxyApi = "http://vk-api-proxy.xtrafrancyz.net:80";
 		proxyOAuth = "http://vk-oauth-proxy.xtrafrancyz.net:80";
 		sensorMode = SENSOR_OK;
+		simpleListsLength = 30; // выбор из 10, 30, 50 и 80. Экран потом сделаю.
 	}
 
 }

@@ -84,7 +84,7 @@ public class DocsScreen
 						totalDocs = response.getInt("count");
 						itemsCount = (short) items.length();
 						canLoadMore = !(itemsCount<count);
-						if(totalDocs == from+count) { canLoadMore = false; }
+						if(totalDocs <= from+count) { canLoadMore = false; }
 						uiItems = new PressableUIItem[itemsCount+(canLoadMore?1:0)];
 						for(int i = 0; i < itemsCount; i++)
 						{

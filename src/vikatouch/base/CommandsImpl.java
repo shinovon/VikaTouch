@@ -87,8 +87,7 @@ public class CommandsImpl
 						{
 							if(VikaTouch.friendsCanv == null)
 								VikaTouch.friendsCanv = new FriendsScreen();
-							if(!VikaTouch.friendsCanv.isReady())
-								VikaTouch.friendsCanv.LoadFriends();
+							VikaTouch.friendsCanv.LoadFriends(0,0,null);
 							VikaTouch.setDisplay(VikaTouch.friendsCanv);
 						}
 						break;
@@ -100,8 +99,7 @@ public class CommandsImpl
 						{
 							if(VikaTouch.grCanv == null)
 								VikaTouch.grCanv = new GroupsScreen();
-							if(!VikaTouch.grCanv.isReady())
-								VikaTouch.grCanv.loadGroups(0, 0, null);
+							VikaTouch.grCanv.loadGroups(0, Integer.parseInt(VikaTouch.userId), null);
 							VikaTouch.setDisplay(VikaTouch.grCanv);
 						}
 						break;

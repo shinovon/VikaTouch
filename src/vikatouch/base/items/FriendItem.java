@@ -1,5 +1,7 @@
 package vikatouch.base.items;
 
+import java.io.IOException;
+
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
@@ -47,7 +49,7 @@ public class FriendItem extends JSONUIItem
 				
 			}
 			online = json.optInt("online") == 1;
-			try {
+			/*try {
 				ava = VikaUtils.downloadImage(fixJSONString(json.optString("photo_50")));
 				switch(DisplayUtils.idispi)
 				{
@@ -64,7 +66,7 @@ public class FriendItem extends JSONUIItem
 			} catch (Exception e) {
 				System.out.println("Юзер "+link+": ошибка аватарки");
 				//System.out.println(json.toString());
-			}
+			}*/
 		}
 		catch (Exception e)
 		{
@@ -80,6 +82,14 @@ public class FriendItem extends JSONUIItem
 	private void setDrawHeight()
 	{
 		itemDrawHeight = 50 + BORDER * 2;
+	}
+	
+	public void GetAva() {
+		try {
+			ava = ResizeUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void paint(Graphics g, int y, int scrolled)

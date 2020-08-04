@@ -16,6 +16,7 @@ import ru.nnproject.vikaui.PressableUIItem;
 import vikamobilebase.ErrorCodes;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.INextLoadable;
+import vikatouch.base.Settings;
 import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.items.DocItem;
@@ -51,7 +52,6 @@ public class GroupsScreen
 	}
 	public static GroupsScreen current;
 	
-	public final static int loadGroupsCount = 50;
 	public static Thread downloaderThread;
 	
 	public int currId;
@@ -79,16 +79,17 @@ public class GroupsScreen
 				try
 				{
 					VikaTouch.loading = true;
-					String x = VikaUtils.download(new URLBuilder("groups.get").addField("extended", "1").addField("count", loadGroupsCount).addField("fields", "members_count,counters"));
+					String x = VikaUtils.download(new URLBuilder("groups.get").addField("extended", "1")
+							.addField("count", Settings.simpleListsLength).addField("fields", "members_count,counters").addField("user_id", id).addField("offset", from));
 					try
 					{
 						VikaTouch.loading = true;
+						repaint();
 						JSONObject response = new JSONObject(x).getJSONObject("response");
 						JSONArray items = response.getJSONArray("items");
 						totalItems = response.getInt("count");
 						itemsCount = (short) items.length();
-						canLoadMore = !(itemsCount<loadGroupsCount);
-						if(totalItems == from+loadGroupsCount) { canLoadMore = false; }
+						canLoadMore = totalItems > from+Settings.simpleListsLength;
 						uiItems = new PressableUIItem[itemsCount+(canLoadMore?1:0)];
 						for(int i = 0; i < itemsCount; i++)
 						{
@@ -96,7 +97,6 @@ public class GroupsScreen
 							JSONObject item = items.getJSONObject(i);
 							uiItems[i] = new GroupItem(item);
 							((GroupItem) uiItems[i]).parseJSON();
-							//Thread.yield();
 						}
 						range = " ("+(from+1)+"-"+(itemsCount+from)+")";
 						if(canLoadMore) {
@@ -109,10 +109,13 @@ public class GroupsScreen
 						e.printStackTrace();
 						VikaTouch.error(e, ErrorCodes.GROUPSPARSE);
 					}
-					System.out.println("Groups list OK");
+					if(keysMode) {
+						currentItem = 0;
+						uiItems[0].setSelected(true);
+					}
 					VikaTouch.loading = true;
 					repaint();
-					Thread.sleep(1500);
+					Thread.sleep(1000);
 					VikaTouch.loading = true;
 					for(int i = 0; i < itemsCount - (canLoadMore?1:0); i++)
 					{
@@ -210,6 +213,7 @@ public class GroupsScreen
 		{ 
 			// Всё нормально, просто тапнули ПОД последним элементом.
 			// ты на что-то намекаешь?
+			// Я? я ни на что, просто оно реально плюётся если тапнуть под последним. Ничего не трогай, сломаем. (с) Feodor0090
 		}
 		catch (Exception e) 
 		{
@@ -219,7 +223,6 @@ public class GroupsScreen
 	}
 
 	public void loadNext() {
-		down();
-		loadGroups(fromG+loadGroupsCount, currId, whose);
+		loadGroups(fromG+Settings.simpleListsLength, currId, whose);
 	}
 }
