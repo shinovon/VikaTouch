@@ -3,7 +3,7 @@ Nokia-MIDlet-No-Exit: false
 Nokia-MIDlet-Background-Event: pause
 Progressive_Download: enabled
 Nokia-MIDlet-UID-1: 0xA02033e9
-MIDlet-1: Vika Touch,/diary.png,vikaTouch.VikaTouch
+MIDlet-1: Vika Touch,/diary.png,ru.nnproject.vikatouch.VikaTouch
 MIDlet-Jar-URL: vikaTouch.jar
 MIDlet-Icon: diary.png
 MicroEdition-Configuration: CLDC-1.1

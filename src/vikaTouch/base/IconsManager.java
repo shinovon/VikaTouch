@@ -1,4 +1,4 @@
-package vikaTouch.base;
+package vikatouch.base;
 
 import java.io.IOException;
 
