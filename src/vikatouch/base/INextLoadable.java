@@ -1,5 +1,6 @@
 package vikatouch.base;
 
-public interface INextLoadable {
+public interface INextLoadable
+{
 	public void LoadNext();
 }

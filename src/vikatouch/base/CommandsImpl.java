@@ -35,9 +35,9 @@ public class CommandsImpl
 		}
 	}
 	
-	public void commandAction(final int i, final VikaScreen s)
+	public void command(final int i, final VikaScreen s)
 	{
-		final Thread t = new Thread("Command Thread")
+		final Thread t = new Thread()
 		{
 			public void run()
 			{

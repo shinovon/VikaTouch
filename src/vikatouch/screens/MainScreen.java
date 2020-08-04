@@ -44,11 +44,11 @@ public abstract class MainScreen
 			{
 				if(hasBackButton && x < oneitemheight)
 				{
-					VikaTouch.inst.cmdsInst.commandAction(14, this);
+					VikaTouch.inst.cmdsInst.command(14, this);
 				}
 				if(!(this instanceof SettingsScreen) && x > DisplayUtils.width - oneitemheight)
 				{
-					VikaTouch.inst.cmdsInst.commandAction(13, this);
+					VikaTouch.inst.cmdsInst.command(13, this);
 				}
 			}
 			else if(y >= DisplayUtils.height - oneitemheight)
@@ -56,17 +56,17 @@ public abstract class MainScreen
 				int acenter = (DisplayUtils.width - wyw) / 2;
 				if(x < wyw)
 				{
-					VikaTouch.inst.cmdsInst.commandAction(0, this);
+					VikaTouch.inst.cmdsInst.command(0, this);
 				}
 
 				if(x > DisplayUtils.width - wyw)
 				{
-					VikaTouch.inst.cmdsInst.commandAction(2, this);
+					VikaTouch.inst.cmdsInst.command(2, this);
 				}
 
 				if(x > acenter && x < acenter + wyw)
 				{
-					VikaTouch.inst.cmdsInst.commandAction(1, this);
+					VikaTouch.inst.cmdsInst.command(1, this);
 				}
 			}
 		}

@@ -16,10 +16,11 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.ScrollableCanvas;
-import ru.nnproject.vikaui.VikaCanvas;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.JSONBase;
+import vikatouch.base.ResizeUtils;
 import vikatouch.base.URLBuilder;
+import vikatouch.base.VikaCanvasInst;
 import vikatouch.base.VikaTouch;
 import vikatouch.screens.MainScreen;
 
@@ -118,7 +119,7 @@ public class MenuScreen
 			lastname = "Джусупгалиев";
 			try
 			{
-				profileimg = DisplayUtils.resizeava(Image.createImage("/camera.png"));
+				profileimg = ResizeUtils.resizeava(Image.createImage("/camera.png"));
 				hasAva = true;
 			}
 			catch (Exception e)
@@ -145,7 +146,7 @@ public class MenuScreen
 				{
 					try
 					{
-						profileimg = DisplayUtils.resizeava(VikaUtils.downloadImage(avaurl));
+						profileimg = ResizeUtils.resizeava(VikaUtils.downloadImage(avaurl));
 					}
 					catch (Exception e)
 					{
@@ -198,11 +199,11 @@ public class MenuScreen
 		{
 			if(selectedBtn == 0)
 			{
-				VikaTouch.inst.cmdsInst.commandAction(13, this);
+				VikaTouch.inst.cmdsInst.command(13, this);
 			}
 			else
 			{
-				VikaTouch.inst.cmdsInst.commandAction(itemscmd[selectedBtn - 1], this);
+				VikaTouch.inst.cmdsInst.command(itemscmd[selectedBtn - 1], this);
 			}
 		}
 		else
@@ -660,7 +661,7 @@ public class MenuScreen
 							int y2 = y1 + oneitemheight;
 							if(y > y1 && y < y2)
 							{
-								VikaTouch.inst.cmdsInst.commandAction(itemscmd[i], this);
+								VikaTouch.inst.cmdsInst.command(itemscmd[i], this);
 								break;
 							}
 							
@@ -681,7 +682,7 @@ public class MenuScreen
 							int y2 = y1 + oneitemheight;
 							if(y > y1 && y < y2)
 							{
-								VikaTouch.inst.cmdsInst.commandAction(itemscmd[i], this);
+								VikaTouch.inst.cmdsInst.command(itemscmd[i], this);
 								break;
 							}
 							
@@ -699,7 +700,7 @@ public class MenuScreen
 							int y2 = y1 + oneitemheight;
 							if(y > y1 && y < y2)
 							{
-								VikaTouch.inst.cmdsInst.commandAction(itemscmd[i], this);
+								VikaTouch.inst.cmdsInst.command(itemscmd[i], this);
 								break;
 							}
 							

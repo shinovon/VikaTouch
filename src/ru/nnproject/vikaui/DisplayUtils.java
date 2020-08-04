@@ -3,10 +3,6 @@ package ru.nnproject.vikaui;
 import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Image;
 
-import vikamobilebase.VikaUtils;
-import vikatouch.base.VikaTouch;
-import vikatouch.screens.menu.MenuScreen;
-
 public class DisplayUtils
 {
 	public static int idispi;
@@ -15,6 +11,7 @@ public class DisplayUtils
 	public static int lwidth;
 	public static int lheight;
 	public static int current;
+	public static VikaCanvas canvas;
 	
 	//Дисплеи
 	public static final int CANVAS_LOGIN = 1;
@@ -42,82 +39,13 @@ public class DisplayUtils
 	public static final int DISPLAY_E6 = 6;
 	public static final int DISPLAY_UNDEFINED = -1;
 
-	public static Image resizeava(Image img)
-	{
-		int h = img.getHeight();
-		int need = h;
-		switch(idispi)
-		{
-			case DISPLAY_E6:
-			case DISPLAY_PORTRAIT:
-			case DISPLAY_ALBUM:
-			{
-				need = 50;
-				break;
-			}
-			
-			case DISPLAY_S40:
-			case DISPLAY_ASHA311:
-			case DISPLAY_EQWERTY:
-			{
-				need = 25;
-				break;
-			}
-			
-			default:
-			{
-				need = 50;
-				break;
-			}
-		}
-		if(h != need)
-		{
-			return VikaUtils.resize(img, need, -1);
-		}
-		return img;
-	}
-
-	public static Image resizeChatAva(Image img)
-	{
-		int h = img.getHeight();
-		int need = h;
-		switch(idispi)
-		{
-			case DISPLAY_E6:
-			case DISPLAY_PORTRAIT:
-			case DISPLAY_ALBUM:
-			{
-				need = 50;
-				break;
-			}
-			
-			case DISPLAY_S40:
-			case DISPLAY_ASHA311:
-			case DISPLAY_EQWERTY:
-			{
-				need = 50;
-				break;
-			}
-			
-			default:
-			{
-				need = 50;
-				break;
-			}
-		}
-		if(h != need)
-		{
-			return VikaUtils.resize(img, need, -1);
-		}
-		return img;
-	}
-	
-
 	public static int checkdisplay()
 	{
 		int i = 0; 
-		width = VikaTouch.canvas.getWidth();
-		height = VikaTouch.canvas.getHeight();
+		if(canvas == null)
+			return 0;
+		width = canvas.getWidth();
+		height = canvas.getHeight();
 		if(width != lwidth || height != lheight)
 		{
 			if(width == 360 && height == 640)
@@ -168,8 +96,6 @@ public class DisplayUtils
 				i = DISPLAY_UNDEFINED;
 		}
 		
-		if(VikaTouch.menuCanv != null)
-			VikaTouch.menuCanv.itemsh = (7 * ScrollableCanvas.oneitemheight) + ScrollableCanvas.oneitemheight * 2;
 		
 		lwidth = width;
 		lheight = height;
@@ -198,43 +124,6 @@ public class DisplayUtils
 			default:
 				return "default";
 		}
-	}
-
-
-	public static Image resizeItemPreview(Image img)
-	{
-		int h = img.getHeight();
-		int need = h;
-		switch(idispi)
-		{
-			case DISPLAY_E6:
-			case DISPLAY_PORTRAIT:
-			case DISPLAY_ALBUM:
-			{
-				need = 48;
-				break;
-			}
-			
-			case DISPLAY_S40:
-			case DISPLAY_ASHA311:
-			case DISPLAY_EQWERTY:
-			{
-				need = 48;
-				break;
-			}
-
-			case DISPLAY_UNDEFINED:
-			default:
-			{
-				need = 48;
-				break;
-			}
-		}
-		if(h != need)
-		{
-			return VikaUtils.resize(img, need, -1);
-		}
-		return img;
 	}
 
 }

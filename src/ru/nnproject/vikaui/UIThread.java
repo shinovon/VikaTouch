@@ -1,26 +1,24 @@
 package ru.nnproject.vikaui;
 
-import javax.microedition.lcdui.Canvas;
-import javax.microedition.lcdui.game.GameCanvas;
-
-import vikatouch.base.VikaTouch;
-
 public class UIThread
 	extends Thread
 {
+	
+	private VikaCanvas canvas;
+
+	public UIThread(VikaCanvas canvas)
+	{
+		super();
+		this.canvas = canvas;
+	}
 
 	public void run()
 	{
-		while(VikaTouch.appInst.started)
+		while(true)
 		{
 			try
 			{
-				if(VikaTouch.loading)
-					VikaTouch.canvas.updategif();
-				else
-				{
-					VikaTouch.canvas.paint();
-				}
+				canvas.tick();
 			}
 			catch (Exception e)
 			{

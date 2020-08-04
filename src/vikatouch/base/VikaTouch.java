@@ -15,7 +15,6 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikatouch.VikaTouchApp;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.UIThread;
-import ru.nnproject.vikaui.VikaCanvas;
 import ru.nnproject.vikaui.VikaScreen;
 import vikamobilebase.ImageStorage;
 import vikamobilebase.VikaUtils;
@@ -65,7 +64,7 @@ public class VikaTouch
 	public static boolean offlineMode;
 	public static boolean loading;
 	public static AboutScreen about;
-	public static VikaCanvas canvas;
+	public static VikaCanvasInst canvas;
 	public CommandsImpl cmdsInst;
 	private String errReason;
 	private String tokenUnswer;
@@ -382,10 +381,10 @@ public class VikaTouch
 		loading = true;
 		mainThread = new Thread(appInst);
 		mainThread.start();
-		canvas = new VikaCanvas();
+		canvas = new VikaCanvasInst();
 		DisplayUtils.checkdisplay();
-		setDisplay(VikaTouch.canvas);
-		uiThread = new UIThread();
+		setDisplay(canvas);
+		uiThread = new UIThread(canvas);
 		uiThread.start();
 		DisplayUtils.checkdisplay();
 	}
@@ -437,7 +436,7 @@ public class VikaTouch
 		
 		try
 		{
-			cameraImg = DisplayUtils.resizeava(Image.createImage("/camera.png"));
+			cameraImg = ResizeUtils.resizeava(Image.createImage("/camera.png"));
 		}
 		catch (IOException e1)
 		{

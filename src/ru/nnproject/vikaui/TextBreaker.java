@@ -2,13 +2,10 @@ package ru.nnproject.vikaui;
 
 import javax.microedition.lcdui.Font;
 
-import vikatouch.base.items.JSONUIItem;
-import vikatouch.base.items.PostItem;
-
 public class TextBreaker
 {
 	
-	public static String[] breakText(final String text, boolean shortText, JSONUIItem item, final boolean full, final int width)
+	public static String[] breakText(final String text, boolean shortText, UIItem item, final boolean full, final int width)
 	{
 		Font font = Font.getFont(0, 0, 8);
 		String[] result;
@@ -32,7 +29,7 @@ public class TextBreaker
 							x2 = "";
 							lncount++;
 							if(item != null)
-								item.itemDrawHeight += 24;
+								item.addDrawHeight(24);
 						}
 						else
 						{
@@ -43,7 +40,7 @@ public class TextBreaker
 								x2 = "";
 								lncount++;
 								if(item != null)
-									item.itemDrawHeight += 24;
+									item.addDrawHeight(24);
 							}
 							else if(text.length() - i2 <= 1)
 							{
@@ -51,7 +48,7 @@ public class TextBreaker
 								x2 = "";
 								lncount++;
 								if(item != null)
-									item.itemDrawHeight += 24;
+									item.addDrawHeight(24);
 							}
 						}
 					}
@@ -60,7 +57,7 @@ public class TextBreaker
 				{
 					result[lncount] = text;
 					if(item != null)
-						item.itemDrawHeight += 24;
+						item.addDrawHeight(24);
 				}
 				
 			}
@@ -76,7 +73,7 @@ public class TextBreaker
 			shortText = true;
 			if(text.length() > 1)
 				if(item != null)
-					item.itemDrawHeight += 32;
+					item.addDrawHeight(24);
 		}
 		return result;
 	}

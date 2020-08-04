@@ -10,7 +10,9 @@ import ru.nnproject.vikaui.PressableUIItem;
 import ru.nnproject.vikaui.ScrollableCanvas;
 import vikatouch.base.IconsManager;
 
-public class OptionItem implements PressableUIItem {
+public class OptionItem
+	implements PressableUIItem
+{
 
 	public IMenu menu;
 	public String text;
@@ -51,7 +53,8 @@ public class OptionItem implements PressableUIItem {
 	}
 
 	public void keyPressed(int key) {
-		if(key == KEY_OK) menu.onItemPress(i);
+		if(key == KEY_OK)
+			menu.onItemPress(i);
 	}
 
 	public boolean isSelected() {
@@ -60,6 +63,16 @@ public class OptionItem implements PressableUIItem {
 
 	public void setSelected(boolean selected) {
 		s = selected;
+	}
+
+	public void addDrawHeight(int i)
+	{
+		h += i;
+	}
+
+	public void setDrawHeight(int i)
+	{
+		h = i;
 	}
 
 }

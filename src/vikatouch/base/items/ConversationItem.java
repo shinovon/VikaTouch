@@ -14,6 +14,7 @@ import ru.nnproject.vikaui.DisplayUtils;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.Dialogs;
 import vikatouch.base.IconsManager;
+import vikatouch.base.ResizeUtils;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.attachments.AudioAttachment;
 import vikatouch.base.attachments.PhotoAttachment;
@@ -79,7 +80,7 @@ public class ConversationItem
 					
 				}
 			}
-			return DisplayUtils.resizeChatAva(img);
+			return ResizeUtils.resizeChatAva(img);
 		}
 		catch (Exception e)
 		{

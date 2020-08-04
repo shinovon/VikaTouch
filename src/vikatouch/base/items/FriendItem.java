@@ -9,6 +9,7 @@ import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.IconsManager;
+import vikatouch.base.ResizeUtils;
 import vikatouch.base.VikaTouch;
 
 public class FriendItem extends JSONUIItem
@@ -53,7 +54,7 @@ public class FriendItem extends JSONUIItem
 					case DisplayUtils.DISPLAY_ASHA311:
 					case DisplayUtils.DISPLAY_EQWERTY:
 					{
-						ava = DisplayUtils.resizeava(ava);
+						ava = ResizeUtils.resizeava(ava);
 						break;
 					}
 					default:

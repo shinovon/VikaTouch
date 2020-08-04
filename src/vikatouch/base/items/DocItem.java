@@ -13,6 +13,7 @@ import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.ScrollableCanvas;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.JSONBase;
+import vikatouch.base.ResizeUtils;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.attachments.PhotoSize;
 import vikatouch.screens.menu.DocsScreen;
@@ -183,7 +184,7 @@ public class DocItem
 		try
 		{
 			//System.out.println(iconUrl);
-			img = DisplayUtils.resizeItemPreview(VikaUtils.downloadImage(iconUrl));
+			img = ResizeUtils.resizeItemPreview(VikaUtils.downloadImage(iconUrl));
 		}
 		catch (Exception e)
 		{
@@ -193,43 +194,43 @@ public class DocItem
 				{
 					case TYPE_PHOTO:
 					case TYPE_GIF:
-						return DisplayUtils.resizeItemPreview(VikaTouch.cameraImg);
+						return ResizeUtils.resizeItemPreview(VikaTouch.cameraImg);
 					case TYPE_AUDIO:
-						return DisplayUtils.resizeItemPreview(Image.createImage("/docmus.png"));
+						return ResizeUtils.resizeItemPreview(Image.createImage("/docmus.png"));
 					case TYPE_VIDEO:
-						return DisplayUtils.resizeItemPreview(Image.createImage("/docvid.png"));
+						return ResizeUtils.resizeItemPreview(Image.createImage("/docvid.png"));
 					case TYPE_ARCHIVE:
 						if(ext.toLowerCase().indexOf("sis") != VikaTouch.INDEX_FALSE)
 						{
-							return DisplayUtils.resizeItemPreview(Image.createImage("/docsis.png"));
+							return ResizeUtils.resizeItemPreview(Image.createImage("/docsis.png"));
 						}
 						else
-							return DisplayUtils.resizeItemPreview(Image.createImage("/doczip.png"));
+							return ResizeUtils.resizeItemPreview(Image.createImage("/doczip.png"));
 					case TYPE_TEXT:
 					case TYPE_EBOOK:
-						return DisplayUtils.resizeItemPreview(Image.createImage("/doctxt.png"));
+						return ResizeUtils.resizeItemPreview(Image.createImage("/doctxt.png"));
 					case TYPE_UNKNOWN:
 					case TYPE_UNDEFINED:
 					default:
 						if(ext.toLowerCase().indexOf("jar") != VikaTouch.INDEX_FALSE || ext.toLowerCase().indexOf("jad") != VikaTouch.INDEX_FALSE)
 						{
-							return DisplayUtils.resizeItemPreview(Image.createImage("/docjar.png"));
+							return ResizeUtils.resizeItemPreview(Image.createImage("/docjar.png"));
 						}
 						else if(ext.toLowerCase().indexOf("sis") != VikaTouch.INDEX_FALSE)
 						{
-							return DisplayUtils.resizeItemPreview(Image.createImage("/docsis.png"));
+							return ResizeUtils.resizeItemPreview(Image.createImage("/docsis.png"));
 						}
 						else if(ext.toLowerCase().indexOf("rar") != VikaTouch.INDEX_FALSE || ext.toLowerCase().indexOf("zip") != VikaTouch.INDEX_FALSE || ext.toLowerCase().indexOf("tar") != VikaTouch.INDEX_FALSE || ext.toLowerCase().indexOf("7z") != VikaTouch.INDEX_FALSE)
 						{
-							return DisplayUtils.resizeItemPreview(Image.createImage("/doczip.png"));
+							return ResizeUtils.resizeItemPreview(Image.createImage("/doczip.png"));
 						}
 						/*else if(ext.toLowerCase().indexOf("torrent") != VikaTouch.INDEX_FALSE)
 						{
-							return DisplayUtils.resizeItemPreview(Image.createImage("/doctorr.png"));
+							return ResizeUtils.resizeItemPreview(Image.createImage("/doctorr.png"));
 						}*/
 						else
 						{
-							return DisplayUtils.resizeItemPreview(Image.createImage("/docfile.png"));
+							return ResizeUtils.resizeItemPreview(Image.createImage("/docfile.png"));
 						}
 				}
 			}

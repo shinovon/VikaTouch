@@ -9,7 +9,9 @@ import ru.nnproject.vikaui.PressableUIItem;
 import ru.nnproject.vikaui.ScrollableCanvas;
 import vikatouch.base.INextLoadable;
 
-public class LoadMoreButtonItem implements PressableUIItem {
+public class LoadMoreButtonItem
+	implements PressableUIItem
+{
 
 	public LoadMoreButtonItem (INextLoadable list) {
 		l = list;
@@ -26,7 +28,9 @@ public class LoadMoreButtonItem implements PressableUIItem {
 	public boolean selected;
 	
 	public static final String text = "Загрузить ещё...";
-	public void paint(Graphics g, int y, int scrolled) {
+	
+	public void paint(Graphics g, int y, int scrolled)
+	{
 		if(ScrollableCanvas.keysMode && selected)
 		{
 			ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
@@ -46,7 +50,8 @@ public class LoadMoreButtonItem implements PressableUIItem {
 	}
 
 	public void keyPressed(int key) {
-		if(key == KEY_OK) {
+		if(key == KEY_OK)
+		{
 			l.LoadNext();
 		}
 	}
@@ -59,6 +64,16 @@ public class LoadMoreButtonItem implements PressableUIItem {
 	public void setSelected(boolean selected)
 	{
 		this.selected = selected;
+	}
+
+	public void addDrawHeight(int i)
+	{
+		
+	}
+
+	public void setDrawHeight(int i)
+	{
+		
 	}
 
 }

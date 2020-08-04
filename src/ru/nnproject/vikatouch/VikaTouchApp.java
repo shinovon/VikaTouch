@@ -13,7 +13,6 @@ import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.UIThread;
-import ru.nnproject.vikaui.VikaCanvas;
 import ru.nnproject.vikaui.VikaScreen;
 import vikamobilebase.ImageStorage;
 import vikamobilebase.VikaUtils;
@@ -23,6 +22,7 @@ import vikatouch.base.Dialogs;
 import vikatouch.base.IconsManager;
 import vikatouch.base.Settings;
 import vikatouch.base.URLBuilder;
+import vikatouch.base.VikaCanvasInst;
 import vikatouch.base.VikaTouch;
 import vikatouch.screens.*;
 import vikatouch.screens.menu.DocsScreen;

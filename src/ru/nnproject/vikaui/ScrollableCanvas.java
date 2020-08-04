@@ -1,11 +1,6 @@
 package ru.nnproject.vikaui;
 
-import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Graphics;
-import javax.microedition.lcdui.game.GameCanvas;
-
-import vikatouch.base.Settings;
-import vikatouch.base.VikaTouch;
 
 public abstract class ScrollableCanvas
 	extends VikaScreen
@@ -68,14 +63,14 @@ public abstract class ScrollableCanvas
 				scrollHorizontally(deltaX);
 			}
 		}
-		if(Settings.sensorMode == Settings.SENSOR_OK)
+		if(DisplayUtils.canvas.isSensorModeOK())
 		{
 			if(ndeltaY > 0 || ndeltaX > 0)
 			{
 				dragging = true;
 			}
 		}
-		else if(Settings.sensorMode == Settings.SENSOR_J2MELOADER)
+		else if(DisplayUtils.canvas.isSensorModeJ2MELoader())
 		{
 			if(ndeltaY > 1 || ndeltaX > 1)
 			{
@@ -134,24 +129,29 @@ public abstract class ScrollableCanvas
 		}
 		else if(key == -3)
 		{
-			VikaTouch.inst.cmdsInst.commandAction(10, this);
+			DisplayUtils.canvas.callCommand(10, this);
 		}
 		else if(key == -4)
 		{
-			VikaTouch.inst.cmdsInst.commandAction(11, this);
+			DisplayUtils.canvas.callCommand(11, this);
 		}
 		else if(key == -7)
 		{
-			VikaTouch.inst.cmdsInst.commandAction(14, this);
+			DisplayUtils.canvas.callCommand(14, this);
 		}
 		else
 		{
 			uiItems[currentItem].keyPressed(key);
 		}
 		repaint();
-		try {
-			VikaCanvas.debugString = "" + key + " " + VikaTouch.canvas.getKeyName(key) + " " + currentItem + " " + itemsCount + " " + uiItems[currentItem].isSelected();
-		} catch (Exception e) { e.printStackTrace(); }
+		try
+		{
+			VikaCanvas.debugString = "" + key + " " + DisplayUtils.canvas.getKeyName(key) + " " + currentItem + " " + itemsCount + " " + uiItems[currentItem].isSelected();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public void repeat(int key)

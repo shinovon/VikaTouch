@@ -30,4 +30,14 @@ public abstract class JSONUIItem
 	{
 		this.selected = selected;
 	}
+	
+	public void setDrawHeight(int i)
+	{
+		this.itemDrawHeight = i;
+	}
+	
+	public void addDrawHeight(int i)
+	{
+		this.itemDrawHeight += i;
+	}
 }

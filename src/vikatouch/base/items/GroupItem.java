@@ -11,6 +11,7 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import vikamobilebase.VikaUtils;
+import vikatouch.base.ResizeUtils;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.attachments.PhotoSize;
 import vikatouch.screens.GroupPageScreen;
@@ -83,7 +84,7 @@ public class GroupItem
 
 	public void GetAva() {
 		try {
-			ava = DisplayUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
+			ava = ResizeUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

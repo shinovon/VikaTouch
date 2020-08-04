@@ -1,4 +1,4 @@
-package vikamobilebase;
+package ru.nnproject.vikaui;
 
 import java.io.InputStream;
 import java.util.Vector;

@@ -2,8 +2,6 @@ package ru.nnproject.vikaui;
 
 import javax.microedition.lcdui.Graphics;
 
-import vikatouch.base.VikaTouch;
-
 public abstract class VikaScreen
 {
 	public abstract void draw(Graphics g);
@@ -40,9 +38,9 @@ public abstract class VikaScreen
 	
 	protected void repaint()
 	{
-		if(VikaTouch.canvas != null)
+		if(DisplayUtils.canvas != null)
 		{
-			VikaTouch.canvas.paint();
+			DisplayUtils.canvas.paint();
 		}
 	}
 }
