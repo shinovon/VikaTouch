@@ -63,7 +63,7 @@ public class TextBreaker
 			}
 			catch (ArrayIndexOutOfBoundsException e)
 			{
-				result[9] = "Показать полностью...";
+				result[result.length-1] = "Показать полностью...";
 			}
 		}
 		else

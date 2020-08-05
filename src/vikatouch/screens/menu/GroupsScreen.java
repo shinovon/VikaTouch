@@ -89,6 +89,7 @@ public class GroupsScreen
 						JSONArray items = response.getJSONArray("items");
 						totalItems = response.getInt("count");
 						itemsCount = (short) items.length();
+						//System.out.println(totalItems + " - "+itemsCount);
 						canLoadMore = totalItems > from+Settings.simpleListsLength;
 						uiItems = new PressableUIItem[itemsCount+(canLoadMore?1:0)];
 						for(int i = 0; i < itemsCount; i++)

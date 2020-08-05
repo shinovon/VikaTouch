@@ -12,6 +12,7 @@ import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.IMenu;
 import ru.nnproject.vikaui.PressableUIItem;
+import ru.nnproject.vikaui.TextBreaker;
 import vikamobilebase.ErrorCodes;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.IconsManager;
@@ -35,7 +36,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 	public boolean isMember;
 	public boolean isAdmin;
 	public int membersCount;
-	public String description;
+	public String[] description;
 	public String site;
 	public Image ava;
 	public boolean canMsg;
@@ -47,8 +48,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 	public int music;
 	
 	// system
-	private int selectedBtn;
-	private int btnsLen = 8;
+	private boolean isInfoShown = false;
 	public static Thread downloaderThread;
 	
 	public GroupPageScreen(int id)
@@ -85,12 +85,18 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 						isAdmin = res.optInt("is_admin") == 1;
 						isMember = res.optInt("is_member") == 1;
 						membersCount = res.optInt("members_count");
+						try {
+							description = TextBreaker.breakText(res.optString("description"), false, null, true, DisplayUtils.width-32);
+						} catch (Exception e) { e.printStackTrace(); }
+						site = res.optString("site");
+						
 						JSONObject counters = res.getJSONObject("counters");
 						docs = counters.optInt("docs");
 						topics = counters.optInt("topics");
 						music = counters.optInt("audios");
 						videos = counters.optInt("videos");
 						photos = counters.optInt("photos");
+						
 						try {
 							ava = VikaUtils.downloadImage(JSONBase.fixJSONString(res.optString("photo_50")));
 						} catch (Exception e) { }
@@ -107,7 +113,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 						uiItems[7] = new OptionItem(thisC, "Видео ("+videos+")", IconsManager.VIDEOS, 7, 50);
 						uiItems[8] = new OptionItem(thisC, "Документы ("+docs+")", IconsManager.DOCS, 8, 50);
 						uiItems[9] = new OptionItem(thisC, "Обсуждения ("+topics+")", IconsManager.COMMENTS, 9, 50);
-						uiItems[10] = new OptionItem(thisC, "Сайт", IconsManager.REPOST, 10, 50);
+						uiItems[10] = new OptionItem(thisC, (site==null||site.length()<5)?"[сайт не указан]":"Сайт: "+site, IconsManager.REPOST, 10, 50);
 						uiItems[11] = new OptionItem(thisC, "Ссылки", IconsManager.REPOST, 11, 50);
 						uiItems[12] = new OptionItem(thisC, "Контакты", IconsManager.GROUPS, 11, 50);
 					}
@@ -164,16 +170,38 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 		
 		ColorUtils.setcolor(g, -3);
 		g.drawRect(0, 140, DisplayUtils.width, 50);
-		
-		if(uiItems!=null)
-			for (int i=0;i<uiItems.length;i++)
+		if(isInfoShown)
+		{
+			if(description == null)
 			{
-				if(uiItems[i]!=null) {
-					uiItems[i].paint(g, y, scrolled);
-					y+=uiItems[i].getDrawHeight();
+				isInfoShown = false;
+				((OptionItem)uiItems[4]).text = "[описание пусто]";
+			}
+			Font df = Font.getFont(0, 0, 8);
+			g.setFont(df);
+			ColorUtils.setcolor(g, 0);
+			y+=16;
+			for(int i=0; i<description.length; i++)
+			{
+				if(description[i]!=null) {
+					g.drawString(description[i], 16, y, 0);
+					y+=df.getHeight();
 				}
 			}
-		
+		}
+		else
+		{
+			if(uiItems!=null)
+			{
+				for (int i=0;i<uiItems.length;i++)
+				{
+					if(uiItems[i]!=null) {
+						uiItems[i].paint(g, y, scrolled);
+						y+=uiItems[i].getDrawHeight();
+					}
+				}
+			}
+		}
 		g.translate(0, -g.getTranslateY());
 		drawHeaders(g, link==null?"Группа":link);
 	}
@@ -202,40 +230,63 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 
 	public void onItemPress(int i)
 	{
-		switch (i) 
+		if(isInfoShown)
 		{
-			case 0:
-				FriendsScreen fs = new FriendsScreen();
-				VikaTouch.setDisplay(fs);
-				fs.LoadFriends(0, -id, name);
-				break;
-			case 1:
-				VikaTouch.loading = true;
-				(new Thread()
-				{
-					public void run()
+			isInfoShown = false;
+		}
+		else
+		{
+			switch (i) 
+			{
+				case 0:
+					FriendsScreen fs = new FriendsScreen();
+					VikaTouch.setDisplay(fs);
+					fs.LoadFriends(0, -id, name);
+					break;
+				case 1:
+					VikaTouch.loading = true;
+					(new Thread()
 					{
-				
-						if(isMember)
+						public void run()
 						{
-							VikaUtils.download(new URLBuilder("groups.leave").addField("group_id", id));
+					
+							if(isMember)
+							{
+								VikaUtils.download(new URLBuilder("groups.leave").addField("group_id", id));
+							}
+							else
+							{
+								VikaUtils.download(new URLBuilder("groups.join").addField("group_id", id));
+							}
+							Load();
 						}
-						else
-						{
-							VikaUtils.download(new URLBuilder("groups.join").addField("group_id", id));
-						}
-						Load();
 					}
-				}
-				).start();
-				break;
-			case 8:
-				if(docs>0) {
-					DocsScreen dc = new DocsScreen();
-					VikaTouch.setDisplay(dc);
-					dc.loadDocs(0, -id, name);
-				}
-				break;
+					).start();
+					break;
+				case 2:
+					// сообщение
+					break;
+				case 3:
+					// стена
+					break;
+				case 4:
+					isInfoShown = true;
+					break;
+				case 8:
+					if(docs>0) {
+						DocsScreen dc = new DocsScreen();
+						VikaTouch.setDisplay(dc);
+						dc.loadDocs(0, -id, name);
+					}
+					break;
+				case 10:
+					try
+					{
+						VikaTouch.appInst.platformRequest(site);
+					}
+					catch(Exception e) { }
+					break;
+			}
 		}
 	}
 
