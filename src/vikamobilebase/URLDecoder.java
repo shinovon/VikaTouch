@@ -1,4 +1,4 @@
-package vikatouch.base;
+package vikamobilebase;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Hashtable;
@@ -213,8 +213,18 @@ public final class URLDecoder
 		dict.put("Қ", "%D2%9A");
 		dict.put("Ө", "%D3%A8");
 		dict.put("Һ", "%D2%BA");
-		
-
+		/*
+		¿.
+		%C2%BF.
+		é.
+		%C3%A9.
+		É.
+		%C3%89.
+		í.
+		%C3%AD.
+		Í.ó.Ó.ú.Ú.ü.Ü.
+		%C3%8D.%C3%B3.%C3%93.%C3%BA.%C3%9A.%C3%BC.%C3%9C.
+*/
 		dict.put("á", "%C3%BC");
 		dict.put("Á", "%C3%81");
 		dict.put("ü", "%C3%BC");
