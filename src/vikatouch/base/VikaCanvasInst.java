@@ -10,7 +10,6 @@ import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.GifDecoder;
 import ru.nnproject.vikaui.VikaCanvas;
 import ru.nnproject.vikaui.VikaScreen;
-import vikamobilebase.ErrorCodes;
 
 public class VikaCanvasInst
 extends VikaCanvas

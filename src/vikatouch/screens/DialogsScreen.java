@@ -9,9 +9,9 @@ import javax.microedition.lcdui.Image;
 
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
-import vikamobilebase.ErrorCodes;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.Dialogs;
+import vikatouch.base.ErrorCodes;
 import vikatouch.base.VikaTouch;
 import vikatouch.screens.menu.MenuScreen;
 

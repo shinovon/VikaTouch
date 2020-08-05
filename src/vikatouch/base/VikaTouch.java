@@ -16,7 +16,6 @@ import ru.nnproject.vikatouch.VikaTouchApp;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.UIThread;
 import ru.nnproject.vikaui.VikaScreen;
-import vikamobilebase.ErrorCodes;
 import vikamobilebase.ImageStorage;
 import vikamobilebase.VikaUtils;
 import vikatouch.screens.AboutScreen;

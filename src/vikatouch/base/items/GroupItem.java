@@ -10,8 +10,8 @@ import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
-import vikamobilebase.ErrorCodes;
 import vikamobilebase.VikaUtils;
+import vikatouch.base.ErrorCodes;
 import vikatouch.base.ResizeUtils;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.attachments.PhotoSize;

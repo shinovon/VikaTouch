@@ -1,4 +1,4 @@
-package vikamobilebase;
+package vikatouch.base;
 
 public class ErrorCodes
 {
