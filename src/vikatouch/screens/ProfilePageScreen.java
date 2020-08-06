@@ -8,6 +8,7 @@ import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.ColorUtils;
+import ru.nnproject.vikaui.ConfirmBox;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.IMenu;
 import ru.nnproject.vikaui.TextBreaker;
@@ -281,7 +282,9 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 				fs.LoadFriends(0, id, name);
 				break;
 			case 3:
-				// стена
+				// ТЕСТ ОКНА
+				activeDialog = new ConfirmBox("Тескт 1","Пояснение",null,null);
+				repaint();
 				break;
 			case 4:
 				GroupsScreen gs = new GroupsScreen();

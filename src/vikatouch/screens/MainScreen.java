@@ -5,6 +5,7 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 import ru.nnproject.vikaui.ColorUtils;
+import ru.nnproject.vikaui.ConfirmBox;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.ScrollableCanvas;
 import vikatouch.base.Settings;
@@ -20,6 +21,8 @@ public abstract class MainScreen
 	public Image newsImg;
 	protected boolean hasBackButton;
 	public static Image backImg;
+	
+	public static ConfirmBox activeDialog = null;
 
 	protected void scrollHorizontally(int deltaX)
 	{
@@ -309,6 +312,10 @@ public abstract class MainScreen
 			g.setColor(0xff0000);
 			g.drawRect(endx-2, endy-2, 4, 4);
 			g.drawString("cs"+scroll + " sc" + scrolled + " d" + drift + " ds" + driftSpeed + " st" + scrollingTimer + " sp" + scrollPrev + " t" + timer, 0, 30, 0);
+		}
+		if(activeDialog!=null) 
+		{
+			activeDialog.Draw(g);
 		}
 	}
 
