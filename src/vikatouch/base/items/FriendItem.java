@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
+import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.ColorUtils;
@@ -25,8 +26,8 @@ public class FriendItem extends JSONUIItem
 	private Image ava = null;
 	private int lastSeen;
 	private boolean online;
-	
-	
+	private String city;
+	private int yrsOld;
 
 	public static final int BORDER = 1;
 
@@ -43,11 +44,21 @@ public class FriendItem extends JSONUIItem
 			name = json.optString("first_name") + " " + json.optString("last_name");
 			link = json.optString("domain");
 			id = json.optInt("id");
-			try {
+			try
+			{
 				lastSeen = json.getJSONObject("last_seen").optInt("time");
 			}
-			catch (Exception e) {
+			catch (Exception e)
+			{
 				
+			}
+			
+			try
+			{
+				city = json.getJSONObject("city").optString("title");
+			}
+			catch (JSONException e)
+			{
 				
 			}
 			online = json.optInt("online") == 1;
@@ -87,21 +98,12 @@ public class FriendItem extends JSONUIItem
 	}
 	
 	public void GetAva() {
-		try {
-			ava = VikaUtils.downloadImage(fixJSONString(json.optString("photo_50")));
-			switch(DisplayUtils.idispi)
-			{
-				case DisplayUtils.DISPLAY_S40:
-				case DisplayUtils.DISPLAY_ASHA311:
-				case DisplayUtils.DISPLAY_EQWERTY:
-				{
-					ava = ResizeUtils.resizeava(ava);
-					break;
-				}
-				default:
-					break;
-			}
-		} catch (IOException e) {
+		try
+		{
+			ava = ResizeUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 	}
@@ -117,14 +119,19 @@ public class FriendItem extends JSONUIItem
 		if(name != null)
 			g.drawString(name, 73, y, 0);
 		ColorUtils.setcolor(g, 6);
-		String descrS = (online ? "Онлайн" : "Оффлайн");
-		g.drawString(descrS, 73, y + 24, 0);
+		String descrS = city != null ? city : yrsOld != 0 ? yrsOld + " лет" : "";
+		if(descrS != "" && descrS != null)
+		{
+			g.drawString(descrS, 73, y + 24, 0);
+		}
+		
 		if(ava != null)
 		{
-			g.drawImage(ava, 14, y + BORDER+1, 0);
+			g.drawImage(ava, 14, y + BORDER + 1, 0);
 		}
-		g.drawImage(selected?IconsManager.acs:IconsManager.ac, 14, y + BORDER+1, 0);
-		if(online) {
+		g.drawImage(selected ? IconsManager.acs : IconsManager.ac, 14, y + BORDER + 1, 0);
+		if(online)
+		{
 			ColorUtils.setcolor(g, ColorUtils.ONLINE);
 			g.fillArc(52, y+itemDrawHeight-16, 11, 11, 0, 360);
 		}
