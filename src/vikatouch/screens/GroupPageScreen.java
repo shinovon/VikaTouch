@@ -108,11 +108,11 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 						uiItems[2] = new OptionItem(thisC, canMsg?"Написать сообщение":"[нельзя писать]", IconsManager.MSGS, 2, 50);
 						uiItems[3] = new OptionItem(thisC, "Стена", IconsManager.NEWS, 3, 50);
 						uiItems[4] = new OptionItem(thisC, "Информация", IconsManager.INFO, 4, 50);
-						uiItems[5] = new OptionItem(thisC, "Фотографии ("+photos+")", IconsManager.PHOTOS, 5, 50);
-						uiItems[6] = new OptionItem(thisC, "Музыка ("+music+")", IconsManager.MUSIC, 6, 50);
-						uiItems[7] = new OptionItem(thisC, "Видео ("+videos+")", IconsManager.VIDEOS, 7, 50);
-						uiItems[8] = new OptionItem(thisC, "Документы ("+docs+")", IconsManager.DOCS, 8, 50);
-						uiItems[9] = new OptionItem(thisC, "Обсуждения ("+topics+")", IconsManager.COMMENTS, 9, 50);
+						uiItems[5] = new OptionItem(thisC, photos==0?"[нет фотографий]":"Фотографии ("+photos+")", IconsManager.PHOTOS, 5, 50);
+						uiItems[6] = new OptionItem(thisC, music==0?"[нет музыки]":"Музыка ("+music+")", IconsManager.MUSIC, 6, 50);
+						uiItems[7] = new OptionItem(thisC, videos==0?"[нет видео]":"Видео ("+videos+")", IconsManager.VIDEOS, 7, 50);
+						uiItems[8] = new OptionItem(thisC, docs==0?"[нет документов]":"Документы ("+docs+")", IconsManager.DOCS, 8, 50);
+						uiItems[9] = new OptionItem(thisC, topics==0?"[нет обсуждений]":"Обсуждения ("+topics+")", IconsManager.COMMENTS, 9, 50);
 						uiItems[10] = new OptionItem(thisC, (site==null||site.length()<5)?"[сайт не указан]":"Сайт: "+site, IconsManager.REPOST, 10, 50);
 						uiItems[11] = new OptionItem(thisC, "Ссылки", IconsManager.REPOST, 11, 50);
 						uiItems[12] = new OptionItem(thisC, "Контакты", IconsManager.GROUPS, 11, 50);
