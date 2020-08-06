@@ -42,6 +42,7 @@ public abstract class MainScreen
 	{
 		if(!dragging || !canScroll)
 		{
+			if(activeDialog!=null) return;
 			int wyw = bbw(DisplayUtils.idispi);
 			if(y < oneitemheight + 10)
 			{
