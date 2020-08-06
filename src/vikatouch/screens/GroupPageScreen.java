@@ -9,6 +9,7 @@ import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.ColorUtils;
+import ru.nnproject.vikaui.ConfirmBox;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.IMenu;
 import ru.nnproject.vikaui.PressableUIItem;
@@ -245,12 +246,12 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 					fs.LoadFriends(0, -id, name);
 					break;
 				case 1:
-					VikaTouch.loading = true;
-					(new Thread()
+					activeDialog = new ConfirmBox(isMember?"Выйти из группы?":"Вступить в группу?",null,
+					new Thread()
 					{
 						public void run()
 						{
-					
+							VikaTouch.loading = true;
 							if(isMember)
 							{
 								VikaUtils.download(new URLBuilder("groups.leave").addField("group_id", id));
@@ -261,8 +262,8 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 							}
 							Load();
 						}
-					}
-					).start();
+					}, null);
+					repaint();
 					break;
 				case 2:
 					// сообщение

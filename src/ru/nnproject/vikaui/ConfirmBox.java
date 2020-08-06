@@ -41,8 +41,8 @@ public class ConfirmBox {
 		g.setStrokeStyle(Graphics.SOLID);
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
 		g.drawRoundRect(x, y, width, th, 16, 16);
-		g.drawString(line1, DisplayUtils.width/2 - f.stringWidth(line1)/2, y+h1/2, 0);
-		g.drawString(line2, DisplayUtils.width/2 - f.stringWidth(line2)/2, y+h1+h1/2, 0);
+		if(line1!=null) g.drawString(line1, DisplayUtils.width/2 - f.stringWidth(line1)/2, y+h1/2, 0);
+		if(line2!=null) g.drawString(line2, DisplayUtils.width/2 - f.stringWidth(line2)/2, y+h1+h1/2, 0);
 		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 		g.drawString(okT, ((x+20)+(DisplayUtils.width/2-20))/2-f.stringWidth(okT)/2, y+h1*3+h1/2, 0);
 		g.drawString(cancT, ((DisplayUtils.width/2+20)+(DisplayUtils.width/2+20+(width/2-40)))/2-f.stringWidth(cancT)/2, y+h1*3+h1/2, 0);
@@ -73,7 +73,7 @@ public class ConfirmBox {
 		int ry = DisplayUtils.height/2 - th/2;
 		int rx = DisplayUtils.width/2 - width/2; // углы диалога
 		
-		if(y>ry+h1*3 && y<y+h1*5)
+		if(y>ry+h1*3 && y<ry+h1*5)
 		{
 			if(x>rx+20 && x<DisplayUtils.width/2-20)
 			{
