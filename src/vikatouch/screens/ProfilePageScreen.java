@@ -27,7 +27,7 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 
 	public int id;
 	public boolean closed;
-	// group fields
+	// friend fields
 	public String name;
 	public String link;
 	public String status;
@@ -35,6 +35,9 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 	public byte friendState;
 	public Image ava;
 	public boolean canMsg;
+	public boolean online;
+	public int lastSeen;
+	
 	// counters
 	public int docs;
 	public int groups;
@@ -46,6 +49,7 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 	// system
 	public static Thread downloaderThread;
 	private boolean friendAdd; // если true, друг добавляется. Если 0, удаляется.
+	private String visitStr;
 	
 	public ProfilePageScreen(int id)
 	{
@@ -85,6 +89,34 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 						canMsg = res.optInt("can_write_private_message") == 1;
 						friendState = (byte)res.optInt("friend_status");
 						friendAdd = (friendState==0||friendState==2);
+						
+						try {
+							lastSeen = res.getJSONObject("last_seen").optInt("time");
+						}
+						catch (Exception e) { }
+						online = res.optInt("online") == 1;
+						
+						if(online)
+						{
+							visitStr = "Онлайн";
+						}
+						else
+						{
+							int now = (int)(System.currentTimeMillis()/1000);
+							int r = now - lastSeen;
+							if(r<90) 
+							{
+								visitStr = "Был в сети только что";
+							}
+							else if(r<90*60)
+							{
+								visitStr = "Был в сети "+(r/60)+" минут назад";
+							}
+							else
+							{
+								visitStr = "Был в сети "+(r/3600)+" часов назад";
+							}
+						}
 						
 						try 
 						{
@@ -169,6 +201,8 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 		{
 			g.drawImage(ava, 16, 71, 0);
 			g.drawImage(IconsManager.ac, 16, 71, 0);
+			ColorUtils.setcolor(g, ColorUtils.ONLINE);
+			g.fillArc(16+38, 71+38, 12, 12, 0, 360);
 		}
 		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_LARGE));
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
