@@ -214,8 +214,6 @@ public final class URLDecoder
 		dict.put("Ө", "%D3%A8");
 		dict.put("Һ", "%D2%BA");
 		/*
-		¿.
-		%C2%BF.
 		é.
 		%C3%A9.
 		É.
