@@ -2,6 +2,8 @@ package ru.nnproject.vikaui;
 
 import javax.microedition.lcdui.Graphics;
 
+import vikatouch.screens.MainScreen;
+
 public abstract class ScrollableCanvas
 	extends VikaScreen
 {
@@ -118,6 +120,12 @@ public abstract class ScrollableCanvas
 	
 	public void press(int key)
 	{
+		if(MainScreen.activeDialog!=null)
+		{
+			MainScreen.activeDialog.OnKey(key);
+			repaint();
+			return;
+		}
 		keysMode = true;
 		if(key == -1)
 		{

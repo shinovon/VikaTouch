@@ -3,6 +3,8 @@ package ru.nnproject.vikaui;
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 
+import vikatouch.screens.MainScreen;
+
 public class ConfirmBox {
 
 	private String line1;
@@ -44,5 +46,21 @@ public class ConfirmBox {
 		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 		g.drawString(okT, ((x+20)+(DisplayUtils.width/2-20))/2-f.stringWidth(okT)/2, y+h1*3+h1/2, 0);
 		g.drawString(cancT, ((DisplayUtils.width/2+20)+(DisplayUtils.width/2+20+(width/2-40)))/2-f.stringWidth(cancT)/2, y+h1*3+h1/2, 0);
+	}
+	
+	public void OnKey(int key)
+	{
+		if(key==PressableUIItem.KEY_OK||key==PressableUIItem.KEY_FUNC)
+		{
+			MainScreen.activeDialog = null;
+			if(ok!=null)
+				ok.start();
+		}
+		else if(key==PressableUIItem.KEY_RFUNC|| key==PressableUIItem.KEY_BACK)
+		{
+			MainScreen.activeDialog = null;
+			if(cancel!=null)
+				cancel.start();
+		}
 	}
 }
