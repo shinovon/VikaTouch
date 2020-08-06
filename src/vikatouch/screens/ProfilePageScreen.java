@@ -78,7 +78,7 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 						
 						closed = res.optInt("can_access_closed") == 1;
 					
-						name = res.optString("name");
+						name = res.optString("first_name") + " " + res.optString("last_name");
 						link = res.optString("domain");
 						status = res.optString("status");
 						canBeFriend = res.optInt("can_send_friend_request") == 1;
@@ -116,7 +116,7 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 							
 							uiItems[2] = new OptionItem(thisC, "Друзья ("+friends+")", IconsManager.FRIENDS, 2, 50);
 							uiItems[3] = new OptionItem(thisC, "Стена", IconsManager.NEWS, 3, 50);
-							uiItems[4] = new OptionItem(thisC, "Группы ("+groups+")", IconsManager.GROUPS, 4, 50);
+							uiItems[4] = new OptionItem(thisC, groups==0?"[группы скрыты]":"Группы ("+groups+")", IconsManager.GROUPS, 4, 50);
 							uiItems[5] = new OptionItem(thisC, photos==0?"[нет фотографий]":"Фотографии ("+photos+")", IconsManager.PHOTOS, 5, 50);
 							uiItems[6] = new OptionItem(thisC, music==0?"[нет музыки]":"Музыка ("+music+")", IconsManager.MUSIC, 6, 50);
 							uiItems[7] = new OptionItem(thisC, videos==0?"[нет видео]":"Видео ("+videos+")", IconsManager.VIDEOS, 7, 50);
