@@ -162,7 +162,7 @@ public class NewsScreen
 			
 			g.translate(0, -g.getTranslateY());
 			
-			drawHeaders(g, "Новости");
+			drawHUD(g, "Новости");
 		} catch (Exception e) {
 			VikaTouch.error(e, ErrorCodes.NEWSDRAW);
 			e.printStackTrace();

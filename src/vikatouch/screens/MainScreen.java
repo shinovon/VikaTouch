@@ -7,6 +7,7 @@ import javax.microedition.lcdui.Image;
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.ConfirmBox;
 import ru.nnproject.vikaui.DisplayUtils;
+import ru.nnproject.vikaui.IPopup;
 import ru.nnproject.vikaui.ScrollableCanvas;
 import vikatouch.base.Settings;
 import vikatouch.base.VikaTouch;
@@ -22,7 +23,7 @@ public abstract class MainScreen
 	protected boolean hasBackButton;
 	public static Image backImg;
 	
-	public static ConfirmBox activeDialog = null;
+	public static IPopup activePopup = null;
 
 	protected void scrollHorizontally(int deltaX)
 	{
@@ -42,7 +43,7 @@ public abstract class MainScreen
 	{
 		if(!dragging || !canScroll)
 		{
-			if(activeDialog!=null) return;
+			if(activePopup!=null) return;
 			int wyw = bbw(DisplayUtils.idispi);
 			if(y < oneitemheight + 10)
 			{
@@ -78,7 +79,7 @@ public abstract class MainScreen
 		super.release(x, y);
 	}
 	
-	protected void drawHeaders(Graphics g, String title)
+	protected void drawHUD(Graphics g, String title)
 	{
 		double multiplier = (double)DisplayUtils.height / 640.0;
 		double ww = 10.0 * multiplier;
@@ -314,19 +315,24 @@ public abstract class MainScreen
 			g.drawRect(endx-2, endy-2, 4, 4);
 			g.drawString("cs"+scroll + " sc" + scrolled + " d" + drift + " ds" + driftSpeed + " st" + scrollingTimer + " sp" + scrollPrev + " t" + timer, 0, 30, 0);
 		}
-		if(activeDialog!=null) 
+		if(activePopup!=null) 
 		{
-			activeDialog.Draw(g);
+			activePopup.Draw(g);
 		}
 	}
 
-	public boolean TapDialog(int x, int y) {
-		if(activeDialog!=null) 
+	public boolean TapPopup(int x, int y) {
+		if(activePopup!=null) 
 		{
-			activeDialog.OnTap(x, y);
+			activePopup.OnTap(x, y);
 			return false;
 		}
 		return true;
+	}
+	public void Popup(IPopup window)
+	{
+		activePopup = window;
+		repaint();
 	}
 	private int bbw(int i)
 	{

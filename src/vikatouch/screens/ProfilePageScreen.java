@@ -224,7 +224,7 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 			}
 		}
 		g.translate(0, -g.getTranslateY());
-		drawHeaders(g, link==null?"Пользователь":link);
+		drawHUD(g, link==null?"Пользователь":link);
 	}
 	
 	public final void release(int x, int y)
@@ -233,7 +233,7 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 		{
 			if(y > 58 && y < DisplayUtils.height-50)
 			{
-				if(TapDialog(x,y))
+				if(TapPopup(x,y))
 					for(int i = 0; i < itemsCount; i++)
 					{
 						int y1 = scrolled + 140 + (i * oneitemheight);
@@ -282,9 +282,6 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 				fs.LoadFriends(0, id, name);
 				break;
 			case 3:
-				// ТЕСТ ОКНА
-				activeDialog = new ConfirmBox("Тескт 1","Пояснение",null,null);
-				repaint();
 				break;
 			case 4:
 				GroupsScreen gs = new GroupsScreen();

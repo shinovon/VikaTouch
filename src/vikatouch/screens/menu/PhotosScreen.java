@@ -17,7 +17,7 @@ public class PhotosScreen
 	
 	public void draw(Graphics g)
 	{
-		drawHeaders(g, "Фотографии");
+		drawHUD(g, "Фотографии");
 	}
 
 }

@@ -204,7 +204,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 			}
 		}
 		g.translate(0, -g.getTranslateY());
-		drawHeaders(g, link==null?"Группа":link);
+		drawHUD(g, link==null?"Группа":link);
 	}
 	
 	public final void release(int x, int y)
@@ -213,7 +213,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 		{
 			if(y > 58 && y < DisplayUtils.height-50)
 			{
-				if(TapDialog(x,y))
+				if(TapPopup(x,y))
 					for(int i = 0; i < itemsCount; i++)
 					{
 						int y1 = scrolled + 140 + (i * oneitemheight);
@@ -246,7 +246,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 					fs.LoadFriends(0, -id, name);
 					break;
 				case 1:
-					activeDialog = new ConfirmBox(isMember?"Выйти из группы?":"Вступить в группу?",null,
+					Popup(new ConfirmBox(isMember?"Выйти из группы?":"Вступить в группу?",null,
 					new Thread()
 					{
 						public void run()
@@ -262,8 +262,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 							}
 							Load();
 						}
-					}, null);
-					repaint();
+					}, null));
 					break;
 				case 2:
 					// сообщение

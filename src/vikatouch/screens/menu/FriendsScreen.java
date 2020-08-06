@@ -173,7 +173,7 @@ public class FriendsScreen
 			}
 			g.translate(0, -g.getTranslateY());
 
-			drawHeaders(g, uiItems==null?"Люди (загрузка...)":(currId<0?"Участники":"Друзья")+(range==null?"":range)+" "+(whose==null?"":whose));
+			drawHUD(g, uiItems==null?"Люди (загрузка...)":(currId<0?"Участники":"Друзья")+(range==null?"":range)+" "+(whose==null?"":whose));
 
 		}
 		catch (Exception e)

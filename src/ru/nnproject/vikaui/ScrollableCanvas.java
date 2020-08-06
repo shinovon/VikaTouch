@@ -120,9 +120,9 @@ public abstract class ScrollableCanvas
 	
 	public void press(int key)
 	{
-		if(MainScreen.activeDialog!=null)
+		if(MainScreen.activePopup!=null)
 		{
-			MainScreen.activeDialog.OnKey(key);
+			MainScreen.activePopup.OnKey(key);
 			repaint();
 			return;
 		}

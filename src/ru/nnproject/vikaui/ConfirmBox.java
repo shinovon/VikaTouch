@@ -5,7 +5,7 @@ import javax.microedition.lcdui.Graphics;
 
 import vikatouch.screens.MainScreen;
 
-public class ConfirmBox {
+public class ConfirmBox implements IPopup {
 
 	private String line1;
 	private String line2;
@@ -52,13 +52,13 @@ public class ConfirmBox {
 	{
 		if(key==PressableUIItem.KEY_OK||key==PressableUIItem.KEY_FUNC)
 		{
-			MainScreen.activeDialog = null;
+			MainScreen.activePopup = null;
 			if(ok!=null)
 				ok.start();
 		}
 		else if(key==PressableUIItem.KEY_RFUNC|| key==PressableUIItem.KEY_BACK)
 		{
-			MainScreen.activeDialog = null;
+			MainScreen.activePopup = null;
 			if(cancel!=null)
 				cancel.start();
 		}

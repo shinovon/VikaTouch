@@ -17,7 +17,7 @@ public class SettingsScreen
 
 	public void draw(Graphics g)
 	{
-		drawHeaders(g, "Настройки");
+		drawHUD(g, "Настройки");
 	}
 
 }
