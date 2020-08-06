@@ -319,6 +319,14 @@ public abstract class MainScreen
 		}
 	}
 
+	public boolean TapDialog(int x, int y) {
+		if(activeDialog!=null) 
+		{
+			activeDialog.OnTap(x, y);
+			return false;
+		}
+		return true;
+	}
 	private int bbw(int i)
 	{
 		switch(i)

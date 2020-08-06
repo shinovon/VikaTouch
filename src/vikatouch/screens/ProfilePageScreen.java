@@ -233,17 +233,17 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 		{
 			if(y > 58 && y < DisplayUtils.height-50)
 			{
-				for(int i = 0; i < itemsCount; i++)
-				{
-					int y1 = scrolled + 140 + (i * oneitemheight);
-					int y2 = y1 + oneitemheight;
-					if(y > y1 && y < y2)
+				if(TapDialog(x,y))
+					for(int i = 0; i < itemsCount; i++)
 					{
-						onItemPress(i);
-						break;
+						int y1 = scrolled + 140 + (i * oneitemheight);
+						int y2 = y1 + oneitemheight;
+						if(y > y1 && y < y2)
+						{
+							onItemPress(i);
+							break;
+						}
 					}
-					
-				}
 			}
 		}
 		super.release(x, y);

@@ -63,4 +63,26 @@ public class ConfirmBox {
 				cancel.start();
 		}
 	}
+	
+	public void OnTap(int x, int y)
+	{
+		int width = Math.min(DisplayUtils.width-20, 300);
+		Font f = Font.getFont(0, 0, Font.SIZE_MEDIUM);
+		int h1 = f.getHeight();
+		int th = h1*6;
+		int ry = DisplayUtils.height/2 - th/2;
+		int rx = DisplayUtils.width/2 - width/2; // углы диалога
+		
+		if(y>ry+h1*3 && y<y+h1*5)
+		{
+			if(x>rx+20 && x<DisplayUtils.width/2-20)
+			{
+				OnKey(PressableUIItem.KEY_OK);
+			}
+			else if(x>DisplayUtils.width/2+20 && x<DisplayUtils.width/2+20+(width/2-40))
+			{
+				OnKey(PressableUIItem.KEY_RFUNC);
+			}
+		}
+	}
 }
