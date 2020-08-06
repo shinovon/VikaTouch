@@ -61,7 +61,7 @@ public class GroupsScreen
 	public int totalItems;
 	public boolean canLoadMore = true;
 
-	public void loadGroups(final int from, final int id, final String name)
+	public void LoadGroups(final int from, final int id, final String name)
 	{
 		scrolled = 0;
 		uiItems = null;
@@ -224,6 +224,6 @@ public class GroupsScreen
 	}
 
 	public void loadNext() {
-		loadGroups(fromG+Settings.simpleListsLength, currId, whose);
+		LoadGroups(fromG+Settings.simpleListsLength, currId, whose);
 	}
 }

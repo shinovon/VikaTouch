@@ -99,7 +99,7 @@ public class CommandsImpl
 						{
 							if(VikaTouch.grCanv == null)
 								VikaTouch.grCanv = new GroupsScreen();
-							VikaTouch.grCanv.loadGroups(0, Integer.parseInt(VikaTouch.userId), null);
+							VikaTouch.grCanv.LoadGroups(0, Integer.parseInt(VikaTouch.userId), null);
 							VikaTouch.setDisplay(VikaTouch.grCanv);
 						}
 						break;

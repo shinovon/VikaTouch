@@ -14,6 +14,8 @@ import vikatouch.base.ErrorCodes;
 import vikatouch.base.IconsManager;
 import vikatouch.base.ResizeUtils;
 import vikatouch.base.VikaTouch;
+import vikatouch.screens.ProfilePageScreen;
+import vikatouch.screens.menu.DocsScreen;
 
 public class FriendItem extends JSONUIItem
 {
@@ -132,16 +134,15 @@ public class FriendItem extends JSONUIItem
 	{
 		try
 		{
-			throw new Exception();
+			VikaTouch.setDisplay(new ProfilePageScreen(id));
 		}
 		catch (Exception e)
 		{
-			VikaTouch.error(e, "Функционал юзеров ещё не готов. Юзер: "+link);
+			e.printStackTrace();
 		}
 	}
 
 	public void keyPressed(int key) {
-		// TODO Auto-generated method stub
-		
+		if(key == KEY_OK) tap(20,20);
 	}
 }
