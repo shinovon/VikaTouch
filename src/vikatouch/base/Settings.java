@@ -21,6 +21,8 @@ public class Settings
 	
 	public static int simpleListsLength;
 	
+	public static int messagesPerLoad;
+	
 	public static final int SENSOR_OK = 0;
 	public static final int SENSOR_J2MELOADER = 1;
 	public static final int SENSOR_RESISTIVE = 2;
@@ -51,6 +53,7 @@ public class Settings
 		proxyOAuth = "http://vk-oauth-proxy.xtrafrancyz.net:80";
 		sensorMode = SENSOR_OK;
 		simpleListsLength = 30; // выбор из 10, 30, 50 и 80. Экран потом сделаю.
+		messagesPerLoad = 60;
 	}
 
 }

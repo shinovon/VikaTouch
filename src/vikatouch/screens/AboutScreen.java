@@ -32,6 +32,9 @@ public class AboutScreen
 				"mishivanov",
 				"alias_omnia",
 				"niceday",
+				"avilolo",
+				"linuxoid85",
+				"",
 		};
 	}
 

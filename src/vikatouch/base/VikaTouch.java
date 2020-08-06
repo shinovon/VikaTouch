@@ -38,7 +38,7 @@ public class VikaTouch
 {
 
 	public static final boolean DEMO_MODE = false;
-	public static final String API_VERSION = "5.120";
+	public static final String API_VERSION = "5.122";
 	public static final String TOKEN_RMS = "vikatouchtoken";
 	public static final int INDEX_FALSE = -1;
 	public static String API = "http://vk-api-proxy.xtrafrancyz.net:80";

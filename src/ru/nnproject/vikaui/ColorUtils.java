@@ -17,6 +17,7 @@ public class ColorUtils
 	public static final int TEXT = 5;
 	public static final int OUTLINE = 6;
 	public static final int TEXTBOX_OUTLINE = -2;
+	public static final int TEXT2 = 9;
 	public static boolean isTemnaya = false;
 	
 	
@@ -74,6 +75,11 @@ public class ColorUtils
 			case 8:
 			{
 				g.setColor(158, 180, 205);
+				break;
+			}
+			case TEXT2:
+			{
+				g.setGrayScale(145);
 				break;
 			}
 			case BACKGROUND:
