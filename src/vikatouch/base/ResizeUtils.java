@@ -48,6 +48,7 @@ public class ResizeUtils
 	{
 		short h = (short) img.getHeight();
 		short need = h;
+		/*
 		switch(DisplayUtils.idispi)
 		{
 			case DisplayUtils.DISPLAY_E6:
@@ -72,6 +73,8 @@ public class ResizeUtils
 				break;
 			}
 		}
+		*/
+		need = 50;
 		if(h != need)
 		{
 			return VikaUtils.resize(img, need, -1);
@@ -84,6 +87,7 @@ public class ResizeUtils
 	{
 		short h = (short) img.getHeight();
 		short need = h;
+		/*
 		switch(DisplayUtils.idispi)
 		{
 			case DisplayUtils.DISPLAY_E6:
@@ -109,6 +113,8 @@ public class ResizeUtils
 				break;
 			}
 		}
+		*/
+		need = 48;
 		if(h != need)
 		{
 			return VikaUtils.resize(img, need, -1);

@@ -15,6 +15,7 @@ import ru.nnproject.vikaui.TextBreaker;
 import ru.nnproject.vikaui.UIItem;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.ErrorCodes;
+import vikatouch.base.IconsManager;
 import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.attachments.Attachment;
@@ -54,6 +55,7 @@ public class PostItem
 	private String reposterName;
 	private String type;
 	private String data;
+	private boolean dontLoadAva;
 	
 	public void parseJSON()
 	{
@@ -187,16 +189,7 @@ public class PostItem
 			}
 		}
 		
-		try
-		{
-			if(avaurl != null)
-			{
-				ava = VikaUtils.downloadImage(avaurl);
-			}
-		}
-		catch (Exception e)
-		{
-		}
+		
 		
 		if(reposterName != null)
 		{
@@ -254,16 +247,32 @@ public class PostItem
 	{
 		int yy = 10 + y;
 		
+		try
+		{
+			if(avaurl != null && ava == null && !dontLoadAva)
+			{
+				dontLoadAva = true;
+				ava = VikaUtils.downloadImage(avaurl);
+			}
+		}
+		catch (Exception e)
+		{
+			
+		}
+		
 		if(ava != null)
 		{
-			g.drawImage(ava, 16, 10 + y, 0);
+			g.drawImage(ava, 14, 10 + y, 0);
 			yy += ava.getHeight() + 12;
 		}
 		else
 		{
-			g.drawImage(VikaTouch.cameraImg, 16, 10 + y, 0);
+			g.drawImage(VikaTouch.cameraImg, 14, 10 + y, 0);
 			yy += VikaTouch.cameraImg.getHeight() + 12;
 		}
+		
+
+		g.drawImage(IconsManager.ac, 14, 10 + y, 0);
 		
 		ColorUtils.setcolor(g, 5);
 		

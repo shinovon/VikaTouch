@@ -5,16 +5,45 @@ import javax.microedition.lcdui.Graphics;
 
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
+import ru.nnproject.vikaui.ScrollableCanvas;
 import ru.nnproject.vikaui.VikaScreen;
 import vikatouch.base.CommandsImpl;
 import vikatouch.base.VikaTouch;
 
 public class AboutScreen
-	extends VikaScreen
+	extends ScrollableCanvas
 {
+	
+	private static final String[] strings;
+	
+	static
+	{
+		strings = new String[]{ 
+				"Издатель:",
+				"Ilya Visotky",
+				"",
+				"Разработчики:",
+				"shinovon",
+				"Feodor0090",
+				"",
+				"Бета-тестеры:",
+				"nikitashustol",
+				"bodyz",
+				"mishivanov",
+				"alias_omnia",
+				"niceday",
+		};
+	}
+
+	public AboutScreen()
+	{
+		super();
+		itemsh = 48 + (strings.length * 24) + 25;
+	}
 
 	public void draw(Graphics g)
 	{
+		update(g);
 		ColorUtils.setcolor(g, 0);
 		
 		g.setFont(Font.getFont(0, Font.STYLE_BOLD, Font.SIZE_LARGE));
@@ -26,7 +55,7 @@ public class AboutScreen
 		g.drawString("Версия: " + VikaTouch.getVersion(), Font.getFont(0, 0, Font.SIZE_LARGE).stringWidth("Vika Touch") + 12, 20, 0);
 
 		g.setFont(Font.getFont(0, 0, Font.SIZE_MEDIUM));
-		
+		/*
 		g.drawString("Издатель:", 32, 48, 0);
 		g.drawString("Ilya Visotsky", 32, 72, 0);
 		
@@ -35,7 +64,19 @@ public class AboutScreen
 
 		g.drawString("Разработчик/Бета-тестер:", 32, 192, 0);
 		g.drawString("Feodor0090", 32, 216, 0);
+		*/
+		for(int i = 0; i < strings.length; i++)
+		{
+			g.drawString(strings[i], 32, 48 + (i * 24), 0);
+		}
 		
+		g.translate(0, -g.getTranslateY());
+		
+
+		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+		g.fillRect(0, DisplayUtils.height - 25, 640, 25);
+
+		ColorUtils.setcolor(g, 0);
 		g.drawString("Назад", 0, DisplayUtils.height - 24, 0);
 	}
 	
@@ -45,6 +86,8 @@ public class AboutScreen
 		{
 			VikaTouch.setDisplay(VikaTouch.menuCanv);
 		}
+		else
+			super.release(x, y);
 	}
 	
 	public void press(int key)
@@ -53,6 +96,13 @@ public class AboutScreen
 		{
 			VikaTouch.setDisplay(VikaTouch.menuCanv);
 		}
+		else
+			super.press(key);
+	}
+
+	protected void scrollHorizontally(int deltaX)
+	{
+		
 	}
 
 }
