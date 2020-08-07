@@ -105,7 +105,6 @@ public class VideosScreen
 		};
 
 		downloaderThread.start();
-		drawHUD(g, videosStr);
 	}
 	public void draw(Graphics g)
 	{
@@ -140,7 +139,7 @@ public class VideosScreen
 			}
 			g.translate(0, -g.getTranslateY());
 
-			drawHUD(g, uiItems==null?"Видео (загрузка...)":"Видео"+(range==null?"":range)+" "+(whose==null?"":whose));
+			drawHUD(g, uiItems==null?(videosStr+" (загрузка...)"):(videosStr+(range==null?"":range)+" "+(whose==null?"":whose)));
 
 		}
 		catch (Exception e)
