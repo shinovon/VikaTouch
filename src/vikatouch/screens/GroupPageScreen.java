@@ -52,6 +52,22 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 	// system
 	private boolean isInfoShown = false;
 
+	private static String loadingStr;
+
+	private static String emptydescStr;
+
+	protected static String linksStr;
+
+	private static String groupStr;
+
+	protected static String discussionsStr;
+
+	protected static String joinStr;
+
+	protected static String leaveStr;
+
+	protected static String contactsStr;
+
 	protected static String siteStr;
 
 	protected static String wallStr;
@@ -76,17 +92,27 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 	
 	public GroupPageScreen(int id)
 	{
-		siteStr = TextLocal.inst.get("menu.website");
-		photosStr = TextLocal.inst.get("menu.photos");
-		musicStr = TextLocal.inst.get("menu.music");
-		wallStr = TextLocal.inst.get("menu.wall");
-		cannotWriteStr = TextLocal.inst.get("menu.cannotwrite");
-		noWebsiteStr = TextLocal.inst.get("menu.nowebsite");
-		writeMessageStr = TextLocal.inst.get("menu.writemsg");
-		infoStr = TextLocal.inst.get("menu.info");
-		docsStr = TextLocal.inst.get("menu.documents");
-		videosStr = TextLocal.inst.get("menu.videos");
-		
+		if(groupStr == null)
+		{
+			emptydescStr = TextLocal.inst.get("group.descriptionempty");
+			loadingStr = TextLocal.inst.get("title2.loading");
+			linksStr = TextLocal.inst.get("menu.links");
+			discussionsStr = TextLocal.inst.get("menu.discussions");
+			leaveStr = TextLocal.inst.get("menu.grleave");
+			joinStr = TextLocal.inst.get("menu.grjoin");
+			contactsStr = TextLocal.inst.get("menu.contacts");
+			groupStr = TextLocal.inst.get("group");
+			siteStr = TextLocal.inst.get("menu.website");
+			photosStr = TextLocal.inst.get("menu.photos");
+			musicStr = TextLocal.inst.get("menu.music");
+			wallStr = TextLocal.inst.get("menu.wall");
+			cannotWriteStr = TextLocal.inst.get("menu.cannotwrite");
+			noWebsiteStr = TextLocal.inst.get("menu.nowebsite");
+			writeMessageStr = TextLocal.inst.get("menu.writemsg");
+			infoStr = TextLocal.inst.get("menu.info");
+			docsStr = TextLocal.inst.get("menu.documents");
+			videosStr = TextLocal.inst.get("menu.videos");
+		}
 		hasBackButton = true;
 		this.menuImg = MenuScreen.menuImg;
 		this.newsImg = VikaTouch.menuScr.newsImg;
@@ -138,7 +164,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 						itemsCount = 13;
 						uiItems = new OptionItem[13];
 						uiItems[0] = new OptionItem(thisC, " ("+membersCount+")", IconsManager.GROUPS, 0, 50);
-						uiItems[1] = new OptionItem(thisC, isMember?"Выйти из группы":"Вступить в группу", 
+						uiItems[1] = new OptionItem(thisC, isMember?leaveStr:joinStr, 
 								isMember?IconsManager.CLOSE:IconsManager.ADD, 1, 50);
 						uiItems[2] = new OptionItem(thisC, canMsg?writeMessageStr:cannotWriteStr, IconsManager.MSGS, 2, 50);
 						uiItems[3] = new OptionItem(thisC, wallStr, IconsManager.NEWS, 3, 50);
@@ -147,10 +173,10 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 						uiItems[6] = new OptionItem(thisC, musicStr + " ("+music+")", IconsManager.MUSIC, 6, 50);
 						uiItems[7] = new OptionItem(thisC, videosStr + " ("+videos+")", IconsManager.VIDEOS, 7, 50);
 						uiItems[8] = new OptionItem(thisC, docsStr + " ("+docs+")", IconsManager.DOCS, 8, 50);
-						uiItems[9] = new OptionItem(thisC, "Обсуждения ("+topics+")", IconsManager.COMMENTS, 9, 50);
+						uiItems[9] = new OptionItem(thisC, discussionsStr + " ("+topics+")", IconsManager.COMMENTS, 9, 50);
 						uiItems[10] = new OptionItem(thisC, (site==null||site.length()<5)?siteStr+": "+noWebsiteStr:siteStr+": "+site, IconsManager.REPOST, 10, 50);
-						uiItems[11] = new OptionItem(thisC, "Ссылки", IconsManager.REPOST, 11, 50);
-						uiItems[12] = new OptionItem(thisC, "Контакты", IconsManager.GROUPS, 11, 50);
+						uiItems[11] = new OptionItem(thisC, linksStr, IconsManager.REPOST, 11, 50);
+						uiItems[12] = new OptionItem(thisC, contactsStr, IconsManager.GROUPS, 11, 50);
 					}
 					catch (JSONException e)
 					{
@@ -199,7 +225,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 		}
 		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_LARGE));
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
-		g.drawString(name==null?"Загрузка...":name, 74, 74, 0);
+		g.drawString(name==null?loadingStr:name, 74, 74, 0);
 		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
 		g.drawString(status==null?"":status, 74, 98, 0);
 		
@@ -210,7 +236,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 			if(description == null)
 			{
 				isInfoShown = false;
-				((OptionItem)uiItems[4]).text = "[описание пусто]";
+				((OptionItem)uiItems[4]).text = emptydescStr;
 			}
 			Font df = Font.getFont(0, 0, 8);
 			g.setFont(df);
@@ -238,7 +264,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 			}
 		}
 		g.translate(0, -g.getTranslateY());
-		drawHUD(g, link==null?"Группа":link);
+		drawHUD(g, link==null?groupStr:link);
 	}
 	
 	public final void release(int x, int y)
@@ -279,7 +305,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 					fs.LoadFriends(0, -id, name);
 					break;
 				case 1:
-					VikaTouch.canvas.currentAlert = new ConfirmBox(isMember?"Выйти из группы?":"Вступить в группу?",null,
+					VikaTouch.canvas.currentAlert = new ConfirmBox(isMember?leaveStr+"?":joinStr+"?",null,
 
 					new Thread()
 					{

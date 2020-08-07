@@ -74,7 +74,7 @@ error.errcode=Код
 error=Ошибка
 error.additionalinfo=Доп. инфо
 error.description=Возможное описание
-error.contactdevs=обратитесь к разработчику за помощью.
+error.contactdevs=за подробной информации обратитесь к разработчику.
 
 online=онлайн
 offline=оффлайн
@@ -98,6 +98,10 @@ menu.contacts=Контакты
 menu.website=Сайт
 menu.writemsg=Написать сообщение
 menu.nowebsite=нет
+menu.discussions=Обсуждения
+
+group=Группа
+group.descriptionempty=[описание пусто]
 
 title.people=Люди
 title.chats=Сообщения
