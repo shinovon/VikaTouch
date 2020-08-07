@@ -14,7 +14,9 @@ import org.json.me.JSONObject;
 
 import ru.nnproject.vikatouch.VikaTouchApp;
 import ru.nnproject.vikaui.DisplayUtils;
+import ru.nnproject.vikaui.InfoPopup;
 import ru.nnproject.vikaui.UIThread;
+import ru.nnproject.vikaui.VikaNotice;
 import ru.nnproject.vikaui.VikaScreen;
 import vikamobilebase.ImageStorage;
 import vikamobilebase.VikaUtils;
@@ -513,5 +515,10 @@ public class VikaTouch
 		}
 		Thread.yield();
 		
+	}
+
+	public static void popup(VikaNotice popup)
+	{
+		canvas.currentAlert = popup;
 	}
 }

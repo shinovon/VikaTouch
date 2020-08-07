@@ -110,7 +110,7 @@ public class CommandsImpl
 						//Музыка
 						if(s instanceof MenuScreen)
 						{
-							((MenuScreen) s).Popup(new InfoPopup("Функционал музыки ещё не реализован. Следите за обновлениями.",null));
+							VikaTouch.popup(new InfoPopup("Функционал музыки ещё не реализован. Следите за обновлениями.",null));
 						}
 						break;
 					}
@@ -119,7 +119,7 @@ public class CommandsImpl
 						//Видео
 						if(s instanceof MenuScreen)
 						{
-							((MenuScreen) s).Popup(new InfoPopup("Функционал видео ещё не реализован. Следите за обновлениями.",null)); /*
+							VikaTouch.popup(new InfoPopup("Функционал видео ещё не реализован. Следите за обновлениями.",null)); /*
 							if(VikaTouch.videosCanv == null)
 								VikaTouch.videosCanv = new VideosScreen();
 							VikaTouch.setDisplay(VikaTouch.videosCanv);*/
@@ -131,7 +131,7 @@ public class CommandsImpl
 						//Фотки
 						if(s instanceof MenuScreen)
 						{
-							((MenuScreen) s).Popup(new InfoPopup("Функционал фотографий ещё не реализован. Следите за обновлениями.",null));
+							VikaTouch.popup(new InfoPopup("Функционал фотографий ещё не реализован. Следите за обновлениями.",null));
 							/*
 							if(VikaTouch.photosCanv == null)
 								VikaTouch.photosCanv = new PhotosScreen();
