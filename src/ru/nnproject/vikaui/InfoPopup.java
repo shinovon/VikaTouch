@@ -13,8 +13,9 @@ public class InfoPopup
 	private Thread ok;
 	private int linesCount;
 	private String button;
+	private String header;
 	
-	public InfoPopup(String text, Thread onOk, String header, String btnText)
+	public InfoPopup(String text, Thread onOk, String title, String btnText)
 	{
 		lines = TextBreaker.breakText(text, false, null, true, Math.min(DisplayUtils.width-10, 350)-60);
 		ok = onOk;
@@ -24,14 +25,18 @@ public class InfoPopup
 			i++;
 		}
 		linesCount = i;
+		header = title;
 		button = btnText==null?"OK":btnText;
 	}
 	
 	public void draw(Graphics g) {
 		int width = Math.min(DisplayUtils.width-10, 350);
 		Font f = Font.getFont(0, 0, Font.SIZE_MEDIUM);
+		Font hf = Font.getFont(0, Font.STYLE_BOLD, Font.SIZE_LARGE); // Header Font
+		int hh = hf.getHeight(); // Header Height
 		int h1 = f.getHeight();
-		int th = h1*4 + h1*linesCount;
+		int hp = header==null?0:hh+(h1/2); // Header Place (сколько он занимает)
+		int th = h1*4 + h1*linesCount + hp;
 		int y = DisplayUtils.height/2 - th/2;
 		int x = DisplayUtils.width/2 - width/2;
 		int btnW = Math.max(f.stringWidth(button)+20, 60);
@@ -41,7 +46,12 @@ public class InfoPopup
 		g.fillRoundRect(x, y, width, th, 16, 16);
 		
 		ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
-		g.fillRoundRect(DisplayUtils.width/2-btnW/2, y+h1*(linesCount+1), btnW, h1*2, 14, 14);
+		g.fillRoundRect(DisplayUtils.width/2-btnW/2, y+h1*(linesCount+1)+hp, btnW, h1*2, 14, 14); // кнопка
+		if(header!=null)
+		{
+			g.setFont(hf);
+			g.drawString(header, DisplayUtils.width/2-hf.stringWidth(header)/2, y+h1/2, 0);
+		}
 		
 		g.setFont(f);
 		g.setStrokeStyle(Graphics.SOLID);
@@ -49,10 +59,10 @@ public class InfoPopup
 		g.drawRoundRect(x, y, width, th, 16, 16); // бордер
 		for(int i = 0; i < linesCount;i++)
 		{
-			if(lines[i]!=null) g.drawString(lines[i], DisplayUtils.width/2 - f.stringWidth(lines[i])/2, y+h1/2+h1*i, 0);
+			if(lines[i]!=null) g.drawString(lines[i], DisplayUtils.width/2 - f.stringWidth(lines[i])/2, y+hp+h1/2+h1*i, 0);
 		}
 		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
-		g.drawString(button, DisplayUtils.width/2-f.stringWidth(button)/2, y+h1*(linesCount+1)+h1/2, 0);
+		g.drawString(button, DisplayUtils.width/2-f.stringWidth(button)/2, y+hp+h1*(linesCount+1)+h1/2, 0); // кнопка
 	}
 	
 	public void key(int key)

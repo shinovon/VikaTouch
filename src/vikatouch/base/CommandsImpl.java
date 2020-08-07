@@ -110,7 +110,7 @@ public class CommandsImpl
 						//Музыка
 						if(s instanceof MenuScreen)
 						{
-							VikaTouch.popup(new InfoPopup("Функционал музыки ещё не реализован. Следите за обновлениями.",null,null,null));
+							VikaTouch.popup(new InfoPopup("Функционал музыки ещё не реализован. Следите за обновлениями.",null,"Музыка","Назад"));
 						}
 						break;
 					}
@@ -131,7 +131,7 @@ public class CommandsImpl
 						//Фотки
 						if(s instanceof MenuScreen)
 						{
-							VikaTouch.popup(new InfoPopup("Функционал фотографий ещё не реализован. Следите за обновлениями.",null,null,null));
+							VikaTouch.popup(new InfoPopup("Функционал фотографий ещё не реализован. Следите за обновлениями.",null,"Фото","Назад"));
 							/*
 							if(VikaTouch.photosCanv == null)
 								VikaTouch.photosCanv = new PhotosScreen();
