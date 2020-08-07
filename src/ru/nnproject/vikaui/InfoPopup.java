@@ -3,9 +3,12 @@ package ru.nnproject.vikaui;
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 
+import vikatouch.base.VikaTouch;
 import vikatouch.screens.MainScreen;
 
-public class InfoPopup implements IPopup {
+public class InfoPopup
+	extends VikaNotice
+{
 	private String[] lines;
 	private Thread ok;
 	private int linesCount;
@@ -22,7 +25,7 @@ public class InfoPopup implements IPopup {
 		linesCount = i;
 	}
 	
-	public void Draw(Graphics g) {
+	public void draw(Graphics g) {
 		int width = Math.min(DisplayUtils.width-10, 350);
 		Font f = Font.getFont(0, 0, Font.SIZE_MEDIUM);
 		int h1 = f.getHeight();
@@ -50,14 +53,14 @@ public class InfoPopup implements IPopup {
 		g.drawString(okT, DisplayUtils.width/2-f.stringWidth(okT)/2, y+h1*(linesCount+1)+h1/2, 0);
 	}
 	
-	public void OnKey(int key)
+	public void key(int key)
 	{
-		MainScreen.activePopup = null;
+		VikaTouch.canvas.currentAlert = null;
 		if(ok!=null)
 			ok.start();
 	}
 	
-	public void OnTap(int x, int y)
+	public void tap(int x, int y)
 	{
 		int width = Math.min(DisplayUtils.width-20, 300);
 		Font f = Font.getFont(0, 0, Font.SIZE_MEDIUM);
@@ -70,7 +73,7 @@ public class InfoPopup implements IPopup {
 		{
 			if(x>DisplayUtils.width/2-25 && x<DisplayUtils.width/2+25)
 			{
-				OnKey(PressableUIItem.KEY_OK);
+				key(PressableUIItem.KEY_OK);
 			}
 		}
 	}
