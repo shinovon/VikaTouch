@@ -19,5 +19,10 @@ public class VideosScreen
 	{
 		drawHUD(g, "Видео");
 	}
+	
+	public void Load(int from, int id, String name) 
+	{
+		
+	}
 
 }
