@@ -10,6 +10,7 @@ import ru.nnproject.vikaui.VikaScreen;
 import vikatouch.base.CaptchaObject;
 import vikatouch.base.TextEditor;
 import vikatouch.base.VikaTouch;
+import vikatouch.base.local.TextLocal;
 
 public class CaptchaScreen
 	extends VikaScreen
@@ -21,6 +22,15 @@ public class CaptchaScreen
 	public CaptchaObject obj;
 	private int x;
 	private int w;
+	private String captchaRequiredStr;
+	private String captchaStr;
+	
+	public CaptchaScreen()
+	{
+		super();
+		captchaRequiredStr = TextLocal.inst.get("login.captcharequired");
+		captchaStr = TextLocal.inst.get("login.captcha");
+	}
 
 	public void draw(Graphics g)
 	{
@@ -36,7 +46,7 @@ public class CaptchaScreen
 			g.drawString(input, 10, 110, 0);
 		x = (DisplayUtils.width - w) / 2;
 		ColorUtils.setcolor(g, -5);
-		g.drawString("Требуется ввод капчи!", DisplayUtils.width / 2, 0, Graphics.HCENTER);
+		g.drawString(captchaRequiredStr/*"Требуется ввод капчи!"*/, DisplayUtils.width / 2, 0, Graphics.HCENTER);
 		g.drawImage(image, x, 24, 0);
 		ColorUtils.setcolor(g, 3);
 		g.fillRect(x, 150, w, 36);
@@ -52,7 +62,7 @@ public class CaptchaScreen
 			{
 				public void run()
 				{
-					input = TextEditor.inputString("Капча", "", 32, true);
+					input = TextEditor.inputString(captchaStr, "", 32, true);
 					interrupt();
 				}
 			};

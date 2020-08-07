@@ -87,7 +87,7 @@ public class AboutScreen
 	{
 		if(x < 50 && y > DisplayUtils.height - 30)
 		{
-			VikaTouch.setDisplay(VikaTouch.menuCanv);
+			VikaTouch.setDisplay(VikaTouch.menuScr);
 		}
 		else
 			super.release(x, y);
@@ -97,7 +97,7 @@ public class AboutScreen
 	{
 		if(key == 8 || key == -6)
 		{
-			VikaTouch.setDisplay(VikaTouch.menuCanv);
+			VikaTouch.setDisplay(VikaTouch.menuScr);
 		}
 		else
 			super.press(key);

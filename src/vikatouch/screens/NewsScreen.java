@@ -30,8 +30,8 @@ public class NewsScreen
 		
 		VikaTouch.loading = true;
 		
-		if(VikaTouch.menuCanv == null)
-			VikaTouch.menuCanv = new MenuScreen();
+		if(VikaTouch.menuScr == null)
+			VikaTouch.menuScr = new MenuScreen();
 		
 		loadPosts();
 		

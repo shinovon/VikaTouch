@@ -83,7 +83,7 @@ public class GroupItem
 		itemDrawHeight += BORDER * 2;
 	}
 
-	public void GetAva() {
+	public void getAva() {
 		try {
 			ava = ResizeUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
 		} catch (IOException e) {
@@ -115,7 +115,7 @@ public class GroupItem
 	{
 		try
 		{
-			GroupsScreen.AbortLoading();
+			GroupsScreen.abortLoading();
 			VikaTouch.setDisplay(new GroupPageScreen(id));
 		}
 		catch (Exception e)

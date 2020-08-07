@@ -22,6 +22,7 @@ import vikatouch.base.VikaTouch;
 import vikatouch.base.items.DocItem;
 import vikatouch.base.items.GroupItem;
 import vikatouch.base.items.LoadMoreButtonItem;
+import vikatouch.base.local.TextLocal;
 import vikatouch.screens.MainScreen;
 
 
@@ -33,18 +34,20 @@ public class GroupsScreen
 	{
 		super();
 		VikaTouch.loading = true;
-		if(VikaTouch.menuCanv == null)
-			VikaTouch.menuCanv = new MenuScreen();
+		if(VikaTouch.menuScr == null)
+			VikaTouch.menuScr = new MenuScreen();
 
 		this.menuImg = MenuScreen.menuImg;
-		this.newsImg = VikaTouch.menuCanv.newsImg;
+		this.newsImg = VikaTouch.menuScr.newsImg;
+		loadingStr = TextLocal.inst.get("title.loading");
+		groupsStr = TextLocal.inst.get("title.groups");
 	}
 
 	public boolean isReady()
 	{
 		return uiItems != null;
 	}
-	public static void AbortLoading() {
+	public static void abortLoading() {
 		try {
 			if(downloaderThread != null && downloaderThread.isAlive())
 				downloaderThread.interrupt();
@@ -61,7 +64,11 @@ public class GroupsScreen
 	public int totalItems;
 	public boolean canLoadMore = true;
 
-	public void LoadGroups(final int from, final int id, final String name)
+	private String groupsStr;
+
+	private String loadingStr;
+
+	public void loadGroups(final int from, final int id, final String name)
 	{
 		scrolled = 0;
 		uiItems = null;
@@ -70,7 +77,7 @@ public class GroupsScreen
 		currId = id;
 		whose = name;
 		
-		AbortLoading();
+		abortLoading();
 
 		downloaderThread = new Thread()
 		{
@@ -121,7 +128,7 @@ public class GroupsScreen
 					for(int i = 0; i < itemsCount - (canLoadMore?1:0); i++)
 					{
 						VikaTouch.loading = true;
-						((GroupItem) uiItems[i]).GetAva();
+						((GroupItem) uiItems[i]).getAva();
 					}
 					VikaTouch.loading = false;
 				}
@@ -173,7 +180,7 @@ public class GroupsScreen
 			}
 			g.translate(0, -g.getTranslateY());
 
-			drawHUD(g, uiItems==null?"Группы (загрузка...)":"Группы"+(range==null?"":range)+" "+(whose==null?"":whose));
+			drawHUD(g, uiItems==null?groupsStr+" ("+loadingStr+"...)":groupsStr+" "+(range==null?"":range)+" "+(whose==null?"":whose));
 
 		}
 		catch (Exception e)
@@ -215,6 +222,7 @@ public class GroupsScreen
 			// Всё нормально, просто тапнули ПОД последним элементом.
 			// ты на что-то намекаешь?
 			// Я? я ни на что, просто оно реально плюётся если тапнуть под последним. Ничего не трогай, сломаем. (с) Feodor0090
+			// ок че
 		}
 		catch (Exception e) 
 		{
@@ -224,6 +232,6 @@ public class GroupsScreen
 	}
 
 	public void loadNext() {
-		LoadGroups(fromG+Settings.simpleListsLength, currId, whose);
+		loadGroups(fromG+Settings.simpleListsLength, currId, whose);
 	}
 }

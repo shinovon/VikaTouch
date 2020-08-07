@@ -16,9 +16,11 @@ import javax.microedition.lcdui.game.GameCanvas;
 
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
+import ru.nnproject.vikaui.InfoPopup;
 import ru.nnproject.vikaui.VikaScreen;
 import vikatouch.base.TextEditor;
 import vikatouch.base.VikaTouch;
+import vikatouch.base.local.TextLocal;
 import vikatouch.screens.menu.MenuScreen;
 
 public class LoginScreen
@@ -38,6 +40,11 @@ public class LoginScreen
 	
 	// tapping cache
 	private int[] tapCoords;
+	private String titleLoginStr;
+	protected String passwordStr;
+	protected String loginStr;
+	private String warnStr;
+	private String failedStr;
 
 	public LoginScreen()
 	{
@@ -53,9 +60,14 @@ public class LoginScreen
 		}
 		catch (Exception e) { }
 		pressed = false;
+		titleLoginStr = TextLocal.inst.get("title.login");
+		loginStr = TextLocal.inst.get("login.login");
+		passwordStr = TextLocal.inst.get("login.password");
+		warnStr = TextLocal.inst.get("login.warn");
+		failedStr = TextLocal.inst.get("login.failed");
 	}
 	
-	public final void press(int key)
+	public final void release(int key)
 	{
 		keysMode = true;
 		if(key == -5)
@@ -66,9 +78,10 @@ public class LoginScreen
 					thread.interrupt();
 				thread = new Thread()
 				{
+
 					public void run()
 					{
-						user = TextEditor.inputString("Логин", "", 28, false);
+						user = TextEditor.inputString(loginStr, "", 28, false);
 						repaint();
 						interrupt();
 					}
@@ -83,7 +96,7 @@ public class LoginScreen
 				{
 					public void run()
 					{
-						pass = TextEditor.inputString("Пароль", "", 32, false);
+						pass = TextEditor.inputString(passwordStr, "", 32, false);
 						repaint();
 						interrupt();
 					}
@@ -112,13 +125,13 @@ public class LoginScreen
 						String reason;
 						if(!vse && (reason = VikaTouch.getReason()) != null)
 						{
-							VikaTouch.setDisplay(new Alert("Не удалось ввойти", reason, null, AlertType.ERROR));
+							VikaTouch.popup(new InfoPopup(failedStr, null));
 						}
 					}
 				}
 				else
 				{
-					VikaTouch.setDisplay(new Alert("","Не введен логин или пароль!", null, AlertType.INFO));
+					VikaTouch.warn(warnStr);
 				}
 			}
 		}
@@ -144,6 +157,21 @@ public class LoginScreen
 			if(selectedBtn < 0)
 				selectedBtn = 0;
 		}
+		else
+		{
+			String s = VikaTouch.canvas.getKeyName(key);
+			if(s.length() == 1)
+			{
+				if(selectedBtn == 0)
+				{
+					loginStr += s;
+				}
+				else if(selectedBtn == 1)
+				{
+					passwordStr += s;
+				}
+			}
+		}
 	}
 
 	public void draw(Graphics g)
@@ -168,7 +196,7 @@ public class LoginScreen
 		
 		Font f = Font.getFont(0, 0, Font.SIZE_LARGE);
 		g.setFont(f); ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
-		g.drawString("Vika Touch - вход", shortLayout?6:52, (shortLayout?12:24)-f.getHeight()/2, 0);
+		g.drawString("Vika Touch - "+titleLoginStr, shortLayout?6:52, (shortLayout?12:24)-f.getHeight()/2, 0);
 		
 		tapCoords = new int[] { yCenter - fH/2 - 8 - fH, yCenter - fH/2 - 8, yCenter - fH/2, yCenter + fH/2, yCenter + fH/2 + 8, yCenter + fH/2 + 8 + 32 };
 		
@@ -210,7 +238,7 @@ public class LoginScreen
 			{
 				public void run()
 				{
-					user = TextEditor.inputString("Логин", "", 28, false);
+					user = TextEditor.inputString(loginStr, "", 28, false);
 					repaint();
 					interrupt();
 				}
@@ -225,7 +253,7 @@ public class LoginScreen
 			{
 				public void run()
 				{
-					pass = TextEditor.inputString("Пароль", "", 32, true);
+					pass = TextEditor.inputString(passwordStr, "", 32, true);
 					repaint();
 					interrupt();
 				}
@@ -260,13 +288,13 @@ public class LoginScreen
 						String reason;
 						if(!vse && (reason = VikaTouch.getReason()) != null)
 						{
-							VikaTouch.setDisplay(new Alert("Не удалось ввойти", reason, null, AlertType.ERROR));
+							VikaTouch.popup(new InfoPopup(failedStr, null));
 						}
 					}
 				}
 				else
 				{
-					VikaTouch.setDisplay(new Alert("","Не введен логин или пароль!", null, AlertType.INFO));
+					VikaTouch.warn(warnStr);
 				}
 			}
 			else

@@ -25,9 +25,9 @@ public class DialogsScreen
 		
 		VikaTouch.loading = true;
 		
-		if(VikaTouch.menuCanv == null)
+		if(VikaTouch.menuScr == null)
 		{
-			VikaTouch.menuCanv = new MenuScreen();
+			VikaTouch.menuScr = new MenuScreen();
 		}
 		
 		try

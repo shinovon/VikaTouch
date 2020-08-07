@@ -43,4 +43,7 @@ public class ErrorCodes
 	public static final int VIDEOSPARSE = 38;
 	public static final int VIDEOSLOAD = 39;
 	public static final int VIDEOSDRAW = 40;
+	public static final int LANGLOAD = 41;
+	public static final int ICONSLOAD = 42;
+	public static final int LANGGET = 43;
 }

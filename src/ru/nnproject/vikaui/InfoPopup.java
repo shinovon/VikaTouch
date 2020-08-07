@@ -29,8 +29,22 @@ public class InfoPopup
 		button = btnText==null?"OK":btnText;
 	}
 	
+	public InfoPopup(String text, Thread onOk)
+	{
+		lines = TextBreaker.breakText(text, false, null, true, Math.min(DisplayUtils.width-16, 350)-60);
+		ok = onOk;
+		int i=0;
+		while(i<lines.length && lines[i]!=null)
+		{
+			i++;
+		}
+		linesCount = i;
+		header = null;
+		button = "OK";
+	}
+
 	public void draw(Graphics g) {
-		int width = Math.min(DisplayUtils.width-10, 350);
+		int width = Math.min(DisplayUtils.width-8, 350);
 		Font f = Font.getFont(0, 0, Font.SIZE_MEDIUM);
 		Font hf = Font.getFont(0, Font.STYLE_BOLD, Font.SIZE_LARGE); // Header Font
 		int hh = hf.getHeight(); // Header Height
@@ -72,7 +86,7 @@ public class InfoPopup
 			ok.start();
 	}
 	
-	public void tap(int x, int y)
+	public void release(int x, int y)
 	{
 		int width = Math.min(DisplayUtils.width-20, 300);
 		Font f = Font.getFont(0, 0, Font.SIZE_MEDIUM);

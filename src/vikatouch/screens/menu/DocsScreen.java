@@ -20,22 +20,29 @@ import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.items.DocItem;
 import vikatouch.base.items.LoadMoreButtonItem;
+import vikatouch.base.local.TextLocal;
 import vikatouch.screens.MainScreen;
 
 public class DocsScreen
 	extends MainScreen implements INextLoadable
 {
 
+	private String loadingStr;
+
+	private String docsStr;
+
 	public DocsScreen()
 	{
 		super();
 		isPreviewShown = false;
 		VikaTouch.loading = true;
-		if(VikaTouch.menuCanv == null)
-			VikaTouch.menuCanv = new MenuScreen();
+		if(VikaTouch.menuScr == null)
+			VikaTouch.menuScr = new MenuScreen();
 
 		this.menuImg = MenuScreen.menuImg;
-		this.newsImg = VikaTouch.menuCanv.newsImg;
+		this.newsImg = VikaTouch.menuScr.newsImg;
+		loadingStr = TextLocal.inst.get("title.loading");
+		docsStr = TextLocal.inst.get("title.docs");
 	}
 
 	public static DocsScreen current;
@@ -148,7 +155,7 @@ public class DocsScreen
 			}
 			g.translate(0, -g.getTranslateY());
 
-			drawHUD(g, uiItems==null?"Документы (загрузка...)":"Документы"+(range==null?"":range)+" "+(whose==null?"":whose));
+			drawHUD(g, uiItems==null?docsStr+" ("+loadingStr+"...)":docsStr+(range==null?"":range)+" "+(whose==null?"":whose));
 
 		}
 		catch (Exception e)

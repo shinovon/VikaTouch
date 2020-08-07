@@ -1,28 +1,40 @@
+#info:
 #русский
 #оригинальный язык
-#автор shinovon
+#авторы shinovon, Feodor0090
 #версия 2020.08.07
+#
+#вк авторов:
+#vk.com/shinovon
+#vk.com/r_f_klin
 
-info.name=Русский
+langinfo.name=Русский
+langinfo.version=2020.08.07
 
+# LANG FORMAT
+#| - new line
+#
 #datetime format:
 # DATE
-#d - day
-#sm - short month
-#m - month
-#y - year
+#DD - day
+#SM - short month
+#MM - month
+#YYYY - year
 # TIME
 #tt - am / pm
 #TT - AM / PM
-#h - hour in 12 hours format
 #h - hour in 12 hours format
 #H - hour
 #HH - hour with zero
 #M - minute
 #MM - minute with zero
-date.timeformat=H:MM
-date.chatdateformat=d sm
-date.shortdateformat=d sm y
+
+format.time=H:MM
+format.chatdate=DD SM
+format.shortdatenoyear=DD M
+format.shortdate=DD M YYYY
+format.date=DD M YYYY г.
+format.fulldate=DD M YYYYг. в H:MM
 
 date.today=сегодня
 date.yesterday=вчера
@@ -39,7 +51,7 @@ date.shortmonth.oct=окт
 date.shortmonth.nov=ноя
 date.shortmonth.dec=дек
 date.month.jan=января
-date.month.feb=февраля
+date.month.feb=февраляч
 date.month.mar=марта
 date.month.apr=апреля
 date.month.may=мая
@@ -50,3 +62,70 @@ date.month.sep=сентября
 date.month.oct=октября
 date.month.nov=ноября
 date.month.dec=декабря
+
+date.minutesago=минут назад
+
+error.outofmem=Не хватает памяти для работы приложения!
+error.errcode=Код
+error=Ошибка
+error.additionalinfo=Доп. инфо
+error.description=Возможное описание
+error.contactdevs=обратитесь к разработчику за помощью.
+
+online=онлайн
+offline=оффлайн
+wasonlinedate=был в сети 
+wasonlinetime=был в сети в
+
+menu.videos=Видео
+menu.music=Музыка
+menu.photos=Фотографии
+menu.documents=Документы
+menu.friends=Друзья
+menu.cannotwrite=нельзя писать
+menu.wall=Стена
+menu.info=Информация
+menu.grleave=Выйти из группы
+menu.grjoin=Вступить в группу
+menu.groups=Сообщества
+menu.quit=Выход
+
+title.people=Люди
+title.chats=Сообщения
+title.newsfeed=Новости
+title.docs=Документы
+title.videos=Видео
+title.loading=загрузка
+title.members=Участники
+title.login=Вход
+
+friend.remove=Удалить из друзей
+friend.add=Добавить в друзья
+
+subscribe=Подписаться
+
+msg=Сообщение
+msg.attach.audio=Аудиозапись
+msg.attach.reply=Ответ
+msg.attach.fwd=Пересланное сообщение
+msg.attach.attachment=Вложение
+msg.attach.video=Видеозапись
+
+video=Видео
+video.1view=просмотр
+video.views=просмотров
+video.viewsfew=просмотра
+video.addtosebe=Добавить к себе
+
+title2.member=участник
+title2.members=участников
+title2.membersfew=участника
+title2.loading=Загрузка...
+title2.msgloadingfailed=Не удалось обновить сообщения!
+
+login.captcharequired=Требуется ввод капчи!
+login.captcha=Капча
+login.login=
+login.password=Пароль
+login.warn=Не введен логин или пароль!
+login.failed=Не удалось ввойти

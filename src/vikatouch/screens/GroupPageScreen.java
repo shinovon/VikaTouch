@@ -56,7 +56,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 	{
 		hasBackButton = true;
 		this.menuImg = MenuScreen.menuImg;
-		this.newsImg = VikaTouch.menuCanv.newsImg;
+		this.newsImg = VikaTouch.menuScr.newsImg;
 		this.id = id;
 		Load();
 	}

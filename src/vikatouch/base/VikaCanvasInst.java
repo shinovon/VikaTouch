@@ -64,14 +64,14 @@ extends VikaCanvas
 		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 		g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
 		
-		if(currentScreen != null)
+		if(currentScreen != null && !VikaTouch.crashed)
 		{
 			currentScreen.draw(g);
 		}
 		
-		if(showCaptcha)
+		if(showCaptcha && !VikaTouch.crashed)
 		{
-			VikaTouch.captchaCanv.draw(g);
+			VikaTouch.captchaScr.draw(g);
 		}
 		
 		if(currentAlert != null)
@@ -137,7 +137,7 @@ extends VikaCanvas
 		}
 		else if(showCaptcha)
 		{
-			VikaTouch.captchaCanv.press(x, y);
+			VikaTouch.captchaScr.press(x, y);
 		}
 		else if(currentScreen != null)
 		{
@@ -153,7 +153,7 @@ extends VikaCanvas
 		}
 		else if(showCaptcha)
 		{
-			VikaTouch.captchaCanv.release(x, y);
+			VikaTouch.captchaScr.release(x, y);
 		}
 		else if(currentScreen != null)
 		{
@@ -171,7 +171,11 @@ extends VikaCanvas
 	
 	public void keyPressed(int i)
 	{
-		if(currentScreen != null)
+		if(currentAlert != null)
+		{
+			currentAlert.press(i);
+		}
+		else if(currentScreen != null)
 		{
 			currentScreen.press(i);
 		}
@@ -181,7 +185,7 @@ extends VikaCanvas
 	{
 		if(currentAlert != null)
 		{
-			currentAlert.press(i);
+			currentAlert.repeat(i);
 		}
 		else if(currentScreen != null)
 		{

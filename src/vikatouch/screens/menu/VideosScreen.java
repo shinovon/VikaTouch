@@ -16,31 +16,34 @@ import vikatouch.base.INextLoadable;
 import vikatouch.base.Settings;
 import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;
-import vikatouch.base.items.DocItem;
 import vikatouch.base.items.LoadMoreButtonItem;
 import vikatouch.base.items.VideoItem;
+import vikatouch.base.local.TextLocal;
 import vikatouch.screens.MainScreen;
 
 public class VideosScreen
 	extends MainScreen implements INextLoadable
 {
 
+	private String videosStr;
+
 	public VideosScreen()
 	{
 		this.menuImg = MenuScreen.menuImg;
-		this.newsImg = VikaTouch.menuCanv.newsImg;
+		this.newsImg = VikaTouch.menuScr.newsImg;
+		videosStr = TextLocal.inst.get("title.videos");
 	}
-	
+
 	public static VideosScreen current;
-	
+
 	public int fromVid;
 	public int currId;
 	public String whose;
 	public static Thread downloaderThread;
 	public String range = null;
 	public boolean canLoadMore = true;
-	
-	public void load(final int from, final int id, final String name) 
+
+	public void load(final int from, final int id, final String name)
 	{
 		scrolled = 0;
 		uiItems = null;
@@ -51,7 +54,7 @@ public class VideosScreen
 		whose = name;
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
-		
+
 		downloaderThread = new Thread()
 		{
 			public void run()
@@ -102,6 +105,7 @@ public class VideosScreen
 		};
 
 		downloaderThread.start();
+		drawHUD(g, videosStr);
 	}
 	public void draw(Graphics g)
 	{
@@ -126,7 +130,7 @@ public class VideosScreen
 							uiItems[i].paint(g, y, scrolled);
 							y += uiItems[i].getDrawHeight();
 						}
-	
+
 					}
 				}
 			}
@@ -170,12 +174,12 @@ public class VideosScreen
 					}
 					break;
 				}
-	
+
 			}
 		}
-		catch (ArrayIndexOutOfBoundsException e) 
+		catch (ArrayIndexOutOfBoundsException e)
 		{ }
-		catch (Exception e) 
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
