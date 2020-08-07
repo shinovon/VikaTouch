@@ -6,9 +6,11 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 import ru.nnproject.vikaui.ColorUtils;
+import ru.nnproject.vikaui.ConfirmBox;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.GifDecoder;
 import ru.nnproject.vikaui.VikaCanvas;
+import ru.nnproject.vikaui.VikaNotice;
 import ru.nnproject.vikaui.VikaScreen;
 
 public class VikaCanvasInst
@@ -19,6 +21,7 @@ extends VikaCanvas
 	public boolean showCaptcha;
 	private Image frame;
 	private GifDecoder d;
+	public VikaNotice currentAlert;
 
 	public VikaCanvasInst()
 	{
@@ -69,6 +72,11 @@ extends VikaCanvas
 		if(showCaptcha)
 		{
 			VikaTouch.captchaCanv.draw(g);
+		}
+		
+		if(currentAlert != null)
+		{
+			currentAlert.draw(g);
 		}
 		
 		if(VikaTouch.loading)
@@ -123,7 +131,11 @@ extends VikaCanvas
 
 	public void pointerPressed(int x, int y)
 	{
-		if(showCaptcha)
+		if(currentAlert != null)
+		{
+			currentAlert.press(x, y);
+		}
+		else if(showCaptcha)
 		{
 			VikaTouch.captchaCanv.press(x, y);
 		}
@@ -135,7 +147,11 @@ extends VikaCanvas
 	
 	public void pointerReleased(int x, int y)
 	{
-		if(showCaptcha)
+		if(currentAlert != null)
+		{
+			currentAlert.release(x, y);
+		}
+		else if(showCaptcha)
 		{
 			VikaTouch.captchaCanv.release(x, y);
 		}
@@ -163,7 +179,11 @@ extends VikaCanvas
 	
 	public void keyRepeated(int i)
 	{
-		if(currentScreen != null)
+		if(currentAlert != null)
+		{
+			currentAlert.press(i);
+		}
+		else if(currentScreen != null)
 		{
 			currentScreen.repeat(i);
 		}
@@ -171,7 +191,11 @@ extends VikaCanvas
 	
 	public void keyReleased(int i)
 	{
-		if(currentScreen != null)
+		if(currentAlert != null)
+		{
+			currentAlert.release(i);
+		}
+		else if(currentScreen != null)
 		{
 			currentScreen.release(i);
 		}
@@ -179,7 +203,7 @@ extends VikaCanvas
 
 	public void paint()
 	{
-		if(!VikaTouch.appInst.isPaused)
+		if(!VikaTouch.appInst.isPaused && (!VikaTouch.crashed || currentAlert != null))
 		{
 			repaint();
 			//serviceRepaints();

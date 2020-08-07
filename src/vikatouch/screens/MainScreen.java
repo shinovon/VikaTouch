@@ -7,7 +7,6 @@ import javax.microedition.lcdui.Image;
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.ConfirmBox;
 import ru.nnproject.vikaui.DisplayUtils;
-import ru.nnproject.vikaui.IPopup;
 import ru.nnproject.vikaui.ScrollableCanvas;
 import vikatouch.base.Settings;
 import vikatouch.base.VikaTouch;
@@ -22,8 +21,6 @@ public abstract class MainScreen
 	public Image newsImg;
 	protected boolean hasBackButton;
 	public static Image backImg;
-	
-	public static IPopup activePopup = null;
 
 	protected void scrollHorizontally(int deltaX)
 	{
@@ -43,7 +40,6 @@ public abstract class MainScreen
 	{
 		if(!dragging || !canScroll)
 		{
-			if(activePopup!=null) return;
 			int wyw = bbw(DisplayUtils.idispi);
 			if(y < oneitemheight + 10)
 			{
@@ -315,25 +311,8 @@ public abstract class MainScreen
 			g.drawRect(endx-2, endy-2, 4, 4);
 			g.drawString("cs"+scroll + " sc" + scrolled + " d" + drift + " ds" + driftSpeed + " st" + scrollingTimer + " sp" + scrollPrev + " t" + timer, 0, 30, 0);
 		}
-		if(activePopup!=null) 
-		{
-			activePopup.Draw(g);
-		}
 	}
 
-	public boolean TapPopup(int x, int y) {
-		if(activePopup!=null) 
-		{
-			activePopup.OnTap(x, y);
-			return false;
-		}
-		return true;
-	}
-	public void Popup(IPopup window)
-	{
-		activePopup = window;
-		repaint();
-	}
 	private int bbw(int i)
 	{
 		switch(i)

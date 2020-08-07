@@ -1,0 +1,5 @@
+#русский транслитом
+#автор shinovon
+#версия 2020.08.07
+
+info.name=Russky (Translit)
