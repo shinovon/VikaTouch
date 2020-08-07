@@ -248,7 +248,7 @@ public class DocItem
 		{
 			
 			if(prevImgUrl==null) { return; }
-			VikaTouch.docsCanv.isPreviewShown = true;
+			VikaTouch.docsScr.isPreviewShown = true;
 			(new Thread()
 			{
 				public void run()
@@ -272,13 +272,13 @@ public class DocItem
 							w = DisplayUtils.width;
 							h = (int)(w/aspectR);
 						}
-						VikaTouch.docsCanv.previewX = (DisplayUtils.width - w)/2;
-						VikaTouch.docsCanv.previewY = (DisplayUtils.height - h)/2;
-						VikaTouch.docsCanv.previewImage = VikaUtils.resize(img, w, h);
+						VikaTouch.docsScr.previewX = (DisplayUtils.width - w)/2;
+						VikaTouch.docsScr.previewY = (DisplayUtils.height - h)/2;
+						VikaTouch.docsScr.previewImage = VikaUtils.resize(img, w, h);
 					}
 					catch(Exception e)
 					{
-						VikaTouch.docsCanv.isPreviewShown = false;
+						VikaTouch.docsScr.isPreviewShown = false;
 						VikaTouch.error(e, ErrorCodes.DOCPREVIEWLOAD);
 					}
 				}

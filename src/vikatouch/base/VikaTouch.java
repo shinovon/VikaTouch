@@ -2,40 +2,17 @@ package vikatouch.base;
 
 import java.io.IOException;
 
-import javax.microedition.lcdui.Alert;
-import javax.microedition.lcdui.AlertType;
-import javax.microedition.lcdui.Display;
-import javax.microedition.lcdui.Displayable;
-import javax.microedition.lcdui.Image;
-import javax.microedition.midlet.MIDlet;
+import javax.microedition.lcdui.*;
 import javax.microedition.rms.RecordStore;
 
 import org.json.me.JSONObject;
 
 import ru.nnproject.vikatouch.VikaTouchApp;
-import ru.nnproject.vikaui.DisplayUtils;
-import ru.nnproject.vikaui.InfoPopup;
-import ru.nnproject.vikaui.UIThread;
-import ru.nnproject.vikaui.VikaNotice;
-import ru.nnproject.vikaui.VikaScreen;
-import vikamobilebase.ImageStorage;
-import vikamobilebase.VikaUtils;
+import ru.nnproject.vikaui.*;
+import vikamobilebase.*;
 import vikatouch.base.local.TextLocal;
-import vikatouch.screens.AboutScreen;
-import vikatouch.screens.CaptchaScreen;
-import vikatouch.screens.ChatScreen;
-import vikatouch.screens.DialogsScreen;
-import vikatouch.screens.GroupPageScreen;
-import vikatouch.screens.LoginScreen;
-import vikatouch.screens.MainScreen;
-import vikatouch.screens.NewsScreen;
-import vikatouch.screens.ReturnableListScreen;
-import vikatouch.screens.menu.DocsScreen;
-import vikatouch.screens.menu.FriendsScreen;
-import vikatouch.screens.menu.GroupsScreen;
-import vikatouch.screens.menu.MenuScreen;
-import vikatouch.screens.menu.PhotosScreen;
-import vikatouch.screens.menu.VideosScreen;
+import vikatouch.screens.*;
+import vikatouch.screens.menu.*;
 
 public class VikaTouch
 {
@@ -48,16 +25,16 @@ public class VikaTouch
 	public static String OAUTH = "https://oauth.vk.com:443";
 	public static String accessToken;
 	public static String mobilePlatform;
-	public static LoginScreen login;
-	public static MenuScreen menuCanv;
-	public static DialogsScreen dialogsCanv;
-	public static DocsScreen docsCanv;
-	public static GroupsScreen grCanv;
-	public static VikaScreen videosCanv;
-	public static FriendsScreen friendsCanv;
-	public static NewsScreen newsCanv;
-	public static PhotosScreen photosCanv;
-	public static CaptchaScreen captchaCanv;
+	public static LoginScreen loginScr;
+	public static MenuScreen menuScr;
+	public static DialogsScreen dialogsScr;
+	public static DocsScreen docsScr;
+	public static GroupsScreen grScr;
+	public static VideosScreen videosScr;
+	public static FriendsScreen friendsScr;
+	public static NewsScreen newsScr;
+	public static PhotosScreen photosScr;
+	public static CaptchaScreen captchaScr;
 	public static RecordStore tokenRMS;
 	public static Image cameraImg;
 	public static Thread mainThread;
@@ -229,13 +206,13 @@ public class VikaTouch
 				errReason = tokenUnswer;
 				if(tokenUnswer.indexOf("need_captcha") > 0)
 				{
-					captchaCanv = new CaptchaScreen();
-					captchaCanv.obj = new CaptchaObject(new JSONObject(tokenUnswer));
-					captchaCanv.obj.parseJSON();
+					captchaScr = new CaptchaScreen();
+					captchaScr.obj = new CaptchaObject(new JSONObject(tokenUnswer));
+					captchaScr.obj.parseJSON();
 					canvas.showCaptcha = true;
 					while(appInst.started)
 					{
-						if(captchaCanv != null && CaptchaScreen.finished)
+						if(captchaScr != null && CaptchaScreen.finished)
 						{
 							tokenUnswer = VikaUtils.download(
 							new URLBuilder(OAUTH, "token")
@@ -245,7 +222,7 @@ public class VikaTouch
 								.addField("username", user)
 								.addField("password", pass)
 								.addField("scope", "notify,friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,notifications,stats,ads,offline")
-								.addField("captcha_sid", captchaCanv.obj.captchasid)
+								.addField("captcha_sid", captchaScr.obj.captchasid)
 								.addField("key", CaptchaScreen.input)
 								.toString()
 							);
@@ -260,7 +237,7 @@ public class VikaTouch
 								accessToken = refreshToken.substring(refreshToken.indexOf("access_token") + 23, refreshToken.length() - 3);
 								tokenUnswer = "{\"access_token\":\"" + accessToken + "\",\"expires_in\":0,\"user_id\":"
 										+ userId + "}";
-								final VikaScreen canvas = menuCanv = new MenuScreen();
+								final VikaScreen canvas = menuScr = new MenuScreen();
 								setDisplay(canvas);
 								saveToken();
 								Dialogs.refreshDialogsList();
@@ -286,7 +263,7 @@ public class VikaTouch
 						accessToken = refreshToken.substring(refreshToken.indexOf("access_token") + 23, refreshToken.length() - 3);
 						tokenUnswer = "{\"access_token\":\"" + accessToken + "\",\"expires_in\":0,\"user_id\":"
 								+ userId + "}";
-						final VikaScreen canvas = menuCanv = new MenuScreen();
+						final VikaScreen canvas = menuScr = new MenuScreen();
 						setDisplay(canvas);
 						saveToken();
 						Dialogs.refreshDialogsList();
@@ -350,13 +327,13 @@ public class VikaTouch
 	{
 		inst.errReason = "errorcode" + i;
 
-		String s2 = TextLocal.inst.get("error.errcode") + ": " + i + "\nобратитесь к разработчику за помощью.";
+		String s2 = TextLocal.inst.get("error.errcode") + ": " + i + "\n" + TextLocal.inst.get("error.contactdevs");
 		popup(new InfoPopup(s2, fatal ? new Thread() {
 			public void run()
 			{
 				appInst.destroyApp(false);
 			}
-		} : null));
+		} : null, "Ошибка", fatal ? TextLocal.inst.get("close") : "ОК"));
 	}
 
 	public static void error(Throwable e, int i)
@@ -373,13 +350,13 @@ public class VikaTouch
 		}
 		else
 		{
-			String s2 = TextLocal.inst.get("error") + ": \n" + e.toString() + "\n" + TextLocal.inst.get("error.additionalinfo") + ": " + i + "\nобратитесь к разработчику за помощью.";
+			String s2 = TextLocal.inst.get("error") + ": \n" + e.toString() + "\n" + TextLocal.inst.get("error.additionalinfo") + ": " + i + "\n" + TextLocal.inst.get("error.contactdevs");
 			popup(new InfoPopup(s2, fatal ? new Thread() {
 				public void run()
 				{
 					appInst.destroyApp(false);
 				}
-			} : null));
+			} : null, "Ошибка", fatal ? TextLocal.inst.get("close") : null));
 		}
 	}
 
@@ -393,8 +370,14 @@ public class VikaTouch
 			canvas.currentScreen = null;
 			canvas.currentAlert = null;
 			canvas.lastTempScreen = null;
+			newsScr = null;
+			friendsScr = null;
+			grScr = null;
+			videosScr = null;
 			System.gc();
 			popup(new InfoPopup(TextLocal.inst.get("error.outofmem") + "\n\n" + s != null && s.length() > 1 ? (TextLocal.inst.get("error.additionalinfo") + ":\n" + s) : "", null));
+			if(menuScr != null)
+				canvas.currentScreen = menuScr;
 		}
 		else
 		{
@@ -404,7 +387,7 @@ public class VikaTouch
 				{
 					appInst.destroyApp(false);
 				}
-			} : null));
+			} : null, "Ошибка", fatal ? TextLocal.inst.get("close") : null));
 		}
 	}
 
@@ -519,11 +502,11 @@ public class VikaTouch
 					if(!offlineMode)
 						Dialogs.refreshDialogsList();
 				}
-				canvas = menuCanv = new MenuScreen();
+				canvas = menuScr = new MenuScreen();
 			}
 			else
 			{
-				canvas = login = new LoginScreen();
+				canvas = loginScr = new LoginScreen();
 			}
 			setDisplay(canvas);
 		}
@@ -531,6 +514,8 @@ public class VikaTouch
 		{
 			e.printStackTrace();
 		}
+		
+		error(ErrorCodes.TOKENLOAD, false);
 		Thread.yield();
 		
 	}

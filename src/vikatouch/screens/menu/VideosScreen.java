@@ -3,24 +3,28 @@ package vikatouch.screens.menu;
 import javax.microedition.lcdui.Graphics;
 
 import vikatouch.base.VikaTouch;
+import vikatouch.base.local.TextLocal;
 import vikatouch.screens.MainScreen;
 
 public class VideosScreen
 	extends MainScreen
 {
 
+	private String videosStr;
+
 	public VideosScreen()
 	{
 		this.menuImg = MenuScreen.menuImg;
-		this.newsImg = VikaTouch.menuCanv.newsImg;
+		this.newsImg = VikaTouch.menuScr.newsImg;
+		videosStr = TextLocal.inst.get("title.videos");
 	}
 	
 	public void draw(Graphics g)
 	{
-		drawHUD(g, "Видео");
+		drawHUD(g, videosStr);
 	}
 	
-	public void Load(int from, int id, String name) 
+	public void load(int from, int id, String name) 
 	{
 		
 	}

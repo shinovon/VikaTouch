@@ -19,16 +19,29 @@ import vikatouch.base.VikaTouch;
 import vikatouch.base.items.FriendItem;
 import vikatouch.base.items.GroupItem;
 import vikatouch.base.items.LoadMoreButtonItem;
+import vikatouch.base.local.TextLocal;
 import vikatouch.screens.MainScreen;
 
 public class FriendsScreen 
 	extends MainScreen implements INextLoadable
 {
 	
+	private String loadingStr;
+
+	private String membersStr;
+
+	private String friendsStr;
+
+	private String peopleStr;
+
 	public FriendsScreen()
 	{
 		this.menuImg = MenuScreen.menuImg;
-		this.newsImg = VikaTouch.menuCanv.newsImg;
+		this.newsImg = VikaTouch.menuScr.newsImg;
+		loadingStr = TextLocal.inst.get("title.loading");
+		peopleStr = TextLocal.inst.get("title.people");
+		friendsStr = TextLocal.inst.get("title.friends");
+		membersStr = TextLocal.inst.get("title.members");
 	}
 	
 	public boolean isReady()
@@ -173,7 +186,7 @@ public class FriendsScreen
 			}
 			g.translate(0, -g.getTranslateY());
 
-			drawHUD(g, uiItems==null?"Люди (загрузка...)":(currId<0?"Участники":"Друзья")+(range==null?"":range)+" "+(whose==null?"":whose));
+			drawHUD(g, uiItems==null?peopleStr+" ("+loadingStr+"...)":(currId<0?membersStr:friendsStr)+(range==null?"":range)+" "+(whose==null?"":whose));
 
 		}
 		catch (Exception e)

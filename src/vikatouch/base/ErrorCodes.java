@@ -42,5 +42,6 @@ public class ErrorCodes
 	public static final int GROUPSDRAW = 37;
 	public static final int LANGLOAD = 38;
 	public static final int ICONSLOAD = 39;
+	public static final int LANGGET = 40;
 
 }

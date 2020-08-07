@@ -23,6 +23,7 @@ import vikatouch.base.ResizeUtils;
 import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaCanvasInst;
 import vikatouch.base.VikaTouch;
+import vikatouch.base.local.TextLocal;
 import vikatouch.screens.MainScreen;
 
 public class MenuScreen
@@ -49,6 +50,13 @@ public class MenuScreen
 	private Image settingsImg;
 	private int selectedBtn;
 	private int btnsLen = 8;
+	public String exitStr;
+	public String docsStr;
+	public String photosStr;
+	public String videosStr;
+	public String musicStr;
+	public String groupsStr;
+	public String friendsStr;
 
 	public MenuScreen()
 	{
@@ -174,6 +182,20 @@ public class MenuScreen
 		{
 			VikaTouch.error(ErrorCodes.MENUAVATAR, false);
 		}
+		try
+		{
+			friendsStr = TextLocal.inst.get("menu.friends");
+			exitStr = TextLocal.inst.get("menu.quit");
+			groupsStr = TextLocal.inst.get("menu.groups");
+			musicStr = TextLocal.inst.get("menu.music");
+			docsStr = TextLocal.inst.get("menu.documents");
+			photosStr = TextLocal.inst.get("menu.photos");
+			videosStr = TextLocal.inst.get("menu.videos");
+		}
+		catch (Exception e)
+		{
+			
+		}
 	}
 
 	protected final void up()
@@ -182,6 +204,7 @@ public class MenuScreen
 		if(selectedBtn < 0)
 			selectedBtn = 0;
 		scroll += oneitemheight;
+		dragging = true;
 	}
 	
 	protected final void down()
@@ -191,6 +214,7 @@ public class MenuScreen
 			selectedBtn = btnsLen - 1;
 		if(selectedBtn > 3)
 			scroll -= oneitemheight;
+		dragging = true;
 	}
 	
 	public final void press(int key)
@@ -355,37 +379,37 @@ public class MenuScreen
 						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 					else
 						ColorUtils.setcolor(g, ColorUtils.TEXT);
-					g.drawString("Друзья", 56, 158, 0);
+					g.drawString(friendsStr, 56, 158, 0);
 					if(keysMode && selectedBtn == 2)
 						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 					else
 						ColorUtils.setcolor(g, ColorUtils.TEXT);
-					g.drawString("Сообщества", 56, 208, 0);
+					g.drawString(groupsStr, 56, 208, 0);
 					if(keysMode && selectedBtn == 3)
 						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 					else
 						ColorUtils.setcolor(g, ColorUtils.TEXT);
-					g.drawString("Музыка", 56, 258, 0);
+					g.drawString(musicStr, 56, 258, 0);
 					if(keysMode && selectedBtn == 4)
 						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 					else
 						ColorUtils.setcolor(g, ColorUtils.TEXT);
-					g.drawString("Видео", 56, 308, 0);
+					g.drawString(videosStr, 56, 308, 0);
 					if(keysMode && selectedBtn == 5)
 						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 					else
 						ColorUtils.setcolor(g, ColorUtils.TEXT);
-					g.drawString("Фотографии", 56, 358, 0);
+					g.drawString(photosStr, 56, 358, 0);
 					if(keysMode && selectedBtn == 6)
 						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 					else
 						ColorUtils.setcolor(g, ColorUtils.TEXT);
-					g.drawString("Документы", 56, 408, 0);
+					g.drawString(docsStr, 56, 408, 0);
 					if(keysMode && selectedBtn == 7)
 						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 					else
 						ColorUtils.setcolor(g, ColorUtils.TEXT);
-					g.drawString("Выход", 56, 458, 0);
+					g.drawString(exitStr, 56, 458, 0);
 					//g.drawString("", 56, 408, 0);
 						
 					g.translate(0,-g.getTranslateY());
@@ -565,13 +589,13 @@ public class MenuScreen
 					
 					g.drawString(name + " " + lastname, 41, 40-8,0);
 					
-					g.drawString("Друзья", 28, 72, 0);
-					g.drawString("Сообщества", 28, 96, 0);
-					g.drawString("Музыка", 29, 120, 0);
-					g.drawString("Видео", 29, 144, 0);
-					g.drawString("Фотографии", 29, 168, 0);
-					g.drawString("Документы", 29, 192, 0);
-					g.drawString("Выход", 29, 216, 0);
+					g.drawString(friendsStr, 28, 72, 0);
+					g.drawString(groupsStr, 28, 96, 0);
+					g.drawString(musicStr, 29, 120, 0);
+					g.drawString(videosStr, 29, 144, 0);
+					g.drawString(photosStr, 29, 168, 0);
+					g.drawString(docsStr, 29, 192, 0);
+					g.drawString(exitStr, 29, 216, 0);
 					
 					g.translate(0,-g.getTranslateY());
 

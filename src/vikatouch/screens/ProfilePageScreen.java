@@ -56,7 +56,7 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 	{
 		hasBackButton = true;
 		this.menuImg = MenuScreen.menuImg;
-		this.newsImg = VikaTouch.menuCanv.newsImg;
+		this.newsImg = VikaTouch.menuScr.newsImg;
 		this.id = id;
 		Load();
 	}
@@ -285,7 +285,7 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 			case 4:
 				GroupsScreen gs = new GroupsScreen();
 				VikaTouch.setDisplay(gs);
-				gs.LoadGroups(0, id, name);
+				gs.loadGroups(0, id, name);
 				break;
 			case 8:
 				if(docs>0) {

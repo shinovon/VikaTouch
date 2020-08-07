@@ -13,19 +13,19 @@ import vikatouch.base.VikaTouch;
 public class TextLocal
 {
 	public static TextLocal inst;
-	private static Hashtable hashtable;
+	private Hashtable hashtable;
 
 	/**
 	 *  Вызывать только после загрузки настроек!!
 	 */
 	public static void init()
 	{
-		hashtable = new Hashtable();
 		inst = new TextLocal();
 	}
 	
 	private TextLocal()
 	{
+		hashtable = new Hashtable();
 		loadLanguage(Settings.language);
 	}
 	
@@ -61,6 +61,8 @@ public class TextLocal
 						String key = x.substring(0, splitLoc);
 						String val = VikaUtils.replace(x.substring(splitLoc + 1, len), "|", "\n");
 						hashtable.put(key, val);
+						System.out.println(key + "=" + val);
+						System.out.println();
 					}
 					iscomment = false;
 					x = "";
@@ -83,14 +85,18 @@ public class TextLocal
 	
 	public String get(String key)
 	{
-		if(hashtable.containsKey(key))
+		try
 		{
-			return (String) hashtable.get(key);
+			if(hashtable.containsKey(key))
+			{
+				return (String) hashtable.get(key);
+			}
 		}
-		else
+		catch (Exception e)
 		{
-			return key;
+			VikaTouch.error(e, ErrorCodes.LANGGET);
 		}
+		return key;
 	}
 	
 	public String formatTime(int H, int M)

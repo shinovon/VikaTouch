@@ -1,5 +1,7 @@
 package vikatouch.screens;
 
+import java.io.IOException;
+
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -8,6 +10,7 @@ import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.ConfirmBox;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.ScrollableCanvas;
+import vikatouch.base.IconsManager;
 import vikatouch.base.Settings;
 import vikatouch.base.VikaTouch;
 import vikatouch.screens.menu.MenuScreen;
@@ -21,6 +24,15 @@ public abstract class MainScreen
 	public Image newsImg;
 	protected boolean hasBackButton;
 	public static Image backImg;
+	
+	public MainScreen()
+	{
+		super();
+		if(backImg == null)
+		{
+			backImg = IconsManager.ico[IconsManager.BACK];
+		}
+	}
 
 	protected void scrollHorizontally(int deltaX)
 	{
@@ -86,45 +98,48 @@ public abstract class MainScreen
 			{
 				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 				g.fillRect(0, 0, DisplayUtils.width, 58);
-				ColorUtils.setcolor(g, -3);
-				g.fillRect(0, DisplayUtils.height - 50, DisplayUtils.width, 50);
+				if(VikaTouch.menuScr != null)
+				{
+					ColorUtils.setcolor(g, -3);
+					g.fillRect(0, DisplayUtils.height - 50, DisplayUtils.width, 50);
+	
+					if(menuImg != null)
+					{
+						g.drawImage(menuImg, 304, 606, 0);
+					}
+					if(!hasBackButton && MenuScreen.logoImg != null)
+					{
+						g.drawImage(MenuScreen.logoImg, 2, 2, 0);
+					}
+					if(newsImg != null)
+					{
+						g.drawImage(newsImg, 37, 604, 0);
+					}
+					if(VikaTouch.unreadCount > 0)
+					{
+						if(MenuScreen.dialImg2 != null)
+						{
+							g.drawImage(MenuScreen.dialImg2, 168, 599, 0);
+							g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
+							g.drawString(""+VikaTouch.unreadCount, 191, 598, 0);
+						}
+						else if(MenuScreen.dialImg != null)
+						{
+							g.drawImage(MenuScreen.dialImg, 168, 604, 0);
+						}
 
-				if(menuImg != null)
-				{
-					g.drawImage(menuImg, 304, 606, 0);
-				}
-				if(!hasBackButton && MenuScreen.logoImg != null)
-				{
-					g.drawImage(MenuScreen.logoImg, 2, 2, 0);
+					}
+					else
+					{
+						if(MenuScreen.dialImg != null)
+						{
+							g.drawImage(MenuScreen.dialImg, 168, 604, 0);
+						}
+					}
 				}
 				if(hasBackButton && backImg != null)
 				{
 					g.drawImage(backImg, 2, 2, 0);
-				}
-				if(newsImg != null)
-				{
-					g.drawImage(newsImg, 37, 604, 0);
-				}
-				if(VikaTouch.unreadCount > 0)
-				{
-					if(MenuScreen.dialImg2 != null)
-					{
-						g.drawImage(MenuScreen.dialImg2, 168, 599, 0);
-						g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
-						g.drawString(""+VikaTouch.unreadCount, 191, 598, 0);
-					}
-					else if(MenuScreen.dialImg != null)
-					{
-						g.drawImage(MenuScreen.dialImg, 168, 604, 0);
-					}
-
-				}
-				else
-				{
-					if(MenuScreen.dialImg != null)
-					{
-						g.drawImage(MenuScreen.dialImg, 168, 604, 0);
-					}
 				}
 				g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
 				g.drawString(title, 72, 29-g.getFont().getHeight()/2, 0);
@@ -136,46 +151,53 @@ public abstract class MainScreen
 			{
 				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 				g.fillRect(0, 0, 240, 30);
-				ColorUtils.setcolor(g, -3);
-				g.fillRect(0, DisplayUtils.height - 25, 240, 25);
-				
-				if(!hasBackButton && MenuScreen.logoImg != null)
+				if(VikaTouch.menuScr != null)
 				{
-					g.drawImage(MenuScreen.logoImg, 2, 1, 0);
-				}
-				
-				if(menuImg != null)
-				{
-					g.drawImage(menuImg, 212, 303, 0);
-				}
-				
-				if(newsImg != null)
-				{
-					g.drawImage(newsImg, 18, 301, 0);
-				}
-				
-				if(VikaTouch.unreadCount > 0)
-				{
-					if(MenuScreen.dialImg2 != null)
+					ColorUtils.setcolor(g, -3);
+					g.fillRect(0, DisplayUtils.height - 25, 240, 25);
+					
+					if(!hasBackButton && MenuScreen.logoImg != null)
 					{
-						g.drawImage(MenuScreen.dialImg2, 114, 299, 0);
-						g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
-						g.drawString(""+VikaTouch.unreadCount, 126, 300, 0);
+						g.drawImage(MenuScreen.logoImg, 2, 1, 0);
 					}
-					else if(MenuScreen.dialImg != null)
+					
+					if(menuImg != null)
 					{
-						g.drawImage(MenuScreen.dialImg, 114, 302, 0);
+						g.drawImage(menuImg, 212, 303, 0);
 					}
+					
+					if(newsImg != null)
+					{
+						g.drawImage(newsImg, 18, 301, 0);
+					}
+					
+					if(VikaTouch.unreadCount > 0)
+					{
+						if(MenuScreen.dialImg2 != null)
+						{
+							g.drawImage(MenuScreen.dialImg2, 114, 299, 0);
+							g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
+							g.drawString(""+VikaTouch.unreadCount, 126, 300, 0);
+						}
+						else if(MenuScreen.dialImg != null)
+						{
+							g.drawImage(MenuScreen.dialImg, 114, 302, 0);
+						}
+	
+					}
+					else
+					{
+						if(MenuScreen.dialImg != null)
+						{
+							g.drawImage(MenuScreen.dialImg, 114, 302, 0);
+						}
+					}
+				}
 
-				}
-				else
+				if(hasBackButton && backImg != null)
 				{
-					if(MenuScreen.dialImg != null)
-					{
-						g.drawImage(MenuScreen.dialImg, 114, 302, 0);
-					}
+					g.drawImage(backImg, 0, 0, 0);
 				}
-				
 				g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
 				g.drawString(title, 52, 0, 0);
 				g.setFont(Font.getFont(0, 0, 8));
@@ -186,42 +208,50 @@ public abstract class MainScreen
 			{
 				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 				g.fillRect(0, 0, 640, 58);
-				ColorUtils.setcolor(g, -3);
-				g.fillRect(0, 310, 640, 50);
-
-				if(!hasBackButton && MenuScreen.logoImg != null)
+				if(VikaTouch.menuScr != null)
 				{
-					g.drawImage(MenuScreen.logoImg, 2, 2, 0);
-				}
-				if(newsImg != null)
-				{
-					g.drawImage(newsImg, 36, 324, 0);
-				}
-				if(VikaTouch.unreadCount > 0)
-				{
-
-					if(MenuScreen.dialImg2 != null)
+					ColorUtils.setcolor(g, -3);
+					g.fillRect(0, 310, 640, 50);
+	
+					if(!hasBackButton && MenuScreen.logoImg != null)
 					{
-						g.drawImage(MenuScreen.dialImg2, 308, 319, 0);
-						g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
-						g.drawString(""+VikaTouch.unreadCount, 330, 318, 0);
+						g.drawImage(MenuScreen.logoImg, 2, 2, 0);
 					}
-					else if(MenuScreen.dialImg != null)
+					if(newsImg != null)
 					{
-						g.drawImage(MenuScreen.dialImg, 308, 324, 0);
+						g.drawImage(newsImg, 36, 324, 0);
 					}
-
-				}
-				else
-				{
-					if(MenuScreen.dialImg != null)
+					if(VikaTouch.unreadCount > 0)
 					{
-						g.drawImage(MenuScreen.dialImg, 308, 324, 0);
+	
+						if(MenuScreen.dialImg2 != null)
+						{
+							g.drawImage(MenuScreen.dialImg2, 308, 319, 0);
+							g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
+							g.drawString(""+VikaTouch.unreadCount, 330, 318, 0);
+						}
+						else if(MenuScreen.dialImg != null)
+						{
+							g.drawImage(MenuScreen.dialImg, 308, 324, 0);
+						}
+	
+					}
+					else
+					{
+						if(MenuScreen.dialImg != null)
+						{
+							g.drawImage(MenuScreen.dialImg, 308, 324, 0);
+						}
+					}
+					if(menuImg != null)
+					{
+						g.drawImage(menuImg, 584, 326, 0);
 					}
 				}
-				if(menuImg != null)
+				
+				if(hasBackButton && backImg != null)
 				{
-					g.drawImage(menuImg, 584, 326, 0);
+					g.drawImage(backImg, 2, 2, 0);
 				}
 				g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
 				g.drawString(title, 72, 14, 0);
@@ -234,46 +264,53 @@ public abstract class MainScreen
 			{
 				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 				g.fillRect(0, 0, 320, 30);
-				ColorUtils.setcolor(g, -3);
-				g.fillRect(0, 215, 320, 25);
-				
-				if(!hasBackButton && MenuScreen.logoImg != null)
+				if(VikaTouch.menuScr != null)
 				{
-					g.drawImage(MenuScreen.logoImg, 2, 1, 0);
-				}
-				
-				if(menuImg != null)
-				{
-					g.drawImage(menuImg, 292, 303-75, 0);
-				}
-				
-				if(newsImg != null)
-				{
-					g.drawImage(newsImg, 18, 301-75, 0);
-				}
-				
-				if(VikaTouch.unreadCount > 0)
-				{
-					if(MenuScreen.dialImg2 != null)
+					ColorUtils.setcolor(g, -3);
+					g.fillRect(0, 215, 320, 25);
+					
+					if(!hasBackButton && MenuScreen.logoImg != null)
 					{
-						g.drawImage(MenuScreen.dialImg2, 114, 299-75, 0);
-						g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
-						g.drawString(""+VikaTouch.unreadCount, 126, 300-75, 0);
+						g.drawImage(MenuScreen.logoImg, 2, 1, 0);
 					}
-					else if(MenuScreen.dialImg != null)
+					
+					if(menuImg != null)
 					{
-						g.drawImage(MenuScreen.dialImg, 114, 302-75, 0);
+						g.drawImage(menuImg, 292, 303-75, 0);
 					}
+					
+					if(newsImg != null)
+					{
+						g.drawImage(newsImg, 18, 301-75, 0);
+					}
+					
+					if(VikaTouch.unreadCount > 0)
+					{
+						if(MenuScreen.dialImg2 != null)
+						{
+							g.drawImage(MenuScreen.dialImg2, 114, 299-75, 0);
+							g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
+							g.drawString(""+VikaTouch.unreadCount, 126, 300-75, 0);
+						}
+						else if(MenuScreen.dialImg != null)
+						{
+							g.drawImage(MenuScreen.dialImg, 114, 302-75, 0);
+						}
+	
+					}
+					else
+					{
+						if(MenuScreen.dialImg != null)
+						{
+							g.drawImage(MenuScreen.dialImg, 114, 302-75, 0);
+						}
+					}
+				}
 
-				}
-				else
+				if(hasBackButton && backImg != null)
 				{
-					if(MenuScreen.dialImg != null)
-					{
-						g.drawImage(MenuScreen.dialImg, 114, 302-75, 0);
-					}
+					g.drawImage(backImg, 2, 0, 0);
 				}
-				
 				g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
 				g.drawString(title, 52, 0, 0);
 				g.setFont(Font.getFont(0, 0, 8));
@@ -290,6 +327,11 @@ public abstract class MainScreen
 				if(!hasBackButton && MenuScreen.logoImg != null)
 				{
 					g.drawImage(MenuScreen.logoImg, 2, 1, 0);
+				}
+				
+				if(hasBackButton && backImg != null)
+				{
+					g.drawImage(backImg, 2, 1, 0);
 				}
 
 				g.drawString(title, 72, 0, 0);

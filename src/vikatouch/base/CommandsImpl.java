@@ -15,6 +15,7 @@ import vikatouch.screens.DialogsScreen;
 import vikatouch.screens.GroupPageScreen;
 import vikatouch.screens.LoginScreen;
 import vikatouch.screens.NewsScreen;
+import vikatouch.screens.SettingsScreen;
 import vikatouch.screens.menu.DocsScreen;
 import vikatouch.screens.menu.FriendsScreen;
 import vikatouch.screens.menu.GroupsScreen;
@@ -86,10 +87,10 @@ public class CommandsImpl
 						//Друзья
 						if(s instanceof MenuScreen)
 						{
-							if(VikaTouch.friendsCanv == null)
-								VikaTouch.friendsCanv = new FriendsScreen();
-							VikaTouch.friendsCanv.LoadFriends(0,0,null);
-							VikaTouch.setDisplay(VikaTouch.friendsCanv);
+							if(VikaTouch.friendsScr == null)
+								VikaTouch.friendsScr = new FriendsScreen();
+							VikaTouch.friendsScr.LoadFriends(0,0,null);
+							VikaTouch.setDisplay(VikaTouch.friendsScr);
 						}
 						break;
 					}
@@ -98,10 +99,10 @@ public class CommandsImpl
 						//Группы
 						if(s instanceof MenuScreen)
 						{
-							if(VikaTouch.grCanv == null)
-								VikaTouch.grCanv = new GroupsScreen();
-							VikaTouch.grCanv.LoadGroups(0, Integer.parseInt(VikaTouch.userId), null);
-							VikaTouch.setDisplay(VikaTouch.grCanv);
+							if(VikaTouch.grScr == null)
+								VikaTouch.grScr = new GroupsScreen();
+							VikaTouch.grScr.loadGroups(0, Integer.parseInt(VikaTouch.userId), null);
+							VikaTouch.setDisplay(VikaTouch.grScr);
 						}
 						break;
 					}
@@ -144,10 +145,10 @@ public class CommandsImpl
 						//Документы
 						if(s instanceof MenuScreen)
 						{
-							if(VikaTouch.docsCanv == null)
-								VikaTouch.docsCanv = new DocsScreen();
-							VikaTouch.docsCanv.loadDocs(0, 0, null);
-							VikaTouch.setDisplay(VikaTouch.docsCanv);
+							if(VikaTouch.docsScr == null)
+								VikaTouch.docsScr = new DocsScreen();
+							VikaTouch.docsScr.loadDocs(0, 0, null);
+							VikaTouch.setDisplay(VikaTouch.docsScr);
 						}
 						break;
 					}
@@ -206,17 +207,28 @@ public class CommandsImpl
 
 	protected void back(VikaScreen s)
 	{
+		if(s instanceof SettingsScreen)
+		{
+			if(VikaTouch.menuScr != null)
+			{
+				VikaTouch.setDisplay(VikaTouch.menuScr);
+			}
+			else
+			{
+				VikaTouch.setDisplay(VikaTouch.loginScr);
+			}
+		}
 		if(s instanceof DocsScreen || s instanceof AboutScreen || s instanceof GroupsScreen || s instanceof VideosScreen || s instanceof FriendsScreen || s instanceof PhotosScreen)
 		{
-			VikaTouch.setDisplay(VikaTouch.menuCanv);
+			VikaTouch.setDisplay(VikaTouch.menuScr);
 		}
 		if(s instanceof ChatScreen)
 		{
-			VikaTouch.setDisplay(VikaTouch.dialogsCanv);
+			VikaTouch.setDisplay(VikaTouch.dialogsScr);
 		}
 		if(s instanceof GroupPageScreen)
 		{
-			VikaTouch.setDisplay(VikaTouch.grCanv);
+			VikaTouch.setDisplay(VikaTouch.grScr);
 		}
 	}
 
@@ -226,9 +238,9 @@ public class CommandsImpl
 		{
 			VikaTouch.loading = true;
 			
-			if(VikaTouch.newsCanv == null)
-				VikaTouch.newsCanv = new NewsScreen();
-			VikaTouch.setDisplay(VikaTouch.newsCanv);
+			if(VikaTouch.newsScr == null)
+				VikaTouch.newsScr = new NewsScreen();
+			VikaTouch.setDisplay(VikaTouch.newsScr);
 		}
 	}
 
@@ -238,9 +250,9 @@ public class CommandsImpl
 		{
 			VikaTouch.loading = true;
 
-			if(VikaTouch.dialogsCanv == null)
-				VikaTouch.dialogsCanv = new DialogsScreen();
-			VikaTouch.setDisplay(VikaTouch.dialogsCanv);
+			if(VikaTouch.dialogsScr == null)
+				VikaTouch.dialogsScr = new DialogsScreen();
+			VikaTouch.setDisplay(VikaTouch.dialogsScr);
 		}
 		else
 		{
@@ -254,30 +266,30 @@ public class CommandsImpl
 		{
 			if(!(s instanceof MenuScreen))
 			{
-				if(VikaTouch.menuCanv == null)
-					VikaTouch.menuCanv = new MenuScreen();
-				VikaTouch.setDisplay(VikaTouch.menuCanv);
+				if(VikaTouch.menuScr == null)
+					VikaTouch.menuScr = new MenuScreen();
+				VikaTouch.setDisplay(VikaTouch.menuScr);
 			}
 		}
 		else if(MenuScreen.lastMenu == DisplayUtils.CANVAS_DOCSLIST)
 		{
-			VikaTouch.setDisplay(VikaTouch.docsCanv);
+			VikaTouch.setDisplay(VikaTouch.docsScr);
 		}
 		else if(MenuScreen.lastMenu == DisplayUtils.CANVAS_PHOTOSLIST)
 		{
-			VikaTouch.setDisplay(VikaTouch.photosCanv);
+			VikaTouch.setDisplay(VikaTouch.photosScr);
 		}
 		else if(MenuScreen.lastMenu == DisplayUtils.CANVAS_FRIENDSLIST)
 		{
-			VikaTouch.setDisplay(VikaTouch.friendsCanv);
+			VikaTouch.setDisplay(VikaTouch.friendsScr);
 		}
 		else if(MenuScreen.lastMenu == DisplayUtils.CANVAS_GROUPSLIST)
 		{
-			VikaTouch.setDisplay(VikaTouch.grCanv);
+			VikaTouch.setDisplay(VikaTouch.grScr);
 		}
 		else if(MenuScreen.lastMenu == DisplayUtils.CANVAS_VIDEOSLIST)
 		{
-			VikaTouch.setDisplay(VikaTouch.videosCanv);
+			VikaTouch.setDisplay(VikaTouch.videosScr);
 		}
 	}
 

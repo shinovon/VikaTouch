@@ -11,12 +11,16 @@ public class SettingsScreen
 	
 	public SettingsScreen()
 	{
-		this.menuImg = MenuScreen.menuImg;
-		this.newsImg = VikaTouch.menuCanv.newsImg;
+		super();
 	}
 
 	public void draw(Graphics g)
 	{
+		if(VikaTouch.menuScr != null && newsImg == null)
+		{
+			this.menuImg = MenuScreen.menuImg;
+			this.newsImg = VikaTouch.menuScr.newsImg;
+		}
 		drawHUD(g, "Настройки");
 	}
 
