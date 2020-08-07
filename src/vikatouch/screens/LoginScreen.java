@@ -116,7 +116,7 @@ public class LoginScreen
 						{
 							vse = true;
 							VikaScreen canvas = new MenuScreen();
-							VikaTouch.setDisplay(canvas);
+							VikaTouch.setDisplay(canvas, 1);
 						}
 						else
 						{
@@ -279,7 +279,7 @@ public class LoginScreen
 						{
 							vse = true;
 							VikaScreen canvas = new MenuScreen();
-							VikaTouch.setDisplay(canvas);
+							VikaTouch.setDisplay(canvas, 1);
 						}
 						else
 						{

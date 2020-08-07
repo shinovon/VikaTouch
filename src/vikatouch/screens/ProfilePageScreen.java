@@ -327,20 +327,20 @@ public class ProfilePageScreen
 				break;
 			case 2:
 				FriendsScreen fs = new FriendsScreen();
-				VikaTouch.setDisplay(fs);
-				fs.LoadFriends(0, id, name);
+				VikaTouch.setDisplay(fs, 1);
+				fs.loadFriends(0, id, name);
 				break;
 			case 3:
 				break;
 			case 4:
 				GroupsScreen gs = new GroupsScreen();
-				VikaTouch.setDisplay(gs);
+				VikaTouch.setDisplay(gs, 1);
 				gs.loadGroups(0, id, name);
 				break;
 			case 8:
 				if(docs>0) {
 					DocsScreen dc = new DocsScreen();
-					VikaTouch.setDisplay(dc);
+					VikaTouch.setDisplay(dc, 1);
 					dc.loadDocs(0, id, name);
 				}
 				break;

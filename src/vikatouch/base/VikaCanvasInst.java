@@ -22,6 +22,8 @@ extends VikaCanvas
 	private Image frame;
 	private GifDecoder d;
 	public VikaNotice currentAlert;
+	public double slide;
+	VikaScreen oldScreen;
 
 	public VikaCanvasInst()
 	{
@@ -44,6 +46,7 @@ extends VikaCanvas
 		{
 			e.printStackTrace();
 		}
+		slide = 0.0d;
 	}
 	
 	public void paint(Graphics g)
@@ -64,6 +67,38 @@ extends VikaCanvas
 		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 		g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
 		
+		if(Settings.animateTransition && oldScreen != null)
+		{
+			int slideI = (int)(slide * (double)DisplayUtils.width);
+			if(Settings.slideAnim)
+			{
+				if(slideI > 0)
+					g.translate(slideI-DisplayUtils.width, 0);
+				else
+					g.translate(slideI+DisplayUtils.width, 0);
+				if(oldScreen != null && !VikaTouch.crashed)
+				{
+					oldScreen.draw(g);
+				}
+				if(slideI > 0)
+					g.translate(DisplayUtils.width, 0);
+				else
+					g.translate(-DisplayUtils.width, 0);
+			}
+			else
+			{
+				if(oldScreen != null && !VikaTouch.crashed)
+				{
+					oldScreen.draw(g);
+				}
+				g.translate(slideI, 0);
+			}
+		}
+		
+
+		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+		g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
+		
 		if(currentScreen != null && !VikaTouch.crashed)
 		{
 			currentScreen.draw(g);
@@ -78,6 +113,8 @@ extends VikaCanvas
 		{
 			currentAlert.draw(g);
 		}
+		
+		g.translate(-g.getTranslateX(), 0);
 		
 		if(VikaTouch.loading)
 		{
@@ -207,7 +244,7 @@ extends VikaCanvas
 
 	public void paint()
 	{
-		if(!VikaTouch.appInst.isPaused && (!VikaTouch.crashed || currentAlert != null))
+		if(!VikaTouch.appInst.isPaused || currentAlert != null)
 		{
 			repaint();
 			//serviceRepaints();
@@ -219,10 +256,28 @@ extends VikaCanvas
 		if(VikaTouch.loading)
 		{
 			updategif();
+			if(Settings.animateTransition)
+			{
+				oldScreen = null;
+				slide = 0;
+			}
 		}
 		else
 		{
 			paint();
+		}
+		if(Settings.animateTransition)
+		{
+			double sliden = Math.abs(slide);
+			if(sliden > 0)
+			{
+				slide *= 0.83;
+				if(sliden < 0.075)
+				{
+					oldScreen = null;
+					slide = 0;
+				}
+			}
 		}
 	}
 

@@ -121,12 +121,12 @@ public class Dialogs
 
 	public static void openDialog(int peerId)
 	{
-		VikaTouch.setDisplay(new ChatScreen(peerId));
+		VikaTouch.setDisplay(new ChatScreen(peerId), 1);
 	}
 
 	public static void openDialog(int peerId, String title)
 	{
-		VikaTouch.setDisplay(new ChatScreen(peerId, title));
+		VikaTouch.setDisplay(new ChatScreen(peerId, title), 1);
 	}
 
 	public void run()

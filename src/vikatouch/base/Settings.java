@@ -1,5 +1,15 @@
 package vikatouch.base;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+
+import javax.microedition.rms.RecordStore;
+import javax.microedition.rms.RecordStoreException;
+import javax.microedition.rms.RecordStoreFullException;
+import javax.microedition.rms.RecordStoreNotFoundException;
+
 import vikatouch.base.local.LangObject;
 
 public class Settings
@@ -43,6 +53,8 @@ public class Settings
 	public static final int SENSOR_J2MELOADER = 1;
 	public static final int SENSOR_RESISTIVE = 2;
 
+	public static final boolean slideAnim = true;
+
 	static
 	{
 		loadDefaultSettings();
@@ -50,19 +62,78 @@ public class Settings
 
 	public static void loadSettings()
 	{
-
+		try
+		{
+			RecordStore rs = RecordStore.openRecordStore("setts", false);
+			if(rs.getNumRecords() > 0)
+			{
+		        setted = true;
+		        
+		        final ByteArrayInputStream bais = new ByteArrayInputStream(rs.getRecord(1));
+		        final DataInputStream is = new DataInputStream(bais);
+		        
+		        animateTransition = is.readBoolean();
+		        proxy = is.readBoolean();
+		        https = is.readBoolean();
+		        debugInfo  = is.readBoolean();
+		        proxyApi = is.readUTF();
+		        proxyOAuth = is.readUTF();
+		        sensorMode = is.readShort();
+		        simpleListsLength = is.readShort();
+		        messagesPerLoad = is.readShort();
+		        videoResolution = is.readUTF();
+		        language = is.readUTF();
+		        
+		        is.close();
+		        bais.close();
+			}
+			rs.closeRecordStore();
+		}
+		catch (Exception e)
+		{
+			
+		}
 	}
 
 	public static void saveSettings()
 	{
-
+		if(setted)
+		{
+			try
+			{
+				RecordStore rs = RecordStore.openRecordStore("setts", true);
+		        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		        final DataOutputStream os = new DataOutputStream(baos);
+		        
+		        os.writeBoolean(animateTransition);
+		        os.writeBoolean(proxy);
+		        os.writeBoolean(https);
+		        os.writeBoolean(debugInfo);
+		        os.writeUTF(proxyApi);
+		        os.writeUTF(proxyOAuth);
+		        os.writeShort(sensorMode);
+		        os.writeShort(simpleListsLength);
+		        os.writeShort(messagesPerLoad);
+		        os.writeUTF(videoResolution);
+		        os.writeUTF(language);
+		
+		        final byte[] b = baos.toByteArray();
+		        rs.addRecord(b, 0, b.length);
+		        os.close();
+		        baos.close();
+			}
+			catch (Exception e)
+			{
+				VikaTouch.error(e, ErrorCodes.SETSSAVE);
+			}
+		}
 	}
 
 	public static void loadDefaultSettings()
 	{
 		setted = false;
 		platform = System.getProperty("microedition.platform");
-		animateTransition = false;
+		animateTransition = true;
 		proxy = false;
 		https = false;
 		debugInfo = false;

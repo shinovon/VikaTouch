@@ -89,8 +89,8 @@ public class CommandsImpl
 						{
 							if(VikaTouch.friendsScr == null)
 								VikaTouch.friendsScr = new FriendsScreen();
-							VikaTouch.friendsScr.LoadFriends(0,0,null);
-							VikaTouch.setDisplay(VikaTouch.friendsScr);
+							VikaTouch.friendsScr.loadFriends(0,0,null);
+							VikaTouch.setDisplay(VikaTouch.friendsScr, 1);
 						}
 						break;
 					}
@@ -102,7 +102,7 @@ public class CommandsImpl
 							if(VikaTouch.grScr == null)
 								VikaTouch.grScr = new GroupsScreen();
 							VikaTouch.grScr.loadGroups(0, Integer.parseInt(VikaTouch.userId), null);
-							VikaTouch.setDisplay(VikaTouch.grScr);
+							VikaTouch.setDisplay(VikaTouch.grScr, 1);
 						}
 						break;
 					}
@@ -123,7 +123,7 @@ public class CommandsImpl
 							if(VikaTouch.videosScr == null)
 								VikaTouch.videosScr = new VideosScreen();
 							VikaTouch.videosScr.load(0,0,null);
-							VikaTouch.setDisplay(VikaTouch.videosScr);
+							VikaTouch.setDisplay(VikaTouch.videosScr, 1);
 						}
 						break;
 					}
@@ -148,7 +148,7 @@ public class CommandsImpl
 							if(VikaTouch.docsScr == null)
 								VikaTouch.docsScr = new DocsScreen();
 							VikaTouch.docsScr.loadDocs(0, 0, null);
-							VikaTouch.setDisplay(VikaTouch.docsScr);
+							VikaTouch.setDisplay(VikaTouch.docsScr, 1);
 						}
 						break;
 					}
@@ -185,7 +185,7 @@ public class CommandsImpl
 						//Настройки
 						if(VikaTouch.about == null)
 							VikaTouch.about = new AboutScreen();
-						VikaTouch.setDisplay(VikaTouch.about);
+						VikaTouch.setDisplay(VikaTouch.about, 1);
 						break;
 					}
 					case 14:
@@ -211,24 +211,24 @@ public class CommandsImpl
 		{
 			if(VikaTouch.menuScr != null)
 			{
-				VikaTouch.setDisplay(VikaTouch.menuScr);
+				VikaTouch.setDisplay(VikaTouch.menuScr, -1);
 			}
 			else
 			{
-				VikaTouch.setDisplay(VikaTouch.loginScr);
+				VikaTouch.setDisplay(VikaTouch.loginScr, -1);
 			}
 		}
 		if(s instanceof DocsScreen || s instanceof AboutScreen || s instanceof GroupsScreen || s instanceof VideosScreen || s instanceof FriendsScreen || s instanceof PhotosScreen)
 		{
-			VikaTouch.setDisplay(VikaTouch.menuScr);
+			VikaTouch.setDisplay(VikaTouch.menuScr, -1);
 		}
 		if(s instanceof ChatScreen)
 		{
-			VikaTouch.setDisplay(VikaTouch.dialogsScr);
+			VikaTouch.setDisplay(VikaTouch.dialogsScr, -1);
 		}
 		if(s instanceof GroupPageScreen)
 		{
-			VikaTouch.setDisplay(VikaTouch.grScr);
+			VikaTouch.setDisplay(VikaTouch.grScr, -1);
 		}
 	}
 
@@ -240,7 +240,7 @@ public class CommandsImpl
 			
 			if(VikaTouch.newsScr == null)
 				VikaTouch.newsScr = new NewsScreen();
-			VikaTouch.setDisplay(VikaTouch.newsScr);
+			VikaTouch.setDisplay(VikaTouch.newsScr, -1);
 		}
 	}
 
@@ -252,7 +252,7 @@ public class CommandsImpl
 
 			if(VikaTouch.dialogsScr == null)
 				VikaTouch.dialogsScr = new DialogsScreen();
-			VikaTouch.setDisplay(VikaTouch.dialogsScr);
+			VikaTouch.setDisplay(VikaTouch.dialogsScr, 0);
 		}
 		else
 		{
@@ -268,28 +268,28 @@ public class CommandsImpl
 			{
 				if(VikaTouch.menuScr == null)
 					VikaTouch.menuScr = new MenuScreen();
-				VikaTouch.setDisplay(VikaTouch.menuScr);
+				VikaTouch.setDisplay(VikaTouch.menuScr, 1);
 			}
 		}
 		else if(MenuScreen.lastMenu == DisplayUtils.CANVAS_DOCSLIST)
 		{
-			VikaTouch.setDisplay(VikaTouch.docsScr);
+			VikaTouch.setDisplay(VikaTouch.docsScr, 1);
 		}
 		else if(MenuScreen.lastMenu == DisplayUtils.CANVAS_PHOTOSLIST)
 		{
-			VikaTouch.setDisplay(VikaTouch.photosScr);
+			VikaTouch.setDisplay(VikaTouch.photosScr, 1);
 		}
 		else if(MenuScreen.lastMenu == DisplayUtils.CANVAS_FRIENDSLIST)
 		{
-			VikaTouch.setDisplay(VikaTouch.friendsScr);
+			VikaTouch.setDisplay(VikaTouch.friendsScr, 1);
 		}
 		else if(MenuScreen.lastMenu == DisplayUtils.CANVAS_GROUPSLIST)
 		{
-			VikaTouch.setDisplay(VikaTouch.grScr);
+			VikaTouch.setDisplay(VikaTouch.grScr, 1);
 		}
 		else if(MenuScreen.lastMenu == DisplayUtils.CANVAS_VIDEOSLIST)
 		{
-			VikaTouch.setDisplay(VikaTouch.videosScr);
+			VikaTouch.setDisplay(VikaTouch.videosScr, 1);
 		}
 	}
 

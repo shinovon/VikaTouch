@@ -141,7 +141,7 @@ public class FriendItem extends JSONUIItem
 	{
 		try
 		{
-			VikaTouch.setDisplay(new ProfilePageScreen(id));
+			VikaTouch.setDisplay(new ProfilePageScreen(id), 1);
 		}
 		catch (Exception e)
 		{

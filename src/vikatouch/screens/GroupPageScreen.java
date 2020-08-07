@@ -301,8 +301,8 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 			{
 				case 0:
 					FriendsScreen fs = new FriendsScreen();
-					VikaTouch.setDisplay(fs);
-					fs.LoadFriends(0, -id, name);
+					VikaTouch.setDisplay(fs, 1);
+					fs.loadFriends(0, -id, name);
 					break;
 				case 1:
 					VikaTouch.canvas.currentAlert = new ConfirmBox(isMember?leaveStr+"?":joinStr+"?",null,
@@ -336,7 +336,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 				case 8:
 					if(docs>0) {
 						DocsScreen dc = new DocsScreen();
-						VikaTouch.setDisplay(dc);
+						VikaTouch.setDisplay(dc, 1);
 						dc.loadDocs(0, -id, name);
 					}
 					break;

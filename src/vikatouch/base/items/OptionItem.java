@@ -40,8 +40,12 @@ public class OptionItem
 		}
 		ColorUtils.setcolor(g, 0);
 		g.setFont(f);
-		g.drawString(text, 48, y + ((h/2) - (f.getHeight()/2)), 0);
-		g.drawImage(IconsManager.ico[icon], 12, y + (h/2 - 12), 0);
+		int x = 48;
+		if(icon == -1)
+			x = 8;
+		g.drawString(text, x, y + ((h/2) - (f.getHeight()/2)), 0);
+		if(icon != -1)
+			g.drawImage(IconsManager.ico[icon], 12, y + (h/2 - 12), 0);
 	}
 
 	public int getDrawHeight() {

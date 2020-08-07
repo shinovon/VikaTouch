@@ -107,8 +107,9 @@ public class VikaTouch
 		return false;
 	}
 
-	public static void setDisplay(VikaScreen s)
+	public static void setDisplay(VikaScreen s, int direction)
 	{
+		canvas.oldScreen = canvas.currentScreen;
 		appInst.isPaused = false;
 		if(s instanceof MenuScreen)
 		{
@@ -169,6 +170,7 @@ public class VikaTouch
 			DisplayUtils.current = DisplayUtils.CANVAS_VIDEOSLIST;
 			MainScreen.lastMenu = DisplayUtils.CANVAS_VIDEOSLIST;
 		}
+		canvas.slide = direction;
 		canvas.currentScreen = s;
 		canvas.paint();
 		DisplayUtils.checkdisplay();
@@ -238,7 +240,7 @@ public class VikaTouch
 								tokenUnswer = "{\"access_token\":\"" + accessToken + "\",\"expires_in\":0,\"user_id\":"
 										+ userId + "}";
 								final VikaScreen canvas = menuScr = new MenuScreen();
-								setDisplay(canvas);
+								setDisplay(canvas, 1);
 								saveToken();
 								Dialogs.refreshDialogsList();
 								CaptchaScreen.finished = false;
@@ -264,7 +266,7 @@ public class VikaTouch
 						tokenUnswer = "{\"access_token\":\"" + accessToken + "\",\"expires_in\":0,\"user_id\":"
 								+ userId + "}";
 						final VikaScreen canvas = menuScr = new MenuScreen();
-						setDisplay(canvas);
+						setDisplay(canvas, 1);
 						saveToken();
 						Dialogs.refreshDialogsList();
 						return true;
@@ -508,7 +510,7 @@ public class VikaTouch
 			{
 				canvas = loginScr = new LoginScreen();
 			}
-			setDisplay(canvas);
+			setDisplay(canvas, 0);
 		}
 		catch (Exception e)
 		{

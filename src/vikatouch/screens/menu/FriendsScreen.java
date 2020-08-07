@@ -69,7 +69,7 @@ public class FriendsScreen
 	public int totalItems;
 	public boolean canLoadMore = true;
 
-	public void LoadFriends(final int from, final int id, final String name)
+	public void loadFriends(final int from, final int id, final String name)
 	{
 		scrolled = 0;
 		uiItems = null;
@@ -235,6 +235,6 @@ public class FriendsScreen
 		super.release(x, y);
 	}
 	public void loadNext() {
-		LoadFriends(fromF+Settings.simpleListsLength, currId, whose);
+		loadFriends(fromF+Settings.simpleListsLength, currId, whose);
 	}
 }

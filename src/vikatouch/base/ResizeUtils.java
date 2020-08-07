@@ -82,6 +82,45 @@ public class ResizeUtils
 		return img;
 	}
 
+	public static Image prepareForCaching(Image img)
+	{
+		short h = (short) img.getHeight();
+		short need = h;
+		/*
+		switch(DisplayUtils.idispi)
+		{
+			case DisplayUtils.DISPLAY_E6:
+			case DisplayUtils.DISPLAY_PORTRAIT:
+			case DisplayUtils.DISPLAY_ALBUM:
+			{
+				need = 48;
+				break;
+			}
+			
+			case DisplayUtils.DISPLAY_S40:
+			case DisplayUtils.DISPLAY_ASHA311:
+			case DisplayUtils.DISPLAY_EQWERTY:
+			{
+				need = 48;
+				break;
+			}
+
+			case DisplayUtils.DISPLAY_UNDEFINED:
+			default:
+			{
+				need = 48;
+				break;
+			}
+		}
+		*/
+		if(h == 50)
+			need = 48;
+		if(h != need)
+		{
+			return VikaUtils.resize(img, need, -1);
+		}
+		return img;
+	}
 
 	public static Image resizeItemPreview(Image img)
 	{

@@ -116,7 +116,7 @@ public class GroupItem
 		try
 		{
 			GroupsScreen.abortLoading();
-			VikaTouch.setDisplay(new GroupPageScreen(id));
+			VikaTouch.setDisplay(new GroupPageScreen(id), 1);
 		}
 		catch (Exception e)
 		{
