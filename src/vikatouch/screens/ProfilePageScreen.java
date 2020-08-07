@@ -25,7 +25,10 @@ import vikatouch.screens.menu.FriendsScreen;
 import vikatouch.screens.menu.GroupsScreen;
 import vikatouch.screens.menu.MenuScreen;
 
-public class ProfilePageScreen extends MainScreen implements IMenu {
+public class ProfilePageScreen
+	extends MainScreen
+	implements IMenu
+{
 
 	public int id;
 	public boolean closed;
@@ -52,11 +55,54 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 	public static Thread downloaderThread;
 	private boolean friendAdd; // если true, друг добавляется. Если 0, удаляется.
 	private String visitStr;
-	protected String onlineStr;
+	protected static String removeStr;
+	protected static String acceptStr;
+	protected static String cancelStr;
+	protected static String addStr;
+	private static String userStr;
+	private static String loadingStr;
+	protected static String onlineStr;
+	protected static String wasOnlineStr;
+	protected static String wasOnlineJustNowStr;
+	protected static String minutesAgoStr;
+	protected static String hoursAgoStr;
+	protected static String closedStr;
+	protected static String writeMessageStr;
+	protected static String friendsStr;
+	protected static String wallStr;
+	protected static String groupsStr;
+	protected static String cannotWriteStr;
+	protected static String docsStr;
+	protected static String musicStr;
+	protected static String videosStr;
+	protected static String photosStr;
 	
 	public ProfilePageScreen(int id)
 	{
-		onlineStr = TextLocal.inst.get("online");
+		if(onlineStr == null)
+		{
+			userStr = TextLocal.inst.get("user");
+			loadingStr = TextLocal.inst.get("menu.loading");
+			removeStr = TextLocal.inst.get("friend.remove");
+			acceptStr = TextLocal.inst.get("friend.accept");
+			cancelStr = TextLocal.inst.get("friend.cancel");
+			addStr = TextLocal.inst.get("friend.add");
+			photosStr = TextLocal.inst.get("menu.photos");
+			videosStr = TextLocal.inst.get("menu.videos");
+			musicStr = TextLocal.inst.get("menu.music");
+			docsStr = TextLocal.inst.get("menu.documents");
+			cannotWriteStr = TextLocal.inst.get("menu.cannotwrite");
+			writeMessageStr = TextLocal.inst.get("menu.writemsg");
+			friendsStr = TextLocal.inst.get("menu.friends");
+			wallStr = TextLocal.inst.get("menu.wall");
+			groupsStr = TextLocal.inst.get("menu.groups");
+			closedStr = TextLocal.inst.get("profile.closed");
+			onlineStr = TextLocal.inst.get("online");
+			minutesAgoStr = TextLocal.inst.get("date.minutesago");
+			hoursAgoStr = TextLocal.inst.get("date.hoursago");
+			wasOnlineStr = TextLocal.inst.get("wasonlinedate");
+			wasOnlineJustNowStr = wasOnlineStr + " " + TextLocal.inst.get("date.justnow");
+		}
 		hasBackButton = true;
 		this.menuImg = MenuScreen.menuImg;
 		this.newsImg = VikaTouch.menuScr.newsImg;
@@ -72,6 +118,7 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 		final ProfilePageScreen thisC = this;
 		downloaderThread = new Thread()
 		{
+
 			public void run()
 			{
 				try
@@ -110,15 +157,15 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 							int r = now - lastSeen;
 							if(r<90) 
 							{
-								visitStr = "Был в сети только что";
+								visitStr = wasOnlineJustNowStr;
 							}
 							else if(r<90*60)
 							{
-								visitStr = "Был в сети "+(r/60)+" минут назад";
+								visitStr = wasOnlineStr + " "+(r/60)+" "+minutesAgoStr;
 							}
 							else
 							{
-								visitStr = "Был в сети "+(r/3600)+" часов назад";
+								visitStr = wasOnlineStr + " "+(r/3600)+" "+hoursAgoStr;
 							}
 						}
 						
@@ -142,23 +189,23 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 						{
 							itemsCount = 2;
 							uiItems = new OptionItem[2];
-							uiItems[0] = new OptionItem(thisC, "Это закрытый профиль.", IconsManager.INFO, 0, 50);
+							uiItems[0] = new OptionItem(thisC, closedStr, IconsManager.INFO, 0, 50);
 						}
 						else
 						{
 							itemsCount = 9;
 							uiItems = new OptionItem[9];
-							uiItems[0] = new OptionItem(thisC, canMsg?"Написать сообщение":"[нельзя писать]", IconsManager.MSGS, 0, 50);
+							uiItems[0] = new OptionItem(thisC, canMsg?writeMessageStr:cannotWriteStr, IconsManager.MSGS, 0, 50);
 							
-							uiItems[2] = new OptionItem(thisC, "Друзья ("+friends+")", IconsManager.FRIENDS, 2, 50);
-							uiItems[3] = new OptionItem(thisC, "Стена", IconsManager.NEWS, 3, 50);
-							uiItems[4] = new OptionItem(thisC, "Группы ("+groups+")", IconsManager.GROUPS, 4, 50);
-							uiItems[5] = new OptionItem(thisC, "Фотографии ("+photos+")", IconsManager.PHOTOS, 5, 50);
-							uiItems[6] = new OptionItem(thisC, "Музыка ("+music+")", IconsManager.MUSIC, 6, 50);
-							uiItems[7] = new OptionItem(thisC, "Видео ("+videos+")", IconsManager.VIDEOS, 7, 50);
-							uiItems[8] = new OptionItem(thisC, "Документы ("+docs+")", IconsManager.DOCS, 8, 50);
+							uiItems[2] = new OptionItem(thisC, friendsStr + " ("+friends+")", IconsManager.FRIENDS, 2, 50);
+							uiItems[3] = new OptionItem(thisC, wallStr, IconsManager.NEWS, 3, 50);
+							uiItems[4] = new OptionItem(thisC, groupsStr+" ("+groups+")", IconsManager.GROUPS, 4, 50);
+							uiItems[5] = new OptionItem(thisC, photosStr+" ("+photos+")", IconsManager.PHOTOS, 5, 50);
+							uiItems[6] = new OptionItem(thisC, musicStr+" ("+music+")", IconsManager.MUSIC, 6, 50);
+							uiItems[7] = new OptionItem(thisC, videosStr+" ("+videos+")", IconsManager.VIDEOS, 7, 50);
+							uiItems[8] = new OptionItem(thisC, docsStr+" ("+docs+")", IconsManager.DOCS, 8, 50);
 						}
-						uiItems[1] = new OptionItem(thisC, (new String[] {"Добавить в друзья","Заявка отправлена (отменить)","Принять заявку","Удалить из друзей"})[friendState],
+						uiItems[1] = new OptionItem(thisC, (new String[] {addStr,cancelStr,acceptStr,removeStr})[friendState],
 								(friendState==3||friendState==1)?IconsManager.CLOSE:IconsManager.ADD, 1, 50);
 					}
 					catch (JSONException e)
@@ -210,7 +257,7 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 		}
 		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_LARGE));
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
-		g.drawString(name==null?"Загрузка...":name, 74, 74, 0);
+		g.drawString(name==null?loadingStr+"...":name, 74, 74, 0);
 		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
 		g.drawString(status==null?"":status, 74, 98, 0);
 		
@@ -227,7 +274,7 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 			}
 		}
 		g.translate(0, -g.getTranslateY());
-		drawHUD(g, link==null?"Пользователь":link);
+		drawHUD(g, link==null?userStr:link);
 	}
 	
 	public final void release(int x, int y)
