@@ -348,68 +348,74 @@ public class VikaTouch
 	public static void error(int i, boolean fatal)
 	{
 		inst.errReason = "errorcode" + i;
-		final Alert alert = new Alert("Ошибка!", "Код ошибки: " + i + "\nобратитесь к разработчику за помощью.", null, AlertType.ERROR);
-		if(fatal)
-		{
-			alert.setCommandListener(inst.cmdsInst);
-			alert.addCommand(CommandsImpl.close);
-		}
-		else
-		{
-			alert.addCommand(Alert.DISMISS_COMMAND);
-		}
-		setDisplay(alert);
+
+		String s2 = "Код ошибки: " + i + "\nобратитесь к разработчику за помощью.";
+		popup(new InfoPopup(s2, fatal ? new Thread() {
+			public void run()
+			{
+				appInst.destroyApp(false);
+			}
+		} : null));
 	}
 
 	public static void error(Throwable e, int i)
 	{
 		inst.errReason = e.toString();
-		final Alert alert = new Alert("Ошибка!", (e!=null?("Исключение: \n" + e.toString() + "\n"):"")+"Код ошибки: " + i + "\nобратитесь к разработчику за помощью.", null, AlertType.ERROR);
 		final boolean fatal = e instanceof IOException || e instanceof NullPointerException || e instanceof OutOfMemoryError;
-		if(fatal)
+		if(e instanceof OutOfMemoryError)
 		{
-			alert.setCommandListener(inst.cmdsInst);
-			alert.addCommand(CommandsImpl.close);
+			canvas.currentScreen = null;
+			canvas.currentAlert = null;
+			canvas.lastTempScreen = null;
+			System.gc();
+			popup(new InfoPopup("Не хватает памяти!\n\nДоп. инфо:\nКод: " + i, null));
 		}
 		else
 		{
-			alert.addCommand(Alert.DISMISS_COMMAND);
+			String s2 = "Ошибка: \n" + e.toString() + "\nКод ошибки: " + i + "\nобратитесь к разработчику за помощью.";
+			popup(new InfoPopup(s2, fatal ? new Thread() {
+				public void run()
+				{
+					appInst.destroyApp(false);
+				}
+			} : null));
 		}
-		setDisplay(alert);
 	}
 
 	public static void error(Throwable e, String s)
 	{
 		System.out.println(s);
 		inst.errReason = e.toString();
-		final Alert alert = new Alert("Ошибка!", "Необработанное исключение: \n" + e.toString() + "\nВозможное описание: " + s, null, AlertType.ERROR);
 		final boolean fatal = e instanceof IOException || e instanceof NullPointerException || e instanceof OutOfMemoryError;
-		if(fatal)
+		if(e instanceof OutOfMemoryError)
 		{
-			alert.setCommandListener(inst.cmdsInst);
-			alert.addCommand(CommandsImpl.close);
+			canvas.currentScreen = null;
+			canvas.currentAlert = null;
+			canvas.lastTempScreen = null;
+			System.gc();
+			popup(new InfoPopup("Не хватает памяти!\n\n" + s != null && s.length() > 1 ? ("Доп. инфо:\n" + s) : "", null));
 		}
 		else
 		{
-			alert.addCommand(Alert.DISMISS_COMMAND);
+			String s2 = "Ошибка: \n" + e.toString() + "\nВозможное описание: " + s;
+			popup(new InfoPopup(s2, fatal ? new Thread() {
+				public void run()
+				{
+					appInst.destroyApp(false);
+				}
+			} : null));
 		}
-		setDisplay(alert);
 	}
 
 	public static void error(String s, boolean fatal)
 	{
 		inst.errReason = s;
-		final Alert alert = new Alert("Ошибка!", s, null, AlertType.ERROR);
-		if(fatal)
-		{
-			alert.setCommandListener(inst.cmdsInst);
-			alert.addCommand(CommandsImpl.close);
-		}
-		else
-		{
-			alert.addCommand(Alert.DISMISS_COMMAND);
-		}
-		setDisplay(alert);
+		popup(new InfoPopup(s, fatal ? new Thread() {
+			public void run()
+			{
+				appInst.destroyApp(false);
+			}
+		} : null));
 	}
 
 	public void start()

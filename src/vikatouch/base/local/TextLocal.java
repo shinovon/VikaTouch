@@ -14,7 +14,7 @@ public class TextLocal
 	
 	public static void loadLanguage(LangObject lang)
 	{
-		loadLanguage(lang);
+		loadLanguage(lang.shortName);
 	}
 	
 	public static void loadLanguage(String lang)
