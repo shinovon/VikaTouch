@@ -66,6 +66,8 @@ date.month.nov=ноября
 date.month.dec=декабря
 
 date.minutesago=минут назад
+date.hoursago=часов назад
+date.justnow=только что
 
 error.outofmem=Не хватает памяти для работы приложения!
 error.errcode=Код
@@ -109,6 +111,8 @@ title.groups=Группы
 
 friend.remove=Удалить из друзей
 friend.add=Добавить в друзья
+friend.accept=Принять заявку
+friend.cancel=Заявка отправлена (отменить)
 
 subscribe=Подписаться
 
@@ -137,3 +141,5 @@ login.login=Логин
 login.password=Пароль
 login.warn=Не введен логин или пароль!
 login.failed=Не удалось ввойти
+
+profile.closed=Это закрытый профиль
