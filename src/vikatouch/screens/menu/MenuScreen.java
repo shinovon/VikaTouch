@@ -491,7 +491,7 @@ public class MenuScreen
 							g.drawImage(settingsImg, 605, 18, 0);
 						}
 						
-						if(keysMode && selectedBtn == 0)
+						if(selectedBtn == 0)
 						{
 							ColorUtils.setcolor(g, ColorUtils.TEXTCOLOR1);
 							g.drawRect(605, 18, 24, 24);
@@ -528,7 +528,6 @@ public class MenuScreen
 					break;
 				}
 
-				case DisplayUtils.DISPLAY_EQWERTY:
 				case DisplayUtils.DISPLAY_S40:
 				case DisplayUtils.DISPLAY_ASHA311:
 				{
@@ -565,14 +564,12 @@ public class MenuScreen
 						}
 					}
 					
-					if(keysMode)
+					ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
+					if(selectedBtn > 0)
 					{
-						ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
-						if(selectedBtn > 0)
-						{
-							g.fillRect(0, 70 + (oneitemheight * (selectedBtn - 1)), 240, oneitemheight);
-						}
+						g.fillRect(0, 70 + (oneitemheight * (selectedBtn - 1)), 240, oneitemheight);
 					}
+					
 
 					if(friendimg != null)
 					{
@@ -584,25 +581,58 @@ public class MenuScreen
 						g.drawImage(groupimg, 9, 108, 0);
 					}
 					
-					ColorUtils.setcolor(g, 5);
+					ColorUtils.setcolor(g, ColorUtils.TEXT);
 					g.setFont(Font.getFont(0, 0, 8));
 					
 					g.drawString(name + " " + lastname, 41, 40-8,0);
-					
+
+					if(keysMode && selectedBtn == 1)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
 					g.drawString(friendsStr, 28, 72, 0);
+					if(keysMode && selectedBtn == 2)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
 					g.drawString(groupsStr, 28, 96, 0);
+					if(keysMode && selectedBtn == 3)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
 					g.drawString(musicStr, 29, 120, 0);
+					if(keysMode && selectedBtn == 4)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
 					g.drawString(videosStr, 29, 144, 0);
+					if(keysMode && selectedBtn == 5)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
 					g.drawString(photosStr, 29, 168, 0);
+					if(keysMode && selectedBtn == 6)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
 					g.drawString(docsStr, 29, 192, 0);
-					g.drawString(exitStr, 29, 216, 0);
+					if(keysMode && selectedBtn == 7)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
+					g.drawString(exitStr, 29, 228, 0);
+
+					if(exit != null)
+					{
+						g.drawImage(exit, 9, 209, 0);
+					}
 					
 					g.translate(0,-g.getTranslateY());
 
 					ColorUtils.setcolor(g, 3);
-					g.fillRect(0, 0, 240, 30);
+					g.fillRect(0, 0, 320, 30);
 					ColorUtils.setcolor(g, -3);
-					g.fillRect(0, DisplayUtils.height - 25, 240, 25);
+					g.fillRect(0, DisplayUtils.height - 25, 320, 25);
 
 					if(logoImg != null)
 					{
@@ -612,11 +642,6 @@ public class MenuScreen
 					if(settingsImg != null)
 					{
 						g.drawImage(settingsImg, 228, 9, 0);
-					}
-
-					if(exit != null)
-					{
-						g.drawImage(exit, 9, 209, 0);
 					}
 					
 					if(menuImg != null)
@@ -652,6 +677,143 @@ public class MenuScreen
 					}
 					
 					break;
+				}
+				
+
+				
+				case DisplayUtils.DISPLAY_EQWERTY:
+				{
+					//e72, e5, etc
+					
+					update(g);
+					
+					ColorUtils.setcolor(g, -7);
+					g.fillRect(0, 66, 320, 4);
+					ColorUtils.setcolor(g, -8);
+					g.fillRect(0, 68, 320, 2);
+					ColorUtils.setcolor(g, -4);
+					g.fillRect(0, 29, 320, 1);
+					ColorUtils.setcolor(g, -5);
+					g.fillRect(0, 30, 320, 1);
+					ColorUtils.setcolor(g, -6);
+					g.fillRect(0, 31, 320, 1);
+					ColorUtils.setcolor(g, -9);
+					g.fillRect(0, 294, 320, 1);
+					g.fillRect(0, 70, 320, 1);
+					
+					if(profileimg != null)
+					{
+						if(hasAva)
+						{
+							g.drawImage(profileimg, 8, 35, 0);
+							ColorUtils.setcolor(g, ColorUtils.ONLINE);
+							g.fillArc(27, 54, 6, 6, 0, 360);
+						}
+						else
+						{
+							g.drawImage(profileimg, 8, 35, 0);
+						}
+					}
+					
+					ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
+					if(selectedBtn > 0)
+					{
+						g.fillRect(0, 70 + (oneitemheight * (selectedBtn - 1)), 320, oneitemheight);
+					}
+					
+
+					if(friendimg != null)
+					{
+						g.drawImage(friendimg, 10, 83, 0);
+					}
+
+					if(groupimg != null)
+					{
+						g.drawImage(groupimg, 9, 108, 0);
+					}
+					
+					ColorUtils.setcolor(g, ColorUtils.TEXT);
+					g.setFont(Font.getFont(0, 0, 8));
+					
+					g.drawString(name + " " + lastname, 41, 40-8,0);
+					
+
+					if(keysMode && selectedBtn == 1)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
+					g.drawString(friendsStr, 28, 72, 0);
+					if(keysMode && selectedBtn == 2)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
+					g.drawString(groupsStr, 28, 96, 0);
+					if(keysMode && selectedBtn == 3)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
+					g.drawString(musicStr, 29, 120, 0);
+					if(keysMode && selectedBtn == 4)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
+					g.drawString(videosStr, 29, 144, 0);
+					if(keysMode && selectedBtn == 5)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
+					g.drawString(photosStr, 29, 168, 0);
+					if(keysMode && selectedBtn == 6)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
+					g.drawString(docsStr, 29, 192, 0);
+					if(keysMode && selectedBtn == 7)
+						ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+					else
+						ColorUtils.setcolor(g, ColorUtils.TEXT);
+					g.drawString(exitStr, 29, 228, 0);
+					
+					g.translate(0,-g.getTranslateY());
+
+					
+					ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
+					g.fillRect(0, 0, 320, 30);
+					ColorUtils.setcolor(g, -3);
+					g.fillRect(0, 215, 320, 25);
+						
+						
+					if(menuImg != null)
+					{
+						g.drawImage(menuImg, 292, 303-75, 0);
+					}
+						
+					if(newsImg != null)
+					{
+						g.drawImage(newsImg, 18, 301-75, 0);
+					}
+						
+					if(VikaTouch.unreadCount > 0)
+					{
+						if(dialImg2 != null)
+						{
+							g.drawImage(dialImg2, 114, 299-75, 0);
+							g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
+							g.drawString(""+VikaTouch.unreadCount, 126, 300-75, 0);
+						}
+						else if(dialImg != null)
+						{
+							g.drawImage(dialImg, 114, 302-75, 0);
+						}
+	
+					}
+					else
+					{
+						if(dialImg != null)
+						{
+							g.drawImage(dialImg, 114, 302-75, 0);
+						}
+					}
 				}
 				
 				case DisplayUtils.DISPLAY_UNDEFINED:

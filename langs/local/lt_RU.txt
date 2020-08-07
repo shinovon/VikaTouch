@@ -74,7 +74,7 @@ error.contactdevs=za podrobnoy informacii obratites k razrabotchiku
 online=online
 offline=offline
 wasonlinedate=byl online
-wasonlinetime=byl online f
+wasonlinetime=byl online v
 
 menu.videos=Video
 menu.music=Music
