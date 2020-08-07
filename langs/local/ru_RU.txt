@@ -126,7 +126,7 @@ title2.msgloadingfailed=Не удалось обновить сообщения!
 
 login.captcharequired=Требуется ввод капчи!
 login.captcha=Капча
-login.login=
+login.login=Логин
 login.password=Пароль
 login.warn=Не введен логин или пароль!
 login.failed=Не удалось ввойти
