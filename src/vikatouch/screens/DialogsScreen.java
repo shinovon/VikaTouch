@@ -175,7 +175,7 @@ public class DialogsScreen
 			}
 			g.translate(0, -g.getTranslateY());
 			
-			drawHeaders(g, "Сообщения");
+			drawHUD(g, "Сообщения");
 		}
 		catch (Exception e)
 		{

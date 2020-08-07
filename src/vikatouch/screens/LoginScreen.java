@@ -8,6 +8,7 @@ import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
+import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.TextField;
@@ -24,7 +25,7 @@ public class LoginScreen
 	extends VikaScreen
 {
 	
-	private static Image diary;
+	private static Image vikaLogo;
 	private static Image loginpressed;
 	private static Image login;
 	private static boolean pressed;
@@ -34,33 +35,23 @@ public class LoginScreen
 	public static Thread thread;
 	private int selectedBtn;
 	private boolean keysMode;
+	
+	// tapping cache
+	private int[] tapCoords;
 
 	public LoginScreen()
 	{
 		try
 		{
-			diary = Image.createImage("/vikab48.jpg");
+			vikaLogo = Image.createImage("/vikab48.jpg");
 		}
-		catch (Exception e)
-		{
-			
-		}
+		catch (Exception e) { }
 		try
 		{
 			login = Image.createImage("/login.png");
-		}
-		catch (Exception e)
-		{
-			
-		}
-		try
-		{
 			loginpressed = Image.createImage("/loginpressed.png");
 		}
-		catch (Exception e)
-		{
-			
-		}
+		catch (Exception e) { }
 		pressed = false;
 	}
 	
@@ -157,186 +148,89 @@ public class LoginScreen
 
 	public void draw(Graphics g)
 	{
-		switch(DisplayUtils.idispi)
+		short sh = DisplayUtils.height;
+		short sw = DisplayUtils.width;
+		short yCenter = (short) (sh/2);
+		byte fH = 40; // field height
+		boolean shortLayout = sh<250;
+		byte fieldsMargin = (byte) (shortLayout?30:60);
+		
+		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+		g.fillRect(0, 0, sw, sh);
+		
+		ColorUtils.setcolor(g, ColorUtils.COLOR1);
+		g.fillRect(0, 0, DisplayUtils.width, shortLayout?24:48);
+		if(!shortLayout) g.fillRect(0, DisplayUtils.height-50, DisplayUtils.width, 50);
+		if(vikaLogo != null && !shortLayout)
 		{
-			case DisplayUtils.DISPLAY_PORTRAIT:
-			{
-				ColorUtils.setcolor(g, ColorUtils.COLOR1);
-				g.fillRect(0, 0, 360, 50);
-				if(diary != null)
-				{
-					g.drawImage(diary, 156, 2, 0);
-				}
-				if(loginpressed != null && pressed)
-				{
-					g.drawImage(loginpressed, 116, 300, 0);
-				}
-				else if(login != null)
-				{
-					g.drawImage(login, 116, 300, 0);
-				}
-				ColorUtils.setcolor(g, ColorUtils.COLOR1);
-				g.fillRect(0, 590, 360, 50);
-				
-				ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
-				g.drawRect(60, 200, 240, 40);
-				g.drawRect(60, 248, 240, 40);
-				
-				ColorUtils.setcolor(g, ColorUtils.TEXTCOLOR1);
-				if(user != null)
-					g.drawString(user, 70, 210, 0);
-				if(pass != null)
-				{
-					String strpass = "";
-					for(int i = 0; i < pass.length(); i++)
-						strpass += "*";
-					g.drawString(strpass,70,258,0);
-				}
-				break;
-			}
-
-			case DisplayUtils.DISPLAY_S40:
-			case DisplayUtils.DISPLAY_ASHA311:
-			case DisplayUtils.DISPLAY_EQWERTY:
-			case DisplayUtils.DISPLAY_ALBUM:
-			{
-
-				ColorUtils.setcolor(g, ColorUtils.COLOR1);
-				g.fillRect(0, 0, 640, 25);
-				//if(diary != null)
-				//{
-				//	g.drawImage(diary, 156, 2, 0);
-				//}
-				if(loginpressed != null && pressed)
-				{
-					g.drawImage(loginpressed, 0, 220, 0);
-				}
-				else if(login != null)
-				{
-					g.drawImage(login, 0, 220, 0);
-				}
-				
-				ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
-				if(keysMode && selectedBtn == 0)
-					ColorUtils.setcolor(g, 0);
-				g.drawRect(0, 100, 240, 40);
-				ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
-				if(keysMode && selectedBtn == 1)
-					ColorUtils.setcolor(g, 0);
-				g.drawRect(0, 148, 240, 40);
-				
-				ColorUtils.setcolor(g, ColorUtils.TEXTCOLOR1);
-				if(user != null)
-					g.drawString(user, 10, 110, 0);
-				if(pass != null)
-				{
-					String strpass = "";
-					for(int i = 0; i < pass.length(); i++)
-						strpass += "*";
-					g.drawString(strpass,10,158,0);
-				}
-				break;
-			}
-			default:
-			{
-				ColorUtils.setcolor(g, ColorUtils.TEXTCOLOR1);
-				g.drawString("Ваше", 2, 0, 0);
-				g.drawString("разрешение", 2, 15, 0);
-				g.drawString("экрана", 2, 30, 0);
-				g.drawString("не", 2, 45, 0);
-				g.drawString("поддерживается", 2, 60, 0);
-				break;
-			}
+			g.drawImage(vikaLogo, 2, 0, 0);
+		}
+		
+		Font f = Font.getFont(0, 0, Font.SIZE_LARGE);
+		g.setFont(f); ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+		g.drawString("Vika Touch - вход", shortLayout?6:52, (shortLayout?12:24)-f.getHeight()/2, 0);
+		
+		tapCoords = new int[] { yCenter - fH/2 - 8 - fH, yCenter - fH/2 - 8, yCenter - fH/2, yCenter + fH/2, yCenter + fH/2 + 8, yCenter + fH/2 + 8 + 32 };
+		
+		ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
+		g.drawRect(fieldsMargin, tapCoords[0], sw-fieldsMargin*2, fH);
+		g.drawRect(fieldsMargin, tapCoords[2], sw-fieldsMargin*2, fH);
+		if(loginpressed != null && pressed) {
+			g.drawImage(loginpressed, DisplayUtils.width/2-loginpressed.getWidth()/2, tapCoords[4], 0);
+		} else if(login != null)
+			g.drawImage(login, DisplayUtils.width/2-login.getWidth()/2, tapCoords[4], 0);
+		
+		f = Font.getFont(0, 0, Font.SIZE_SMALL);
+		g.setFont(f);
+		ColorUtils.setcolor(g, ColorUtils.TEXTCOLOR1);
+		if(user != null)
+			g.drawString(user, fieldsMargin+10, tapCoords[0]+fH/2-f.getHeight()/2, 0);
+		if(pass != null)
+		{
+			String strpass = "";
+			for(int i = 0; i < pass.length(); i++)
+				strpass += "*";
+			g.drawString(strpass, fieldsMargin+10, tapCoords[2]+fH/2-f.getHeight()/2, 0);
 		}
 	}
 	
 	public final void press(int x, int y) {
 		keysMode = false;
-		switch(DisplayUtils.idispi)
+		if(y>tapCoords[4]&&y<tapCoords[5])
 		{
-			case DisplayUtils.DISPLAY_PORTRAIT:
+			pressed = true;
+			if(!vse)
+				repaint();
+		}
+		else if(y>tapCoords[0]&&y<tapCoords[1])
+		{
+			if(thread != null)
+				thread.interrupt();
+			thread = new Thread()
 			{
-				if(x > 116 && y > 300 && x < 112+128 && y < 300+36)
+				public void run()
 				{
-					pressed = true;
-					if(!vse)
-						repaint();
+					user = TextEditor.inputString("Логин", "", 28, false);
+					repaint();
+					interrupt();
 				}
-				if(x > 60 && y > 200 && x < 260 && y < 200+40)
-				{
-					if(thread != null)
-						thread.interrupt();
-					thread = new Thread()
-					{
-						public void run()
-						{
-							user = TextEditor.inputString("Логин", "", 28, false);
-							repaint();
-							interrupt();
-						}
-					};
-					thread.start();
-				}
-				if(x > 60 && y > 248 && x < 260 && y < 288)
-				{
-					if(thread != null)
-						thread.interrupt();
-					thread = new Thread()
-					{
-						public void run()
-						{
-							pass = TextEditor.inputString("Пароль", "", 32, true);
-							repaint();
-							interrupt();
-						}
-					};
-					thread.start();
-				}
-				break;
-			}
-			case DisplayUtils.DISPLAY_S40:
-			case DisplayUtils.DISPLAY_ASHA311:
-			case DisplayUtils.DISPLAY_EQWERTY:
-			case DisplayUtils.DISPLAY_ALBUM:
+			};
+			thread.start();
+		}
+		else if(y>tapCoords[2]&&y<tapCoords[3])
+		{
+			if(thread != null)
+				thread.interrupt();
+			thread = new Thread()
 			{
-				if(y > 220 && y < 256 && x < 128)
+				public void run()
 				{
-					pressed = true;
-					if(!vse)
-						repaint();
+					pass = TextEditor.inputString("Пароль", "", 32, true);
+					repaint();
+					interrupt();
 				}
-				if( y > 100 && y < 140)
-				{
-					if(thread != null)
-						thread.interrupt();
-					thread = new Thread()
-					{
-						public void run()
-						{
-							user = TextEditor.inputString("Логин", "", 28, false);
-							repaint();
-							interrupt();
-						}
-					};
-					thread.start();
-				}
-				if(y > 148 && y < 188)
-				{
-					if(thread != null)
-						thread.interrupt();
-					thread = new Thread()
-					{
-						public void run()
-						{
-							pass = TextEditor.inputString("Пароль", "", 32, true);
-							repaint();
-							interrupt();
-						}
-					};
-					thread.start();
-				}
-				break;
-			}
+			};
+			thread.start();
 		}
 	}
 
@@ -344,95 +238,42 @@ public class LoginScreen
 		if(pressed)
 		{
 			pressed = false;
-			switch(DisplayUtils.idispi)
+			if(y>tapCoords[4]&&y<tapCoords[5])
 			{
-				case DisplayUtils.DISPLAY_PORTRAIT:
+				if(user != null && user.length() >= 5 && pass != null && pass.length() >= 6)
 				{
-					if(x > 116 && y > 300 && x < 112+128 && y < 300+36)
+					if(!vse)
 					{
-						if(user != null && user.length() >= 5 && pass != null && pass.length() >= 6)
+						VikaTouch.loading = true;
+						
+						//логин
+						if(VikaTouch.DEMO_MODE)
 						{
-							if(!vse)
-							{
-								VikaTouch.loading = true;
-								
-								//логин
-								if(VikaTouch.DEMO_MODE)
-								{
-									vse = true;
-									VikaScreen canvas = new MenuScreen();
-									VikaTouch.setDisplay(canvas);
-								}
-								else
-								{
-									vse = VikaTouch.inst.login(user, pass);
-								}
-								String reason;
-								if(!vse && (reason = VikaTouch.getReason()) != null)
-								{
-									VikaTouch.setDisplay(new Alert("Не удалось ввойти", reason, null, AlertType.ERROR));
-								}
-							}
+							vse = true;
+							VikaScreen canvas = new MenuScreen();
+							VikaTouch.setDisplay(canvas);
 						}
 						else
 						{
-							VikaTouch.setDisplay(new Alert("","Не введен логин или пароль!", null, AlertType.INFO));
+							vse = VikaTouch.inst.login(user, pass);
 						}
-						
+						String reason;
+						if(!vse && (reason = VikaTouch.getReason()) != null)
+						{
+							VikaTouch.setDisplay(new Alert("Не удалось ввойти", reason, null, AlertType.ERROR));
+						}
 					}
-					else
-					{
-						if(!vse)
-							repaint();
-					}
-					
-					break;
 				}
-
-				case DisplayUtils.DISPLAY_S40:
-				case DisplayUtils.DISPLAY_ASHA311:
-				case DisplayUtils.DISPLAY_EQWERTY:
-				case DisplayUtils.DISPLAY_ALBUM:
+				else
 				{
-					if(y > 220 && y < 256 && x < 128)
-					{
-						if(user != null && user.length() >= 5 && pass != null && pass.length() >= 6)
-						{
-							if(!vse)
-							{
-								//логин
-								if(VikaTouch.DEMO_MODE)
-								{
-									vse = true;
-									VikaScreen canvas = new MenuScreen();
-									VikaTouch.setDisplay(canvas);
-								}
-								else
-								{
-									vse = VikaTouch.inst.login(user, pass);
-								}
-								String reason;
-								if(!vse && (reason = VikaTouch.getReason()) != null)
-								{
-									VikaTouch.setDisplay(new Alert("Не удалось ввойти", reason, null, AlertType.ERROR));
-								}
-							}
-						}
-						else
-						{
-							VikaTouch.setDisplay(new Alert("","Не введен логин или пароль!", null, AlertType.INFO));
-						}
-						
-					}
-					else
-					{
-						if(!vse)
-							repaint();
-					}
-					break;
+					VikaTouch.setDisplay(new Alert("","Не введен логин или пароль!", null, AlertType.INFO));
 				}
+			}
+			else
+			{
+				if(!vse)
+					repaint();
 			}
 		}
 	}
-
 }

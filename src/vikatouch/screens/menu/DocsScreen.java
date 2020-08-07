@@ -148,7 +148,7 @@ public class DocsScreen
 			}
 			g.translate(0, -g.getTranslateY());
 
-			drawHeaders(g, uiItems==null?"Документы (загрузка...)":"Документы"+(range==null?"":range)+" "+(whose==null?"":whose));
+			drawHUD(g, uiItems==null?"Документы (загрузка...)":"Документы"+(range==null?"":range)+" "+(whose==null?"":whose));
 
 		}
 		catch (Exception e)

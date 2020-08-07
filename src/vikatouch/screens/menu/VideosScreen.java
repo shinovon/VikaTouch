@@ -17,7 +17,7 @@ public class VideosScreen
 	
 	public void draw(Graphics g)
 	{
-		drawHeaders(g, "Видео");
+		drawHUD(g, "Видео");
 	}
 
 }

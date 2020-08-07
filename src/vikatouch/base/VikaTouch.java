@@ -362,7 +362,7 @@ public class VikaTouch
 	public static void error(Throwable e, int i)
 	{
 		inst.errReason = e.toString();
-		final Alert alert = new Alert("Ошибка!", "Исключение: \n" + e.toString() + "\nКод ошибки: " + i + "\nобратитесь к разработчику за помощью.", null, AlertType.ERROR);
+		final Alert alert = new Alert("Ошибка!", (e!=null?("Исключение: \n" + e.toString() + "\n"):"")+"Код ошибки: " + i + "\nобратитесь к разработчику за помощью.", null, AlertType.ERROR);
 		final boolean fatal = e instanceof IOException || e instanceof NullPointerException || e instanceof OutOfMemoryError;
 		if(fatal)
 		{
@@ -428,7 +428,7 @@ public class VikaTouch
 		ImageStorage.init();
 		try {
 			IconsManager.Load();
-		} catch (Exception e) { System.out.println("Сбой иконок"); e.printStackTrace(); }
+		} catch (Exception e) { error(e, 100500); e.printStackTrace(); }
 		cmdsInst = new CommandsImpl();	
 
 		//Выбор сервера 

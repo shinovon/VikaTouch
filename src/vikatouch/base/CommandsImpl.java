@@ -7,6 +7,7 @@ import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
 
 import ru.nnproject.vikaui.DisplayUtils;
+import ru.nnproject.vikaui.InfoPopup;
 import ru.nnproject.vikaui.VikaScreen;
 import vikatouch.screens.AboutScreen;
 import vikatouch.screens.ChatScreen;
@@ -109,7 +110,7 @@ public class CommandsImpl
 						//Музыка
 						if(s instanceof MenuScreen)
 						{
-							VikaTouch.warn("Данная кнопка не фунцкионирует.");
+							((MenuScreen) s).Popup(new InfoPopup("Функционал музыки ещё не реализован. Следите за обновлениями.",null));
 						}
 						break;
 					}
@@ -118,9 +119,10 @@ public class CommandsImpl
 						//Видео
 						if(s instanceof MenuScreen)
 						{
+							((MenuScreen) s).Popup(new InfoPopup("Функционал видео ещё не реализован. Следите за обновлениями.",null)); /*
 							if(VikaTouch.videosCanv == null)
 								VikaTouch.videosCanv = new VideosScreen();
-							VikaTouch.setDisplay(VikaTouch.videosCanv);
+							VikaTouch.setDisplay(VikaTouch.videosCanv);*/
 						}
 						break;
 					}
@@ -129,9 +131,11 @@ public class CommandsImpl
 						//Фотки
 						if(s instanceof MenuScreen)
 						{
+							((MenuScreen) s).Popup(new InfoPopup("Функционал фотографий ещё не реализован. Следите за обновлениями.",null));
+							/*
 							if(VikaTouch.photosCanv == null)
 								VikaTouch.photosCanv = new PhotosScreen();
-							VikaTouch.setDisplay(VikaTouch.photosCanv);
+							VikaTouch.setDisplay(VikaTouch.photosCanv);*/
 						}
 						break;
 					}
