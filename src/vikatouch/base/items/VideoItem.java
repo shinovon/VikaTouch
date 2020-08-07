@@ -8,6 +8,7 @@ import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
+import ru.nnproject.vikaui.InfoPopup;
 import ru.nnproject.vikaui.ScrollableCanvas;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.ResizeUtils;
@@ -66,13 +67,12 @@ public class VideoItem
 			try {
 				VikaTouch.appInst.platformRequest(playerUrl);
 			} catch (ConnectionNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		else
 		{
-			// скачка
+			VikaTouch.popup(new InfoPopup("Скачка видео ещё не реализована",null,null,null));
 		}
 	}
 
@@ -80,7 +80,7 @@ public class VideoItem
 	{
 		if(key == KEY_FUNC)
 		{
-			// скачка
+			VikaTouch.popup(new InfoPopup("Скачка видео ещё не реализована",null,null,null));
 		}
 		if(key == KEY_OK)
 		{

@@ -12,8 +12,9 @@ public class InfoPopup
 	private String[] lines;
 	private Thread ok;
 	private int linesCount;
+	private String button;
 	
-	public InfoPopup(String text, Thread onOk)
+	public InfoPopup(String text, Thread onOk, String header, String btnText)
 	{
 		lines = TextBreaker.breakText(text, false, null, true, Math.min(DisplayUtils.width-10, 350)-60);
 		ok = onOk;
@@ -23,6 +24,7 @@ public class InfoPopup
 			i++;
 		}
 		linesCount = i;
+		button = btnText==null?"OK":btnText;
 	}
 	
 	public void draw(Graphics g) {
@@ -32,14 +34,14 @@ public class InfoPopup
 		int th = h1*4 + h1*linesCount;
 		int y = DisplayUtils.height/2 - th/2;
 		int x = DisplayUtils.width/2 - width/2;
-		String okT = "ОК";
+		int btnW = Math.max(f.stringWidth(button)+20, 60);
 		
 		// drawing
 		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 		g.fillRoundRect(x, y, width, th, 16, 16);
 		
 		ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
-		g.fillRoundRect(DisplayUtils.width/2-25, y+h1*(linesCount+1), 50, h1*2, 14, 14);
+		g.fillRoundRect(DisplayUtils.width/2-btnW/2, y+h1*(linesCount+1), btnW, h1*2, 14, 14);
 		
 		g.setFont(f);
 		g.setStrokeStyle(Graphics.SOLID);
@@ -50,7 +52,7 @@ public class InfoPopup
 			if(lines[i]!=null) g.drawString(lines[i], DisplayUtils.width/2 - f.stringWidth(lines[i])/2, y+h1/2+h1*i, 0);
 		}
 		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
-		g.drawString(okT, DisplayUtils.width/2-f.stringWidth(okT)/2, y+h1*(linesCount+1)+h1/2, 0);
+		g.drawString(button, DisplayUtils.width/2-f.stringWidth(button)/2, y+h1*(linesCount+1)+h1/2, 0);
 	}
 	
 	public void key(int key)
