@@ -63,7 +63,8 @@ public class VideoItem
 			{
 				file = files.optString("mp4_240");
 			}
-		} catch (JSONException e) {
+			if(file!=null) file = fixJSONString(file);
+		} catch (Exception e) {
 			e.printStackTrace();
 		} 
 	}
@@ -149,7 +150,7 @@ public class VideoItem
 		int min = length/60;
 		String subStr = min+":"+(sec<10?"0":"")+sec+"    "+views+" ";
 		g.drawString(subStr, 73, y + 24, 0);
-		g.drawImage(IconsManager.ico[IconsManager.VIEWS], 73+g.getFont().stringWidth(subStr), y+24, 0);
+		g.drawImage(IconsManager.ico[IconsManager.VIEWS], 73+g.getFont().stringWidth(subStr)-2, y+20, 0);
 		if(iconImg != null)
 		{
 			g.drawImage(iconImg, 14, y+1, 0);

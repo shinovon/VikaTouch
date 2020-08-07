@@ -515,7 +515,6 @@ public class VikaTouch
 			e.printStackTrace();
 		}
 
-		error(ErrorCodes.TOKENLOAD, false);
 		Thread.yield();
 
 	}

@@ -16,6 +16,7 @@ import vikatouch.base.INextLoadable;
 import vikatouch.base.Settings;
 import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;
+import vikatouch.base.items.GroupItem;
 import vikatouch.base.items.LoadMoreButtonItem;
 import vikatouch.base.items.VideoItem;
 import vikatouch.base.local.TextLocal;
@@ -63,10 +64,11 @@ public class VideosScreen
 				{
 					VikaTouch.loading = true;
 					repaint();
-					String x = VikaUtils.download(new URLBuilder("videos.get").addField("owner_id", id).addField("count", count).addField("offset", from));
+					String x = VikaUtils.download(new URLBuilder("video.get").addField("owner_id", id).addField("count", count).addField("offset", from));
 					try
 					{
 						VikaTouch.loading = true;
+						System.out.println(x);
 						JSONObject response = new JSONObject(x).getJSONObject("response");
 						JSONArray items = response.getJSONArray("items");
 						int totalVids = response.getInt("count");
@@ -86,6 +88,14 @@ public class VideosScreen
 							uiItems[itemsCount] = new LoadMoreButtonItem(thisC);
 							itemsCount++;
 						}
+						VikaTouch.loading = true;
+						Thread.sleep(500);
+						VikaTouch.loading = true;
+						for(int i = 0; i < itemsCount - (canLoadMore?1:0); i++)
+						{
+							((VideoItem) uiItems[i]).loadIcon();
+						}
+						VikaTouch.loading = false;
 					}
 					catch (JSONException e)
 					{
