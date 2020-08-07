@@ -162,7 +162,7 @@ public class TextLocal
 
 	public String formatFullDate(int day, int month, int year, int hour, int minute)
 	{
-		return format("date", day, month, year, hour, minute);
+		return format("fulldate", day, month, year, hour, minute);
 	}
 
 	public String formatDate(int day, int month, int year)
@@ -180,6 +180,8 @@ public class TextLocal
 			result = replace(result, "SMN", getShortMonth(month));
 			
 			result = replace(result, "MONTH", getMonth(month));
+			
+			result = replace(result, "MO", month + 1);
 			
 			result = replace(result, "YEAR", year);
 			

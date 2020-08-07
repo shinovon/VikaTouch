@@ -19,6 +19,7 @@ langinfo.version=2020.08.07
 #DD - day
 #SMN - short month
 #MONTH - month
+#MO - month (number)
 #YEAR - year
 # TIME
 #tt - low case am / pm
@@ -53,7 +54,7 @@ date.shortmonth.oct=окт
 date.shortmonth.nov=ноя
 date.shortmonth.dec=дек
 date.month.jan=января
-date.month.feb=февраляч
+date.month.feb=февраля
 date.month.mar=марта
 date.month.apr=апреля
 date.month.may=мая
