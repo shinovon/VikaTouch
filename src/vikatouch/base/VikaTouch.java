@@ -52,7 +52,7 @@ public class VikaTouch
 	public static DialogsScreen dialogsCanv;
 	public static DocsScreen docsCanv;
 	public static GroupsScreen grCanv;
-	public static VikaScreen videosCanv;
+	public static VideosScreen videosCanv;
 	public static FriendsScreen friendsCanv;
 	public static NewsScreen newsCanv;
 	public static PhotosScreen photosCanv;

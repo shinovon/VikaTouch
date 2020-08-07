@@ -119,10 +119,16 @@ public class CommandsImpl
 						//Видео
 						if(s instanceof MenuScreen)
 						{
-							VikaTouch.popup(new InfoPopup("Функционал видео ещё не реализован. Следите за обновлениями.",null,null,null)); /*
-							if(VikaTouch.videosCanv == null)
-								VikaTouch.videosCanv = new VideosScreen();
-							VikaTouch.setDisplay(VikaTouch.videosCanv);*/
+							VikaTouch.popup(new InfoPopup("Функционал видео в разработке и может (будет) не работать. ",new Thread() {
+								public void run() {
+							
+									if(VikaTouch.videosCanv == null)
+										VikaTouch.videosCanv = new VideosScreen();
+									VikaTouch.videosCanv.load(0,0,null);
+									VikaTouch.setDisplay(VikaTouch.videosCanv);
+								}
+							},null,"Продолжить"));
+							
 						}
 						break;
 					}

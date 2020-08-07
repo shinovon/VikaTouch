@@ -4,14 +4,18 @@ import javax.microedition.io.ConnectionNotFoundException;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
+import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.ColorUtils;
+import ru.nnproject.vikaui.ConfirmBox;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.InfoPopup;
 import ru.nnproject.vikaui.ScrollableCanvas;
 import vikamobilebase.VikaUtils;
+import vikatouch.base.IconsManager;
 import vikatouch.base.ResizeUtils;
+import vikatouch.base.Settings;
 import vikatouch.base.VikaTouch;
 
 public class VideoItem
@@ -28,11 +32,7 @@ public class VideoItem
 	
 	private static Image downloadBI = null;
 	
-	/*public String res144;
-	public String res240;
-	public String res360;
-	public String res480;
-	public String res720;*/
+	public String file;
 	public String playerUrl;
 	
 	public VideoItem(JSONObject json)
@@ -42,11 +42,30 @@ public class VideoItem
 		owner = json.optInt("owner_id");
 		title = json.optString("title");
 		descr = json.optString("description");
-		iconUrl = fixJSONString(json.optString("photo_130"));
+		try {
+			iconUrl = fixJSONString(json.getJSONArray("image").getJSONObject(0).optString("url"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		length = json.optInt("duration");
 		playerUrl = json.optString("player");
 		views = json.optInt("views");
 		itemDrawHeight = 50;
+		
+		try {
+			JSONObject files = json.getJSONObject("files");
+			file = files.optString("mp4_"+Settings.videoResolution);
+			if(file==null)
+			{
+				file = files.optString("mp4_360");
+			}
+			if(file==null)
+			{
+				file = files.optString("mp4_240");
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} 
 	}
 
 	public int getDrawHeight() { return itemDrawHeight; }
@@ -72,7 +91,17 @@ public class VideoItem
 		}
 		else
 		{
-			VikaTouch.popup(new InfoPopup("Скачка видео ещё не реализована",null,null,null));
+			if(file!=null)
+				VikaTouch.popup(new ConfirmBox("Загрузить видео-файл?","Будет скачано "+Settings.videoResolution+"p.", new Thread() {
+					public void run() 
+					{
+						try {
+							VikaTouch.appInst.platformRequest(file);
+						} catch (ConnectionNotFoundException e) {
+							e.printStackTrace();
+						}
+					}
+				}, null));
 		}
 	}
 
@@ -80,7 +109,17 @@ public class VideoItem
 	{
 		if(key == KEY_FUNC)
 		{
-			VikaTouch.popup(new InfoPopup("Скачка видео ещё не реализована",null,null,null));
+			if(file!=null)
+				VikaTouch.popup(new ConfirmBox("Загрузить видео-файл?","Будет скачано "+Settings.videoResolution+"p.", new Thread() {
+					public void run() 
+					{
+						try {
+							VikaTouch.appInst.platformRequest(file);
+						} catch (ConnectionNotFoundException e) {
+							e.printStackTrace();
+						}
+					}
+				}, null));
 		}
 		if(key == KEY_OK)
 		{
@@ -108,8 +147,9 @@ public class VideoItem
 		ColorUtils.setcolor(g, ColorUtils.OUTLINE);
 		int sec = length%60;
 		int min = length/60;
-		String secStr = (sec<10?"0":"")+sec;
-		g.drawString(min+":"+secStr+", "+views+" просмотров", 73, y + 24, 0);
+		String subStr = min+":"+(sec<10?"0":"")+sec+"    "+views+" ";
+		g.drawString(subStr, 73, y + 24, 0);
+		g.drawImage(IconsManager.ico[IconsManager.VIEWS], 73+g.getFont().stringWidth(subStr), y+24, 0);
 		if(iconImg != null)
 		{
 			g.drawImage(iconImg, 14, y+1, 0);
