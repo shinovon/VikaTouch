@@ -52,10 +52,12 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 	public static Thread downloaderThread;
 	private boolean friendAdd; // если true, друг добавляется. Если 0, удаляется.
 	private String visitStr;
-	protected String removeStr;
-	protected String acceptStr;
-	protected String cancelStr;
-	protected String addStr;
+	protected static String removeStr;
+	protected static String acceptStr;
+	protected static String cancelStr;
+	protected static String addStr;
+	private static String userStr;
+	private static String loadingStr;
 	protected static String onlineStr;
 	protected static String wasOnlineStr;
 	protected static String wasOnlineJustNowStr;
@@ -76,6 +78,8 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 	{
 		if(onlineStr == null)
 		{
+			userStr = TextLocal.inst.get("user");
+			loadingStr = TextLocal.inst.get("menu.loading");
 			removeStr = TextLocal.inst.get("friend.remove");
 			acceptStr = TextLocal.inst.get("friend.accept");
 			cancelStr = TextLocal.inst.get("friend.cancel");
@@ -250,7 +254,7 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 		}
 		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_LARGE));
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
-		g.drawString(name==null?"Загрузка...":name, 74, 74, 0);
+		g.drawString(name==null?loadingStr+"...":name, 74, 74, 0);
 		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
 		g.drawString(status==null?"":status, 74, 98, 0);
 		
@@ -267,7 +271,7 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 			}
 		}
 		g.translate(0, -g.getTranslateY());
-		drawHUD(g, link==null?"Пользователь":link);
+		drawHUD(g, link==null?userStr:link);
 	}
 	
 	public final void release(int x, int y)
