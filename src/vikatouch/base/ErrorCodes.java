@@ -40,5 +40,7 @@ public class ErrorCodes
 	public static final int POSTIMAGE = 35;
 	public static final int GROUPSITEMDRAW = 36;
 	public static final int GROUPSDRAW = 37;
+	public static final int LANGLOAD = 38;
+	public static final int ICONSLOAD = 39;
 
 }

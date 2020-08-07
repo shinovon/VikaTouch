@@ -4,10 +4,11 @@
 #авторы shinovon
 #версия 2020.08.07
 #
-#вк авторов: 
+#вк авторов:
 #vk.com/shinovon
 
-info.name=Русский
+langinfo.name=Русский
+langinfo.version=2020.08.07
 
 # LANG FORMAT
 #| - new line
@@ -15,8 +16,8 @@ info.name=Русский
 #datetime format:
 # DATE
 #DD - day
-#sm - short month
-#m - month
+#SM - short month
+#MM - month
 #YYYY - year
 # TIME
 #tt - am / pm
@@ -26,9 +27,12 @@ info.name=Русский
 #HH - hour with zero
 #M - minute
 #MM - minute with zero
-date.timeformat=H:MM
-date.chatdateformat=DD sm
-date.shortdateformat=DD sm YYYY
+
+format.time=H:MM
+format.chatdate=DD SM
+format.shortdate=DD SM YYYY
+format.date=DD M YYYY
+format.fulldate=DD M YYYYг. в H:MM
 
 date.today=сегодня
 date.yesterday=вчера
@@ -57,8 +61,13 @@ date.month.oct=октября
 date.month.nov=ноября
 date.month.dec=декабря
 
-#errors
 error.outofmem=Не хватает памяти для работы приложения!
-error.errcode=Код ошибки
-error.error=Ошибка:
-error.error=Ошибка:
+error.errcode=Код
+error=Ошибка
+error.additionalinfo=Доп. инфо
+error.description=Возможное описание
+
+online=онлайн
+offline=оффлайн
+wasonlinedate=был в сети 
+wasonlinetime=был в сети в

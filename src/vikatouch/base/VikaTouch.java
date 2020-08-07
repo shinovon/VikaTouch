@@ -20,6 +20,7 @@ import ru.nnproject.vikaui.VikaNotice;
 import ru.nnproject.vikaui.VikaScreen;
 import vikamobilebase.ImageStorage;
 import vikamobilebase.VikaUtils;
+import vikatouch.base.local.TextLocal;
 import vikatouch.screens.AboutScreen;
 import vikatouch.screens.CaptchaScreen;
 import vikatouch.screens.ChatScreen;
@@ -349,7 +350,7 @@ public class VikaTouch
 	{
 		inst.errReason = "errorcode" + i;
 
-		String s2 = "Код ошибки: " + i + "\nобратитесь к разработчику за помощью.";
+		String s2 = TextLocal.inst.get("error.errcode") + ": " + i + "\nобратитесь к разработчику за помощью.";
 		popup(new InfoPopup(s2, fatal ? new Thread() {
 			public void run()
 			{
@@ -368,11 +369,11 @@ public class VikaTouch
 			canvas.currentAlert = null;
 			canvas.lastTempScreen = null;
 			System.gc();
-			popup(new InfoPopup("Не хватает памяти!\n\nДоп. инфо:\nКод: " + i, null));
+			popup(new InfoPopup(TextLocal.inst.get("error.outofmem") + "\n\n" + TextLocal.inst.get("error.additionalinfo") + ":\n" + TextLocal.inst.get("error.errcode") + ": " + i, null));
 		}
 		else
 		{
-			String s2 = "Ошибка: \n" + e.toString() + "\nКод ошибки: " + i + "\nобратитесь к разработчику за помощью.";
+			String s2 = TextLocal.inst.get("error") + ": \n" + e.toString() + "\n" + TextLocal.inst.get("error.additionalinfo") + ": " + i + "\nобратитесь к разработчику за помощью.";
 			popup(new InfoPopup(s2, fatal ? new Thread() {
 				public void run()
 				{
@@ -393,11 +394,11 @@ public class VikaTouch
 			canvas.currentAlert = null;
 			canvas.lastTempScreen = null;
 			System.gc();
-			popup(new InfoPopup("Не хватает памяти!\n\n" + s != null && s.length() > 1 ? ("Доп. инфо:\n" + s) : "", null));
+			popup(new InfoPopup(TextLocal.inst.get("error.outofmem") + "\n\n" + s != null && s.length() > 1 ? (TextLocal.inst.get("error.additionalinfo") + ":\n" + s) : "", null));
 		}
 		else
 		{
-			String s2 = "Ошибка: \n" + e.toString() + "\nВозможное описание: " + s;
+			String s2 = TextLocal.inst.get("error") + ": \n" + e.toString() + "\n" + TextLocal.inst.get("error.description") + ": " + s;
 			popup(new InfoPopup(s2, fatal ? new Thread() {
 				public void run()
 				{
@@ -434,9 +435,20 @@ public class VikaTouch
 	public void threadRun()
 	{
 		ImageStorage.init();
-		try {
+		try
+		{
 			IconsManager.Load();
-		} catch (Exception e) { error(e, 100500); e.printStackTrace(); }
+		}
+		catch (Exception e)
+		{
+			error(e, ErrorCodes.ICONSLOAD);
+			e.printStackTrace();
+		}
+		
+		Settings.loadSettings();
+		
+		TextLocal.init();
+		
 		cmdsInst = new CommandsImpl();	
 
 		//Выбор сервера 
