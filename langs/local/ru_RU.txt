@@ -17,26 +17,28 @@ langinfo.version=2020.08.07
 #datetime format:
 # DATE
 #DD - day
-#SM - short month
-#MM - month
-#YYYY - year
+#SMN - short month
+#MONTH - month
+#YEAR - year
 # TIME
-#tt - am / pm
-#TT - AM / PM
+#tt - low case am / pm
+#TT - high case AM / PM
 #h - hour in 12 hours format
 #H - hour
-#HH - hour with zero
+#HH - hour with zero if less than 10
 #M - minute
-#MM - minute with zero
+#MM - minute with zero if less than 10
 
 format.time=H:MM
-format.chatdate=DD SM
-format.shortdatenoyear=DD M
-format.shortdate=DD M YYYY
-format.date=DD M YYYY г.
-format.fulldate=DD M YYYYг. в H:MM
+format.chatdate=DD SMN
+format.chatdatewyear=DD SMN YEAR
+format.shortdatenoyear=DD MONTH
+format.shortdate=DD MONTH YEAR
+format.date=DD MONTH YEAR г.
+format.fulldate=DD MONTH YEAR г. в H:MM
 
 date.today=сегодня
+date.todayat=сегодня в
 date.yesterday=вчера
 date.shortmonth.jan=янв
 date.shortmonth.feb=фев
