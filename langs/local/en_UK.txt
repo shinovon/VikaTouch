@@ -1,0 +1,150 @@
+#info:
+#английский
+#English (United Kingdom)
+#authors: shinovon
+#version 2020.08.07
+#
+#authors' vk:
+#vk.com/shinovon
+
+langinfo.name=English (UK)
+langinfo.version=2020.08.07
+
+# LANG FORMAT
+#| - new line
+#
+#datetime format:
+# DATE
+#DD - day
+#SMN - short month
+#MONTH - month
+#MO - month (number)
+#YEAR - year
+# TIME
+#tt - low case am / pm
+#TT - high case AM / PM
+#h - hour in 12 hours format
+#H - hour
+#HH - hour with zero if less than 10
+#M - minute
+#MM - minute with zero if less than 10
+
+format.time=H:MM
+format.chatdate=DD SMN
+format.chatdatewyear=DD/MO/YEAR
+format.shortdatenoyear=DD MONTH
+format.shortdate=DD/MO/YEAR
+format.date=DD MONTH YEAR
+format.fulldate=DD/MO/YEAR H:MM
+
+date.today=today
+date.todayat=today at
+date.yesterday=yesterday
+date.shortmonth.jan=jan
+date.shortmonth.feb=feb
+date.shortmonth.mar=mar
+date.shortmonth.apr=apr
+date.shortmonth.may=may
+date.shortmonth.jun=jun
+date.shortmonth.jul=jul
+date.shortmonth.aug=aug
+date.shortmonth.sep=sep
+date.shortmonth.oct=oct
+date.shortmonth.nov=nov
+date.shortmonth.dec=dev
+date.month.jan=january
+date.month.feb=february
+date.month.mar=march
+date.month.apr=april
+date.month.may=may
+date.month.jun=june
+date.month.jul=july
+date.month.aug=august
+date.month.sep=september
+date.month.oct=october
+date.month.nov=november
+date.month.dec=december
+
+date.minutesago=minutes ago
+date.hoursago=hours ago
+date.justnow=just now
+
+error.outofmem=App ran out of memory!
+error.errcode=Code
+error=Error
+error.additionalinfo=Additional info
+error.description=Description
+error.contactdevs=Contact with developers to more information.
+
+online=online
+offline=offline
+wasonlinedate=was online
+wasonlinetime=was online at
+
+menu.videos=Videos
+menu.music=Music
+menu.photos=Photos
+menu.documents=Documents
+menu.friends=Friends
+menu.cannotwrite=[cannot write]
+menu.wall=Wall
+menu.info=Information
+menu.grleave=Leave
+menu.grjoin=Join
+menu.groups=Groups
+menu.quit=Quit
+menu.members=Members
+menu.contacts=Contacts
+menu.website=Web-site
+menu.writemsg=Write message
+menu.nowebsite=no website
+menu.discussions=Discussions
+
+group=Group
+group.descriptionempty=[empty]
+
+title.people=People
+title.chats=Chats
+title.newsfeed=Newsfeed
+title.docs=Documents
+title.videos=Videos
+title.loading=loading
+title.members=Members
+title.login=Login
+title.groups=Groups
+
+friend.remove=Remove friend
+friend.add=Send friendship request
+friend.accept=Accept friendship request
+friend.cancel=Request sent (cancel)
+
+subscribe=Follow
+
+msg=Message
+msg.attach.audio=Auio
+msg.attach.reply=Unswer
+msg.attach.fwd=Forwarded message
+msg.attach.attachment=Attachment
+msg.attach.video=Video
+
+video=Video
+video.1view=view
+video.views=views
+video.viewsfew=views
+video.addtosebe=Add to my videos
+
+title2.member=member
+title2.members=members
+title2.membersfew=members
+title2.loading=Loading...
+title2.msgloadingfailed=Failed to refresh messages!
+
+login.captcharequired=Captcha input required!
+login.captcha=Captcha
+login.login=Username
+login.password=Password
+login.warn=Username or password is not entered!
+login.failed=Failed to authenticate
+
+profile.closed=This is a private profile
+user=User

@@ -3,3 +3,143 @@
 #версия 2020.08.07
 
 info.name=Russky (Translit)
+langinfo.version=2020.08.07
+
+# LANG FORMAT
+#| - new line
+#
+#datetime format:
+# DATE
+#DD - day
+#SMN - short month
+#MONTH - month
+#MO - month (number)
+#YEAR - year
+# TIME
+#tt - low case am / pm
+#TT - high case AM / PM
+#h - hour in 12 hours format
+#H - hour
+#HH - hour with zero if less than 10
+#M - minute
+#MM - minute with zero if less than 10
+
+format.time=H:MM
+format.chatdate=DD SMN
+format.chatdatewyear=DD SMN YEAR
+format.shortdatenoyear=DD MONTH
+format.shortdate=DD.MO.YEAR
+format.date=DD.MO.YEAR
+format.fulldate=DD.MO.YEAR H:MM
+
+date.today=segodnya
+date.todayat=segodnya v
+date.yesterday=vchera
+date.shortmonth.jan=yan
+date.shortmonth.feb=fev
+date.shortmonth.mar=mar
+date.shortmonth.apr=apr
+date.shortmonth.may=may
+date.shortmonth.jun=iun
+date.shortmonth.jul=iul
+date.shortmonth.aug=avg
+date.shortmonth.sep=sen
+date.shortmonth.oct=okt
+date.shortmonth.nov=noy
+date.shortmonth.dec=dek
+date.month.jan=yanvarya
+date.month.feb=fevralya
+date.month.mar=marta
+date.month.apr=aprelya
+date.month.may=maya
+date.month.jun=iunya
+date.month.jul=iulya
+date.month.aug=avgusta
+date.month.sep=sentyabrya
+date.month.oct=oktyabra
+date.month.nov=noyabra
+date.month.dec=dekabrya
+
+date.minutesago=minut nazad
+date.hoursago=chasov nazad
+date.justnow=tolko chto
+
+error.outofmem=Ne xvataet OZY dlya raboti prilozhenya!
+error.errcode=Kod
+error=Oshibka
+error.additionalinfo=Dop. infa
+error.description=Vozmozhnoe opisanie
+error.contactdevs=za podrobnoy informacii obratites k razrabotchiku
+
+online=online
+offline=offline
+wasonlinedate=byl online
+wasonlinetime=byl online f
+
+menu.videos=Video
+menu.music=Music
+menu.photos=Fotografii
+menu.documents=Documenty
+menu.friends=Druzya
+menu.cannotwrite=[nelzya pisat]
+menu.wall=Stena
+menu.info=Informacia
+menu.grleave=Vyti iz grupy
+menu.grjoin=Vstupit v grupu
+menu.groups=Soobshestva
+menu.quit=Vyhod
+menu.members=Members
+menu.contacts=Kontakty
+menu.website=Site
+menu.writemsg=Napisat soobshenie
+menu.nowebsite=net
+menu.discussions=Obsuzhdeniya
+
+group=Grupa
+group.descriptionempty=[opisanie pusto]
+
+title.people=Ludi
+title.chats=Chaty
+title.newsfeed=Lenta
+title.docs=Documenty
+title.videos=Video
+title.loading=zagruzka
+title.members=Uchastniki
+title.login=Vhod
+title.groups=Grupa
+
+friend.remove=Udalit iz druzey
+friend.add=Dobavit v druzya
+friend.accept=Prinyat zayavku
+friend.cancel=Zayavka otpravlena (otmenit)
+
+subscribe=Podpisatsya
+
+msg=Soobshenie
+msg.attach.audio=Audiozapis
+msg.attach.reply=Otvet
+msg.attach.fwd=Pereslannoe soobshenie
+msg.attach.attachment=Vlozenie
+msg.attach.video=Videozapis
+
+video=Video
+video.1view=prosmotr
+video.views=prosmotrov
+video.viewsfew=prosmotra
+video.addtosebe=Dobavit k sebe
+
+title2.member=uchastnik
+title2.members=uchastnikov
+title2.membersfew=uchastnika
+title2.loading=Zagruzka...
+title2.msgloadingfailed=Ne udalos obnovit soobsheniya!
+
+login.captcharequired=Trebuetsa vvod kapchi!
+login.captcha=Captcha
+login.login=Login
+login.password=Parol
+login.warn=Ne vveden login ili parol!
+login.failed=Ne udalos voity
+
+profile.closed=Eto zakrity profil
+user=Polzovatel
