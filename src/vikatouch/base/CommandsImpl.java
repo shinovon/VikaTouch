@@ -120,16 +120,10 @@ public class CommandsImpl
 						//Видео
 						if(s instanceof MenuScreen)
 						{
-							VikaTouch.popup(new InfoPopup("Функционал видео в разработке и может (будет) не работать. ",new Thread() {
-								public void run() {
-							
-									if(VikaTouch.videosScr == null)
-										VikaTouch.videosScr = new VideosScreen();
-									VikaTouch.videosScr.load(0,0,null);
-									VikaTouch.setDisplay(VikaTouch.videosScr);
-								}
-							},null,"Продолжить"));
-							
+							if(VikaTouch.videosScr == null)
+								VikaTouch.videosScr = new VideosScreen();
+							VikaTouch.videosScr.load(0,0,null);
+							VikaTouch.setDisplay(VikaTouch.videosScr);
 						}
 						break;
 					}
