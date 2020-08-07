@@ -70,6 +70,7 @@ public class VikaTouch
 	private String tokenUnswer;
 	public static VikaTouch inst;
 	public static VikaTouchApp appInst;
+	public static boolean crashed;
 	
 	private void saveToken()
 	{

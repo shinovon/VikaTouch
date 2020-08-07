@@ -21,8 +21,6 @@ public abstract class MainScreen
 	public Image newsImg;
 	protected boolean hasBackButton;
 	public static Image backImg;
-	
-	public static ConfirmBox activeDialog = null;
 
 	protected void scrollHorizontally(int deltaX)
 	{
@@ -42,7 +40,6 @@ public abstract class MainScreen
 	{
 		if(!dragging || !canScroll)
 		{
-			if(activeDialog!=null) return;
 			int wyw = bbw(DisplayUtils.idispi);
 			if(y < oneitemheight + 10)
 			{
@@ -314,20 +311,8 @@ public abstract class MainScreen
 			g.drawRect(endx-2, endy-2, 4, 4);
 			g.drawString("cs"+scroll + " sc" + scrolled + " d" + drift + " ds" + driftSpeed + " st" + scrollingTimer + " sp" + scrollPrev + " t" + timer, 0, 30, 0);
 		}
-		if(activeDialog!=null) 
-		{
-			activeDialog.Draw(g);
-		}
 	}
-
-	public boolean TapDialog(int x, int y) {
-		if(activeDialog!=null) 
-		{
-			activeDialog.OnTap(x, y);
-			return false;
-		}
-		return true;
-	}
+	
 	private int bbw(int i)
 	{
 		switch(i)
