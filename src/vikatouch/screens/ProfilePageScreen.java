@@ -25,7 +25,10 @@ import vikatouch.screens.menu.FriendsScreen;
 import vikatouch.screens.menu.GroupsScreen;
 import vikatouch.screens.menu.MenuScreen;
 
-public class ProfilePageScreen extends MainScreen implements IMenu {
+public class ProfilePageScreen
+	extends MainScreen
+	implements IMenu
+{
 
 	public int id;
 	public boolean closed;
