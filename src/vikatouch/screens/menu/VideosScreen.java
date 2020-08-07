@@ -160,7 +160,7 @@ public class VideosScreen
 				{
 					if(y > 58 && y < DisplayUtils.height - oneitemheight)
 					{
-						int h = 48 + (DocItem.BORDER * 2);
+						int h = 50;
 						int yy1 = y - (scrolled + 58);
 						int i = yy1 / h;
 						if(i < 0)

@@ -123,10 +123,10 @@ public class CommandsImpl
 							VikaTouch.popup(new InfoPopup("Функционал видео в разработке и может (будет) не работать. ",new Thread() {
 								public void run() {
 							
-									if(VikaTouch.videosCanv == null)
-										VikaTouch.videosCanv = new VideosScreen();
-									VikaTouch.videosCanv.load(0,0,null);
-									VikaTouch.setDisplay(VikaTouch.videosCanv);
+									if(VikaTouch.videosScr == null)
+										VikaTouch.videosScr = new VideosScreen();
+									VikaTouch.videosScr.load(0,0,null);
+									VikaTouch.setDisplay(VikaTouch.videosScr);
 								}
 							},null,"Продолжить"));
 							
