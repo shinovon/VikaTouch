@@ -98,6 +98,7 @@ title.videos=Видео
 title.loading=загрузка
 title.members=Участники
 title.login=Вход
+title.groups=Группы
 
 friend.remove=Удалить из друзей
 friend.add=Добавить в друзья
