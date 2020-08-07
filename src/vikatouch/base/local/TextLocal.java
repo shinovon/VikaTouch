@@ -98,13 +98,90 @@ public class TextLocal
 		}
 		return key;
 	}
-	
-	public String formatTime(int H, int M)
+
+	private String replace(String str, String from, int to)
 	{
-		String result = H + ":" + M;
+		if(to == -1)
+		{
+			return str;
+		}
+		return replace(str, from, "" + to);
+	}
+
+	private String replace(String str, String from, String to)
+	{
+		if(to == null)
+		{
+			return str;
+		}
 		try
 		{
-			String format = get("format.time");
+			String result = str;
+			int j = result.indexOf(from);
+			int k = 0;
+	
+			for (int i = from.length(); j != -1; j = str.indexOf(from, k))
+			{
+				result += str.substring(k, j) + to;
+				k = j + i;
+			}
+	
+			result += str.substring(k, str.length());
+			return result;
+		}
+		catch (Exception e)
+		{
+			return str;
+		}
+	}
+	
+	public String formatTime(int hour, int minute)
+	{
+		return format("time", -1, -1, -1, hour, minute);
+	}
+
+	public String formatShortDate(int day, int month, int year)
+	{
+		return format("shortdate", day, month, year, -1, -1);
+	}
+
+	public String formatShortDate(int day, int month)
+	{
+		return format("shortdatenoyear", day, month, -1, -1, -1);
+	}
+
+	public String formatChatDate(int day, int month)
+	{
+		return format("chatdate", day, month, -1, -1, -1);
+	}
+	
+	public String formatChatDate(int day, int month, int year)
+	{
+		return format("chatdatewyear", day, month, year, -1, -1);
+	}
+
+	public String formatFullDate(int day, int month, int year, int hour, int minute)
+	{
+		return format("date", day, month, year, hour, minute);
+	}
+
+	public String formatDate(int day, int month, int year)
+	{
+		return format("date", day, month, year, -1, -1);
+	}
+
+	public String format(String format, int day, int month, int year, int H, int M)
+	{
+		String result = get("format." + format);
+		try
+		{
+			result = replace(result, "DD", day);
+			
+			result = replace(result, "SMN", getShortMonth(month));
+			
+			result = replace(result, "MONTH", getMonth(month));
+			
+			result = replace(result, "YEAR", year);
 			
 			String h = "" + H;
 			
@@ -132,7 +209,6 @@ public class TextLocal
 			
 			String tt = TT.toLowerCase();
 			
-			result = format;
 			result = replace(result, "tt", tt);
 			result = replace(result, "TT", TT);
 			result = replace(result, "h", h);
@@ -145,36 +221,88 @@ public class TextLocal
 		{
 			
 		}
-		
 		return result;
 	}
-
-	private String replace(String str, String from, int to)
+	
+	private String getMonthS(int i)
 	{
-		return replace(str, from, "" + to);
+		switch(i)
+		{
+			case 0:
+			{
+				return "jan";
+			}
+			case 1:
+			{
+				return "feb";
+			}
+			case 2:
+			{
+				return "mar";
+			}
+			case 3:
+			{
+				return "apr";
+			}
+			case 4:
+			{
+				return "may";
+			}
+			case 5:
+			{
+				return "jun";
+			}
+			case 6:
+			{
+				return "jul";
+			}
+			case 7:
+			{
+				return "aug";
+			}
+			case 8:
+			{
+				return "sep";
+			}
+			case 9:
+			{
+				return "oct";
+			}
+			case 10:
+			{
+				return "nov";
+			}
+			case 11:
+			{
+				return "dec";
+			}
+			case -1:
+			{
+				return null;
+			}
+			default:
+			{
+				return "";
+			}
+		}
 	}
 
-	private String replace(String str, String from, String to)
+	private String getMonth(int month)
 	{
-		try
+		if(month == -1)
 		{
-			String result = str;
-			int j = result.indexOf(from);
-			int k = 0;
-	
-			for (int i = from.length(); j != -1; j = str.indexOf(from, k))
-			{
-				result += str.substring(k, j) + to;
-				k = j + i;
-			}
-	
-			result += str.substring(k, str.length());
-			return result;
+			return null;
 		}
-		catch (Exception e)
+		return get("date.month." + getMonthS(month));
+	}
+
+	private String getShortMonth(int month)
+	{
+		if(month == -1)
 		{
-			return str;
+			return null;
 		}
+		return get("date.shortmonth." + getMonthS(month));
 	}
 
 }

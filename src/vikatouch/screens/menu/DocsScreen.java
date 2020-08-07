@@ -27,9 +27,9 @@ public class DocsScreen
 	extends MainScreen implements INextLoadable
 {
 
-	private String loadingStr;
+	private static String loadingStr;
 
-	private String docsStr;
+	private static String docsStr;
 
 	public DocsScreen()
 	{

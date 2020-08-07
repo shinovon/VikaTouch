@@ -22,6 +22,7 @@ import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.items.FriendItem;
 import vikatouch.base.items.OptionItem;
+import vikatouch.base.local.TextLocal;
 import vikatouch.screens.menu.DocsScreen;
 import vikatouch.screens.menu.FriendsScreen;
 import vikatouch.screens.menu.MenuScreen;
@@ -50,10 +51,42 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 	
 	// system
 	private boolean isInfoShown = false;
+
+	protected static String siteStr;
+
+	protected static String wallStr;
+
+	protected static String infoStr;
+
+	protected static String videosStr;
+
+	protected static String musicStr;
+
+	protected static String photosStr;
+
+	protected static String writeMessageStr;
+
+	protected static String cannotWriteStr;
+
+	protected static String docsStr;
+
+	protected static String noWebsiteStr;
+	
 	public static Thread downloaderThread;
 	
 	public GroupPageScreen(int id)
 	{
+		siteStr = TextLocal.inst.get("menu.website");
+		photosStr = TextLocal.inst.get("menu.photos");
+		musicStr = TextLocal.inst.get("menu.music");
+		wallStr = TextLocal.inst.get("menu.wall");
+		cannotWriteStr = TextLocal.inst.get("menu.cannotwrite");
+		noWebsiteStr = TextLocal.inst.get("menu.nowebsite");
+		writeMessageStr = TextLocal.inst.get("menu.writemsg");
+		infoStr = TextLocal.inst.get("menu.info");
+		docsStr = TextLocal.inst.get("menu.documents");
+		videosStr = TextLocal.inst.get("menu.videos");
+		
 		hasBackButton = true;
 		this.menuImg = MenuScreen.menuImg;
 		this.newsImg = VikaTouch.menuScr.newsImg;
@@ -69,6 +102,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 		final GroupPageScreen thisC = this;
 		downloaderThread = new Thread()
 		{
+
 			public void run()
 			{
 				try
@@ -103,18 +137,18 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 						} catch (Exception e) { }
 						itemsCount = 13;
 						uiItems = new OptionItem[13];
-						uiItems[0] = new OptionItem(thisC, "Участники ("+membersCount+")", IconsManager.GROUPS, 0, 50);
+						uiItems[0] = new OptionItem(thisC, " ("+membersCount+")", IconsManager.GROUPS, 0, 50);
 						uiItems[1] = new OptionItem(thisC, isMember?"Выйти из группы":"Вступить в группу", 
 								isMember?IconsManager.CLOSE:IconsManager.ADD, 1, 50);
-						uiItems[2] = new OptionItem(thisC, canMsg?"Написать сообщение":"[нельзя писать]", IconsManager.MSGS, 2, 50);
-						uiItems[3] = new OptionItem(thisC, "Стена", IconsManager.NEWS, 3, 50);
-						uiItems[4] = new OptionItem(thisC, "Информация", IconsManager.INFO, 4, 50);
-						uiItems[5] = new OptionItem(thisC, photos==0?"[нет фотографий]":"Фотографии ("+photos+")", IconsManager.PHOTOS, 5, 50);
-						uiItems[6] = new OptionItem(thisC, music==0?"[нет музыки]":"Музыка ("+music+")", IconsManager.MUSIC, 6, 50);
-						uiItems[7] = new OptionItem(thisC, videos==0?"[нет видео]":"Видео ("+videos+")", IconsManager.VIDEOS, 7, 50);
-						uiItems[8] = new OptionItem(thisC, docs==0?"[нет документов]":"Документы ("+docs+")", IconsManager.DOCS, 8, 50);
-						uiItems[9] = new OptionItem(thisC, topics==0?"[нет обсуждений]":"Обсуждения ("+topics+")", IconsManager.COMMENTS, 9, 50);
-						uiItems[10] = new OptionItem(thisC, (site==null||site.length()<5)?"[сайт не указан]":"Сайт: "+site, IconsManager.REPOST, 10, 50);
+						uiItems[2] = new OptionItem(thisC, canMsg?writeMessageStr:cannotWriteStr, IconsManager.MSGS, 2, 50);
+						uiItems[3] = new OptionItem(thisC, wallStr, IconsManager.NEWS, 3, 50);
+						uiItems[4] = new OptionItem(thisC, infoStr, IconsManager.INFO, 4, 50);
+						uiItems[5] = new OptionItem(thisC, photosStr + " ("+photos+")", IconsManager.PHOTOS, 5, 50);
+						uiItems[6] = new OptionItem(thisC, musicStr + " ("+music+")", IconsManager.MUSIC, 6, 50);
+						uiItems[7] = new OptionItem(thisC, videosStr + " ("+videos+")", IconsManager.VIDEOS, 7, 50);
+						uiItems[8] = new OptionItem(thisC, docsStr + " ("+docs+")", IconsManager.DOCS, 8, 50);
+						uiItems[9] = new OptionItem(thisC, "Обсуждения ("+topics+")", IconsManager.COMMENTS, 9, 50);
+						uiItems[10] = new OptionItem(thisC, (site==null||site.length()<5)?siteStr+": "+noWebsiteStr:siteStr+": "+site, IconsManager.REPOST, 10, 50);
 						uiItems[11] = new OptionItem(thisC, "Ссылки", IconsManager.REPOST, 11, 50);
 						uiItems[12] = new OptionItem(thisC, "Контакты", IconsManager.GROUPS, 11, 50);
 					}

@@ -17,7 +17,7 @@ public class InfoPopup
 	
 	public InfoPopup(String text, Thread onOk, String title, String btnText)
 	{
-		lines = TextBreaker.breakText(text, false, null, true, Math.min(DisplayUtils.width-10, 350)-60);
+		lines = TextBreaker.breakText(text, false, null, true, Math.min(DisplayUtils.width-20, 340)-60);
 		ok = onOk;
 		int i=0;
 		while(i<lines.length && lines[i]!=null)
@@ -31,7 +31,7 @@ public class InfoPopup
 	
 	public InfoPopup(String text, Thread onOk)
 	{
-		lines = TextBreaker.breakText(text, false, null, true, Math.min(DisplayUtils.width-16, 350)-60);
+		lines = TextBreaker.breakText(text, false, null, true, Math.min(DisplayUtils.width-20, 340)-60);
 		ok = onOk;
 		int i=0;
 		while(i<lines.length && lines[i]!=null)

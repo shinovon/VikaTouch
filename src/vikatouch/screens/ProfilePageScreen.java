@@ -19,6 +19,7 @@ import vikatouch.base.JSONBase;
 import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.items.OptionItem;
+import vikatouch.base.local.TextLocal;
 import vikatouch.screens.menu.DocsScreen;
 import vikatouch.screens.menu.FriendsScreen;
 import vikatouch.screens.menu.GroupsScreen;
@@ -51,9 +52,11 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 	public static Thread downloaderThread;
 	private boolean friendAdd; // если true, друг добавляется. Если 0, удаляется.
 	private String visitStr;
+	protected String onlineStr;
 	
 	public ProfilePageScreen(int id)
 	{
+		onlineStr = TextLocal.inst.get("online");
 		hasBackButton = true;
 		this.menuImg = MenuScreen.menuImg;
 		this.newsImg = VikaTouch.menuScr.newsImg;
@@ -99,7 +102,7 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 						
 						if(online)
 						{
-							visitStr = "Онлайн";
+							visitStr = onlineStr;
 						}
 						else
 						{
@@ -149,11 +152,11 @@ public class ProfilePageScreen extends MainScreen implements IMenu {
 							
 							uiItems[2] = new OptionItem(thisC, "Друзья ("+friends+")", IconsManager.FRIENDS, 2, 50);
 							uiItems[3] = new OptionItem(thisC, "Стена", IconsManager.NEWS, 3, 50);
-							uiItems[4] = new OptionItem(thisC, groups==0?"[группы скрыты]":"Группы ("+groups+")", IconsManager.GROUPS, 4, 50);
-							uiItems[5] = new OptionItem(thisC, photos==0?"[нет фотографий]":"Фотографии ("+photos+")", IconsManager.PHOTOS, 5, 50);
-							uiItems[6] = new OptionItem(thisC, music==0?"[нет музыки]":"Музыка ("+music+")", IconsManager.MUSIC, 6, 50);
-							uiItems[7] = new OptionItem(thisC, videos==0?"[нет видео]":"Видео ("+videos+")", IconsManager.VIDEOS, 7, 50);
-							uiItems[8] = new OptionItem(thisC, docs==0?"[нет документов]":"Документы ("+docs+")", IconsManager.DOCS, 8, 50);
+							uiItems[4] = new OptionItem(thisC, "Группы ("+groups+")", IconsManager.GROUPS, 4, 50);
+							uiItems[5] = new OptionItem(thisC, "Фотографии ("+photos+")", IconsManager.PHOTOS, 5, 50);
+							uiItems[6] = new OptionItem(thisC, "Музыка ("+music+")", IconsManager.MUSIC, 6, 50);
+							uiItems[7] = new OptionItem(thisC, "Видео ("+videos+")", IconsManager.VIDEOS, 7, 50);
+							uiItems[8] = new OptionItem(thisC, "Документы ("+docs+")", IconsManager.DOCS, 8, 50);
 						}
 						uiItems[1] = new OptionItem(thisC, (new String[] {"Добавить в друзья","Заявка отправлена (отменить)","Принять заявку","Удалить из друзей"})[friendState],
 								(friendState==3||friendState==1)?IconsManager.CLOSE:IconsManager.ADD, 1, 50);

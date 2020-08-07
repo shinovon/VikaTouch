@@ -22,6 +22,7 @@ import javax.microedition.lcdui.Image;
 
 import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;
+import vikatouch.base.local.TextLocal;
 
 
 public final class VikaUtils
@@ -41,9 +42,6 @@ public final class VikaUtils
 		cal.setTime(currentDate);
 		final int currentYear = cal.get(Calendar.YEAR);
 		
-		final String[] months = new String[] {"янв", "фев", "мар", "апр", "мая", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"};
-		final String monthString = months[month];
-		
 	    final String time = time(date);
 	    
 	    final long dayDelta = (paramLong / 60L / 60L / 24L) - (System.currentTimeMillis() / 1000L / 60L / 60L / 24L);
@@ -59,12 +57,17 @@ public final class VikaUtils
 		    }
 		    else if(dayDelta == 1)
 		    {
-		    	result = "вчера";
+		    	result = TextLocal.inst.get("date.yesterday");
 		    	break parsing;
 		    }
 		    else if(currentYear == year)
 		    {
-		    	result = day + " " + monthString;
+		    	result = TextLocal.inst.formatChatDate(day, month);
+		    	break parsing;
+		    }
+		    else
+		    {
+		    	result = TextLocal.inst.formatChatDate(day, month, year);
 		    	break parsing;
 		    }
 	    }
@@ -87,14 +90,9 @@ public final class VikaUtils
 		cal.setTime(currentDate);
 		final int currentYear = cal.get(Calendar.YEAR);
 		
-		final String[] months = new String[] {"января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"};
-		final String monthString = months[month];
-		
 	    final String time = time(date);
 	    
 	    final long dayDelta = (paramLong / 60L / 60L / 24L) - (System.currentTimeMillis() / 1000L / 60L / 60L / 24L);
-	    
-	    final String dateString = day + " " + monthString + " " + year + " г.";
 	    
 	    String result;
 	    
@@ -102,27 +100,23 @@ public final class VikaUtils
 	    {
 		    if(dayDelta == 0)
 		    {
-		    	result = "Сегодня в " + time;
+		    	result = TextLocal.inst.get("date.todayat");
+		    	result += " " + time;
 		    	break parsing;
 		    }
 		    else if(dayDelta == 1)
 		    {
-		    	result = "вчера";
-		    	break parsing;
-		    }
-		    else if(dayDelta == 2)
-		    {
-		    	result = "позавчера";
+		    	result = TextLocal.inst.get("date.yesterday");
 		    	break parsing;
 		    }
 		    else if(currentYear == year)
 		    {
-		    	result = day + " " + monthString;
+		    	result = TextLocal.inst.formatShortDate(day, month);
 		    	break parsing;
 		    }
 		    else
 		    {
-		    	result = dateString;
+		    	result = TextLocal.inst.formatDate(day, month, year);
 		    	break parsing;
 		    }
 	    }
@@ -579,16 +573,7 @@ public final class VikaUtils
 		cal.setTime(date);
 		int hours = cal.get(11);
 		int minutes = cal.get(12);
-		String time = hours + ":";
-		if (minutes < 10)
-		{
-			time += "0" + minutes;
-		}
-		else
-		{
-			time += minutes;
-		}
-
+		String time = TextLocal.inst.formatTime(hours, minutes);
 		return time;
 	}
 
@@ -599,21 +584,9 @@ public final class VikaUtils
 		cal.setTime(date);
 		int day = cal.get(Calendar.DAY_OF_MONTH);
 		int month = cal.get(Calendar.MONTH);
-		final String[] months = new String[] {"января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"};
-		final String monthStr = months[month];
 		int year = cal.get(Calendar.YEAR);
 		int hour = cal.get(Calendar.HOUR);
 		int minutes = cal.get(Calendar.MINUTE);
-		String dateString = day + " " + monthStr + " " + year + " г.в " + hour + ":";
-		if (minutes < 10)
-		{
-			dateString += "0" + minutes;
-		}
-		else
-		{
-			dateString += minutes;
-		}
-
-		return dateString;
+		return TextLocal.inst.formatFullDate(day, month, year, hour, minutes);
 	}
 }
