@@ -262,7 +262,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 							}
 							Load();
 						}
-					}, null));
+					}, null);
 					break;
 				case 2:
 					// сообщение

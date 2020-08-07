@@ -644,18 +644,12 @@ public class MenuScreen
 				}
 			}
 		}
-		
-		if(activePopup!=null) 
-		{
-			activePopup.Draw(g);
-		}
 	}
 
 	public final void release(int x, int y)
 	{
 		if(!dragging)
 		{
-			if(TapPopup(x,y))
 			switch(DisplayUtils.idispi)
 			{
 				case DisplayUtils.DISPLAY_PORTRAIT:
