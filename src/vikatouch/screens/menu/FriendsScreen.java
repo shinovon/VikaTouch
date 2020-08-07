@@ -26,22 +26,25 @@ public class FriendsScreen
 	extends MainScreen implements INextLoadable
 {
 	
-	private String loadingStr;
+	private static String loadingStr;
 
-	private String membersStr;
+	private static String membersStr;
 
-	private String friendsStr;
+	private static String friendsStr;
 
-	private String peopleStr;
+	private static String peopleStr;
 
 	public FriendsScreen()
 	{
 		this.menuImg = MenuScreen.menuImg;
 		this.newsImg = VikaTouch.menuScr.newsImg;
-		loadingStr = TextLocal.inst.get("title.loading");
-		peopleStr = TextLocal.inst.get("title.people");
-		friendsStr = TextLocal.inst.get("title.friends");
-		membersStr = TextLocal.inst.get("title.members");
+		if(loadingStr == null)
+		{
+			loadingStr = TextLocal.inst.get("title.loading");
+			peopleStr = TextLocal.inst.get("title.people");
+			friendsStr = TextLocal.inst.get("title.friends");
+			membersStr = TextLocal.inst.get("title.members");
+		}
 	}
 	
 	public boolean isReady()

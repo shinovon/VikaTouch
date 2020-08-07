@@ -62,12 +62,12 @@ public final class VikaUtils
 		    }
 		    else if(currentYear == year)
 		    {
-		    	result = TextLocal.inst.formatShortDate(day, month);
+		    	result = TextLocal.inst.formatChatDate(day, month);
 		    	break parsing;
 		    }
 		    else
 		    {
-		    	result = TextLocal.inst.formatShortDate(day, month, year);
+		    	result = TextLocal.inst.formatChatDate(day, month, year);
 		    	break parsing;
 		    }
 	    }
