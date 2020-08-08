@@ -71,8 +71,7 @@ public class MsgItem
 		
 		for(int i = 0; i < linesC; i++)
 		{
-			//g.drawString(drawText[i]==null?" ":drawText[i], textX, y+h1/2+h1*i, 0);
-			g.drawString(text, textX, y+h1/2+h1*i, 0); // TEST
+			g.drawString(drawText[i]==null?" ":drawText[i], textX, y+h1/2+h1*i, 0);
 		}
 	}
 

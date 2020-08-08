@@ -119,7 +119,7 @@ public class ChatScreen
 				try
 				{ // скачка сообщений
 					uiItems = new PressableUIItem[Settings.messagesPerLoad];
-					final String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("count", Settings.messagesPerLoad).addField("offset", 0)/*.addField("rev", 1)*/);
+					final String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("count", Settings.messagesPerLoad).addField("offset", 0));
 					JSONArray json = new JSONObject(x).getJSONObject("response").getJSONArray("items");
 					for(int i = 0; i<json.length();i++) {
 						MsgItem m = new MsgItem(json.getJSONObject(i));
