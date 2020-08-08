@@ -2,14 +2,14 @@
 #русский
 #оригинальный язык
 #авторы shinovon, Feodor0090
-#версия 2020.08.08
+#версия 2020.08.09
 #
 #вк авторов:
 #vk.com/shinovon
 #vk.com/r_f_klin
 
 langinfo.name=Русский
-langinfo.version=2020.08.08
+langinfo.version=2020.08.09
 
 # LANG FORMAT
 #| - new line
@@ -100,6 +100,7 @@ menu.website=Сайт
 menu.writemsg=Написать сообщение
 menu.nowebsite=нет
 menu.discussions=Обсуждения
+menu.loading=Загрузка...
 
 group=Группа
 group.descriptionempty=[описание пусто]
@@ -113,6 +114,7 @@ title.loading=загрузка
 title.members=Участники
 title.login=Вход
 title.groups=Группы
+title.friends=Друзья
 
 friend.remove=Удалить из друзей
 friend.add=Добавить в друзья
