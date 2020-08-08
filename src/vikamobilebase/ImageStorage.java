@@ -267,15 +267,20 @@ public class ImageStorage
     public static void loadImages()
     		throws Exception
     {
-    	
-        RecordStore recordStore = RecordStore.openRecordStore(RMS_IMAGES, true);
-        if (recordStore.getNumRecords() == 0 && images.size() > 0)
-        {
-            storeImagesInRMS();
-        }
-        restoreImagesFromRMS();
+    	RecordStore recordStore;
+    	try 
+    	{
+    		recordStore = RecordStore.openRecordStore(RMS_IMAGES, true);
+    		if (recordStore.getNumRecords() == 0 && images.size() > 0)
+            {
+                storeImagesInRMS();
+            }
+            restoreImagesFromRMS();
+            isLoaded = true;
+    	} 
+    	catch (RecordStoreNotFoundException e)
+    	{ }
         
-        isLoaded = true;
     }
  
     /**
