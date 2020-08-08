@@ -50,7 +50,16 @@ public class MsgItem
 		JSONObject reply = json.optJSONObject("reply_message");
 		if(reply!=null)
 		{
+			hasReply = true;
 			replyText = reply.optString("text");
+			if(replyText==null)
+			{
+				replyText = "Вложения";
+			}
+			else
+			{
+				replyText = TextBreaker.breakText(replyText, false, null, true, maxWidth-h1-h1)[0];
+			}
 			int fromId = reply.optInt("from_id");
 			if(fromId==Integer.parseInt(VikaTouch.userId))
 			{
@@ -76,7 +85,7 @@ public class MsgItem
 		Font font = Font.getFont(0, 0, 8);
 		g.setFont(font);
 		int h1 = font.getHeight();
-		int th = h1*(linesC+1+(name==null?0:1));
+		int th = h1*(linesC+1+(name==null?0:1)+(hasReply?2:0));
 		itemDrawHeight = th;
 		int textX = 0;
 		final int radius = 16;
@@ -110,6 +119,15 @@ public class MsgItem
 		{
 			g.drawString(drawText[i]==null?" ":drawText[i], textX, y+h1/2+h1*(i+(name==null?0:1)), 0);
 		}
+		
+		if(hasReply)
+		{
+			g.drawString(replyText, textX+h1, y+h1/2+h1*(linesC+1+(name==null?0:1)), 0);
+			ColorUtils.setcolor(g, ColorUtils.COLOR1);
+			g.drawString(replyName, textX+h1, y+h1/2+h1*(linesC+(name==null?0:1)), 0);
+			g.fillRect(textX+h1/2-1, y+h1/2+h1*(linesC+(name==null?0:1)), 2, h1*2);
+		}
+		
 	}
 
 	public String getTime()
