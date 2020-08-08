@@ -43,6 +43,8 @@ public class ChatScreen
 	private JSONObject json;
 	private JSONObject chatSettings;
 	
+	public static Hashtable profileNames = new Hashtable();
+	
 	public ChatScreen(int peerId, String title)
 	{
 		title2 = "Загрузка...";
@@ -131,7 +133,7 @@ public class ChatScreen
 	}
 
 	private void messagesChat()
-	{
+	{ // unstable
 		try
 		{
 			// скачка сообщений
@@ -139,42 +141,42 @@ public class ChatScreen
 			final String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("extended", 1).addField("count", Settings.messagesPerLoad).addField("offset", 0));
 			final JSONArray profiles = new JSONObject(x).getJSONObject("response").getJSONArray("profiles");
 			final JSONArray items = new JSONObject(x).getJSONObject("response").getJSONArray("items");
-			boolean lastF = false;
-			int lastid = 0;
 			
-			Hashtable profilesHash = new Hashtable();
 			
 			for(int i = 0; i < profiles.length(); i++)
 			{
 				final JSONObject profile = profiles.getJSONObject(i);
 				String firstname = profile.optString("first_name");
-				String lastname = profile.optString("first_name");
+				String lastname = profile.optString("last_name");
 				int id = profile.optInt("id");
-				if(id > 0 && firstname != null)
-					profilesHash.put(new Integer(id), firstname + "" + lastname);
+				if(id > 0 && firstname != null && !profileNames.containsKey(new Integer(id)))
+					profileNames.put(new Integer(id), firstname + " " + lastname);
 			}
 			for(int i = 0; i < items.length(); i++)
 			{
 				MsgItem m = new MsgItem(items.getJSONObject(i));
 				m.parseJSON();
-				int id = m.fromid; 
+				int fromId = m.fromid; 
 
-				String name = "user" + id;
-				Integer ii = new Integer(id);
+				String name = "user" + fromId;
+				Integer ii = new Integer(fromId);
 				
-				if(profilesHash.contains(ii))
+				if(profileNames.containsKey(ii))
 				{
-					name = (String) profilesHash.get(ii);
+					name = (String) profileNames.get(ii);
 				}
 				
-				boolean chain = lastid == id;
+				boolean chain = false;
+				if(i+1<items.length())
+				{
+					chain = fromId == items.getJSONObject(i+1).optInt("from_id");
+				}
 				if(!chain)
 				{
 					m.name = (m.foreign ? name :"Вы");
 				}
 				uiItems[uiItems.length-1-i] = m;
-				lastF = m.foreign;
-				lastid = id;
+				//lastid = fromId;
 			}
 		}
 		catch (Exception e)
@@ -192,17 +194,23 @@ public class ChatScreen
 			uiItems = new PressableUIItem[Settings.messagesPerLoad];
 			final String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("count", Settings.messagesPerLoad).addField("offset", 0));
 			JSONArray json = new JSONObject(x).getJSONObject("response").getJSONArray("items");
-			boolean lastF = false;
-			for(int i = 0; i<json.length();i++) {
+			profileNames.put(new Integer(peerId), title);
+			for(int i = 0; i<json.length();i++) 
+			{
 				MsgItem m = new MsgItem(json.getJSONObject(i));
 				m.parseJSON();
-				boolean chain = (lastF == m.foreign);
+				int fromId = m.fromid; 
+				
+				boolean chain = false;
+				if(i+1<json.length())
+				{
+					chain = fromId == json.getJSONObject(i+1).optInt("from_id");
+				}
 				if(!chain)
 				{
 					m.name = (m.foreign?title:"Вы");
 				}
 				uiItems[uiItems.length-1-i] = m;
-				lastF = m.foreign;
 			}
 		}
 		catch (Exception e)

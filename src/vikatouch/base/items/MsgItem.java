@@ -8,11 +8,10 @@ import javax.microedition.lcdui.Image;
 
 import org.json.me.JSONObject;
 
-import ru.nnproject.vikaui.ColorUtils;
-import ru.nnproject.vikaui.DisplayUtils;
-import ru.nnproject.vikaui.TextBreaker;
+import ru.nnproject.vikaui.*;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.VikaTouch;
+import vikatouch.screens.ChatScreen;
 
 public class MsgItem
 	extends ChatItem
@@ -30,6 +29,10 @@ public class MsgItem
 	public static int margin = 10;
 	public int linesC;
 	private String time;
+	
+	private boolean hasReply;
+	public String replyName;
+	public String replyText;
 
 	public void parseJSON()
 	{
@@ -42,6 +45,30 @@ public class MsgItem
 		for (linesC=0; (linesC<drawText.length && drawText[linesC]!=null); linesC++) { }
 		
 		itemDrawHeight = h1*(linesC+1);
+		
+		
+		JSONObject reply = json.optJSONObject("reply_message");
+		if(reply!=null)
+		{
+			replyText = reply.optString("text");
+			int fromId = reply.optInt("from_id");
+			if(fromId==Integer.parseInt(VikaTouch.userId))
+			{
+				replyName = "Вы";
+			}
+			else
+			{
+				if(ChatScreen.profileNames.containsKey(new Integer(fromId)))
+				{
+					replyName = (String) ChatScreen.profileNames.get(new Integer(fromId));
+				}
+			}
+		}
+		
+		// experimental
+		{
+			if(text.equals("Т")) VikaTouch.popup(new InfoPopup(json.toString(), null));
+		}
 	}
 	
 	public void paint(Graphics g, int y, int scrolled)
