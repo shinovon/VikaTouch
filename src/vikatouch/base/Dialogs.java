@@ -27,6 +27,8 @@ public class Dialogs
 	public static boolean selected;
 	
 	public static Thread downloaderThread;
+
+	private static Thread downloaderThread2;
 	
 	public static void refreshDialogsList()
 	{
@@ -103,9 +105,29 @@ public class Dialogs
 					e.printStackTrace();
 				}
 				VikaTouch.loading = false;
+
+				//поток качающий картинки
+				downloaderThread2 = new Thread()
+				{
+					public void run()
+					{
+						VikaTouch.loading = true;
+						
+						for(int i = 0; i < itemsCount; i++)
+						{
+							if(dialogs[i] != null)
+							{
+								dialogs[i].getAva();
+							}
+						}
+						
+						VikaTouch.loading = false;
+					}
+				};
+				downloaderThread2.start();
+				Thread.yield();
 			}
 		};
-		
 		downloaderThread.start();
 	}
 	

@@ -105,6 +105,10 @@ public class TextLocal
 		{
 			return str;
 		}
+		if(to == -2)
+		{
+			return str;
+		}
 		return replace(str, from, "" + to);
 	}
 

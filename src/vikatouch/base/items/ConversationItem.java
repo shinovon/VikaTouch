@@ -37,6 +37,7 @@ public class ConversationItem
 	private boolean isGroup;
 	private int id;
 	public int peerId;
+	private Image ava;
 	//private static Image deleteImg;
 	private static Image unreadImg;
 	
@@ -64,8 +65,9 @@ public class ConversationItem
 		}
 	}
 
-	public Image getAva()
+	public void getAva()
 	{
+		
 		Image img = null;
 		try
 		{
@@ -81,13 +83,12 @@ public class ConversationItem
 					
 				}
 			}
-			return ResizeUtils.resizeChatAva(img);
+			ava = ResizeUtils.resizeChatAva(img);
 		}
 		catch (Exception e)
 		{
 			
 		}
-		return null;
 	}
 	
 	public String getTime()
@@ -135,7 +136,6 @@ public class ConversationItem
 			g.drawString(time, DisplayUtils.width - (16 + font.stringWidth(time)), y + 16, 0);
 		}
 		
-		Image ava = getAva();
 		
 		if(ava != null)
 		{

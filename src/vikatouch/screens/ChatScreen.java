@@ -1,6 +1,8 @@
 package vikatouch.screens;
 
+import java.util.Hashtable;
 import java.util.Random;
+import java.util.Vector;
 
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
@@ -64,6 +66,7 @@ public class ChatScreen
 			type = TYPE_GROUP;
 			//title2 = "group" + this.localId;
 			this.title2 = "";
+			messagesDialog();
 		}
 		else if(peerId > 0)
 		{
@@ -88,6 +91,8 @@ public class ChatScreen
 						this.title2 = e.toString();
 						//this.title2 = "Ошибка JSON";
 					}
+
+					messagesChat();
 				}
 				catch (Exception e)
 				{
@@ -116,8 +121,71 @@ public class ChatScreen
 				{
 					this.title2 = "Не удалось загрузить информацию.";
 				}
+				messagesDialog();
 			}
 		}
+		
+		System.gc();
+		scroll = -10000;
+		dragging = true;
+	}
+
+	private void messagesChat()
+	{
+		try
+		{
+			// скачка сообщений
+			uiItems = new PressableUIItem[Settings.messagesPerLoad];
+			final String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("extended", 1).addField("count", Settings.messagesPerLoad).addField("offset", 0));
+			final JSONArray profiles = new JSONObject(x).getJSONObject("response").getJSONArray("profiles");
+			final JSONArray items = new JSONObject(x).getJSONObject("response").getJSONArray("items");
+			boolean lastF = false;
+			int lastid = 0;
+			
+			Hashtable profilesHash = new Hashtable();
+			
+			for(int i = 0; i < profiles.length(); i++)
+			{
+				final JSONObject profile = profiles.getJSONObject(i);
+				String firstname = profile.optString("first_name");
+				String lastname = profile.optString("first_name");
+				int id = profile.optInt("id");
+				if(id > 0 && firstname != null)
+					profilesHash.put(new Integer(id), firstname + "" + lastname);
+			}
+			for(int i = 0; i < items.length(); i++)
+			{
+				MsgItem m = new MsgItem(items.getJSONObject(i));
+				m.parseJSON();
+				int id = m.fromid; 
+
+				String name = "user" + id;
+				Integer ii = new Integer(id);
+				
+				if(profilesHash.contains(ii))
+				{
+					name = (String) profilesHash.get(ii);
+				}
+				
+				boolean chain = lastid == id;
+				if(!chain)
+				{
+					m.name = (m.foreign ? name :"Вы");
+				}
+				uiItems[uiItems.length-1-i] = m;
+				lastF = m.foreign;
+				lastid = id;
+			}
+		}
+		catch (Exception e)
+		{
+			this.title2 = "Не удалось загрузить сообщения.";
+			e.printStackTrace();
+		}
+	}
+
+	private void messagesDialog()
+	{
 		try
 		{
 			// скачка сообщений
@@ -125,8 +193,7 @@ public class ChatScreen
 			final String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("count", Settings.messagesPerLoad).addField("offset", 0));
 			JSONArray json = new JSONObject(x).getJSONObject("response").getJSONArray("items");
 			boolean lastF = false;
-			for(int i = 0; i < json.length(); i++)
-			{
+			for(int i = 0; i<json.length();i++) {
 				MsgItem m = new MsgItem(json.getJSONObject(i));
 				m.parseJSON();
 				boolean chain = (lastF == m.foreign);
@@ -144,8 +211,6 @@ public class ChatScreen
 			e.printStackTrace();
 		}
 		
-		System.gc();
-		scroll = -10000;
 	}
 
 	public void draw(Graphics g)

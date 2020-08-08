@@ -10,6 +10,7 @@ public class UIThread
 	{
 		super();
 		this.canvas = canvas;
+		this.setPriority(Thread.MAX_PRIORITY);
 	}
 
 	public void run()
