@@ -88,7 +88,7 @@ public class InfoPopup
 	
 	public void release(int x, int y)
 	{
-		int width = Math.min(DisplayUtils.width-20, 300);
+		int width = Math.min(DisplayUtils.width-8, 350);
 		Font f = Font.getFont(0, 0, Font.SIZE_MEDIUM);
 		int h1 = f.getHeight();
 		int th = h1*4 + h1*linesCount;

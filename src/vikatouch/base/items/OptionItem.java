@@ -22,6 +22,8 @@ public class OptionItem
 	boolean s;
 	static Font f;
 	
+	public int drawX; public int fillW; // for context menu
+	
 	public OptionItem(IMenu m, String t, int ic, int i, int h)
 	{
 		this.h = h;
@@ -36,16 +38,16 @@ public class OptionItem
 		if(ScrollableCanvas.keysMode && s)
 		{
 			ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
-			g.fillRect(0, y, DisplayUtils.width, h);
+			g.fillRect(drawX, y, fillW==0?DisplayUtils.width:fillW, h);
 		}
 		ColorUtils.setcolor(g, 0);
 		g.setFont(f);
-		int x = 48;
+		int x = drawX + 48;
 		if(icon == -1)
-			x = 8;
+			x = x - 40;
 		g.drawString(text, x, y + ((h/2) - (f.getHeight()/2)), 0);
 		if(icon != -1)
-			g.drawImage(IconsManager.ico[icon], 12, y + (h/2 - 12), 0);
+			g.drawImage(IconsManager.ico[icon], drawX + 12, y + (h/2 - 12), 0);
 	}
 
 	public int getDrawHeight() {
