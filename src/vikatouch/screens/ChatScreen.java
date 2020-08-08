@@ -121,10 +121,18 @@ public class ChatScreen
 					uiItems = new PressableUIItem[Settings.messagesPerLoad];
 					final String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("count", Settings.messagesPerLoad).addField("offset", 0));
 					JSONArray json = new JSONObject(x).getJSONObject("response").getJSONArray("items");
+					boolean lastF = false;
 					for(int i = 0; i<json.length();i++) {
 						MsgItem m = new MsgItem(json.getJSONObject(i));
 						m.parseJSON();
-						uiItems[i] = m;
+						boolean chain = (lastF == m.foreign);
+						if(!chain)
+						{
+							m.name = (m.foreign?title:"Вы");
+							//TODO время отправки
+						}
+						uiItems[uiItems.length-1-i] = m;
+						lastF = m.foreign;
 					}
 				}
 				catch (Exception e)

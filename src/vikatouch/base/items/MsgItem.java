@@ -24,12 +24,11 @@ public class MsgItem
 	
 	public long mid;
 	private String[] drawText;
-	public String name;
+	public String name = null;
 	public boolean foreign;
 	public static int maxWidth = 300;
 	public static int margin = 10;
 	public int linesC;
-	
 
 	public void parseJSON()
 	{
@@ -49,7 +48,7 @@ public class MsgItem
 		Font font = Font.getFont(0, 0, 8);
 		g.setFont(font);
 		int h1 = font.getHeight();
-		int th = h1*(linesC+1);
+		int th = h1*(linesC+1+(name==null?0:1));
 		itemDrawHeight = th;
 		int textX = 0;
 		final int radius = 16;
@@ -67,11 +66,18 @@ public class MsgItem
 			g.fillRect(DisplayUtils.width-(margin+radius), y+th-radius, radius, radius);
 			textX = DisplayUtils.width-(margin+maxWidth) + h1/2;
 		}
+		if(name!=null)
+		{
+			ColorUtils.setcolor(g, ColorUtils.COLOR1);
+			g.drawString(name, textX, y+h1/2, 0);
+			ColorUtils.setcolor(g, ColorUtils.OUTLINE);
+			String time = "00:00";
+			g.drawString(time, textX-h1+maxWidth-font.stringWidth(time), y+h1/2, 0);
+		}
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
-		
 		for(int i = 0; i < linesC; i++)
 		{
-			g.drawString(drawText[i]==null?" ":drawText[i], textX, y+h1/2+h1*i, 0);
+			g.drawString(drawText[i]==null?" ":drawText[i], textX, y+h1/2+h1*(i+(name==null?0:1)), 0);
 		}
 	}
 
