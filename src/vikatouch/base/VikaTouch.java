@@ -51,6 +51,7 @@ public class VikaTouch
 	public static VikaTouch inst;
 	public static VikaTouchApp appInst;
 	public static boolean crashed;
+	protected static SettingsScreen sets;
 
 	private void saveToken()
 	{

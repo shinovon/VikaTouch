@@ -146,7 +146,7 @@ public class Settings
 		messagesPerLoad = 60;
 		videoResolution = "480";
 		language = "ru_RU";
-		cacheImages = false;
+		cacheImages = true;
 	}
 
 }
