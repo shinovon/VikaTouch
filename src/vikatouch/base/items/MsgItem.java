@@ -21,59 +21,69 @@ public class MsgItem
 	{
 		super(json);
 	}
-
+	
 	public long mid;
 	private String[] drawText;
-	public Image ava;
+	public String name;
+	public boolean foreign;
+	public static int maxWidth = 300;
+	public static int margin = 10;
+	public int linesC;
+	
 
 	public void parseJSON()
 	{
 		super.parseJSON();
 		parseAttachments();
-		itemDrawHeight = 32;
+		// {"id":354329,"important":false,"date":1596389831,"attachments":[],"out":0,"is_hidden":false,"conversation_message_id":7560,"fwd_messages":[],"random_id":0,"text":"Будет срач с Лëней или он уже потерял интерес?","from_id":537403336,"peer_id":537403336}
+		foreign = json.optInt("from_id")!=Integer.parseInt(VikaTouch.userId);
+		int h1 = Font.getFont(0, 0, 8).getHeight();
+		drawText = TextBreaker.breakText(text, false, null, true, maxWidth-h1);
+		for (linesC=0; (linesC<drawText.length && drawText[linesC]!=null); linesC++) { }
+		
+		itemDrawHeight = h1*(linesC+1);
 	}
 	
 	public void paint(Graphics g, int y, int scrolled)
 	{
-		
-		if(drawText == null)
-		{
-			drawText = TextBreaker.breakText(text, false, this, true, DisplayUtils.width - 104);
-			if(itemDrawHeight < 56)
-			{
-				itemDrawHeight = 56;
-			}
-		}
-		ColorUtils.setcolor(g, ColorUtils.COLOR1);
-		//g.fillRoundRect(5, y + 36, DisplayUtils.width - 16, itemDrawHeight - 40, 6, 6);
-		ColorUtils.setcolor(g, ColorUtils.TEXT);
 		Font font = Font.getFont(0, 0, 8);
 		g.setFont(font);
-		for(int i = 0; i < drawText.length; i++)
+		int h1 = font.getHeight();
+		int th = h1*(linesC+1);
+		itemDrawHeight = th;
+		int textX = 0;
+		final int radius = 16;
+		if(foreign)
 		{
-			
+			ColorUtils.setcolor(g, ColorUtils.FOREIGNMSG);
+			g.fillRoundRect(margin, y, maxWidth, th, radius, radius);
+			g.fillRect(margin, y+th-radius, radius, radius);
+			textX = margin + h1/2;
 		}
-		/*
-		if(ava == null)
-		{
-			ava = getAva();
-		}
-		
-		if(ava != null)
-			g.drawImage(ava, 16, 0 + y, 0);
 		else
-			g.drawImage(VikaTouch.cameraImg, 16, 10 + y, 0);
-			*/
-	}
-	
-	private Image getAva()
-	{
-		return null;
+		{
+			ColorUtils.setcolor(g, ColorUtils.MYMSG);
+			g.fillRoundRect(DisplayUtils.width-(margin+maxWidth), y, maxWidth, th, radius, radius);
+			g.fillRect(DisplayUtils.width-(margin+radius), y+th-radius, radius, radius);
+			textX = DisplayUtils.width-(margin+maxWidth) + h1/2;
+		}
+		ColorUtils.setcolor(g, ColorUtils.TEXT);
+		
+		for(int i = 0; i < linesC; i++)
+		{
+			//g.drawString(drawText[i]==null?" ":drawText[i], textX, y+h1/2+h1*i, 0);
+			g.drawString(text, textX, y+h1/2+h1*i, 0); // TEST
+		}
 	}
 
 	public String getTime()
 	{
 		return VikaUtils.time(new Date(date * 1000L));
+	}
+	
+	public int getDrawHeight()
+	{
+		return itemDrawHeight;
 	}
 
 	public void tap(int x, int y)

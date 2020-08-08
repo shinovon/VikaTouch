@@ -18,6 +18,10 @@ public class ColorUtils
 	public static final int OUTLINE = 6;
 	public static final int TEXTBOX_OUTLINE = -2;
 	public static final int TEXT2 = 9;
+	
+	public static final int MYMSG = 40;
+	public static final int FOREIGNMSG = 41;
+	
 	public static boolean isTemnaya = false;
 	
 	
@@ -29,6 +33,16 @@ public class ColorUtils
 			case 0:
 			{
 				g.setColor(0);
+				break;
+			}
+			case MYMSG:
+			{
+				g.setColor(198, 218, 246);
+				break;
+			}
+			case FOREIGNMSG:
+			{
+				g.setColor(236, 238, 240);
 				break;
 			}
 			case COLOR1:

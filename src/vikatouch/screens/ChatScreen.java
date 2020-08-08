@@ -5,17 +5,21 @@ import java.util.Random;
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 
+import org.json.me.JSONArray;
 import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
+import ru.nnproject.vikaui.PressableUIItem;
 import ru.nnproject.vikaui.TextBreaker;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.IconsManager;
+import vikatouch.base.Settings;
 import vikatouch.base.TextEditor;
 import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;
+import vikatouch.base.items.MsgItem;
 
 public class ChatScreen
 	extends ReturnableListScreen
@@ -32,7 +36,7 @@ public class ChatScreen
 	public String inputText = "";
 	private int textboxmodifier;
 	private boolean textboxSelected;
-	private String[] todraw;
+	private String[] inputedTextToDraw;
 	private boolean inputChanged;
 	private JSONObject json;
 	private JSONObject chatSettings;
@@ -101,7 +105,6 @@ public class ChatScreen
 					try
 					{
 						JSONObject json = new JSONObject(x).getJSONArray("response").getJSONObject(0);
-						
 						this.title2 = json.optInt("online") > 0 ? "онлайн" : "оффлайн";
 					}
 					catch (JSONException e)
@@ -112,6 +115,22 @@ public class ChatScreen
 				catch (Exception e)
 				{
 					this.title2 = "Не удалось загрузить информацию.";
+				}
+				try
+				{ // скачка сообщений
+					uiItems = new PressableUIItem[Settings.messagesPerLoad];
+					final String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("count", Settings.messagesPerLoad).addField("offset", 0)/*.addField("rev", 1)*/);
+					JSONArray json = new JSONObject(x).getJSONObject("response").getJSONArray("items");
+					for(int i = 0; i<json.length();i++) {
+						MsgItem m = new MsgItem(json.getJSONObject(i));
+						m.parseJSON();
+						uiItems[i] = m;
+					}
+				}
+				catch (Exception e)
+				{
+					this.title2 = "Не удалось загрузить сообщения.";
+					e.printStackTrace();
 				}
 			}
 		}
@@ -242,7 +261,19 @@ public class ChatScreen
 
 	private void drawDialog(Graphics g)
 	{
+		if(uiItems==null) return;
 		
+		int y = 0;
+		final int space = 4;
+		for(int i=0; i<uiItems.length; i++)
+		{
+			if(uiItems[i] == null) continue;
+			
+			y+=space;
+			uiItems[i].paint(g, y, scrolled);
+			y+=uiItems[i].getDrawHeight();
+		}
+		this.itemsh = y;
 	}
 
 	private void drawTextbox(Graphics g)
@@ -259,16 +290,16 @@ public class ChatScreen
 		
 		if(textboxSelected && inputText != null && inputText.length() > 0)
 		{
-			if(inputChanged || todraw == null)
-				todraw = TextBreaker.breakText(inputText, false, null, true, DisplayUtils.width - 150);
-			if(todraw == null)
+			if(inputChanged || inputedTextToDraw == null)
+				inputedTextToDraw = TextBreaker.breakText(inputText, false, null, true, DisplayUtils.width - 150);
+			if(inputedTextToDraw == null)
 				return;
-			textboxmodifier = todraw.length-1;
+			textboxmodifier = inputedTextToDraw.length-1;
 			int y = 596 - (h * textboxmodifier);
 			
-			for(int i = 0; i < todraw.length; i++)
+			for(int i = 0; i < inputedTextToDraw.length; i++)
 			{
-				g.drawString(todraw[i], 51, y, 0);
+				g.drawString(inputedTextToDraw[i], 51, y, 0);
 				y += h;
 			}
 			
