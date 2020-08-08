@@ -123,6 +123,54 @@ public final class VikaUtils
 	    
 	    return result;
 	}
+	
+	public static String parseMsgTime(final long paramLong)
+	{
+		final Calendar cal = Calendar.getInstance();
+		
+		final Date date = new Date(paramLong * 1000L);
+		final Date currentDate = new Date(System.currentTimeMillis());
+		
+		cal.setTime(date);
+		final int day = cal.get(Calendar.DAY_OF_MONTH);
+		final int year = cal.get(Calendar.YEAR);
+		final int month = cal.get(Calendar.MONTH);
+		
+		cal.setTime(currentDate);
+		final int currentYear = cal.get(Calendar.YEAR);
+		
+	    final String time = time(date);
+	    
+	    final long dayDelta = (paramLong / 60L / 60L / 24L) - (System.currentTimeMillis() / 1000L / 60L / 60L / 24L);
+	    
+	    String result;
+	    
+	    parsing:
+	    {
+		    if(dayDelta == 0)
+		    {
+		    	result = time;
+		    	break parsing;
+		    }
+		    else if(dayDelta == 1)
+		    {
+		    	result = TextLocal.inst.get("date.yesterday") + " " + time;
+		    	break parsing;
+		    }
+		    else if(currentYear == year)
+		    {
+		    	result = TextLocal.inst.formatShortDate(day, month) + " " + time;
+		    	break parsing;
+		    }
+		    else
+		    {
+		    	result = TextLocal.inst.formatDate(day, month, year) + " " + time;
+		    	break parsing;
+		    }
+	    }
+	    
+	    return result;
+	}
 
 	public static boolean check()
 	{

@@ -73,7 +73,6 @@ public class ImageStorage
 		} 
 	    catch (Exception e)
 		{
-			e.printStackTrace();
 		}
 		return i;
     }
@@ -200,7 +199,7 @@ public class ImageStorage
         try
         {
         	//загрузить все перед очищением
-        	restoreImagesFromRMS();
+        	//restoreImagesFromRMS();
             try
             {
             	// clear record store
@@ -269,10 +268,10 @@ public class ImageStorage
     		throws Exception
     {
     	
-        RecordStore recordStore = RecordStore.openRecordStore(RMS_IMAGES, false);
-        if (recordStore.getNumRecords() == 0)
+        RecordStore recordStore = RecordStore.openRecordStore(RMS_IMAGES, true);
+        if (recordStore.getNumRecords() == 0 && images.size() > 0)
         {
-        //    storeImagesInRMS();
+            storeImagesInRMS();
         }
         restoreImagesFromRMS();
         

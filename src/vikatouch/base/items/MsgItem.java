@@ -29,6 +29,7 @@ public class MsgItem
 	public static int maxWidth = 300;
 	public static int margin = 10;
 	public int linesC;
+	private String time;
 
 	public void parseJSON()
 	{
@@ -71,7 +72,10 @@ public class MsgItem
 			ColorUtils.setcolor(g, ColorUtils.COLOR1);
 			g.drawString(name, textX, y+h1/2, 0);
 			ColorUtils.setcolor(g, ColorUtils.OUTLINE);
-			String time = "00:00";
+			if(time == null)
+			{
+				time = getTime();
+			}
 			g.drawString(time, textX-h1+maxWidth-font.stringWidth(time), y+h1/2, 0);
 		}
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
@@ -83,7 +87,7 @@ public class MsgItem
 
 	public String getTime()
 	{
-		return VikaUtils.time(new Date(date * 1000L));
+		return VikaUtils.parseMsgTime(date);
 	}
 	
 	public int getDrawHeight()
