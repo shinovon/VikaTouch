@@ -49,6 +49,8 @@ public class Settings
 
 	public static String videoResolution; // 240 360 480 720
 
+	public static boolean cacheImages;
+
 	public static final int SENSOR_OK = 0;
 	public static final int SENSOR_J2MELOADER = 1;
 	public static final int SENSOR_RESISTIVE = 2;
@@ -144,6 +146,7 @@ public class Settings
 		messagesPerLoad = 60;
 		videoResolution = "480";
 		language = "ru_RU";
+		cacheImages = false;
 	}
 
 }

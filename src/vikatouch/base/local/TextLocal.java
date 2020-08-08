@@ -116,8 +116,8 @@ public class TextLocal
 		}
 		try
 		{
-			String result = str;
-			int j = result.indexOf(from);
+			String result = "";
+			int j = str.indexOf(from);
 			int k = 0;
 	
 			for (int i = from.length(); j != -1; j = str.indexOf(from, k))
@@ -137,7 +137,7 @@ public class TextLocal
 	
 	public String formatTime(int hour, int minute)
 	{
-		return format("time", -1, -1, -1, hour, minute);
+		return format("time", -1, -2, -1, hour, minute);
 	}
 
 	public String formatShortDate(int day, int month, int year)
@@ -177,11 +177,11 @@ public class TextLocal
 		{
 			result = replace(result, "DD", day);
 			
-			result = replace(result, "SMN", getShortMonth(month));
+			result = replace(result, "S", getShortMonth(month));
 			
-			result = replace(result, "MONTH", getMonth(month));
+			result = replace(result, "N", getMonth(month));
 			
-			result = replace(result, "MO", month + 1);
+			result = replace(result, "O", month + 1);
 			
 			result = replace(result, "YEAR", year);
 			
@@ -214,15 +214,16 @@ public class TextLocal
 			result = replace(result, "tt", tt);
 			result = replace(result, "TT", TT);
 			result = replace(result, "h", h);
-			result = replace(result, "H", H);
 			result = replace(result, "HH", HH);
-			result = replace(result, "M", M);
+			result = replace(result, "H", H);
 			result = replace(result, "MM", MM);
+			result = replace(result, "M", M);
 		}
 		catch (Exception e)
 		{
-			
+			e.printStackTrace();
 		}
+		System.out.println(format + " " + result);
 		return result;
 	}
 	
@@ -282,6 +283,10 @@ public class TextLocal
 			{
 				return null;
 			}
+			case -2:
+			{
+				return null;
+			}
 			default:
 			{
 				return "";
@@ -295,12 +300,20 @@ public class TextLocal
 		{
 			return null;
 		}
+		if(month == -2)
+		{
+			return null;
+		}
 		return get("date.month." + getMonthS(month));
 	}
 
 	private String getShortMonth(int month)
 	{
 		if(month == -1)
+		{
+			return null;
+		}
+		if(month == -2)
 		{
 			return null;
 		}

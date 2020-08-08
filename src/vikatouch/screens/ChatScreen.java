@@ -116,34 +116,36 @@ public class ChatScreen
 				{
 					this.title2 = "Не удалось загрузить информацию.";
 				}
-				try
-				{ // скачка сообщений
-					uiItems = new PressableUIItem[Settings.messagesPerLoad];
-					final String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("count", Settings.messagesPerLoad).addField("offset", 0));
-					JSONArray json = new JSONObject(x).getJSONObject("response").getJSONArray("items");
-					boolean lastF = false;
-					for(int i = 0; i<json.length();i++) {
-						MsgItem m = new MsgItem(json.getJSONObject(i));
-						m.parseJSON();
-						boolean chain = (lastF == m.foreign);
-						if(!chain)
-						{
-							m.name = (m.foreign?title:"Вы");
-							//TODO время отправки
-						}
-						uiItems[uiItems.length-1-i] = m;
-						lastF = m.foreign;
-					}
-				}
-				catch (Exception e)
-				{
-					this.title2 = "Не удалось загрузить сообщения.";
-					e.printStackTrace();
-				}
 			}
+		}
+		try
+		{
+			// скачка сообщений
+			uiItems = new PressableUIItem[Settings.messagesPerLoad];
+			final String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("count", Settings.messagesPerLoad).addField("offset", 0));
+			JSONArray json = new JSONObject(x).getJSONObject("response").getJSONArray("items");
+			boolean lastF = false;
+			for(int i = 0; i < json.length(); i++)
+			{
+				MsgItem m = new MsgItem(json.getJSONObject(i));
+				m.parseJSON();
+				boolean chain = (lastF == m.foreign);
+				if(!chain)
+				{
+					m.name = (m.foreign?title:"Вы");
+				}
+				uiItems[uiItems.length-1-i] = m;
+				lastF = m.foreign;
+			}
+		}
+		catch (Exception e)
+		{
+			this.title2 = "Не удалось загрузить сообщения.";
+			e.printStackTrace();
 		}
 		
 		System.gc();
+		scroll = -10000;
 	}
 
 	public void draw(Graphics g)

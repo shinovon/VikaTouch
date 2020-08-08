@@ -2,14 +2,14 @@
 #русский
 #оригинальный язык
 #авторы shinovon, Feodor0090
-#версия 2020.08.07
+#версия 2020.08.08
 #
 #вк авторов:
 #vk.com/shinovon
 #vk.com/r_f_klin
 
 langinfo.name=Русский
-langinfo.version=2020.08.07
+langinfo.version=2020.08.08
 
 # LANG FORMAT
 #| - new line
@@ -17,9 +17,9 @@ langinfo.version=2020.08.07
 #datetime format:
 # DATE
 #DD - day
-#SMN - short month
-#MONTH - month
-#MO - month (number)
+#S - short month
+#N - month
+#O - month (number)
 #YEAR - year
 # TIME
 #tt - low case am / pm
@@ -31,12 +31,12 @@ langinfo.version=2020.08.07
 #MM - minute with zero if less than 10
 
 format.time=H:MM
-format.chatdate=DD SMN
-format.chatdatewyear=DD SMN YEAR
-format.shortdatenoyear=DD MONTH
-format.shortdate=DD MONTH YEAR
-format.date=DD MONTH YEAR г.
-format.fulldate=DD MONTH YEAR г. в H:MM
+format.chatdate=DD S
+format.chatdatewyear=DD S YEAR
+format.shortdatenoyear=DD N
+format.shortdate=DD N YEAR
+format.date=DD N YEAR г.
+format.fulldate=DD N YEAR г. в H:MM
 
 date.today=сегодня
 date.todayat=сегодня в

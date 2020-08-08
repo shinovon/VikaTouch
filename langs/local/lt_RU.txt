@@ -11,9 +11,9 @@ langinfo.version=2020.08.07
 #datetime format:
 # DATE
 #DD - day
-#SMN - short month
-#MONTH - month
-#MO - month (number)
+#S - short month
+#N - month
+#O - month (number)
 #YEAR - year
 # TIME
 #tt - low case am / pm
@@ -25,12 +25,12 @@ langinfo.version=2020.08.07
 #MM - minute with zero if less than 10
 
 format.time=H:MM
-format.chatdate=DD SMN
-format.chatdatewyear=DD SMN YEAR
-format.shortdatenoyear=DD MONTH
-format.shortdate=DD.MO.YEAR
-format.date=DD.MO.YEAR
-format.fulldate=DD.MO.YEAR H:MM
+format.chatdate=DD S
+format.chatdatewyear=DD S YEAR
+format.shortdatenoyear=DD N
+format.shortdate=DD.O.YEAR
+format.date=DD.O.YEAR
+format.fulldate=DD.O.YEAR H:MM
 
 date.today=segodnya
 date.todayat=segodnya v

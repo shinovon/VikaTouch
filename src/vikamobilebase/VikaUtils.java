@@ -19,7 +19,7 @@ import javax.microedition.io.file.FileConnection;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
-
+import vikatouch.base.Settings;
 import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.local.TextLocal;
@@ -447,12 +447,13 @@ public final class VikaUtils
 			throws IOException
 	{
 		// кеширование картинок включается если запрос http
-		boolean caching = !startsWith(url, "file");
+		boolean caching = !startsWith(url, "file") && Settings.cacheImages;
 		String filename = null;
 		if(caching)
 		{
-			filename = 
-				replace(
+			try
+			{
+				filename = 
 					replace(
 						replace(
 							replace(
@@ -467,32 +468,32 @@ public final class VikaUtils
 																replace(
 																	replace(
 																		replace(
-									url
-									, "vk-api-proxy.xtrafrancyz.net", "")
-									, "?ava=1", "")
-									, VikaTouch.API, "")
-									, ".userapi.", "")
-					, "http:", "")
-					, "https:", "")
-					, "=", "")
-					, "?", "")
-					, ":80", "")
-					, "\\", "")
-					, "/", "")
-					, ":443", "")
-					, "_", "")
-					, "vk.comimages", "")
-					, "com", "");
+																			replace(
+										url
+										, "vk-api-proxy.xtrafrancyz.net", "")
+										, "?ava=1", "")
+										, VikaTouch.API, "")
+										, ".userapi.", "")
+						, "http:", "")
+						, "https:", "")
+						, "=", "")
+						, "?", "")
+						, ":80", "")
+						, "\\", "")
+						, "/", "")
+						, ":443", "")
+						, "_", "")
+						, "vk.comimages", "")
+						, "com", "");
 			
 			
 			
-			try
-			{
 				final Image image = ImageStorage.get(filename);
 				if(image != null)
 				{
 					return image;
 				}
+				
 			}
 			catch (Exception e)
 			{
