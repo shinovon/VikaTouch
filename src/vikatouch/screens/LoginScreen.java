@@ -157,6 +157,17 @@ public class LoginScreen
 			if(selectedBtn < 0)
 				selectedBtn = 0;
 		}
+		else if(key == 8)
+		{
+			if(selectedBtn == 0)
+			{
+				user = user.substring(0, user.length() - 1);
+			}
+			else if(selectedBtn == 1)
+			{
+				pass = pass.substring(0, pass.length() - 1);
+			}
+		}
 		else
 		{
 			String s = VikaTouch.canvas.getKeyName(key);
