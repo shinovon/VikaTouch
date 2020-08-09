@@ -164,11 +164,11 @@ public class LoginScreen
 			{
 				if(selectedBtn == 0)
 				{
-					loginStr += s;
+					user += s;
 				}
 				else if(selectedBtn == 1)
 				{
-					passwordStr += s;
+					pass += s;
 				}
 			}
 		}

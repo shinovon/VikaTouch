@@ -199,13 +199,20 @@ public class ImageStorage
         try
         {
         	//загрузить все перед очищением
-        	//restoreImagesFromRMS();
+            try
+            {
+            	restoreImagesFromRMS();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
             try
             {
             	// clear record store
                 RecordStore.deleteRecordStore(RMS_IMAGES);
             }
-            catch (RecordStoreException e)
+            catch (Exception e)
             {
                 e.printStackTrace();
             }
