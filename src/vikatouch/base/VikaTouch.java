@@ -336,7 +336,20 @@ public class VikaTouch
 			{
 				appInst.destroyApp(false);
 			}
-		} : null, "Ошибка", fatal ? TextLocal.inst.get("close") : "ОК"));
+		} : null, TextLocal.inst.get("error"), fatal ? TextLocal.inst.get("close") : "ОК"));
+	}
+
+	public static void error(int i, String s, boolean fatal)
+	{
+		inst.errReason = "errorcode" + i;
+
+		String s2 = TextLocal.inst.get("error.errcode") + ": " + i + "\n" + TextLocal.inst.get("error.additionalinfo") + ":\n" + TextLocal.inst.get("error.description") + ": " + s + "\n" + TextLocal.inst.get("error.contactdevs");
+		popup(new InfoPopup(s2, fatal ? new Thread() {
+			public void run()
+			{
+				appInst.destroyApp(false);
+			}
+		} : null, TextLocal.inst.get("error"), fatal ? TextLocal.inst.get("close") : "ОК"));
 	}
 
 	public static void error(Throwable e, int i)
@@ -353,13 +366,21 @@ public class VikaTouch
 		}
 		else
 		{
-			String s2 = TextLocal.inst.get("error") + ": \n" + e.toString() + "\n" + TextLocal.inst.get("error.additionalinfo") + ": " + i + "\n" + TextLocal.inst.get("error.contactdevs");
+			String s2 = "";
+			if(i == ErrorCodes.LANGLOAD)
+			{
+				s2 = "Error: \n" + e.toString() + "\nAdditional info: \nCode: " + i + "\n" + TextLocal.inst.get("error.contactdevs");
+			}
+			else
+			{
+				s2 = TextLocal.inst.get("error") + ": \n" + e.toString() + "\n" + TextLocal.inst.get("error.additionalinfo") + ":\n" + TextLocal.inst.get("error.errcode") + ": " + i + "\n" + TextLocal.inst.get("error.contactdevs");
+			}
 			popup(new InfoPopup(s2, fatal ? new Thread() {
 				public void run()
 				{
 					appInst.destroyApp(false);
 				}
-			} : null, "Ошибка", fatal ? TextLocal.inst.get("close") : null));
+			} : null, TextLocal.inst.get("error"), fatal ? TextLocal.inst.get("close") : null));
 		}
 	}
 

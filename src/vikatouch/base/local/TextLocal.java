@@ -36,6 +36,7 @@ public class TextLocal
 	
 	public void loadLanguage(String lang)
 	{
+		System.out.println(lang);
 		try
 		{
 			char[] chars = new char[16000];
@@ -62,7 +63,7 @@ public class TextLocal
 						String val = VikaUtils.replace(x.substring(splitLoc + 1, len - 1), "|", "\n");
 						hashtable.put(key, val);
 						System.out.println(key + "=" + val);
-						System.out.println();
+						//System.out.println();
 					}
 					iscomment = false;
 					x = "";

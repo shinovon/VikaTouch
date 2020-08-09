@@ -71,7 +71,7 @@ date.hoursago=часов назад
 date.justnow=только что
 
 error.outofmem=Не хватает памяти для работы приложения!
-error.errcode=Код
+error.errcode=Код ошибки
 error=Ошибка
 error.additionalinfo=Доп. инфо
 error.description=Возможное описание
@@ -150,4 +150,4 @@ login.warn=Не введен логин или пароль!
 login.failed=Не удалось ввойти
 
 profile.closed=Это закрытый профиль
-user=Пользователь
+user=Пользователь 

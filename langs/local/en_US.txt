@@ -70,7 +70,7 @@ date.hoursago=hours ago
 date.justnow=just now
 
 error.outofmem=App ran out of memory!
-error.errcode=Code
+error.errcode=Error Code
 error=Error
 error.additionalinfo=Additional info
 error.description=Description
@@ -150,3 +150,5 @@ login.failed=Failed to authenticate
 
 profile.closed=This is a private profile
 user=User
+
+close=Close app

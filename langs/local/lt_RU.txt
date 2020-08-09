@@ -65,7 +65,7 @@ date.hoursago=chasov nazad
 date.justnow=tolko chto
 
 error.outofmem=Ne xvataet OZY dlya raboti prilozhenya!
-error.errcode=Kod
+error.errcode=Kod oshibki
 error=Oshibka
 error.additionalinfo=Dop. infa
 error.description=Vozmozhnoe opisanie
@@ -145,3 +145,5 @@ login.failed=Ne udalos voity
 
 profile.closed=Eto zakrity profil
 user=Polzovatel
+
+close=Zakrit prilozenie
