@@ -105,6 +105,10 @@ public class VideosScreen
 
 					VikaTouch.loading = false;
 				}
+				catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
 				catch (Exception e)
 				{
 					e.printStackTrace();

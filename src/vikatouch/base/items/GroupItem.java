@@ -126,7 +126,8 @@ public class GroupItem
 
 	public void keyPressed(int key)
 	{
-		if(key == KEY_OK) tap(20,20);
+		if(key == KEY_OK)
+			tap(20,20);
 	}
 
 }
