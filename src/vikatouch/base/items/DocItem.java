@@ -255,9 +255,9 @@ public class DocItem
 				{
 					try
 					{
-						System.out.println("Начато скачивание превью");
+						//System.out.println("Начато скачивание превью");
 						Image img = VikaUtils.downloadImage(prevImgUrl);
-						System.out.println("Ресайз превью: исходное "+img.getWidth()+"х"+img.getHeight());
+						//System.out.println("Ресайз превью: исходное "+img.getWidth()+"х"+img.getHeight());
 						
 						double aspectR = (double)img.getWidth() / (double)img.getHeight();
 						double SAR = (double)DisplayUtils.width / (double)DisplayUtils.height;

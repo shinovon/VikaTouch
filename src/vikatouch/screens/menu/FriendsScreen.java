@@ -86,7 +86,7 @@ public class FriendsScreen
 			{
 				try
 				{
-					System.out.println("Friends list");
+					//System.out.println("Friends list");
 					VikaTouch.loading = true;
 					repaint();
 					String x;

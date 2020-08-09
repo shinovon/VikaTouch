@@ -219,7 +219,7 @@ public class ConversationItem
 		
 		try
 		{
-			System.out.println(json.getJSONObject("last_message").toString());
+			//System.out.println(json.getJSONObject("last_message").toString());
 			lastmessage = new MsgItem(json.getJSONObject("last_message"));
 			lastmessage.parseJSON();
 

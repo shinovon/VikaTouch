@@ -83,7 +83,7 @@ public class NewsScreen
 			final JSONArray items = response.getJSONArray("items");
 			profiles = response.getJSONArray("profiles");
 			groups = response.getJSONArray("groups");
-			System.out.println(s);
+			//System.out.println(s);
 			itemsh = 0;
 			int i2 = startswith;
 			for(int i = 0; i < len2; i++)
