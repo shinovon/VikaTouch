@@ -96,7 +96,7 @@ public class PhotoAttachment
 	// имеющиеся методы для идиотов. Точнее я не уверен что вот то будет работать, и мне проще написать это чем 2 часа ловить баги. Потом втюхаю в I.
 	public PhotoSize getMessageImage()
 	{
-		PhotoSize ps = PhotoSize.getSize(sizes, "d");
+		PhotoSize ps = PhotoSize.getSize(sizes, "s");
 		if(ps==null) PhotoSize.getSize(sizes, "m");
 		if(ps==null) PhotoSize.getSize(sizes, "x");
 		if(ps==null) PhotoSize.getSize(sizes, "o");
