@@ -14,12 +14,12 @@ import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.menu.items.UIItem;
 import ru.nnproject.vikaui.utils.TextBreaker;
 import vikamobilebase.VikaUtils;
-import vikatouch.base.ErrorCodes;
 import vikatouch.base.IconsManager;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.attachments.Attachment;
 import vikatouch.base.attachments.PhotoAttachment;
-import vikatouch.base.url.URLBuilder;
+import vikatouch.base.utils.ErrorCodes;
+import vikatouch.base.utils.url.URLBuilder;
 import vikatouch.screens.NewsScreen;
 
 public class PostItem

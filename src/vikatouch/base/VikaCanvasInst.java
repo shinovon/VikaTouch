@@ -12,6 +12,8 @@ import ru.nnproject.vikaui.VikaCanvas;
 import ru.nnproject.vikaui.VikaScreen;
 import ru.nnproject.vikaui.popup.ConfirmBox;
 import ru.nnproject.vikaui.popup.VikaNotice;
+import vikatouch.base.settings.Settings;
+import vikatouch.base.utils.ErrorCodes;
 
 public class VikaCanvasInst
 extends VikaCanvas

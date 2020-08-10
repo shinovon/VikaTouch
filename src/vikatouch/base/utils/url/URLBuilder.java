@@ -1,4 +1,4 @@
-package vikatouch.base.url;
+package vikatouch.base.utils.url;
 
 import vikamobilebase.URLDecoder;
 import vikatouch.base.VikaTouch;

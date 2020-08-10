@@ -11,10 +11,10 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import vikamobilebase.VikaUtils;
-import vikatouch.base.ErrorCodes;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.items.PostItem;
-import vikatouch.base.url.URLBuilder;
+import vikatouch.base.utils.ErrorCodes;
+import vikatouch.base.utils.url.URLBuilder;
 import vikatouch.screens.menu.MenuScreen;
 
 public class NewsScreen

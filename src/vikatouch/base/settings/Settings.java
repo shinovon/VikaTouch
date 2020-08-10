@@ -1,4 +1,4 @@
-package vikatouch.base;
+package vikatouch.base.settings;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -10,7 +10,9 @@ import javax.microedition.rms.RecordStoreException;
 import javax.microedition.rms.RecordStoreFullException;
 import javax.microedition.rms.RecordStoreNotFoundException;
 
+import vikatouch.base.VikaTouch;
 import vikatouch.base.local.LangObject;
+import vikatouch.base.utils.ErrorCodes;
 
 public class Settings
 {

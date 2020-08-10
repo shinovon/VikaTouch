@@ -8,7 +8,7 @@ import org.json.me.JSONObject;
 
 import vikamobilebase.VikaUtils;
 import vikatouch.base.items.ConversationItem;
-import vikatouch.base.url.URLBuilder;
+import vikatouch.base.utils.url.URLBuilder;
 import vikatouch.screens.ChatScreen;
 
 public class Dialogs

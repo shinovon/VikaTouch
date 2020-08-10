@@ -11,8 +11,8 @@ import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.ScrollableCanvas;
 import ru.nnproject.vikaui.popup.ConfirmBox;
 import vikatouch.base.IconsManager;
-import vikatouch.base.Settings;
 import vikatouch.base.VikaTouch;
+import vikatouch.base.settings.Settings;
 import vikatouch.screens.menu.MenuScreen;
 
 public abstract class MainScreen 

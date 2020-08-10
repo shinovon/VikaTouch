@@ -17,11 +17,11 @@ import ru.nnproject.vikaui.PressableUIItem;
 import ru.nnproject.vikaui.utils.TextBreaker;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.IconsManager;
-import vikatouch.base.Settings;
 import vikatouch.base.TextEditor;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.items.MsgItem;
-import vikatouch.base.url.URLBuilder;
+import vikatouch.base.settings.Settings;
+import vikatouch.base.utils.url.URLBuilder;
 
 public class ChatScreen
 	extends ReturnableListScreen

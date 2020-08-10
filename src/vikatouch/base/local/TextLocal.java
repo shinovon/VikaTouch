@@ -6,9 +6,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.Hashtable;
 
 import vikamobilebase.VikaUtils;
-import vikatouch.base.ErrorCodes;
-import vikatouch.base.Settings;
 import vikatouch.base.VikaTouch;
+import vikatouch.base.settings.Settings;
+import vikatouch.base.utils.ErrorCodes;
 
 public class TextLocal
 {

@@ -13,12 +13,12 @@ import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.Dialogs;
-import vikatouch.base.ErrorCodes;
 import vikatouch.base.IconsManager;
 import vikatouch.base.ResizeUtils;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.attachments.AudioAttachment;
 import vikatouch.base.attachments.PhotoAttachment;
+import vikatouch.base.utils.ErrorCodes;
 
 public class ConversationItem
 	extends JSONUIItem

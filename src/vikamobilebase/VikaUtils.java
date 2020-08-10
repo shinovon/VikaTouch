@@ -19,10 +19,10 @@ import javax.microedition.io.file.FileConnection;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
-import vikatouch.base.Settings;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.local.TextLocal;
-import vikatouch.base.url.URLBuilder;
+import vikatouch.base.settings.Settings;
+import vikatouch.base.utils.url.URLBuilder;
 
 
 public final class VikaUtils

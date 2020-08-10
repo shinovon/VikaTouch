@@ -17,13 +17,13 @@ import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.ScrollableCanvas;
 import vikamobilebase.VikaUtils;
-import vikatouch.base.ErrorCodes;
 import vikatouch.base.JSONBase;
 import vikatouch.base.ResizeUtils;
 import vikatouch.base.VikaCanvasInst;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.local.TextLocal;
-import vikatouch.base.url.URLBuilder;
+import vikatouch.base.utils.ErrorCodes;
+import vikatouch.base.utils.url.URLBuilder;
 import vikatouch.screens.MainScreen;
 
 public class MenuScreen

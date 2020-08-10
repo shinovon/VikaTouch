@@ -15,8 +15,8 @@ import ru.nnproject.vikaui.popup.InfoPopup;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.IconsManager;
 import vikatouch.base.ResizeUtils;
-import vikatouch.base.Settings;
 import vikatouch.base.VikaTouch;
+import vikatouch.base.settings.Settings;
 
 public class VideoItem
 	extends JSONUIItem

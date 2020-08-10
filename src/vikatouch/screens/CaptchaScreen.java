@@ -7,10 +7,10 @@ import javax.microedition.lcdui.Image;
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.VikaScreen;
-import vikatouch.base.CaptchaObject;
 import vikatouch.base.TextEditor;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.local.TextLocal;
+import vikatouch.base.utils.CaptchaObject;
 
 public class CaptchaScreen
 	extends VikaScreen

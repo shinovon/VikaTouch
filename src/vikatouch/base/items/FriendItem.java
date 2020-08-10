@@ -11,10 +11,10 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import vikamobilebase.VikaUtils;
-import vikatouch.base.ErrorCodes;
 import vikatouch.base.IconsManager;
 import vikatouch.base.ResizeUtils;
 import vikatouch.base.VikaTouch;
+import vikatouch.base.utils.ErrorCodes;
 import vikatouch.screens.ProfilePageScreen;
 import vikatouch.screens.menu.DocsScreen;
 
