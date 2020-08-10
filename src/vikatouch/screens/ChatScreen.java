@@ -44,6 +44,8 @@ public class ChatScreen
 	private JSONObject json;
 	private JSONObject chatSettings;
 	
+	private boolean scrolledDown = false;
+	
 	public static Hashtable profileNames = new Hashtable();
 	
 	public ChatScreen(int peerId, String title)
@@ -234,14 +236,19 @@ public class ChatScreen
 		{
 			g.translate(0, (oneitemheight * textboxmodifier));
 		}
-		
-		drawDialog(g);
-		
-		g.translate(0, -g.getTranslateY());
-		
-		drawHeader(g);
-		
-		drawTextbox(g);
+		try 
+		{
+			drawDialog(g);
+			
+			g.translate(0, -g.getTranslateY());
+			
+			drawHeader(g);
+			drawTextbox(g);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	protected void scrollHorizontally(int deltaX)
@@ -277,10 +284,11 @@ public class ChatScreen
 	
 	public final void release(int x, int y)
 	{
+		System.out.println(x+" "+y);
 		textboxSelected = false;
 		if(!dragging)
 		{
-			if(y > 590)
+			if(y > DisplayUtils.height-50)
 			{
 				//нижняя панель
 				
@@ -363,6 +371,23 @@ public class ChatScreen
 			y+=uiItems[i].getDrawHeight();
 		}
 		this.itemsh = y;
+		
+		if(!scrolledDown)
+		{
+			scrolledDown = true;
+			(new Thread() {
+				public void run() 
+				{
+					try {
+						System.out.println("Scrolling...");
+						Thread.sleep(500);
+						scrolled = itemsh - DisplayUtils.height;
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}).start();
+		}
 	}
 
 	private void drawTextbox(Graphics g)
@@ -388,6 +413,8 @@ public class ChatScreen
 			
 			for(int i = 0; i < inputedTextToDraw.length; i++)
 			{
+				if(inputedTextToDraw[i] == null) continue;
+				
 				g.drawString(inputedTextToDraw[i], 51, y, 0);
 				y += h;
 			}

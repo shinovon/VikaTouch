@@ -71,8 +71,10 @@ public class DocumentAttachment
 	{
 		return 40;
 	}
-	public void Draw(Graphics g, int x1, int x2, int y1)
+	public void draw(Graphics g, int x1, int y1, int w)
 	{
+		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+		g.fillRect(x1, y1, w, getDrawHeight());
 		g.drawImage(IconsManager.ico[IconsManager.DOCS], x1+2, y1+6, 0);
 		ColorUtils.setcolor(g, ColorUtils.COLOR1);
 		Font f = Font.getFont(0, Font.STYLE_BOLD, Font.SIZE_SMALL);

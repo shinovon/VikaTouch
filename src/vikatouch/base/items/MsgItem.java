@@ -175,12 +175,17 @@ public class MsgItem
 					int rx = foreign ? (margin + attMargin) : (DisplayUtils.width - (margin + attMargin) - pa.renderW);
 					if(pa.renderImg == null)
 					{
-						g.drawString("Не удалось загрузить изображение", rx, y+attY, 0);
+						g.drawString("Не удалось загрузить изображение", textX, y+attY, 0);
 					}
 					else
 					{
 						g.drawImage(pa.renderImg, rx, y+attY, 0);
 					}
+				}
+				else if(at instanceof DocumentAttachment)
+				{
+					int x1 = foreign ? (margin + attMargin) : (DisplayUtils.width - (margin + msgWidth) + attMargin);
+					((DocumentAttachment) at).draw(g, x1, y+attY, msgWidth - attMargin*2);
 				}
 				attY += at.getDrawHeight()+attMargin;
 			}
