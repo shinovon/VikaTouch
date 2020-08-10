@@ -187,7 +187,7 @@ public class ChatScreen
 					m.name = (m.foreign ? name :"Вы");
 				}
 				uiItems[uiItems.length-1-i] = m;
-				//lastid = fromId;
+				itemsCount = (short) uiItems.length;
 			}
 		}
 		catch (Exception e)
@@ -227,6 +227,7 @@ public class ChatScreen
 					m.name = (m.foreign?title:"Вы");
 				}
 				uiItems[uiItems.length-1-i] = m;
+				itemsCount = (short) uiItems.length;
 			}
 		}
 		catch (Exception e)
