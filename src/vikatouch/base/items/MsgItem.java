@@ -1,7 +1,5 @@
 package vikatouch.base.items;
 
-import java.util.Date;
-
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -9,12 +7,13 @@ import javax.microedition.lcdui.Image;
 import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.*;
-import ru.nnproject.vikaui.popup.InfoPopup;
+import ru.nnproject.vikaui.popup.*;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.TextBreaker;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.VikaTouch;
+import vikatouch.base.attachments.*;
 import vikatouch.screens.ChatScreen;
 
 public class MsgItem
@@ -29,8 +28,9 @@ public class MsgItem
 	private String[] drawText;
 	public String name = null;
 	public boolean foreign;
-	public static int maxWidth = 300;
+	public static int msgWidth = 300;
 	public static int margin = 10;
+	public static int attMargin = 5;
 	public int linesC;
 	private String time;
 	
@@ -45,7 +45,7 @@ public class MsgItem
 		// {"id":354329,"important":false,"date":1596389831,"attachments":[],"out":0,"is_hidden":false,"conversation_message_id":7560,"fwd_messages":[],"random_id":0,"text":"Будет срач с Лëней или он уже потерял интерес?","from_id":537403336,"peer_id":537403336}
 		foreign = json.optInt("from_id")!=Integer.parseInt(VikaTouch.userId);
 		int h1 = Font.getFont(0, 0, 8).getHeight();
-		drawText = TextBreaker.breakText(text, false, null, true, maxWidth-h1);
+		drawText = TextBreaker.breakText(text, false, null, true, msgWidth-h1);
 		for (linesC=0; (linesC<drawText.length && drawText[linesC]!=null); linesC++) { }
 		
 		itemDrawHeight = h1*(linesC+1);
@@ -62,7 +62,7 @@ public class MsgItem
 			}
 			else
 			{
-				replyText = TextBreaker.breakText(replyText, false, null, true, maxWidth-h1-h1)[0];
+				replyText = TextBreaker.breakText(replyText, false, null, true, msgWidth-h1-h1)[0];
 			}
 			int fromId = reply.optInt("from_id");
 			if(fromId==Integer.parseInt(VikaTouch.userId))
@@ -86,26 +86,48 @@ public class MsgItem
 	
 	public void paint(Graphics g, int y, int scrolled)
 	{
+		int attH = 0;
+		// prepairing attachments
+		try {
+			for(int i=0; i<attachments.length; i++)
+			{
+				Attachment at = attachments[i];
+				if(at==null) continue;
+				
+				if(at instanceof PhotoAttachment)
+				{
+					((PhotoAttachment) at).load();
+				}
+				attH += at.getDrawHeight()+attMargin;
+			}
+			if(attH != 0) { attH += attMargin; }
+		}
+		catch (Exception e)
+		{
+			attH = 0;
+			e.printStackTrace();
+		}
+		// drawing
 		Font font = Font.getFont(0, 0, 8);
 		g.setFont(font);
 		int h1 = font.getHeight();
-		int th = h1*(linesC+1+(name==null?0:1)+(hasReply?2:0));
+		int th = h1*(linesC+1+(name==null?0:1)+(hasReply?2:0)) + attH;
 		itemDrawHeight = th;
 		int textX = 0;
 		final int radius = 16;
 		if(foreign)
 		{
 			ColorUtils.setcolor(g, ColorUtils.FOREIGNMSG);
-			g.fillRoundRect(margin, y, maxWidth, th, radius, radius);
+			g.fillRoundRect(margin, y, msgWidth, th, radius, radius);
 			g.fillRect(margin, y+th-radius, radius, radius);
 			textX = margin + h1/2;
 		}
 		else
 		{
 			ColorUtils.setcolor(g, ColorUtils.MYMSG);
-			g.fillRoundRect(DisplayUtils.width-(margin+maxWidth), y, maxWidth, th, radius, radius);
+			g.fillRoundRect(DisplayUtils.width-(margin+msgWidth), y, msgWidth, th, radius, radius);
 			g.fillRect(DisplayUtils.width-(margin+radius), y+th-radius, radius, radius);
-			textX = DisplayUtils.width-(margin+maxWidth) + h1/2;
+			textX = DisplayUtils.width-(margin+msgWidth) + h1/2;
 		}
 		if(name!=null)
 		{
@@ -116,7 +138,7 @@ public class MsgItem
 			{
 				time = getTime();
 			}
-			g.drawString(time, textX-h1+maxWidth-font.stringWidth(time), y+h1/2, 0);
+			g.drawString(time, textX-h1+msgWidth-font.stringWidth(time), y+h1/2, 0);
 		}
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
 		for(int i = 0; i < linesC; i++)

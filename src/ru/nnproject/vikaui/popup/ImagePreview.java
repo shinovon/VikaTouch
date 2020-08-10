@@ -148,7 +148,7 @@ public class ImagePreview extends VikaNotice {
 				}
 				catch (ConnectionNotFoundException e) 
 				{
-					VikaTouch.popup(new InfoPopup("Не удалось открыть документ. Возможно, произошла ошибка при обработке адреса либо ваше устройство не может открыть этот документ.", null));
+					VikaTouch.popup(new InfoPopup("Не удалось открыть. Возможно, произошла ошибка при обработке адреса либо ваше устройство не может открыть этот документ.", null));
 				}
 			}
 			currX -= 24;

@@ -9,6 +9,8 @@ public abstract class Attachment
 {
 	String type;
 	
+	public int getDrawHeight() { return 0; }
+	
 	public static Attachment parse(JSONObject json)
 	{
 		String type = json.optString("type");

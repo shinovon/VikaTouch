@@ -8,7 +8,9 @@ import org.json.me.JSONArray;
 import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
+import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
+import vikatouch.base.items.MsgItem;
 
 public class PhotoAttachment
 	extends ImageAttachment
@@ -19,6 +21,11 @@ public class PhotoAttachment
 	public int origwidth;
 	public int origheight;
 	public PhotoSize[] sizes = new PhotoSize[10];
+	
+	// for msg
+	public int renderH;
+	public int renderW;
+	public Image renderImg = null;
 
 	public PhotoAttachment()
 	{
@@ -85,6 +92,40 @@ public class PhotoAttachment
 			return null;
 		}
 	}
+	
+	// имеющиеся методы для идиотов. Точнее я не уверен что вот то будет работать, и мне проще написать это чем 2 часа ловить баги. Потом втюхаю в I.
+	public PhotoSize getMessageImage()
+	{
+		PhotoSize ps = PhotoSize.getSize(sizes, "s");
+		if(ps==null) PhotoSize.getSize(sizes, "d");
+		if(ps==null) PhotoSize.getSize(sizes, "m");
+		if(ps==null) PhotoSize.getSize(sizes, "o");
+		return ps;
+	}
+	// Загружает картинку
+	public void load ()
+	{
+		try 
+		{
+			PhotoSize ps = getMessageImage();
+			Image i = VikaUtils.downloadImage(ps.url);
+			int w = Math.min((int)(DisplayUtils.width*0.6), MsgItem.msgWidth - MsgItem.attMargin*2);
+			if(ps.width>w)
+			{
+				i = VikaUtils.resize(i, w, -1);
+			}
+			
+			renderH = i.getHeight();
+			renderW = i.getWidth();
+			renderImg = i;
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public int getDrawHeight() { return renderH; }
 
 	// Нестабильно! Нельзя такое по индексу получать.
 	public Image getPreviewImage() {
