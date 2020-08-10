@@ -2,8 +2,8 @@ package vikatouch.screens;
 
 import javax.microedition.lcdui.Graphics;
 
-import ru.nnproject.vikaui.PressableUIItem;
 import ru.nnproject.vikaui.menu.IMenu;
+import ru.nnproject.vikaui.menu.items.PressableUIItem;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.items.DocItem;

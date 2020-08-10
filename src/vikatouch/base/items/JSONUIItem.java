@@ -2,7 +2,7 @@ package vikatouch.base.items;
 
 import org.json.me.JSONObject;
 
-import ru.nnproject.vikaui.PressableUIItem;
+import ru.nnproject.vikaui.menu.items.PressableUIItem;
 
 public abstract class JSONUIItem
 	extends JSONItem

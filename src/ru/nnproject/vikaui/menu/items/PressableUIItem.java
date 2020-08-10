@@ -1,6 +1,4 @@
-package ru.nnproject.vikaui;
-
-import ru.nnproject.vikaui.menu.items.UIItem;
+package ru.nnproject.vikaui.menu.items;
 
 public abstract interface PressableUIItem extends UIItem
 {
