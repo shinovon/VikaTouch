@@ -11,6 +11,7 @@ import org.json.me.JSONArray;
 import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
+import ru.nnproject.vikaui.VikaCanvas;
 import ru.nnproject.vikaui.menu.items.PressableUIItem;
 import ru.nnproject.vikaui.popup.InfoPopup;
 import ru.nnproject.vikaui.utils.ColorUtils;
@@ -46,6 +47,11 @@ public class ChatScreen
 	private boolean scrolledDown = false;
 	private int inputBoxH = 48;
 	private int inputedLinesCount = 0;
+	
+	private int selectedMsg = 0;
+	// 0 - сообщения, 1 - прикреп, 2 - поле, 3 - смайлы, 4 - отправка
+	private byte buttonSelected = 0;
+	
 	
 	
 	public static Hashtable profileNames = new Hashtable();
@@ -320,6 +326,137 @@ public class ChatScreen
 		}
 		super.release(x, y);
 	}
+	
+	public void press(int key)
+	{
+		keysMode = true;
+		if(key == -1)
+		{
+			up();
+		}
+		else if(key == -2)
+		{
+			down();
+		}
+		else if(key == -3)
+		{
+			up();
+		}
+		else if(key == -4)
+		{
+			down();
+		}
+		else if(key == -5)
+		{ // ok
+			switch (buttonSelected)
+			{
+			case 0:
+				uiItems[currentItem].keyPressed(key);
+				break;
+			case 1:
+				// прикреп
+				break;
+			case 2:
+				showTextBox();
+				break;
+			case 3:
+				// смайлы
+				break;
+			case 4:
+				send();
+				buttonSelected = 2;
+				break;
+			}
+		}
+		else if(key == -6)
+		{ // lsk
+			if(buttonSelected==0)
+			{
+				buttonSelected = 2;
+			}
+			else
+			{
+				buttonSelected = 0;
+			}
+		}
+		else if(key == -7)
+		{ // rsk
+			VikaTouch.inst.cmdsInst.command(14, this);
+		}
+		repaint();
+	}
+	
+	protected void down()
+	{
+		if(buttonSelected == 0)
+		{
+			try
+			{
+				uiItems[currentItem].setSelected(false);
+			}
+			catch (Exception e)
+			{ }
+			currentItem++;
+			if(currentItem >= itemsCount)
+			{
+				currentItem = 0;
+				scrolled += 1900;
+			}
+			else
+				scrolled -= uiItems[currentItem].getDrawHeight();
+			uiItems[currentItem].setSelected(true);
+		}
+		else
+		{
+			buttonSelected++;
+			if(buttonSelected>4) buttonSelected = 4;
+		}
+	}
+
+	protected void up()
+	{
+		if(buttonSelected == 0)
+		{
+			try
+			{
+				uiItems[currentItem].setSelected(false);
+			}
+			catch (Exception e) { }
+			currentItem--;
+			if(currentItem < 0)
+			{
+				currentItem = (short) (itemsCount-1);
+				scrolled -= 1900;
+			}
+			else
+			{
+				scrolled += uiItems[currentItem].getDrawHeight();
+			}
+			try 
+			{
+				uiItems[currentItem].setSelected(true);
+			}
+			catch (Exception e) { }
+		}
+		else
+		{
+			buttonSelected--;
+		}
+	}
+	
+	public void repeat(int key)
+	{
+		keysMode = true;
+		if(key == -1)
+		{
+			up();
+		}
+		if(key == -2)
+		{
+			down();
+		}
+		repaint();
+	}
 
 	private void send()
 	{
@@ -372,12 +509,17 @@ public class ChatScreen
 		if(!scrolledDown)
 		{
 			scrolledDown = true;
-			scrolled = -(itemsh - DisplayUtils.height);
+			scrolled = -(itemsh);
+			currentItem = (short) (uiItems.length-1);
+			uiItems[currentItem].setSelected(true);
 		}
 	}
 
 	private void drawTextbox(Graphics g)
 	{
+		// DEBUG
+		g.drawString("btn:"+buttonSelected+" msg"+currentItem, 100, 100, 0);
+		
 		// расчёты и обработка текста
 		int m = 4; // margin
 		int dw = DisplayUtils.width; int dh = DisplayUtils.height;
@@ -414,8 +556,16 @@ public class ChatScreen
 		
 		if(inputedLinesCount == 0)
 		{
-			ColorUtils.setcolor(g, ColorUtils.OUTLINE);
-			g.drawString("Введите сообщение...", 48, dh-24-font.getHeight()/2, 0);
+			if(buttonSelected == 2)
+			{
+				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
+				g.drawString("Нажмите ОК для ввода", 48, dh-24-font.getHeight()/2, 0);
+			}
+			else
+			{
+				ColorUtils.setcolor(g, ColorUtils.OUTLINE);
+				g.drawString("Введите сообщение...", 48, dh-24-font.getHeight()/2, 0);
+			}
 		}
 		else
 		{
@@ -432,9 +582,11 @@ public class ChatScreen
 			
 		}
 		
-		g.drawImage(IconsManager.ico[IconsManager.ATTACHMENT], 12, DisplayUtils.height - 36, 0);
-		g.drawImage(IconsManager.ico[IconsManager.STICKERS], DisplayUtils.width - 86, DisplayUtils.height - 36, 0);
-		g.drawImage(IconsManager.ico[inputedLinesCount==0?IconsManager.VOICE:IconsManager.SEND], DisplayUtils.width - 40, DisplayUtils.height - 36, 0);
+		g.drawImage((buttonSelected == 1?IconsManager.ico:IconsManager.selIco)[IconsManager.ATTACHMENT], 12, DisplayUtils.height - 36, 0);
+		g.drawImage((buttonSelected == 3?IconsManager.ico:IconsManager.selIco)[IconsManager.STICKERS], DisplayUtils.width - 86, DisplayUtils.height - 36, 0);
+		g.drawImage((buttonSelected == 4?IconsManager.ico:IconsManager.selIco)[inputedLinesCount==0?IconsManager.VOICE:IconsManager.SEND], DisplayUtils.width - 40, DisplayUtils.height - 36, 0);
+		
+		if(keysMode) drawKeysTips(g);
 	}
 
 	private void drawHeader(Graphics g)
@@ -458,4 +610,22 @@ public class ChatScreen
 		g.drawImage(IconsManager.selIco[IconsManager.INFO], DisplayUtils.width - 38, 16, 0);
 	}
 
+	private void drawKeysTips(Graphics g)
+	{
+		String left = buttonSelected==0?"Написать":"Наверх";
+		String right = "Назад";
+		String ok = (new String[] {"Действия", "Прикрепить", "Клавиатура", "Стикеры", "Отправить"})[buttonSelected];
+		Font f = Font.getFont(0, 0, Font.SIZE_SMALL);
+		int h = f.getHeight();
+		int y = DisplayUtils.height-h;
+		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+		g.fillRect(0, y, DisplayUtils.width, h);
+		ColorUtils.setcolor(g, ColorUtils.TEXT);
+		g.fillRect(0, y-1, DisplayUtils.width, 1);
+		
+		int o = 4;
+		g.drawString(left, o, y, 0);
+		g.drawString(right, DisplayUtils.width-(o+f.stringWidth(right)), y, 0);
+		g.drawString(ok, DisplayUtils.width/2-(f.stringWidth(ok)/2), y, 0);
+	}
 }

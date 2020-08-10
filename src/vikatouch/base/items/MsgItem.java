@@ -134,6 +134,11 @@ public class MsgItem
 			g.fillRoundRect(DisplayUtils.width-(margin+msgWidth), y, msgWidth, th, radius, radius);
 			g.fillRect(DisplayUtils.width-(margin+radius), y+th-radius, radius, radius);
 			textX = DisplayUtils.width-(margin+msgWidth) + h1/2;
+			if(selected)
+			{
+				ColorUtils.setcolor(g, ColorUtils.TEXT);
+				g.drawRoundRect(DisplayUtils.width-(margin+msgWidth), y, msgWidth, th, radius, radius);
+			}
 		}
 		if(name!=null)
 		{
