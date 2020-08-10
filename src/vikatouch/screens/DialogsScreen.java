@@ -7,8 +7,8 @@ import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
-import ru.nnproject.vikaui.ColorUtils;
-import ru.nnproject.vikaui.DisplayUtils;
+import ru.nnproject.vikaui.utils.ColorUtils;
+import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.Dialogs;
 import vikatouch.base.VikaTouch;

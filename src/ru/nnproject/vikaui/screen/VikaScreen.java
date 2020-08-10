@@ -1,6 +1,8 @@
-package ru.nnproject.vikaui;
+package ru.nnproject.vikaui.screen;
 
 import javax.microedition.lcdui.Graphics;
+
+import ru.nnproject.vikaui.utils.DisplayUtils;
 
 public abstract class VikaScreen
 {

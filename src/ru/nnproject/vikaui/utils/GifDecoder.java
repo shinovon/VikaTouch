@@ -1,4 +1,4 @@
-package ru.nnproject.vikaui;
+package ru.nnproject.vikaui.utils;
 
 import java.io.InputStream;
 import java.util.Vector;

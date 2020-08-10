@@ -5,13 +5,13 @@ import java.io.InputStream;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
-import ru.nnproject.vikaui.ColorUtils;
-import ru.nnproject.vikaui.DisplayUtils;
-import ru.nnproject.vikaui.GifDecoder;
 import ru.nnproject.vikaui.VikaCanvas;
-import ru.nnproject.vikaui.VikaScreen;
 import ru.nnproject.vikaui.popup.ConfirmBox;
 import ru.nnproject.vikaui.popup.VikaNotice;
+import ru.nnproject.vikaui.screen.VikaScreen;
+import ru.nnproject.vikaui.utils.ColorUtils;
+import ru.nnproject.vikaui.utils.DisplayUtils;
+import ru.nnproject.vikaui.utils.GifDecoder;
 import vikatouch.base.settings.Settings;
 import vikatouch.base.utils.ErrorCodes;
 

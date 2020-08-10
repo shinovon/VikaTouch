@@ -5,8 +5,8 @@ import javax.microedition.lcdui.Graphics;
 
 import org.json.me.JSONObject;
 
-import ru.nnproject.vikaui.ColorUtils;
-import ru.nnproject.vikaui.DisplayUtils;
+import ru.nnproject.vikaui.utils.ColorUtils;
+import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
 
 public final class DateItem

@@ -6,9 +6,9 @@ import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
 
-import ru.nnproject.vikaui.DisplayUtils;
-import ru.nnproject.vikaui.VikaScreen;
 import ru.nnproject.vikaui.popup.InfoPopup;
+import ru.nnproject.vikaui.screen.VikaScreen;
+import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikatouch.screens.AboutScreen;
 import vikatouch.screens.ChatScreen;
 import vikatouch.screens.DialogsScreen;

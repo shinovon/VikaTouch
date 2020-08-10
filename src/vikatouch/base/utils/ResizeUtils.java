@@ -2,7 +2,7 @@ package vikatouch.base.utils;
 
 import javax.microedition.lcdui.Image;
 
-import ru.nnproject.vikaui.DisplayUtils;
+import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
 
 public class ResizeUtils

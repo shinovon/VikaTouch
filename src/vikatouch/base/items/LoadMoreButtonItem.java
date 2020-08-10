@@ -3,10 +3,10 @@ package vikatouch.base.items;
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 
-import ru.nnproject.vikaui.ColorUtils;
-import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.PressableUIItem;
-import ru.nnproject.vikaui.ScrollableCanvas;
+import ru.nnproject.vikaui.screen.ScrollableCanvas;
+import ru.nnproject.vikaui.utils.ColorUtils;
+import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikatouch.base.INextLoadable;
 
 public class LoadMoreButtonItem

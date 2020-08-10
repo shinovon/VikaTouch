@@ -1,7 +1,10 @@
-package ru.nnproject.vikaui;
+package ru.nnproject.vikaui.utils;
 
 import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Image;
+
+import ru.nnproject.vikaui.VikaCanvas;
+import ru.nnproject.vikaui.screen.ScrollableCanvas;
 
 public class DisplayUtils
 {
