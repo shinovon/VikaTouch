@@ -9,11 +9,11 @@ import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.ColorUtils;
-import ru.nnproject.vikaui.ConfirmBox;
 import ru.nnproject.vikaui.DisplayUtils;
-import ru.nnproject.vikaui.IMenu;
 import ru.nnproject.vikaui.PressableUIItem;
-import ru.nnproject.vikaui.TextBreaker;
+import ru.nnproject.vikaui.menu.IMenu;
+import ru.nnproject.vikaui.popup.ConfirmBox;
+import ru.nnproject.vikaui.utils.TextBreaker;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.ErrorCodes;
 import vikatouch.base.IconsManager;

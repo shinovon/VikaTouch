@@ -5,9 +5,9 @@ import javax.microedition.lcdui.Graphics;
 
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
-import ru.nnproject.vikaui.IMenu;
 import ru.nnproject.vikaui.PressableUIItem;
 import ru.nnproject.vikaui.ScrollableCanvas;
+import ru.nnproject.vikaui.menu.IMenu;
 import vikatouch.base.IconsManager;
 
 public class OptionItem

@@ -6,12 +6,12 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 import ru.nnproject.vikaui.ColorUtils;
-import ru.nnproject.vikaui.ConfirmBox;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.GifDecoder;
 import ru.nnproject.vikaui.VikaCanvas;
-import ru.nnproject.vikaui.VikaNotice;
 import ru.nnproject.vikaui.VikaScreen;
+import ru.nnproject.vikaui.popup.ConfirmBox;
+import ru.nnproject.vikaui.popup.VikaNotice;
 
 public class VikaCanvasInst
 extends VikaCanvas

@@ -14,7 +14,7 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.PressableUIItem;
-import ru.nnproject.vikaui.TextBreaker;
+import ru.nnproject.vikaui.utils.TextBreaker;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.IconsManager;
 import vikatouch.base.Settings;

@@ -16,8 +16,8 @@ import javax.microedition.lcdui.game.GameCanvas;
 
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
-import ru.nnproject.vikaui.InfoPopup;
 import ru.nnproject.vikaui.VikaScreen;
+import ru.nnproject.vikaui.popup.InfoPopup;
 import vikatouch.base.TextEditor;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.local.TextLocal;

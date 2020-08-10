@@ -1,8 +1,11 @@
-package ru.nnproject.vikaui;
+package ru.nnproject.vikaui.popup;
 
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 
+import ru.nnproject.vikaui.ColorUtils;
+import ru.nnproject.vikaui.DisplayUtils;
+import ru.nnproject.vikaui.PressableUIItem;
 import vikatouch.base.VikaTouch;
 import vikatouch.screens.MainScreen;
 

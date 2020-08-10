@@ -7,9 +7,9 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 import ru.nnproject.vikaui.ColorUtils;
-import ru.nnproject.vikaui.ConfirmBox;
 import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.ScrollableCanvas;
+import ru.nnproject.vikaui.popup.ConfirmBox;
 import vikatouch.base.IconsManager;
 import vikatouch.base.Settings;
 import vikatouch.base.VikaTouch;

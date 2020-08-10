@@ -9,6 +9,8 @@ import org.json.me.JSONObject;
 
 import ru.nnproject.vikatouch.VikaTouchApp;
 import ru.nnproject.vikaui.*;
+import ru.nnproject.vikaui.popup.InfoPopup;
+import ru.nnproject.vikaui.popup.VikaNotice;
 import vikamobilebase.*;
 import vikatouch.base.local.TextLocal;
 import vikatouch.base.url.URLBuilder;

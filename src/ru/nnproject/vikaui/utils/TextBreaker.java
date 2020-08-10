@@ -1,6 +1,8 @@
-package ru.nnproject.vikaui;
+package ru.nnproject.vikaui.utils;
 
 import javax.microedition.lcdui.Font;
+
+import ru.nnproject.vikaui.menu.items.UIItem;
 
 public class TextBreaker
 {

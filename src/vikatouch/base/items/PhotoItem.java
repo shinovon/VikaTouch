@@ -5,7 +5,7 @@ import javax.microedition.lcdui.Image;
 
 import org.json.me.JSONObject;
 
-import ru.nnproject.vikaui.UIItem;
+import ru.nnproject.vikaui.menu.items.UIItem;
 
 public class PhotoItem
 	extends JSONUIItem

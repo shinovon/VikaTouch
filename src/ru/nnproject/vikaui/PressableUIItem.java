@@ -1,5 +1,7 @@
 package ru.nnproject.vikaui;
 
+import ru.nnproject.vikaui.menu.items.UIItem;
+
 public abstract interface PressableUIItem extends UIItem
 {
 	public static final int KEY_OK = -5;

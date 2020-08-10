@@ -1,4 +1,4 @@
-package ru.nnproject.vikaui;
+package ru.nnproject.vikaui.menu.items;
 
 import javax.microedition.lcdui.Graphics;
 

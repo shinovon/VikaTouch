@@ -9,6 +9,8 @@ import javax.microedition.lcdui.Image;
 import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.*;
+import ru.nnproject.vikaui.popup.InfoPopup;
+import ru.nnproject.vikaui.utils.TextBreaker;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.VikaTouch;
 import vikatouch.screens.ChatScreen;
