@@ -14,11 +14,11 @@ import ru.nnproject.vikaui.DisplayUtils;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.Dialogs;
 import vikatouch.base.IconsManager;
-import vikatouch.base.ResizeUtils;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.attachments.AudioAttachment;
 import vikatouch.base.attachments.PhotoAttachment;
 import vikatouch.base.utils.ErrorCodes;
+import vikatouch.base.utils.ResizeUtils;
 
 public class ConversationItem
 	extends JSONUIItem

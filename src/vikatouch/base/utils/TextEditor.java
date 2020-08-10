@@ -1,4 +1,4 @@
-package vikatouch.base;
+package vikatouch.base.utils;
 
 import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Command;
@@ -11,6 +11,8 @@ import javax.microedition.lcdui.ImageItem;
 import javax.microedition.lcdui.Item;
 import javax.microedition.lcdui.TextBox;
 import javax.microedition.lcdui.TextField;
+
+import vikatouch.base.VikaTouch;
 
 public class TextEditor implements CommandListener {
 	public String str;

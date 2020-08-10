@@ -18,11 +18,11 @@ import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.ScrollableCanvas;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.JSONBase;
-import vikatouch.base.ResizeUtils;
 import vikatouch.base.VikaCanvasInst;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.local.TextLocal;
 import vikatouch.base.utils.ErrorCodes;
+import vikatouch.base.utils.ResizeUtils;
 import vikatouch.base.utils.url.URLBuilder;
 import vikatouch.screens.MainScreen;
 

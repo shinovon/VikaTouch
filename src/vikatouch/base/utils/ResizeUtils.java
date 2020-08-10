@@ -1,4 +1,4 @@
-package vikatouch.base;
+package vikatouch.base.utils;
 
 import javax.microedition.lcdui.Image;
 

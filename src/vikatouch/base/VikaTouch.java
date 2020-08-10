@@ -16,6 +16,7 @@ import vikatouch.base.local.TextLocal;
 import vikatouch.base.settings.Settings;
 import vikatouch.base.utils.CaptchaObject;
 import vikatouch.base.utils.ErrorCodes;
+import vikatouch.base.utils.ResizeUtils;
 import vikatouch.base.utils.url.URLBuilder;
 import vikatouch.screens.*;
 import vikatouch.screens.menu.*;

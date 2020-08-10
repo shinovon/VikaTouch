@@ -17,10 +17,10 @@ import ru.nnproject.vikaui.PressableUIItem;
 import ru.nnproject.vikaui.utils.TextBreaker;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.IconsManager;
-import vikatouch.base.TextEditor;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.items.MsgItem;
 import vikatouch.base.settings.Settings;
+import vikatouch.base.utils.TextEditor;
 import vikatouch.base.utils.url.URLBuilder;
 
 public class ChatScreen

@@ -11,10 +11,10 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import vikamobilebase.VikaUtils;
-import vikatouch.base.ResizeUtils;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.attachments.PhotoSize;
 import vikatouch.base.utils.ErrorCodes;
+import vikatouch.base.utils.ResizeUtils;
 import vikatouch.screens.GroupPageScreen;
 import vikatouch.screens.menu.GroupsScreen;
 

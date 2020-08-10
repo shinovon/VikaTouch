@@ -13,10 +13,10 @@ import ru.nnproject.vikaui.DisplayUtils;
 import ru.nnproject.vikaui.ScrollableCanvas;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.JSONBase;
-import vikatouch.base.ResizeUtils;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.attachments.PhotoSize;
 import vikatouch.base.utils.ErrorCodes;
+import vikatouch.base.utils.ResizeUtils;
 import vikatouch.screens.menu.DocsScreen;
 
 public class DocItem
