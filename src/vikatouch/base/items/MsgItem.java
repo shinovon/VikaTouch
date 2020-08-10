@@ -173,7 +173,14 @@ public class MsgItem
 				{
 					PhotoAttachment pa = (PhotoAttachment) at;
 					int rx = foreign ? (margin + attMargin) : (DisplayUtils.width - (margin + attMargin) - pa.renderW);
-					g.drawImage(pa.renderImg, rx, y+attY, 0);
+					if(pa.renderImg == null)
+					{
+						g.drawString("Не удалось загрузить изображение", rx, y+attY, 0);
+					}
+					else
+					{
+						g.drawImage(pa.renderImg, rx, y+attY, 0);
+					}
 				}
 				attY += at.getDrawHeight()+attMargin;
 			}
