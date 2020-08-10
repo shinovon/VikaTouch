@@ -52,18 +52,50 @@ public class PhotoAttachment
 		}
 	}
 
-	public Image getPreviewImage()
+	public String getPreviewImageUrl()
 	{
-		return getImg(0);
+		PhotoSize ps = null;
+		try
+		{
+			ps = PhotoSize.getSize(sizes, "x");
+			if(ps==null) throw new Exception();
+		}
+		catch (Exception e1)
+		{
+			try
+			{
+				ps = PhotoSize.getSize(sizes, "o");
+			}
+			catch (Exception e2)
+			{ }
+		}
+		if(ps==null) return null;
+		return ps.url;
 	}
 
-	public Image getFullImage()
+	public String getFullImageUrl()
 	{
+		try
+		{
+			PhotoSize ps = PhotoSize.getSize(sizes, "o");
+			return ps.url;
+		}
+		catch (Exception e2)
+		{
+			return null;
+		}
+	}
+
+	// Нестабильно! Нельзя такое по индексу получать.
+	public Image getPreviewImage() {
+		return getImg(0);
+	}
+	public Image getFullImage() {
 		return getImg(6);
 	}
 
-	public Image getImage(int height)
-	{
+	public Image getImage(int height) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

@@ -13,6 +13,7 @@ import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.VikaTouch;
+import vikatouch.base.attachments.ISocialable;
 import vikatouch.base.attachments.PhotoSize;
 import vikatouch.base.json.JSONBase;
 import vikatouch.base.utils.ErrorCodes;
@@ -20,12 +21,12 @@ import vikatouch.base.utils.ResizeUtils;
 import vikatouch.screens.menu.DocsScreen;
 
 public class DocItem
-	extends JSONUIItem
+	extends JSONUIItem implements ISocialable
 {
 	private String name;
-	private String url;
+	public String url;
 	private String iconUrl;
-	private String prevImgUrl;
+	public String prevImgUrl;
 	private int size;
 	private PhotoSize[] prevSizes;
 	private Image iconImg;
@@ -149,7 +150,7 @@ public class DocItem
 		}
 		
 		if(iconImg == null)
-			iconImg = getPreviewImage();
+			iconImg = getIcon();
 
 		if(time == null)
 			time = getTime();
@@ -179,7 +180,7 @@ public class DocItem
 		}
 	}
 
-	private Image getPreviewImage()
+	private Image getIcon()
 	{
 		Image img = null;
 		try
@@ -243,7 +244,7 @@ public class DocItem
 		return img;
 	}
 	
-	public void StartPreview() {
+	public void startPreview() {
 		if(type == TYPE_PHOTO)
 		{
 			
@@ -292,7 +293,7 @@ public class DocItem
 		{
 			if(x<DisplayUtils.width - 50)
 			{
-				StartPreview();
+				startPreview();
 			}
 			else
 			{
@@ -328,7 +329,7 @@ public class DocItem
 			}
 			if(key == KEY_OK)
 			{
-				StartPreview();
+				startPreview();
 			}
 		}
 		else
@@ -345,5 +346,32 @@ public class DocItem
 				}
 			}
 		}
+	}
+
+	public boolean canSave() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void save() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void like(boolean val) { }
+
+	public void send() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void repost() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void openComments() {
+		// TODO Auto-generated method stub
+		
 	}
 }
