@@ -4,8 +4,8 @@ import org.json.me.JSONArray;
 import org.json.me.JSONObject;
 
 import vikamobilebase.VikaUtils;
-import vikatouch.base.JSONBase;
 import vikatouch.base.attachments.Attachment;
+import vikatouch.base.json.JSONBase;
 
 public class JSONItem
 	extends JSONBase

@@ -7,7 +7,7 @@ import javax.microedition.lcdui.Image;
 import org.json.me.JSONObject;
 
 import vikamobilebase.VikaUtils;
-import vikatouch.base.JSONBase;
+import vikatouch.base.json.JSONBase;
 
 public class CaptchaObject
 	extends JSONBase

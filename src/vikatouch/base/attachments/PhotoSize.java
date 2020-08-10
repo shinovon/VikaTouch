@@ -3,7 +3,7 @@ package vikatouch.base.attachments;
 import org.json.me.JSONArray;
 import org.json.me.JSONObject;
 
-import vikatouch.base.JSONBase;
+import vikatouch.base.json.JSONBase;
 
 public class PhotoSize
 {
