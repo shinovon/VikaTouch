@@ -31,8 +31,6 @@ public class ContextMenu extends VikaNotice {
 			itemsH = itemsH + items[i].getDrawHeight();
 		}
 		
-		Font f = Font.getFont(0, 0, Font.SIZE_MEDIUM);
-		int h1 = f.getHeight();
 		int th = itemsH;
 		int y = DisplayUtils.height/2 - th/2;
 		
@@ -78,8 +76,38 @@ public class ContextMenu extends VikaNotice {
 	
 	public void release(int x, int y)
 	{
+		int margin = 8;
+		int itemsH = margin * 2; // margin = 8
 		int width = Math.min(DisplayUtils.width-8, 350);
-		// TODO
+		int rx = DisplayUtils.width/2 - width/2;
+		for(int i=0; i < items.length; i++)
+		{
+			items[i].drawX = x+margin;
+			items[i].fillW = width-margin * 2;
+			itemsH = itemsH + items[i].getDrawHeight();
+		}
+		
+		int th = itemsH;
+		int ry = DisplayUtils.height/2 - th/2;
+		
+		if(x < rx || x > rx + width || y < ry || y > ry + th)
+		{
+			VikaTouch.canvas.currentAlert = null;
+		}
+		
+		int tapY = y - ry;
+		int currY = margin;
+		for(int i=0; i < items.length; i++) 
+		{
+			int h = items[i].getDrawHeight();
+			if(tapY>currY&&tapY<currY+h)
+			{
+				VikaTouch.canvas.currentAlert = null;
+				items[i].tap(x - rx, tapY - currY);
+				return;
+			}
+			currY = currY + h;
+		}
 	}
 
 }

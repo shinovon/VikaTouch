@@ -80,7 +80,7 @@ public class MsgItem
 		
 		// experimental
 		{
-			if(text.equals("Т")) VikaTouch.popup(new InfoPopup(json.toString(), null));
+			//if(text.equals("Т")) VikaTouch.popup(new InfoPopup(json.toString(), null));
 		}
 	}
 	
