@@ -349,29 +349,24 @@ public class DocItem
 	}
 
 	public boolean canSave() {
-		// TODO Auto-generated method stub
+		// TODO
 		return false;
 	}
 
 	public void save() {
-		// TODO Auto-generated method stub
-		
+		// TODO
 	}
-
-	public void like(boolean val) { }
-
 	public void send() {
-		// TODO Auto-generated method stub
-		
+		// TODO
 	}
 
 	public void repost() {
-		// TODO Auto-generated method stub
-		
+		// TODO
 	}
-
-	public void openComments() {
-		// TODO Auto-generated method stub
-		
-	}
+	
+	public void openComments() { }
+	public boolean canLike() { return false; }
+	public boolean getLikeStatus() { return false; }
+	public void like(boolean val) { }
+	public boolean commentsAliveable() { return false; }
 }
