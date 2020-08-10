@@ -12,6 +12,7 @@ import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.menu.items.PressableUIItem;
+import ru.nnproject.vikaui.popup.InfoPopup;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.TextBreaker;
@@ -200,6 +201,11 @@ public class ChatScreen
 				MsgItem m = new MsgItem(json.getJSONObject(i));
 				m.parseJSON();
 				int fromId = m.fromid; 
+				
+				// EXPERIMENTAL
+				{
+					//if(i==0) { VikaTouch.popup(new InfoPopup(json.getJSONObject(i).toString(), null)); }
+				}
 				
 				boolean chain = false;
 				if(i+1<json.length())

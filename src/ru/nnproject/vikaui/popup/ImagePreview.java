@@ -1,10 +1,12 @@
 package ru.nnproject.vikaui.popup;
 
+import javax.microedition.io.ConnectionNotFoundException;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
+import vikatouch.base.IconsManager;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.attachments.ISocialable;
 import vikatouch.base.attachments.PhotoAttachment;
@@ -28,7 +30,7 @@ public class ImagePreview extends VikaNotice {
 	{
 		imgUrl = doc.prevImgUrl;
 		downloadUrl = doc.url;
-		socialActions = doc;
+		socialActions = (ISocialable) doc;
 		Load();
 	}
 	
@@ -78,6 +80,115 @@ public class ImagePreview extends VikaNotice {
 	}
 	
 	public void draw(Graphics g) {
+		if(img == null) {
+			g.drawImage(IconsManager.ico[IconsManager.CLOSE], currX, 0, 0);
+			VikaTouch.loading = true;
+		} else {
+			VikaTouch.loading = false;
+			g.setGrayScale(50);
+			g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
+			g.drawImage(img, drX, drY, 0);
+			
+			// drawing buttons
+			{
+				int currX = DisplayUtils.width;
+				currX-=24;
+				g.drawImage(IconsManager.ico[IconsManager.CLOSE], currX, 0, 0);
+				currX-=24;
+				if(downloadUrl!=null)
+				{
+					g.drawImage(IconsManager.ico[IconsManager.DOCS], currX, 0, 0);
+					currX -= 24;
+				}
+				if(socialActions!=null) 
+				{
+					if(socialActions.canSave())
+					{
+						g.drawImage(IconsManager.ico[IconsManager.ADD], currX, 0, 0);
+						currX -= 24;
+					}
+					g.drawImage(IconsManager.ico[IconsManager.SEND], currX, 0, 0);
+					currX -= 24;
+					if(socialActions.commentsAliveable())
+					{
+						g.drawImage(IconsManager.ico[IconsManager.COMMENTS], currX, 0, 0);
+						currX -= 24;
+					}
+					if(socialActions.canLike())
+					{
+						g.drawImage(IconsManager.ico[socialActions.getLikeStatus()?IconsManager.LIKE_F:IconsManager.LIKE], currX, 0, 0);
+						currX -= 24;
+					}
+				}
+			}
+		}
+	}
+	
+	public void release(int x, int y)
+	{
+		if(y>24) return;
+		
+		int currX = DisplayUtils.width;
+		currX-=24;
+		// закрытие
+		if(x>currX)
+		{
+			VikaTouch.canvas.currentAlert = null;
+		}
+		if(img == null) return;
+		currX-=24;
+		if(downloadUrl!=null)
+		{
+			// скачка
+			if(x>currX)
+			{
+				try
+				{
+					VikaTouch.appInst.platformRequest(downloadUrl);
+				}
+				catch (ConnectionNotFoundException e) 
+				{
+					VikaTouch.popup(new InfoPopup("Не удалось открыть документ. Возможно, произошла ошибка при обработке адреса либо ваше устройство не может открыть этот документ.", null));
+				}
+			}
+			currX -= 24;
+		}
+		if(socialActions!=null) 
+		{
+			if(socialActions.canSave())
+			{
+				// сохранение
+				if(x>currX)
+				{
+					VikaTouch.popup(new InfoPopup("Сохранение пока не реализовано.", null));
+				}
+				currX -= 24;
+			}
+			// отправка
+			if(x>currX)
+			{
+				VikaTouch.popup(new InfoPopup("Отправку ещё не завезли", null));
+			}
+			currX -= 24;
+			if(socialActions.commentsAliveable())
+			{
+				// каменты
+				if(x>currX)
+				{
+					VikaTouch.popup(new InfoPopup("Комменты тоже.", null));
+				}
+				currX -= 24;
+			}
+			if(socialActions.canLike())
+			{
+				// луцки
+				if(x>currX)
+				{
+					VikaTouch.popup(new InfoPopup("Лайки сожрали неко", null));
+				}
+				currX -= 24;
+			}
+		}
 		
 	}
 

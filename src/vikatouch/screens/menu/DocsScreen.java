@@ -216,10 +216,7 @@ public class DocsScreen
 			}
 		}
 		catch (ArrayIndexOutOfBoundsException e) 
-		{ 
-			// Всё нормально, просто тапнули ПОД последним элементом.
-			// ты на что-то намекаешь?
-		}
+		{ }
 		catch (Exception e) 
 		{
 			e.printStackTrace();
