@@ -55,12 +55,12 @@ public class OptionItem
 	}
 
 	public void tap(int x, int y) {
-		menu.onItemPress(i);
+		menu.onMenuItemPress(i);
 	}
 
 	public void keyPressed(int key) {
 		if(key == KEY_OK)
-			menu.onItemPress(i);
+			menu.onMenuItemPress(i);
 	}
 
 	public boolean isSelected() {

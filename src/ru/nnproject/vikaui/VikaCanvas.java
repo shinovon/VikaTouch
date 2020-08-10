@@ -16,12 +16,12 @@ public abstract class VikaCanvas
 
 	public abstract void tick();
 
-	protected abstract void callCommand(int i, VikaScreen scrollableCanvas);
+	public abstract void callCommand(int i, VikaScreen scrollableCanvas);
 
 	public abstract void paint();
 
-	protected abstract boolean isSensorModeOK();
-
-	protected abstract boolean isSensorModeJ2MELoader();
+	public abstract boolean isSensorModeOK();
+	
+	public abstract boolean isSensorModeJ2MELoader();
 
 }

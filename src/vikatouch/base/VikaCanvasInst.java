@@ -283,17 +283,17 @@ extends VikaCanvas
 		}
 	}
 
-	protected void callCommand(int i, VikaScreen screen)
+	public void callCommand(int i, VikaScreen screen)
 	{
 		VikaTouch.inst.cmdsInst.command(i, screen);
 	}
 
-	protected boolean isSensorModeOK()
+	public boolean isSensorModeOK()
 	{
 		return Settings.sensorMode == Settings.SENSOR_OK;
 	}
 
-	protected boolean isSensorModeJ2MELoader()
+	public boolean isSensorModeJ2MELoader()
 	{
 		return Settings.sensorMode == Settings.SENSOR_J2MELOADER;
 	}
