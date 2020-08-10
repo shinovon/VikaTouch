@@ -34,6 +34,8 @@ public class MsgItem
 	public int linesC;
 	private String time;
 	
+	private int attH = -1;
+	
 	private boolean hasReply;
 	public String replyName;
 	public String replyText;
@@ -86,32 +88,36 @@ public class MsgItem
 	
 	public void paint(Graphics g, int y, int scrolled)
 	{
-		int attH = 0;
-		// prepairing attachments
-		try {
-			for(int i=0; i<attachments.length; i++)
-			{
-				Attachment at = attachments[i];
-				if(at==null) continue;
-				
-				if(at instanceof PhotoAttachment)
-				{
-					((PhotoAttachment) at).load();
-				}
-				attH += at.getDrawHeight()+attMargin;
-			}
-			if(attH != 0) { attH += attMargin; }
-		}
-		catch (Exception e)
+		if(attH<0)
 		{
 			attH = 0;
-			e.printStackTrace();
+			// prepairing attachments
+			try {
+				for(int i=0; i<attachments.length; i++)
+				{
+					Attachment at = attachments[i];
+					if(at==null) continue;
+					
+					if(at instanceof PhotoAttachment)
+					{
+						((PhotoAttachment) at).load();
+					}
+					attH += at.getDrawHeight()+attMargin;
+				}
+				if(attH != 0) { attH += attMargin; }
+			}
+			catch (Exception e)
+			{
+				attH = 0;
+				e.printStackTrace();
+			}
 		}
 		// drawing
 		Font font = Font.getFont(0, 0, 8);
 		g.setFont(font);
 		int h1 = font.getHeight();
-		int th = h1*(linesC+1+(name==null?0:1)+(hasReply?2:0)) + attH;
+		int attY = h1*(linesC+1+(name==null?0:1)+(hasReply?2:0));
+		int th = attY + attH;
 		itemDrawHeight = th;
 		int textX = 0;
 		final int radius = 16;
@@ -154,6 +160,24 @@ public class MsgItem
 			g.fillRect(textX+h1/2-1, y+h1/2+h1*(linesC+(name==null?0:1)), 2, h1*2);
 		}
 		
+		// рендер аттачей
+		if(attH>0)
+		{
+			attY += attMargin;
+			for(int i=0; i<attachments.length; i++)
+			{
+				Attachment at = attachments[i];
+				if(at==null) continue;
+				
+				if(at instanceof PhotoAttachment)
+				{
+					PhotoAttachment pa = (PhotoAttachment) at;
+					int rx = foreign ? (margin + attMargin) : (DisplayUtils.width - (margin + attMargin) - pa.renderW);
+					g.drawImage(pa.renderImg, rx, y+attY, 0);
+				}
+				attY += at.getDrawHeight()+attMargin;
+			}
+		}
 	}
 
 	public String getTime()

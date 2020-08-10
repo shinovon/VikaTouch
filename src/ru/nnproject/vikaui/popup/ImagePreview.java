@@ -81,7 +81,7 @@ public class ImagePreview extends VikaNotice {
 	
 	public void draw(Graphics g) {
 		if(img == null) {
-			g.drawImage(IconsManager.ico[IconsManager.CLOSE], currX, 0, 0);
+			g.drawImage(IconsManager.ico[IconsManager.CLOSE], DisplayUtils.width - 24, 0, 0);
 			VikaTouch.loading = true;
 		} else {
 			VikaTouch.loading = false;
