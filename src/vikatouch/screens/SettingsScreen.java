@@ -85,7 +85,7 @@ public class SettingsScreen
 		super.release(x, y);
 	}
 
-	public void onItemPress(int i)
+	public void onMenuItemPress(int i)
 	{
 		switch(i)
 		{
@@ -100,7 +100,7 @@ public class SettingsScreen
 		}
 	}
 
-	public void onItemOption(int i)
+	public void onMenuItemOption(int i)
 	{
 		
 	}

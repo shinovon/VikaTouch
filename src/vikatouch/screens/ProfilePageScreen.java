@@ -289,7 +289,7 @@ public class ProfilePageScreen
 					int y2 = y1 + oneitemheight;
 					if(y > y1 && y < y2)
 					{
-						onItemPress(i);
+						onMenuItemPress(i);
 						break;
 					}
 				}
@@ -298,7 +298,7 @@ public class ProfilePageScreen
 		super.release(x, y);
 	}
 
-	public void onItemPress(int i)
+	public void onMenuItemPress(int i)
 	{
 		switch (i) 
 		{
@@ -348,7 +348,7 @@ public class ProfilePageScreen
 		
 	}
 
-	public void onItemOption(int i)
+	public void onMenuItemOption(int i)
 	{
 		
 	}

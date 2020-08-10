@@ -21,7 +21,7 @@ public abstract class VikaCanvas
 	public abstract void paint();
 
 	public abstract boolean isSensorModeOK();
-
+	
 	public abstract boolean isSensorModeJ2MELoader();
 
 }

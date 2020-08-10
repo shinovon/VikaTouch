@@ -279,7 +279,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 					int y2 = y1 + oneitemheight;
 					if(y > y1 && y < y2)
 					{
-						onItemPress(i);
+						onMenuItemPress(i);
 						break;
 					}
 						
@@ -289,7 +289,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 		super.release(x, y);
 	}
 
-	public void onItemPress(int i)
+	public void onMenuItemPress(int i)
 	{
 		if(isInfoShown)
 		{
@@ -351,7 +351,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 		}
 	}
 
-	public void onItemOption(int i)
+	public void onMenuItemOption(int i)
 	{
 		
 	}
