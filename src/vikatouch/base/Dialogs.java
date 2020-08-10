@@ -97,7 +97,7 @@ public class Dialogs
 				}
 				catch (NullPointerException e)
 				{
-					VikaTouch.warn("Переход в оффлайн режим!");
+					VikaTouch.warn("Сбой соединения с сервером. Проверьте ваше подключение. Приложение переключено в оффлайн режим");
 					VikaTouch.offlineMode = true;
 					e.printStackTrace();
 				}

@@ -37,7 +37,6 @@ public class ChatScreen
 	public String title = "dialog";
 	public String title2 = "оффлайн";
 	public String inputText = "";
-	private int textboxmodifier;
 	private boolean textboxSelected;
 	private String[] inputedTextToDraw;
 	private boolean inputChanged;
@@ -45,6 +44,9 @@ public class ChatScreen
 	private JSONObject chatSettings;
 	
 	private boolean scrolledDown = false;
+	private int inputBoxH = 48;
+	private int inputedLinesCount = 0;
+	
 	
 	public static Hashtable profileNames = new Hashtable();
 	
@@ -136,7 +138,7 @@ public class ChatScreen
 	}
 
 	private void messagesChat()
-	{ // unstable
+	{
 		try
 		{
 			// скачка сообщений
@@ -232,10 +234,6 @@ public class ChatScreen
 	public void draw(Graphics g)
 	{
 		update(g);
-		if(textboxSelected)
-		{
-			g.translate(0, (oneitemheight * textboxmodifier));
-		}
 		try 
 		{
 			drawDialog(g);
@@ -371,85 +369,72 @@ public class ChatScreen
 			y+=uiItems[i].getDrawHeight();
 		}
 		this.itemsh = y;
-		
 		if(!scrolledDown)
 		{
 			scrolledDown = true;
-			(new Thread() {
-				public void run() 
-				{
-					try {
-						System.out.println("Scrolling...");
-						Thread.sleep(500);
-						scrolled = itemsh - DisplayUtils.height;
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}).start();
+			scrolled = -(itemsh - DisplayUtils.height);
 		}
 	}
 
 	private void drawTextbox(Graphics g)
 	{
-		int h = 48;
-		ColorUtils.setcolor(g, -8);
-		g.fillRect(0, 591 - (h * textboxmodifier), 640, 1);
-		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
-		g.fillRect(0, 592 - (h * textboxmodifier), 640, 50);
-
-		Font font = Font.getDefaultFont();
+		// расчёты и обработка текста
+		int m = 4; // margin
+		int dw = DisplayUtils.width; int dh = DisplayUtils.height;
+		Font font = Font.getFont(0, 0, Font.SIZE_MEDIUM);
 		g.setFont(font);
-		ColorUtils.setcolor(g, ColorUtils.TEXT);
 		
-		if(textboxSelected && inputText != null && inputText.length() > 0)
+		if(inputChanged)
 		{
-			if(inputChanged || inputedTextToDraw == null)
+			try
+			{
 				inputedTextToDraw = TextBreaker.breakText(inputText, false, null, true, DisplayUtils.width - 150);
-			if(inputedTextToDraw == null)
-				return;
-			textboxmodifier = inputedTextToDraw.length-1;
-			int y = 596 - (h * textboxmodifier);
-			
-			for(int i = 0; i < inputedTextToDraw.length; i++)
-			{
-				if(inputedTextToDraw[i] == null) continue;
-				
-				g.drawString(inputedTextToDraw[i], 51, y, 0);
-				y += h;
+				inputChanged = false;
+				if(inputedTextToDraw != null)
+				{
+					for(inputedLinesCount = 0; inputedTextToDraw[inputedLinesCount]!=null; inputedLinesCount++) { }
+				}
+				else
+				{
+					inputedLinesCount = 0;
+				}
 			}
-			
-			g.drawImage(IconsManager.ico[IconsManager.ATTACHMENT], 17, DisplayUtils.height - (36 + (oneitemheight * textboxmodifier)), 0);
-
-			g.drawImage(IconsManager.ico[IconsManager.STICKERS], DisplayUtils.width - 86, DisplayUtils.height - (36 + (oneitemheight * textboxmodifier)), 0);
-
-			g.drawImage(IconsManager.selIco[IconsManager.SEND], DisplayUtils.width - 40, DisplayUtils.height - (36 + (oneitemheight * textboxmodifier)), 0);
+			catch (Exception e)
+			{
+				inputedLinesCount = 0;
+			}
+			inputBoxH = Math.max(48, font.getHeight()*inputedLinesCount+m*2);
 		}
-		else if(inputText != null && inputText.length() > 0)
+		
+		//рендер бокса
+		ColorUtils.setcolor(g, -8);
+		g.fillRect(0, dh - inputBoxH - 1, dw, 1);
+		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+		g.fillRect(0, dh - inputBoxH, dw, inputBoxH);
+		
+		if(inputedLinesCount == 0)
 		{
-			String s = inputText;
-			
-			if(font.stringWidth(s) > DisplayUtils.width - 150)
-			{
-				s = s.substring(0, 18) + "...";
-			}
-			
-			g.drawString(s, 51, 596, 0);
-			g.drawImage(IconsManager.ico[IconsManager.ATTACHMENT], 17, DisplayUtils.height - 36, 0);
-
-			g.drawImage(IconsManager.ico[IconsManager.STICKERS], DisplayUtils.width - 86, DisplayUtils.height - 36, 0);
-			
-			g.drawImage(IconsManager.selIco[IconsManager.SEND], DisplayUtils.width - 40, DisplayUtils.height - 36, 0);
+			ColorUtils.setcolor(g, ColorUtils.OUTLINE);
+			g.drawString("Введите сообщение...", 48, dh-24-font.getHeight()/2, 0);
 		}
 		else
 		{
-			g.drawImage(IconsManager.ico[IconsManager.ATTACHMENT], 17, DisplayUtils.height - 36, 0);
-
-			g.drawImage(IconsManager.ico[IconsManager.STICKERS], DisplayUtils.width - 86, DisplayUtils.height - 36, 0);
+			ColorUtils.setcolor(g, ColorUtils.TEXT);
+			int currY = dh - inputBoxH + m;
 			
-			g.drawImage(IconsManager.ico[IconsManager.VOICE], DisplayUtils.width - 40, DisplayUtils.height - 36, 0);
+			for(int i = 0; i < inputedLinesCount; i++)
+			{
+				if(inputedTextToDraw[i] == null) continue;
+				
+				g.drawString(inputedTextToDraw[i], 48, currY, 0);
+				currY += font.getHeight();
+			}
+			
 		}
-
+		
+		g.drawImage(IconsManager.ico[IconsManager.ATTACHMENT], 12, DisplayUtils.height - 36, 0);
+		g.drawImage(IconsManager.ico[IconsManager.STICKERS], DisplayUtils.width - 86, DisplayUtils.height - 36, 0);
+		g.drawImage(IconsManager.ico[inputedLinesCount==0?IconsManager.VOICE:IconsManager.SEND], DisplayUtils.width - 40, DisplayUtils.height - 36, 0);
 	}
 
 	private void drawHeader(Graphics g)

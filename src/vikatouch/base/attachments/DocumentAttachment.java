@@ -75,16 +75,16 @@ public class DocumentAttachment
 	{
 		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 		g.fillRect(x1, y1, w, getDrawHeight());
-		g.drawImage(IconsManager.ico[IconsManager.DOCS], x1+2, y1+6, 0);
+		g.drawImage(IconsManager.ico[IconsManager.DOCS], x1+4, y1+8, 0);
 		ColorUtils.setcolor(g, ColorUtils.COLOR1);
 		Font f = Font.getFont(0, Font.STYLE_BOLD, Font.SIZE_SMALL);
 		g.setFont(f);
 		if(name!=null)
-			g.drawString(name, x1+30, y1 + 10 - f.getHeight()/2, 0);
+			g.drawString(name, x1+34, y1 + 10 - f.getHeight()/2, 0);
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
 		f = Font.getFont(0, 0, Font.SIZE_SMALL);
 		g.setFont(f);
-		g.drawString(size / 1000 + "kb", x1+30, y1 + 30 - f.getHeight()/2, 0);
+		g.drawString(size / 1000 + "kb", x1+34, y1 + 30 - f.getHeight()/2, 0);
 	}
 
 }
