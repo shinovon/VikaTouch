@@ -40,6 +40,11 @@ public class PhotoAttachment
 		ownerid = json.optInt("owner_id");
 		albumid = json.optInt("album_id");
 		userid = json.optInt("user_id");
+		
+		// EXPERIMENTAL
+		{
+			//System.out.println(json.optJSONArray("sizes").toString());
+		}
 	}
 	
 	public Image getImg(int i)

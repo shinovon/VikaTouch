@@ -64,4 +64,42 @@ public class PhotoSize
 		}
 		return null;
 	}
+	
+	public static PhotoSize searchNearestSize(PhotoSize[] sizes, int tW)
+	{
+		PhotoSize curr = null;
+		int currD = 0xFFFF;
+		for(int i = 0; i < sizes.length; i++)
+		{
+			if(sizes[i] != null)
+			{
+				int d = Math.abs(tW - sizes[i].width);
+				if(d<currD)
+				{
+					currD = d;
+					curr = sizes[i];
+				}
+			}
+		}
+		return curr;
+	}
+	public static PhotoSize searchSmallerSize(PhotoSize[] sizes, int tW)
+	{
+		PhotoSize curr = null;
+		int currD = 0xFFFF;
+		for(int i = 0; i < sizes.length; i++)
+		{
+			if(sizes[i] != null)
+			{
+				int d = tW - sizes[i].width;
+				if(d < 0) continue;
+				if(d < currD)
+				{
+					currD = d;
+					curr = sizes[i];
+				}
+			}
+		}
+		return curr;
+	}
 }
