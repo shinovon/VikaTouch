@@ -12,9 +12,9 @@ import ru.nnproject.vikaui.ColorUtils;
 import ru.nnproject.vikaui.DisplayUtils;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.ErrorCodes;
-import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.items.PostItem;
+import vikatouch.base.url.URLBuilder;
 import vikatouch.screens.menu.MenuScreen;
 
 public class NewsScreen

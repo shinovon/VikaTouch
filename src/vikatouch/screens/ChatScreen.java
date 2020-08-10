@@ -19,9 +19,9 @@ import vikamobilebase.VikaUtils;
 import vikatouch.base.IconsManager;
 import vikatouch.base.Settings;
 import vikatouch.base.TextEditor;
-import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.items.MsgItem;
+import vikatouch.base.url.URLBuilder;
 
 public class ChatScreen
 	extends ReturnableListScreen

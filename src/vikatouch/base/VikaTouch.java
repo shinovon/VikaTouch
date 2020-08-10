@@ -11,6 +11,7 @@ import ru.nnproject.vikatouch.VikaTouchApp;
 import ru.nnproject.vikaui.*;
 import vikamobilebase.*;
 import vikatouch.base.local.TextLocal;
+import vikatouch.base.url.URLBuilder;
 import vikatouch.screens.*;
 import vikatouch.screens.menu.*;
 

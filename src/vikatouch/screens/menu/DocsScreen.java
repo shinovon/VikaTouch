@@ -16,11 +16,11 @@ import ru.nnproject.vikaui.PressableUIItem;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.ErrorCodes;
 import vikatouch.base.INextLoadable;
-import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.items.DocItem;
 import vikatouch.base.items.LoadMoreButtonItem;
 import vikatouch.base.local.TextLocal;
+import vikatouch.base.url.URLBuilder;
 import vikatouch.screens.MainScreen;
 
 public class DocsScreen

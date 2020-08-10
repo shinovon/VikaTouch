@@ -16,10 +16,10 @@ import ru.nnproject.vikaui.UIItem;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.ErrorCodes;
 import vikatouch.base.IconsManager;
-import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.attachments.Attachment;
 import vikatouch.base.attachments.PhotoAttachment;
+import vikatouch.base.url.URLBuilder;
 import vikatouch.screens.NewsScreen;
 
 public class PostItem

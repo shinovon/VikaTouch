@@ -20,10 +20,10 @@ import vikamobilebase.VikaUtils;
 import vikatouch.base.ErrorCodes;
 import vikatouch.base.JSONBase;
 import vikatouch.base.ResizeUtils;
-import vikatouch.base.URLBuilder;
 import vikatouch.base.VikaCanvasInst;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.local.TextLocal;
+import vikatouch.base.url.URLBuilder;
 import vikatouch.screens.MainScreen;
 
 public class MenuScreen

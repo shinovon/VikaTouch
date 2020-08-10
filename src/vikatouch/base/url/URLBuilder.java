@@ -1,6 +1,7 @@
-package vikatouch.base;
+package vikatouch.base.url;
 
 import vikamobilebase.URLDecoder;
+import vikatouch.base.VikaTouch;
 
 public class URLBuilder
 {
