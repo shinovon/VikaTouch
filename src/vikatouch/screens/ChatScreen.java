@@ -521,61 +521,69 @@ public class ChatScreen
 				.addField("peer_id", peerId).addField("count", loadSpace/2).addField("offset", -1).addField("extended", 1));
 		JSONArray items = new JSONObject(x).getJSONObject("response").getJSONArray("items");
 		int newMsgCount = items.length();
-		if(newMsgCount>=hasSpace-1)
+		if(newMsgCount==0)
 		{
-			shiftList();
+			
 		}
-		if(type == TYPE_CHAT)
+		else
 		{
-			try
+			if(newMsgCount>=hasSpace-1)
 			{
-				final JSONArray profiles = new JSONObject(x).getJSONObject("response").getJSONArray("profiles");
-				for(int i = 0; i < profiles.length(); i++)
+				shiftList();
+			}
+			if(type == TYPE_CHAT)
+			{
+				try
 				{
-					final JSONObject profile = profiles.getJSONObject(i);
-					String firstname = profile.optString("first_name");
-					String lastname = profile.optString("last_name");
-					int id = profile.optInt("id");
-					if(id > 0 && firstname != null && !profileNames.containsKey(new Integer(id)))
-						profileNames.put(new Integer(id), firstname + " " + lastname);
+					final JSONArray profiles = new JSONObject(x).getJSONObject("response").getJSONArray("profiles");
+					for(int i = 0; i < profiles.length(); i++)
+					{
+						final JSONObject profile = profiles.getJSONObject(i);
+						String firstname = profile.optString("first_name");
+						String lastname = profile.optString("last_name");
+						int id = profile.optInt("id");
+						if(id > 0 && firstname != null && !profileNames.containsKey(new Integer(id)))
+							profileNames.put(new Integer(id), firstname + " " + lastname);
+					}
 				}
+				catch(JSONException e)
+				{ }
+				catch(NullPointerException e)
+				{ }
 			}
-			catch(JSONException e)
-			{ }
-			catch(NullPointerException e)
-			{ }
-		}
-		MsgItem[] newMsgs = new MsgItem[newMsgCount];
-		for(int i = 0; i < newMsgCount; i++)
-		{
-			MsgItem m = new MsgItem(items.getJSONObject(i));
-			m.parseJSON();
-			int fromId = m.fromid; 
-			String name = "user" + fromId;
-			Integer ii = new Integer(fromId);
-			
-			if(profileNames.containsKey(ii))
+			MsgItem[] newMsgs = new MsgItem[newMsgCount];
+			for(int i = 0; i < newMsgCount; i++)
 			{
-				name = (String) profileNames.get(ii);
+				MsgItem m = new MsgItem(items.getJSONObject(i));
+				m.parseJSON();
+				int fromId = m.fromid; 
+				String name = "user" + fromId;
+				Integer ii = new Integer(fromId);
+				
+				if(profileNames.containsKey(ii))
+				{
+					name = (String) profileNames.get(ii);
+				}
+				
+				boolean chain = false;
+				if(i+1<newMsgCount)
+				{
+					chain = fromId == items.getJSONObject(i+1).optInt("from_id");
+				}
+				if(!chain)
+				{
+					m.name = (m.foreign ? name :"Вы");
+				}
+				newMsgs[i] = m;
 			}
-			
-			boolean chain = false;
-			if(i+1<newMsgCount)
+			// аппенд
+			for(int i=0; i < newMsgCount; i++)
 			{
-				chain = fromId == items.getJSONObject(i+1).optInt("from_id");
+				MsgItem m = newMsgs[newMsgCount-i-1];
+				uiItems[uiItems.length-hasSpace] = m;
+				hasSpace--;
 			}
-			if(!chain)
-			{
-				m.name = (m.foreign ? name :"Вы");
-			}
-			newMsgs[i] = m;
-		}
-		// аппенд
-		for(int i=0; i < newMsgCount; i++)
-		{
-			MsgItem m = newMsgs[newMsgCount-i-1];
-			uiItems[uiItems.length-hasSpace] = m;
-		}
+		}	
 		System.gc();
 	}
 	
