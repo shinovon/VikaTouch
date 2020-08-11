@@ -513,7 +513,9 @@ public class ChatScreen
 	// будет подгружать новые
 	private void update () throws JSONException
 	{
-		final String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("start_message_id", ""+((MsgItem) uiItems[uiItems.length-hasSpace-1]).mid).addField("peer_id", peerId).addField("count", loadSpace/2).addField("offset", -1));
+		final String x = VikaUtils.download(new URLBuilder("messages.getHistory")
+				.addField("start_message_id", ""+((MsgItem) uiItems[uiItems.length-hasSpace-1]).mid)
+				.addField("peer_id", peerId).addField("count", loadSpace/2).addField("offset", -1).addField("extended", 1));
 		JSONArray items = new JSONObject(x).getJSONObject("response").getJSONArray("items");
 		int newMsgCount = items.length();
 		if(newMsgCount>=hasSpace-1)
@@ -522,16 +524,23 @@ public class ChatScreen
 		}
 		if(type == TYPE_CHAT)
 		{
-			final JSONArray profiles = new JSONObject(x).getJSONObject("response").getJSONArray("profiles");
-			for(int i = 0; i < profiles.length(); i++)
+			try
 			{
-				final JSONObject profile = profiles.getJSONObject(i);
-				String firstname = profile.optString("first_name");
-				String lastname = profile.optString("last_name");
-				int id = profile.optInt("id");
-				if(id > 0 && firstname != null && !profileNames.containsKey(new Integer(id)))
-					profileNames.put(new Integer(id), firstname + " " + lastname);
+				final JSONArray profiles = new JSONObject(x).getJSONObject("response").getJSONArray("profiles");
+				for(int i = 0; i < profiles.length(); i++)
+				{
+					final JSONObject profile = profiles.getJSONObject(i);
+					String firstname = profile.optString("first_name");
+					String lastname = profile.optString("last_name");
+					int id = profile.optInt("id");
+					if(id > 0 && firstname != null && !profileNames.containsKey(new Integer(id)))
+						profileNames.put(new Integer(id), firstname + " " + lastname);
+				}
 			}
+			catch(JSONException e)
+			{ }
+			catch(NullPointerException e)
+			{ }
 		}
 		MsgItem[] newMsgs = new MsgItem[newMsgCount];
 		for(int i = 0; i < newMsgCount; i++)
