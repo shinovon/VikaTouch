@@ -55,7 +55,6 @@ public class MsgItem
 		
 		itemDrawHeight = h1*(linesC+1);
 		
-		
 		JSONObject reply = json.optJSONObject("reply_message");
 		if(reply!=null)
 		{
@@ -315,7 +314,14 @@ public class MsgItem
 						opts[j] = new OptionItem(this, "Вложение", IconsManager.ATTACHMENT, j, h);
 					}
 				}
-				VikaTouch.popup(new ContextMenu(opts));
+				if(opts != null && opts.length>0)
+				{
+					VikaTouch.popup(new ContextMenu(opts));
+				}
+				else
+				{
+					VikaTouch.popup(new InfoPopup("У этого сообщения нет вложений.", null));
+				}
 			}
 			break;
 		}

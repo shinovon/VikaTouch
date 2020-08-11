@@ -330,6 +330,12 @@ public class ChatScreen
 	public void press(int key)
 	{
 		keysMode = true;
+		if(VikaTouch.canvas.currentAlert!=null)
+		{
+			VikaTouch.canvas.currentAlert.press(key);
+			repaint();
+			return;
+		}
 		if(key == -1)
 		{
 			up();
@@ -521,7 +527,7 @@ public class ChatScreen
 		// расчёты и обработка текста
 		int m = 4; // margin
 		int dw = DisplayUtils.width; int dh = DisplayUtils.height;
-		Font font = Font.getFont(0, 0, Font.SIZE_MEDIUM);
+		Font font = Font.getFont(0, 0, Font.SIZE_SMALL);
 		g.setFont(font);
 		
 		if(inputChanged)
@@ -557,7 +563,7 @@ public class ChatScreen
 			if(buttonSelected == 2)
 			{
 				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
-				g.setFont(Font.getFont(0, Font.STYLE_BOLD, Font.SIZE_MEDIUM));
+				g.setFont(Font.getFont(0, Font.STYLE_BOLD, Font.SIZE_SMALL));
 				g.drawString("Нажмите ОК для ввода", 48, dh-24-font.getHeight()/2, 0);
 				g.setFont(font);
 			}

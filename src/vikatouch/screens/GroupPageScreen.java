@@ -305,7 +305,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 					fs.loadFriends(0, -id, name);
 					break;
 				case 1:
-					VikaTouch.canvas.currentAlert = new ConfirmBox(isMember?leaveStr+"?":joinStr+"?",null,
+					VikaTouch.popup(new ConfirmBox(isMember?leaveStr+"?":joinStr+"?",null,
 
 					new Thread()
 					{
@@ -322,7 +322,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 							}
 							Load();
 						}
-					}, null);
+					}, null));
 					break;
 				case 2:
 					// сообщение

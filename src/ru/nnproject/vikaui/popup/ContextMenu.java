@@ -52,31 +52,38 @@ public class ContextMenu extends VikaNotice {
 		}
 	}
 	
-	public void key(int key)
+	public void press(int key)
 	{
 		ScrollableCanvas.keysMode = true;
-		if(key == PressableUIItem.KEY_OK)
+		try
 		{
-			VikaTouch.canvas.currentAlert = null;
-			items[selected].keyPressed(PressableUIItem.KEY_OK);
+			if(key == PressableUIItem.KEY_OK)
+			{
+				VikaTouch.canvas.currentAlert = null;
+				items[selected].keyPressed(PressableUIItem.KEY_OK);
+			}
+			else if(key == -1)
+			{
+				items[selected].setSelected(false);
+				selected--; 
+				if(selected<0) selected = items.length-1;
+				items[selected].setSelected(true);
+			}
+			else if(key == -2)
+			{
+				items[selected].setSelected(false);
+				selected++;
+				if(selected>=items.length) selected = 0;
+				items[selected].setSelected(true);
+			}
+			else if(key == PressableUIItem.KEY_RFUNC)
+			{
+				VikaTouch.canvas.currentAlert = null;
+			}
 		}
-		else if(key == -1)
+		catch (Exception e)
 		{
-			items[selected].setSelected(false);
-			selected--; 
-			if(selected<0) selected = items.length-1;
-			items[selected].setSelected(true);
-		}
-		else if(key == -2)
-		{
-			items[selected].setSelected(false);
-			selected++;
-			if(selected>=items.length) selected = 0;
-			items[selected].setSelected(true);
-		}
-		else if(key == PressableUIItem.KEY_RFUNC)
-		{
-			VikaTouch.canvas.currentAlert = null;
+			e.printStackTrace();
 		}
 	}
 	
