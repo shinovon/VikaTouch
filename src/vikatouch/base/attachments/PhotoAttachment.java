@@ -46,7 +46,7 @@ public class PhotoAttachment
 		
 		// EXPERIMENTAL
 		{
-			System.out.println(json.toString());
+			//System.out.println(json.toString());
 		}
 	}
 	

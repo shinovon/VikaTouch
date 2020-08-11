@@ -619,7 +619,7 @@ public class ChatScreen
 				}
 			}
 		};
-		updater.run();
+		updater.start();
 	}
 	
 	private void showTextBox()
