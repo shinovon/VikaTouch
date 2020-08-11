@@ -124,7 +124,7 @@ public class ConversationItem
 			ColorUtils.setcolor(g, ColorUtils.OUTLINE);
 		}
 		
-		g.drawString(text, 73, y + 40, 0);
+		g.drawString(text==null?"Сообщение":text, 73, y + 40, 0);
 		
 		if(!selected)
 		{

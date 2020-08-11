@@ -1,6 +1,7 @@
 package ru.nnproject.vikaui.popup;
 
 import javax.microedition.io.ConnectionNotFoundException;
+import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
@@ -15,18 +16,20 @@ import vikatouch.base.utils.ErrorCodes;
 
 public class ImagePreview extends VikaNotice {
 
-	public ImagePreview (String url)
+	public ImagePreview (String url, String header)
 	{
 		imgUrl = url;
 		downloadUrl = null;
 		socialActions = null;
+		title = header;
 		Load();
 	}
-	public ImagePreview (PhotoAttachment photo)
+	public ImagePreview (PhotoAttachment photo, String header)
 	{
 		imgUrl = photo.getPreviewImageUrl();
 		downloadUrl = photo.getFullImageUrl();
 		socialActions = (ISocialable) photo;
+		title = header;
 		Load();
 	}
 	public ImagePreview (DocItem doc)
@@ -34,6 +37,7 @@ public class ImagePreview extends VikaNotice {
 		imgUrl = doc.prevImgUrl;
 		downloadUrl = doc.url;
 		socialActions = (ISocialable) doc;
+		title = doc.name;
 		Load();
 	}
 	
@@ -41,6 +45,8 @@ public class ImagePreview extends VikaNotice {
 	public String imgUrl;
 	public String downloadUrl;
 	public ISocialable socialActions;
+	
+	public String title = null;
 	
 	public int drX; public int drY;
 	
@@ -93,6 +99,12 @@ public class ImagePreview extends VikaNotice {
 			g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
 			g.drawImage(img, drX, drY, 0);
 			
+			if(title!=null)
+			{
+				g.setColor(255,255,255);
+				Font f = Font.getFont(0, 0, Font.SIZE_MEDIUM);
+				g.drawString(title, 24, 12-f.getHeight()/2, 0);
+			}
 			// drawing buttons
 			{
 				int currX = DisplayUtils.width;

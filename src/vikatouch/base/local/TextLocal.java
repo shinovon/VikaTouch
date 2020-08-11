@@ -228,7 +228,7 @@ public class TextLocal
 		{
 			e.printStackTrace();
 		}
-		System.out.println(format + " " + result);
+		//System.out.println(format + " " + result);
 		return result;
 	}
 	

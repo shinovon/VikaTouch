@@ -23,7 +23,7 @@ import vikatouch.screens.menu.DocsScreen;
 public class DocItem
 	extends JSONUIItem implements ISocialable
 {
-	private String name;
+	public String name;
 	public String url;
 	private String iconUrl;
 	public String prevImgUrl;

@@ -28,6 +28,7 @@ public class PhotoAttachment
 	public int renderH;
 	public int renderW;
 	public Image renderImg = null;
+	
 
 	public PhotoAttachment()
 	{
@@ -94,7 +95,7 @@ public class PhotoAttachment
 	
 	public void press()
 	{
-		VikaTouch.popup(new ImagePreview(this));
+		VikaTouch.popup(new ImagePreview(this, "Вложение "+attNumber));
 	}
 	
 	// имеющиеся методы для идиотов. Точнее я не уверен что вот то будет работать, и мне проще написать это чем 2 часа ловить баги. Потом втюхаю в I.

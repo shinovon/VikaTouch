@@ -11,6 +11,8 @@ public abstract class Attachment
 	
 	public int getDrawHeight() { return 0; }
 	
+	public int attNumber;
+	
 	// да, для всего. Т.к. кнопка одна, а координаты городить слишком мелко.
 	public void press () { }
 	

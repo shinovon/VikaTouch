@@ -302,6 +302,7 @@ public class MsgItem
 					if(a.type.equals("photo"))
 					{
 						opts[j] = new OptionItem(this, "Фотография "+photoC, IconsManager.PHOTOS, j, h);
+						a.attNumber = photoC;
 						photoC++;
 					}
 					else if(a.type.equals("doc"))
