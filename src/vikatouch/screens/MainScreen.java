@@ -25,6 +25,9 @@ public abstract class MainScreen
 	protected boolean hasBackButton;
 	public static Image backImg;
 	
+	public int topPanelH;
+	public int bottomPanelH;
+	
 	public MainScreen()
 	{
 		super();
@@ -88,6 +91,78 @@ public abstract class MainScreen
 	}
 	
 	protected void drawHUD(Graphics g, String title)
+	{
+		drawHUD(g,title, "OK", "");
+	}
+	protected void drawHUD(Graphics g, String title, String okText, String leftText)
+	{
+		// vars
+		topPanelH = 58;
+		bottomPanelH = 50;
+		int dw = DisplayUtils.width;
+		
+		// fills
+		ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
+		g.fillRect(0, 0, dw, topPanelH);
+		ColorUtils.setcolor(g, -3);
+		g.fillRect(0, DisplayUtils.height - bottomPanelH, dw, bottomPanelH);
+
+		// bottom icons
+		int bpiy = DisplayUtils.height - bottomPanelH/2 - 12;
+		g.drawImage(((this instanceof NewsScreen)?IconsManager.selIco:IconsManager.ico)[IconsManager.NEWS], dw/6-12, bpiy, 0);
+		g.drawImage(((this instanceof DialogsScreen)?IconsManager.selIco:IconsManager.ico)[IconsManager.MSGS], dw/2-12, bpiy, 0);
+		g.drawImage(((this instanceof MenuScreen)?IconsManager.selIco:IconsManager.ico)[IconsManager.MENU], dw-dw/6-12, bpiy, 0);
+		
+		// header & icon
+		g.drawImage(IconsManager.logoImg, topPanelH/2-IconsManager.logoImg.getHeight()/2, 2, 0);
+		g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
+		g.setGrayScale(255);
+		g.drawString(title, 72, 29-g.getFont().getHeight()/2, 0);
+		g.setFont(Font.getFont(0, 0, 8));
+		
+		// unread count
+		if(VikaTouch.unreadCount > 0)
+		{
+			Font f = Font.getFont(0, 0, Font.SIZE_SMALL);
+			g.setFont(f);
+			int d = f.getHeight()+2;
+			
+			g.setColor(255,0,0);
+			g.fillArc(dw/2+12-d, bpiy, d, d, 0, 360);
+			
+			g.setGrayScale(255);
+			g.drawString(""+VikaTouch.unreadCount, dw/2+12-d/2-f.stringWidth(""+VikaTouch.unreadCount)/2, bpiy+1, 0);
+		}
+		
+		
+		
+		
+		if(hasBackButton && backImg != null)
+		{
+			g.drawImage(backImg, 2, 2, 0);
+		}
+		
+		
+		if(Settings.debugInfo)
+		{
+			g.setColor(0xffff00);
+			int xx = endx;
+			int yy = endy;
+			if(xx == -1)
+			{
+				xx = lastx;
+				yy = lasty;
+			}
+			g.drawLine(startx, starty, xx, yy);
+			g.drawRect(startx-2, starty-2, 4, 4);
+			g.setColor(0xff0000);
+			g.drawRect(endx-2, endy-2, 4, 4);
+			g.drawString("cs"+scroll + " sc" + scrolled + " d" + drift + " ds" + driftSpeed + " st" + scrollingTimer + " sp" + scrollPrev + " t" + timer, 0, 30, 0);
+		}
+	}
+	
+	/*
+	protected void drawHUDOld(Graphics g, String title)
 	{
 		double multiplier = (double)DisplayUtils.height / 640.0;
 		double ww = 10.0 * multiplier;
@@ -353,7 +428,7 @@ public abstract class MainScreen
 			g.drawRect(endx-2, endy-2, 4, 4);
 			g.drawString("cs"+scroll + " sc" + scrolled + " d" + drift + " ds" + driftSpeed + " st" + scrollingTimer + " sp" + scrollPrev + " t" + timer, 0, 30, 0);
 		}
-	}
+	} */
 
 	private int bbw(int i)
 	{

@@ -24,10 +24,14 @@ public class IconsManager {
 		
 		ac = Image.createImage("/avaMask.png");
 		acs = Image.createImage("/avaMaskSelected.png");
+		logoImg = Image.createImage("/vikahead.jpg");
+		
 	}
 	
 	public static Image ac;
 	public static Image acs;
+	public static Image logoImg;
+	//public static Image backBtn;
 	
 	public static final int FRIENDS = 0;
 	public static final int GROUPS = 1;
