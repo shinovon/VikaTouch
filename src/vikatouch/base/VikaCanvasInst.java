@@ -60,6 +60,7 @@ extends VikaCanvas
 		catch (Exception e)
 		{
 			VikaTouch.error(e, ErrorCodes.VIKACANVASPAINT);
+			e.printStackTrace();
 		}
 	}
 	
@@ -68,42 +69,50 @@ extends VikaCanvas
 		DisplayUtils.checkdisplay();
 		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 		g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
-		
-		if(Settings.animateTransition && oldScreen != null)
+		try
 		{
-			int slideI = (int)(slide * (double)DisplayUtils.width);
-			if(Settings.slideAnim)
+			
+			if(Settings.animateTransition && oldScreen != null)
 			{
-				if(slideI > 0)
-					g.translate(slideI-DisplayUtils.width, 0);
-				else
-					g.translate(slideI+DisplayUtils.width, 0);
-				if(oldScreen != null && !VikaTouch.crashed)
+				int slideI = (int)(slide * (double)DisplayUtils.width);
+				if(Settings.slideAnim)
 				{
-					oldScreen.draw(g);
+					if(slideI > 0)
+						g.translate(slideI-DisplayUtils.width, 0);
+					else
+						g.translate(slideI+DisplayUtils.width, 0);
+					if(oldScreen != null && !VikaTouch.crashed)
+					{
+						oldScreen.draw(g);
+					}
+					if(slideI > 0)
+						g.translate(DisplayUtils.width, 0);
+					else
+						g.translate(-DisplayUtils.width, 0);
 				}
-				if(slideI > 0)
-					g.translate(DisplayUtils.width, 0);
 				else
-					g.translate(-DisplayUtils.width, 0);
+				{
+					if(oldScreen != null && !VikaTouch.crashed)
+					{
+						oldScreen.draw(g);
+					}
+					g.translate(slideI, 0);
+				}
 			}
-			else
+			
+	
+			ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+			g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
+			
+			if(currentScreen != null && !VikaTouch.crashed)
 			{
-				if(oldScreen != null && !VikaTouch.crashed)
-				{
-					oldScreen.draw(g);
-				}
-				g.translate(slideI, 0);
+				currentScreen.draw(g);
 			}
 		}
-		
-
-		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
-		g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
-		
-		if(currentScreen != null && !VikaTouch.crashed)
+		catch (Exception e)
 		{
-			currentScreen.draw(g);
+			VikaTouch.error(e, ErrorCodes.VIKACANVASPAINT);
+			e.printStackTrace();
 		}
 		
 		if(showCaptcha && !VikaTouch.crashed)
