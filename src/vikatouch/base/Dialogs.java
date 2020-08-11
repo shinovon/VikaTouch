@@ -8,6 +8,7 @@ import org.json.me.JSONObject;
 
 import vikamobilebase.VikaUtils;
 import vikatouch.base.items.ConversationItem;
+import vikatouch.base.settings.Settings;
 import vikatouch.base.utils.url.URLBuilder;
 import vikatouch.screens.ChatScreen;
 
@@ -108,24 +109,27 @@ public class Dialogs
 				VikaTouch.loading = false;
 
 				//поток качающий картинки
-				downloaderThread2 = new Thread()
+				if(!Settings.dontLoadAvas)
 				{
-					public void run()
+					downloaderThread2 = new Thread()
 					{
-						VikaTouch.loading = true;
-						
-						for(int i = 0; i < itemsCount; i++)
+						public void run()
 						{
-							if(dialogs[i] != null)
+							VikaTouch.loading = true;
+							
+							for(int i = 0; i < itemsCount; i++)
 							{
-								dialogs[i].getAva();
+								if(dialogs[i] != null)
+								{
+									dialogs[i].getAva();
+								}
 							}
+							
+							VikaTouch.loading = false;
 						}
-						
-						VikaTouch.loading = false;
-					}
-				};
-				downloaderThread2.start();
+					};
+					downloaderThread2.start();
+				}
 				Thread.yield();
 			}
 		};

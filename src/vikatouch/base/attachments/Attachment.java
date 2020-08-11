@@ -7,7 +7,7 @@ import vikatouch.base.json.JSONBase;
 public abstract class Attachment
 	extends JSONBase
 {
-	String type;
+	public String type;
 	
 	public int getDrawHeight() { return 0; }
 	

@@ -461,8 +461,10 @@ public class VikaTouch
 			e.printStackTrace();
 		}
 
-		Settings.loadSettings();
-
+		//Settings.loadSettings();
+		Settings.loadDefaultSettings();
+		
+		
 		TextLocal.init();
 
 		cmdsInst = new CommandsImpl();

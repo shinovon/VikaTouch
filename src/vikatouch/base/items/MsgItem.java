@@ -1,5 +1,6 @@
 package vikatouch.base.items;
 
+import javax.microedition.io.ConnectionNotFoundException;
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -7,17 +8,19 @@ import javax.microedition.lcdui.Image;
 import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.*;
+import ru.nnproject.vikaui.menu.IMenu;
 import ru.nnproject.vikaui.popup.*;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.TextBreaker;
 import vikamobilebase.VikaUtils;
+import vikatouch.base.IconsManager;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.attachments.*;
 import vikatouch.screens.ChatScreen;
 
 public class MsgItem
-	extends ChatItem
+	extends ChatItem implements IMenu
 {
 	public MsgItem(JSONObject json)
 	{
@@ -127,6 +130,12 @@ public class MsgItem
 			g.fillRoundRect(margin, y, msgWidth, th, radius, radius);
 			g.fillRect(margin, y+th-radius, radius, radius);
 			textX = margin + h1/2;
+			if(selected)
+			{
+				ColorUtils.setcolor(g, ColorUtils.TEXT);
+				g.setStrokeStyle(Graphics.SOLID);
+				g.drawRoundRect(margin, y, msgWidth, th, radius, radius);
+			}
 		}
 		else
 		{
@@ -137,6 +146,7 @@ public class MsgItem
 			if(selected)
 			{
 				ColorUtils.setcolor(g, ColorUtils.TEXT);
+				g.setStrokeStyle(Graphics.SOLID);
 				g.drawRoundRect(DisplayUtils.width-(margin+msgWidth), y, msgWidth, th, radius, radius);
 			}
 		}
@@ -196,6 +206,11 @@ public class MsgItem
 			}
 		}
 	}
+	
+	public String[] searchLinks()
+	{
+		return null;
+	}
 
 	public String getTime()
 	{
@@ -209,11 +224,104 @@ public class MsgItem
 
 	public void tap(int x, int y)
 	{
-		
+		keyPressed(-5);
 	}
 
 	public void keyPressed(int key)
 	{
+		if(key == -5) 
+		{
+			int h = DisplayUtils.height>240?36:30;
+			OptionItem[] opts = new OptionItem[7];
+			opts[0] = new OptionItem(this, "Ответить", IconsManager.ANSWER, -1, h);
+			opts[1] = new OptionItem(this, "Удалить", IconsManager.CLOSE, -2, h);
+			opts[2] = new OptionItem(this, "Редактировать", IconsManager.EDIT, -4, h);
+			opts[3] = new OptionItem(this, "Копировать текст", IconsManager.ADD, -5, h);
+			opts[4] = new OptionItem(this, "Переслать", IconsManager.SEND, -6, h);
+			opts[5] = new OptionItem(this, "Ссылки...", IconsManager.REPOST, -8, h);
+			opts[6] = new OptionItem(this, "Вложения...", IconsManager.ATTACHMENT, -9, h);
+			VikaTouch.popup(new ContextMenu(opts));
+		}
+	}
+
+	public void onMenuItemPress(int i) {
+		if(i<=-100)
+		{
+			// ссылки
+			i = -i;
+			i = i - 100;
+			try
+			{
+				VikaTouch.appInst.platformRequest(searchLinks()[i]);
+			}
+			catch (ConnectionNotFoundException e) 
+			{
+				VikaTouch.popup(new InfoPopup("Не удалось открыть. Возможно, произошла ошибка при обработке адреса либо нет подключения к интернету.", null));
+			}
+			return;
+		}
+		if(i>=0)
+		{ // прикрепы
+			try
+			{
+				attachments[i].press();
+			}
+			catch (Exception e) { }
+			return;
+		}
+		// основная менюшка
+		// Да, такая лапша. Ты ещё покруче делаешь.
+		switch(i)
+		{
+		case -1:
+			VikaTouch.popup(new InfoPopup("Ответы не изобрели", null));
+			break; // БРЕАК НА МЕСТЕ!!11!!1!
+		case -2:
+			VikaTouch.popup(new InfoPopup("УДОЛИ", null));
+			break;
+		case -4:
+			VikaTouch.popup(new InfoPopup("Редачить", null));
+			break;
+		case -5:
+			VikaTouch.popup(new InfoPopup("Я хз как это реализовать на симбе.", null));
+			break;
+		case -6:
+			VikaTouch.popup(new InfoPopup("Пересылку тоже не изобрели", null));
+			break;
+		case -8:
+			VikaTouch.popup(new InfoPopup("Ссылки в сибирь", null));
+			break;
+		case -9:
+			{
+				int l = attachments.length;
+				OptionItem[] opts = new OptionItem[l];
+				int photoC = 1;
+				int h = DisplayUtils.height>240?36:30;
+				for(int j=0;j<l;j++)
+				{
+					Attachment a = attachments[j];
+					if(a.type.equals("photo"))
+					{
+						opts[j] = new OptionItem(this, "Фотография "+photoC, IconsManager.PHOTOS, j, h);
+						photoC++;
+					}
+					else if(a.type.equals("doc"))
+					{
+						DocumentAttachment da = (DocumentAttachment) a;
+						opts[j] = new OptionItem(this, da.name + " ("+(da.size/1000)+"kb)", IconsManager.DOCS, j, h);
+					}
+					else
+					{
+						opts[j] = new OptionItem(this, "Вложение", IconsManager.ATTACHMENT, j, h);
+					}
+				}
+				VikaTouch.popup(new ContextMenu(opts));
+			}
+			break;
+		}
+	}
+
+	public void onMenuItemOption(int i) {
 		
 	}
 

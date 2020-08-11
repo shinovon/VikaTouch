@@ -17,10 +17,10 @@ public class DocumentAttachment
 		this.type = "doc";
 	}
 	
-	private String name;
+	public String name;
 	private String url;
 	private int docType;
-	private int size;
+	public int size;
 	private String ext;
 	private String prevImgUrl;
 

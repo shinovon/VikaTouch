@@ -289,7 +289,6 @@ public class ChatScreen
 	
 	public final void release(int x, int y)
 	{
-		System.out.println(x+" "+y);
 		textboxSelected = false;
 		if(!dragging)
 		{
@@ -518,9 +517,6 @@ public class ChatScreen
 
 	private void drawTextbox(Graphics g)
 	{
-		// DEBUG
-		g.drawString("btn:"+buttonSelected+" msg"+currentItem, 100, 100, 0);
-		
 		// расчёты и обработка текста
 		int m = 4; // margin
 		int dw = DisplayUtils.width; int dh = DisplayUtils.height;
