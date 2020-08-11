@@ -477,16 +477,30 @@ public class ChatScreen
 		repaint();
 	}
 
+	public boolean canSend = true;
 	private void send()
 	{
+		if(!canSend) return;
+		canSend = false;
 		new Thread()
 		{
 			public void run()
 			{
-				VikaUtils.download(new URLBuilder("messages.send").addField("random_id", new Random().nextInt(1000)).addField("peer_id", peerId).addField("message", inputText).addField("intent", "default"));
-				inputText = null;
-				inputChanged = true;
-				inputedLinesCount = 0;
+				try
+				{
+					VikaUtils.download(new URLBuilder("messages.send").addField("random_id", new Random().nextInt(10000)).addField("peer_id", peerId).addField("message", inputText).addField("intent", "default"));
+					inputText = null;
+					inputChanged = true;
+					inputedLinesCount = 0;
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+				finally
+				{
+					canSend = true;
+				}
 			}
 		}.start();
 	}
@@ -796,7 +810,7 @@ public class ChatScreen
 		{
 			right = "Назад";
 			left = buttonSelected==0?"Написать":"Наверх";
-			ok = (new String[] {"Действия", "Прикрепить", "Клавиатура", "Стикеры", "Отправить"})[buttonSelected];
+			ok = canSend?((new String[] {"Действия", "Прикрепить", "Клавиатура", "Стикеры", "Отправить"})[buttonSelected]):"Отправка сообщения...";
 		}
 		else if(VikaTouch.canvas.currentAlert instanceof ContextMenu)
 		{
