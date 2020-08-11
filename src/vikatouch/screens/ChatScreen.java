@@ -13,6 +13,7 @@ import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.VikaCanvas;
 import ru.nnproject.vikaui.menu.items.PressableUIItem;
+import ru.nnproject.vikaui.popup.ContextMenu;
 import ru.nnproject.vikaui.popup.InfoPopup;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
@@ -35,10 +36,10 @@ public class ChatScreen
 	public int localId;
 	public int type;
 	public static final int OFFSET_INT = 2000000000;
+	private static final int msgYMargin = 0;
 	public String title = "dialog";
 	public String title2 = "оффлайн";
 	public String inputText = "";
-	private boolean textboxSelected;
 	private String[] inputedTextToDraw;
 	private boolean inputChanged;
 	private JSONObject json;
@@ -48,10 +49,11 @@ public class ChatScreen
 	private int inputBoxH = 48;
 	private int inputedLinesCount = 0;
 	
-	private int selectedMsg = 0;
+	private int loadSpace = 20;
+	private int hasSpace = loadSpace;
+	
 	// 0 - сообщения, 1 - прикреп, 2 - поле, 3 - смайлы, 4 - отправка
 	private byte buttonSelected = 0;
-	
 	
 	
 	public static Hashtable profileNames = new Hashtable();
@@ -148,7 +150,7 @@ public class ChatScreen
 		try
 		{
 			// скачка сообщений
-			uiItems = new PressableUIItem[Settings.messagesPerLoad];
+			uiItems = new PressableUIItem[Settings.messagesPerLoad+loadSpace];
 			final String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("extended", 1).addField("count", Settings.messagesPerLoad).addField("offset", 0));
 			final JSONArray profiles = new JSONObject(x).getJSONObject("response").getJSONArray("profiles");
 			final JSONArray items = new JSONObject(x).getJSONObject("response").getJSONArray("items");
@@ -186,7 +188,7 @@ public class ChatScreen
 				{
 					m.name = (m.foreign ? name :"Вы");
 				}
-				uiItems[uiItems.length-1-i] = m;
+				uiItems[uiItems.length-1-i-loadSpace] = m;
 				itemsCount = (short) uiItems.length;
 			}
 		}
@@ -202,7 +204,7 @@ public class ChatScreen
 		try
 		{
 			// скачка сообщений
-			uiItems = new PressableUIItem[Settings.messagesPerLoad];
+			uiItems = new PressableUIItem[Settings.messagesPerLoad+loadSpace];
 			final String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("count", Settings.messagesPerLoad).addField("offset", 0));
 			JSONArray json = new JSONObject(x).getJSONObject("response").getJSONArray("items");
 			profileNames.put(new Integer(peerId), title);
@@ -226,7 +228,7 @@ public class ChatScreen
 				{
 					m.name = (m.foreign?title:"Вы");
 				}
-				uiItems[uiItems.length-1-i] = m;
+				uiItems[uiItems.length-1-i-loadSpace] = m;
 				itemsCount = (short) uiItems.length;
 			}
 		}
@@ -263,7 +265,6 @@ public class ChatScreen
 	
 	public final void press(int x, int y)
 	{
-		textboxSelected = false;
 		if(!dragging)
 		{
 			if(y > 590)
@@ -273,7 +274,6 @@ public class ChatScreen
 				//текстбокс
 				if(x > 50 && x < DisplayUtils.width - 98)
 				{
-					textboxSelected = true;
 				}
 			}
 			else if(y < 50)
@@ -289,7 +289,6 @@ public class ChatScreen
 	
 	public final void release(int x, int y)
 	{
-		textboxSelected = false;
 		if(!dragging)
 		{
 			if(y > DisplayUtils.height-50)
@@ -403,10 +402,10 @@ public class ChatScreen
 			catch (Exception e)
 			{ }
 			currentItem++;
-			if(currentItem >= itemsCount)
+			if(currentItem >= itemsCount || uiItems[currentItem] == null)
 			{
-				currentItem = 0;
-				scrolled += 1900;
+				currentItem--;
+				buttonSelected = 2;
 			}
 			else
 				scrolled -= uiItems[currentItem].getDrawHeight();
@@ -431,8 +430,7 @@ public class ChatScreen
 			currentItem--;
 			if(currentItem < 0)
 			{
-				currentItem = (short) (itemsCount-1);
-				scrolled -= 1900;
+				currentItem = 0;
 			}
 			else
 			{
@@ -471,13 +469,53 @@ public class ChatScreen
 			public void run()
 			{
 				VikaUtils.download(new URLBuilder("messages.send").addField("random_id", new Random().nextInt(1000)).addField("peer_id", peerId).addField("message", inputText).addField("intent", "default"));
-				inputText = "";
+				inputText = null;
 				inputChanged = true;
 				inputedLinesCount = 0;
 			}
 		}.start();
 	}
-
+	
+	// Удаляет старые сообщения из списка и пододвигает остальные назад, чтоб все влезли.
+	private void shiftList()
+	{
+		currentItem -= loadSpace;
+		int deltaScroll = 0;
+		for(int i=0;i<loadSpace;i++)
+		{
+			deltaScroll += uiItems[i].getDrawHeight()+msgYMargin;
+		}
+		scrolled+=deltaScroll;
+		hasSpace += loadSpace;
+		for(int i=0;i<uiItems.length;i++)
+		{
+			if(i - loadSpace >= 0)
+			{
+				uiItems[i - loadSpace] = uiItems[i];
+			}
+			uiItems[i] = null;
+		}
+		System.gc();
+	}
+	
+	// будет подгружать новые
+	private void update ()
+	{
+		// запросить список
+		int newMsgCount = 0; // = json.length();
+		if(newMsgCount>=hasSpace-1)
+		{
+			shiftList();
+		}
+		// парс
+		{
+			
+		}
+		// аппенд
+		{
+			// TODO
+		}
+	}
 	private void showTextBox()
 	{
 		new Thread()
@@ -493,7 +531,6 @@ public class ChatScreen
 					inputText = TextEditor.inputString("Сообщение", "", 0);
 				}
 				inputChanged = true;
-				textboxSelected = true;
 			}
 		}.start();
 	}
@@ -503,12 +540,11 @@ public class ChatScreen
 		if(uiItems==null) return;
 		
 		int y = 0;
-		final int space = 4;
 		for(int i=0; i<uiItems.length; i++)
 		{
 			if(uiItems[i] == null) continue;
 			
-			y+=space;
+			y+=msgYMargin;
 			uiItems[i].paint(g, y, scrolled);
 			y+=uiItems[i].getDrawHeight();
 		}
@@ -618,9 +654,24 @@ public class ChatScreen
 
 	private void drawKeysTips(Graphics g)
 	{
-		String left = buttonSelected==0?"Написать":"Наверх";
-		String right = "Назад";
-		String ok = (new String[] {"Действия", "Прикрепить", "Клавиатура", "Стикеры", "Отправить"})[buttonSelected];
+		String left; String ok; String right;
+		if(VikaTouch.canvas.currentAlert==null)
+		{
+			right = "Назад";
+			left = buttonSelected==0?"Написать":"Наверх";
+			ok = (new String[] {"Действия", "Прикрепить", "Клавиатура", "Стикеры", "Отправить"})[buttonSelected];
+		}
+		else if(VikaTouch.canvas.currentAlert instanceof ContextMenu)
+		{
+			right = "Закрыть";
+			left = "";
+			ContextMenu m = (ContextMenu) VikaTouch.canvas.currentAlert;
+			ok = m.items[m.selected].text;
+		}
+		else
+		{
+			return;
+		}
 		Font f = Font.getFont(0, 0, Font.SIZE_SMALL);
 		int h = f.getHeight();
 		int y = DisplayUtils.height-h;
