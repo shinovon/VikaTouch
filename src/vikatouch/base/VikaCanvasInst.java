@@ -202,7 +202,11 @@ extends VikaCanvas
 	
 	public void pointerDragged(int x, int y)
 	{
-		if(currentScreen != null)
+		if(currentAlert != null)
+		{
+			currentAlert.drag(x, y);
+		}
+		else if(currentScreen != null)
 		{
 			currentScreen.drag(x, y);
 		}

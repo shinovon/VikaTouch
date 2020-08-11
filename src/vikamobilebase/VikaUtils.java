@@ -448,6 +448,10 @@ public final class VikaUtils
 	{
 		// кеширование картинок включается если запрос http
 		boolean caching = !startsWith(url, "file") && Settings.cacheImages;
+		if(url.indexOf("camera_50") >= 0)
+		{
+			return VikaTouch.cameraImg;
+		}
 		String filename = null;
 		if(caching)
 		{
