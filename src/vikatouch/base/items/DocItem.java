@@ -185,7 +185,6 @@ public class DocItem
 		Image img = null;
 		try
 		{
-			//System.out.println(iconUrl);
 			img = ResizeUtils.resizeItemPreview(VikaUtils.downloadImage(iconUrl));
 		}
 		catch (Exception e)

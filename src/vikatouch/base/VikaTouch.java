@@ -329,6 +329,12 @@ public class VikaTouch
 	{
 		return appInst.getAppProperty("MIDlet-Version");
 	}
+	public static String getRelease()
+	{
+		// inDev - пока втихоря пилим. 
+		// Потом пойдёт alpha1, alpha2, beta, r1, r2 и т.п.
+		return appInst.getAppProperty("VikaTouch-Release");
+	}
 
 	public static void setDisplay(Displayable d)
 	{
@@ -461,8 +467,10 @@ public class VikaTouch
 			e.printStackTrace();
 		}
 
-		Settings.loadSettings();
-
+		//Settings.loadSettings();
+		Settings.loadDefaultSettings();
+		
+		
 		TextLocal.init();
 
 		cmdsInst = new CommandsImpl();

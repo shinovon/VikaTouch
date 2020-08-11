@@ -194,6 +194,14 @@ public class CommandsImpl
 						back(s);
 						break;
 					}
+					case 15:
+					{
+						// О программе
+						if(VikaTouch.about == null)
+							VikaTouch.about = new AboutScreen();
+						VikaTouch.setDisplay(VikaTouch.about, 1);
+						break;
+					}
 					default:
 					{
 						break;

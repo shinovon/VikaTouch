@@ -53,6 +53,8 @@ public class Settings
 
 	public static boolean cacheImages;
 
+	public static boolean dontLoadAvas;
+
 	public static final int SENSOR_OK = 0;
 	public static final int SENSOR_J2MELOADER = 1;
 	public static final int SENSOR_RESISTIVE = 2;
@@ -145,10 +147,11 @@ public class Settings
 		proxyOAuth = xtrafrancyzOAuth;
 		sensorMode = SENSOR_OK;
 		simpleListsLength = 30; // выбор из 10, 30, 50 и 80. Экран потом сделаю.
-		messagesPerLoad = 60;
+		messagesPerLoad = 30;
 		videoResolution = "480";
 		language = "ru_RU";
 		cacheImages = true;
+		dontLoadAvas = true; // мне тестить надо, а не ждать по 2 минуты пока скачается. И нет, нихера оно не кэшируется. Ещё и скачивается 2 раза.
 	}
 
 }

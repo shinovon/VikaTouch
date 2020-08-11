@@ -81,7 +81,7 @@ public class ImagePreview extends VikaNotice {
 	
 	public void draw(Graphics g) {
 		if(img == null) {
-			g.drawImage(IconsManager.ico[IconsManager.CLOSE], currX, 0, 0);
+			g.drawImage(IconsManager.ico[IconsManager.CLOSE], DisplayUtils.width - 24, 0, 0);
 			VikaTouch.loading = true;
 		} else {
 			VikaTouch.loading = false;
@@ -148,7 +148,7 @@ public class ImagePreview extends VikaNotice {
 				}
 				catch (ConnectionNotFoundException e) 
 				{
-					VikaTouch.popup(new InfoPopup("Не удалось открыть документ. Возможно, произошла ошибка при обработке адреса либо ваше устройство не может открыть этот документ.", null));
+					VikaTouch.popup(new InfoPopup("Не удалось открыть. Возможно, произошла ошибка при обработке адреса либо ваше устройство не может открыть этот документ.", null));
 				}
 			}
 			currX -= 24;

@@ -159,7 +159,7 @@ public class ProfilePageScreen
 							{
 								visitStr = wasOnlineJustNowStr;
 							}
-							else if(r<90*60)
+							else if(r<60*60)
 							{
 								visitStr = wasOnlineStr + " "+(r/60)+" "+minutesAgoStr;
 							}

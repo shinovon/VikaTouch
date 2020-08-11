@@ -13,12 +13,15 @@ import javax.microedition.lcdui.game.GameCanvas;
 
 import org.json.me.JSONObject;
 
+import ru.nnproject.vikaui.menu.IMenu;
 import ru.nnproject.vikaui.screen.ScrollableCanvas;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
+import vikatouch.base.IconsManager;
 import vikatouch.base.VikaCanvasInst;
 import vikatouch.base.VikaTouch;
+import vikatouch.base.items.OptionItem;
 import vikatouch.base.json.JSONBase;
 import vikatouch.base.local.TextLocal;
 import vikatouch.base.utils.ErrorCodes;
@@ -27,7 +30,7 @@ import vikatouch.base.utils.url.URLBuilder;
 import vikatouch.screens.MainScreen;
 
 public class MenuScreen
-	extends MainScreen
+	extends MainScreen implements IMenu
 {
 
 	public static Image logoImg;
@@ -57,6 +60,7 @@ public class MenuScreen
 	public String musicStr;
 	public String groupsStr;
 	public String friendsStr;
+	private String aboutStr;
 
 	public MenuScreen()
 	{
@@ -191,14 +195,27 @@ public class MenuScreen
 			docsStr = TextLocal.inst.get("menu.documents");
 			photosStr = TextLocal.inst.get("menu.photos");
 			videosStr = TextLocal.inst.get("menu.videos");
+			aboutStr = TextLocal.inst.get("menu.about");
 		}
 		catch (Exception e)
 		{
 			
 		}
+		int uiih = 50;
+		uiItems = new OptionItem[9];
+		uiItems[0] = new OptionItem(this, friendsStr, IconsManager.FRIENDS, 4, uiih);
+		uiItems[1] = new OptionItem(this, groupsStr, IconsManager.GROUPS, 5, uiih);
+		uiItems[2] = new OptionItem(this, musicStr, IconsManager.MUSIC, 6, uiih);
+		uiItems[3] = new OptionItem(this, videosStr, IconsManager.VIDEOS, 7, uiih);
+		uiItems[4] = new OptionItem(this, photosStr, IconsManager.PHOTOS, 8, uiih);
+		uiItems[5] = new OptionItem(this, docsStr, IconsManager.DOCS, 9, uiih);
+		uiItems[6] = new OptionItem(this, TextLocal.inst.get("menu.settings"), IconsManager.SETTINGS, 13, uiih);
+		uiItems[7] = new OptionItem(this, aboutStr, IconsManager.INFO, 15, uiih);
+		uiItems[8] = new OptionItem(this, exitStr, IconsManager.CLOSE, -1, uiih);
+		
 	}
 
-	protected final void up()
+	/*protected final void up()
 	{
 		selectedBtn--;
 		if(selectedBtn < 0)
@@ -215,9 +232,9 @@ public class MenuScreen
 		if(selectedBtn > 3)
 			scroll -= oneitemheight;
 		dragging = true;
-	}
+	}*/
 	
-	public final void press(int key)
+	/*public final void press(int key)
 	{
 		keysMode = true;
 		if(key == -5)
@@ -234,8 +251,57 @@ public class MenuScreen
 		else
 			super.press(key);
 		repaint();
+	}*/
+	
+	public void draw(Graphics g)
+	{
+		int y = 140; // init offset
+		itemsh = itemsCount * 50 + y;
+		update(g);
+		ColorUtils.setcolor(g, -2);
+		g.fillRect(0, 132, DisplayUtils.width, 8);
+		ColorUtils.setcolor(g, -10);
+		g.fillRect(0, 133, DisplayUtils.width, 1);
+		ColorUtils.setcolor(g, -11);
+		g.fillRect(0, 134, DisplayUtils.width, 1);
+		ColorUtils.setcolor(g, -7);
+		g.fillRect(0, 139, DisplayUtils.width, 1);
+		ColorUtils.setcolor(g, -12);
+		g.fillRect(0, 140, DisplayUtils.width, 1);
+		if(profileimg != null)
+		{
+			g.drawImage(profileimg, 16, 71, 0);
+			g.drawImage(IconsManager.ac, 16, 71, 0);
+			if(VikaTouch.offlineMode)
+			{
+				g.setColor(200, 0, 0);
+			}
+			else
+				ColorUtils.setcolor(g, ColorUtils.ONLINE);
+			g.fillArc(16+38, 71+38, 12, 12, 0, 360);
+		}
+		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
+		ColorUtils.setcolor(g, ColorUtils.TEXT);
+		g.drawString(name+" "+lastname, 74, 74, 0);
+		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
+		g.drawString("Статус: живой", 74, 98, 0);
+		
+		ColorUtils.setcolor(g, -3);
+		//g.drawRect(0, 140, DisplayUtils.width, 50);
+		if(uiItems!=null)
+		{
+			for (int i=0;i<uiItems.length;i++)
+			{
+				if(uiItems[i]!=null) {
+					uiItems[i].paint(g, y, scrolled);
+					y+=uiItems[i].getDrawHeight();
+				}
+			}
+		}
+		g.translate(0, -g.getTranslateY());
+		drawHUD(g, "Vika Touch "+VikaTouch.getRelease());
 	}
-
+/*
 	public final void draw(Graphics g)
 	{
 		{
@@ -316,10 +382,6 @@ public class MenuScreen
 							g.drawImage(profileimg, 15, 70, 0);
 						}
 					}
-					/*if(online != null)
-					{
-						g.drawImage(online, 54, 108, 0);
-					}*/
 
 					ColorUtils.setcolor(g, -3);
 					g.drawRect(0, 140, 360, 50);
@@ -830,8 +892,30 @@ public class MenuScreen
 				}
 			}
 		}
+	}*/
+	
+	public final void release(int x, int y)
+	{
+		if(!dragging)
+		{
+			if(y > 58 && y < DisplayUtils.height-50)
+			{
+				int y1 = scrolled + 140;
+				for(int i = 0; i < itemsCount; i++)
+				{
+					int y2 = y1 + uiItems[i].getDrawHeight();
+					if(y > y1 && y < y2)
+					{
+						uiItems[i].tap(x, y - y1);
+						break;
+					}
+					y1 = y2;	
+				}
+			}
+		}
+		super.release(x, y);
 	}
-
+	/*
 	public final void release(int x, int y)
 	{
 		if(!dragging)
@@ -904,6 +988,15 @@ public class MenuScreen
 			}
 		}
 		super.release(x, y);
+	} */
+
+	public void onMenuItemPress(int i) {
+		VikaTouch.inst.cmdsInst.command(i, this);
+	}
+
+	public void onMenuItemOption(int i) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
