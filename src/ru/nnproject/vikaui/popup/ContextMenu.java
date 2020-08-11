@@ -13,11 +13,13 @@ import vikatouch.base.items.OptionItem;
 public class ContextMenu extends VikaNotice {
 
 	public OptionItem[] items;
-	public int selected;
+	public int selected = 0;
 	
 	public ContextMenu(OptionItem[] list) 
 	{
 		items = list;
+		if(ScrollableCanvas.keysMode)
+			items[selected].setSelected(true);
 	}
 	
 	public void draw(Graphics g) {
@@ -42,7 +44,7 @@ public class ContextMenu extends VikaNotice {
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
 		g.drawRoundRect(x, y, width, th, 16, 16);
 		
-		int cy = 8;
+		int cy = 8 + y;
 		for(int i=0; i < items.length; i++)
 		{
 			items[i].paint(g, cy, 0);
@@ -60,13 +62,17 @@ public class ContextMenu extends VikaNotice {
 		}
 		else if(key == -1)
 		{
+			items[selected].setSelected(false);
 			selected--; 
 			if(selected<0) selected = items.length-1;
+			items[selected].setSelected(true);
 		}
 		else if(key == -2)
 		{
+			items[selected].setSelected(false);
 			selected++;
 			if(selected>=items.length) selected = 0;
+			items[selected].setSelected(true);
 		}
 		else if(key == PressableUIItem.KEY_RFUNC)
 		{
