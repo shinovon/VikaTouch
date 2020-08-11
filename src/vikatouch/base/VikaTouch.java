@@ -338,7 +338,7 @@ public class VikaTouch
 	{
 		// inDev - пока втихоря пилим. 
 		// Потом пойдёт alpha1, alpha2, beta, r1, r2 и т.п.
-		return appInst.getAppProperty("CBT");
+		return appInst.getAppProperty("Pre-CBT");
 	}
 	
 	public static String getStats()
@@ -353,7 +353,7 @@ public class VikaTouch
 		{
 			mem = ""+(Runtime.getRuntime().totalMemory()/1024);
 		} catch (Exception e) { }
-		return "VKT"+getRelease()+" version: "+getVersion()+", device: "+dev+", mem: "+mem+" w: "+DisplayUtils.width+" h: "+DisplayUtils.height+" sm: "+Settings.sensorMode+" https: "+Settings.https+" proxy: "+Settings.proxy+" lang: "+Settings.language+" listslen: "+Settings.simpleListsLength;
+		return "VKT "+getRelease()+" version: "+getVersion()+", device: "+dev+", mem: "+mem+" w: "+DisplayUtils.width+" h: "+DisplayUtils.height+" sm: "+Settings.sensorMode+" https: "+Settings.https+" proxy: "+Settings.proxy+" lang: "+Settings.language+" listslen: "+Settings.simpleListsLength;
 	}
 	
 	public static void sendStats()
@@ -501,9 +501,9 @@ public class VikaTouch
 			e.printStackTrace();
 		}
 
-		//Settings.loadSettings();
 		Settings.loadDefaultSettings();
-		
+
+		Settings.loadSettings();
 		
 		TextLocal.init();
 
