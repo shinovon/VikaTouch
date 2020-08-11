@@ -57,6 +57,8 @@ public class Settings
 	
 	public static int refreshRate = 5;
 
+	public static boolean logs;
+
 	public static final int SENSOR_OK = 0;
 	public static final int SENSOR_J2MELOADER = 1;
 	public static final int SENSOR_RESISTIVE = 2;
@@ -109,6 +111,14 @@ public class Settings
 		{
 			try
 			{
+				try
+				{
+					RecordStore.deleteRecordStore("setts");
+				}
+				catch (Exception e)
+				{
+					
+				}
 				RecordStore rs = RecordStore.openRecordStore("setts", true);
 		        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		        final DataOutputStream os = new DataOutputStream(baos);
@@ -154,6 +164,7 @@ public class Settings
 		language = "ru_RU";
 		cacheImages = true;
 		dontLoadAvas = true; // мне тестить надо, а не ждать по 2 минуты пока скачается. И нет, нихера оно не кэшируется. Ещё и скачивается 2 раза.
+		logs = true;
 	}
 
 }

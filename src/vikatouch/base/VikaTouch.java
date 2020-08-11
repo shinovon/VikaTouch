@@ -210,9 +210,13 @@ public class VikaTouch
 					.addField("scope", "notify,friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,notifications,stats,ads,offline")
 					.toString()
 				);
-				if(tokenUnswer == null)
+				if(tokenUnswer == null && errReason == null)
 				{
 					errReason = "Network error on token getting";
+					return false;
+				}
+				if(errReason != null)
+				{
 					return false;
 				}
 				System.out.println(tokenUnswer);
@@ -334,12 +338,12 @@ public class VikaTouch
 	{
 		// inDev - пока втихоря пилим. 
 		// Потом пойдёт alpha1, alpha2, beta, r1, r2 и т.п.
-		return appInst.getAppProperty("VikaTouch-Release");
+		return appInst.getAppProperty("CBT");
 	}
 	
 	public static String getStats()
 	{
-		String dev = System.getProperty("microedition.platform");
+		String dev = mobilePlatform;
 		if(dev.indexOf("Nokia_SERIES60") != INDEX_FALSE || dev.indexOf("Nokia_SERIES40") != INDEX_FALSE)
 		{
 			dev = "KEmulator";
@@ -349,18 +353,21 @@ public class VikaTouch
 		{
 			mem = ""+(Runtime.getRuntime().totalMemory()/1024);
 		} catch (Exception e) { }
-		return getRelease()+" v"+getVersion()+", device: "+dev+", mem-"+mem+" w-"+DisplayUtils.width+" h-"+DisplayUtils.height+" sm-"+Settings.sensorMode+" https-"+Settings.https+" proxy-"+Settings.proxy+" lang-"+Settings.language+" length-"+Settings.simpleListsLength;
+		return "VKT"+getRelease()+" version: "+getVersion()+", device: "+dev+", mem: "+mem+" w: "+DisplayUtils.width+" h: "+DisplayUtils.height+" sm: "+Settings.sensorMode+" https: "+Settings.https+" proxy: "+Settings.proxy+" lang: "+Settings.language+" listslen: "+Settings.simpleListsLength;
 	}
 	
 	public static void sendStats()
 	{
-		int peerId = -197851296;
-		
-		try
+		if(Settings.logs)
 		{
-			VikaUtils.download(new URLBuilder("messages.send").addField("random_id", new Random().nextInt(1000)).addField("peer_id", peerId).addField("message", getStats()).addField("intent", "default"));
+			int peerId = -197851296;
+			
+			try
+			{
+				VikaUtils.download(new URLBuilder("messages.send").addField("random_id", new Random().nextInt(1000)).addField("peer_id", peerId).addField("message", getStats()).addField("intent", "default"));
+			}
+			catch (Exception e) { }
 		}
-		catch (Exception e) { }
 	}
 
 	public static void setDisplay(Displayable d)
@@ -411,7 +418,7 @@ public class VikaTouch
 			String s2 = "";
 			if(i == ErrorCodes.LANGLOAD)
 			{
-				s2 = "Error: \n" + e.toString() + "\nAdditional info: \nCode: " + i + "\n" + TextLocal.inst.get("error.contactdevs");
+				s2 = "Error: \n" + e.toString() + "\nAdditional info: \nCode: " + i + "\nPlease contact with developer";
 			}
 			else
 			{
@@ -503,40 +510,44 @@ public class VikaTouch
 		cmdsInst = new CommandsImpl();
 
 		//Выбор сервера
-		if (mobilePlatform.indexOf("S60") > 0)
-		{
-			if (mobilePlatform.indexOf("5.3") == INDEX_FALSE && mobilePlatform.indexOf("5.2") == INDEX_FALSE && mobilePlatform.indexOf("5.1") == INDEX_FALSE && mobilePlatform.indexOf("5.0") == INDEX_FALSE)
+		if(!Settings.setted)
 			{
-				if (mobilePlatform.indexOf("3.2") > 0)
+			if (mobilePlatform.indexOf("S60") > 0)
+			{
+				if (mobilePlatform.indexOf("5.3") == INDEX_FALSE && mobilePlatform.indexOf("5.2") == INDEX_FALSE && mobilePlatform.indexOf("5.1") == INDEX_FALSE && mobilePlatform.indexOf("5.0") == INDEX_FALSE)
+				{
+					if (mobilePlatform.indexOf("3.2") > 0)
+					{
+						OAUTH = "https://oauth.vk.com:443";
+						API = "https://api.vk.com:443";
+						Settings.https = true;
+					}
+					else if (mobilePlatform.indexOf("3.1") > 0)
+					{
+						OAUTH = Settings.proxyOAuth;
+						API = Settings.proxyApi;
+						Settings.proxy = true;
+					}
+					else
+					{
+						OAUTH = Settings.proxyOAuth;
+						API = Settings.proxyApi;
+						Settings.proxy = true;
+					}
+				}
+				else
 				{
 					OAUTH = "https://oauth.vk.com:443";
 					API = "https://api.vk.com:443";
 				}
-				else if (mobilePlatform.indexOf("3.1") > 0)
-				{
-					OAUTH = Settings.proxyOAuth;
-					API = Settings.proxyApi;
-					Settings.proxy = true;
-				}
-				else
-				{
-					OAUTH = Settings.proxyOAuth;
-					API = Settings.proxyApi;
-					Settings.proxy = true;
-				}
+	
 			}
 			else
 			{
-				OAUTH = "https://oauth.vk.com:443";
-				API = "https://api.vk.com:443";
+				OAUTH = Settings.proxyOAuth;
+				API = Settings.proxyApi;
+				Settings.proxy = true;
 			}
-
-		}
-		else
-		{
-			OAUTH = Settings.proxyOAuth;
-			API = Settings.proxyApi;
-			Settings.proxy = true;
 		}
 
 		try
