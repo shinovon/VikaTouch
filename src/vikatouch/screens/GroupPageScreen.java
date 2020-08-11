@@ -279,7 +279,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 					int y2 = y1 + oneitemheight;
 					if(y > y1 && y < y2)
 					{
-						onMenuItemPress(i);
+						uiItems[i].tap(x, y - y1);
 						break;
 					}
 						
