@@ -17,13 +17,16 @@ public class ImagePreview extends VikaNotice {
 
 	public ImagePreview (String url)
 	{
-		
+		imgUrl = url;
+		downloadUrl = null;
+		socialActions = null;
+		Load();
 	}
 	public ImagePreview (PhotoAttachment photo)
 	{
 		imgUrl = photo.getPreviewImageUrl();
 		downloadUrl = photo.getFullImageUrl();
-		socialActions = null;
+		socialActions = (ISocialable) photo;
 		Load();
 	}
 	public ImagePreview (DocItem doc)
@@ -44,6 +47,7 @@ public class ImagePreview extends VikaNotice {
 	private void Load()
 	{
 		VikaTouch.loading = true;
+		repaint();
 		(new Thread()
 		{
 			public void run()
@@ -133,6 +137,7 @@ public class ImagePreview extends VikaNotice {
 		// закрытие
 		if(x>currX)
 		{
+			VikaTouch.loading = false;
 			VikaTouch.canvas.currentAlert = null;
 		}
 		if(img == null) return;

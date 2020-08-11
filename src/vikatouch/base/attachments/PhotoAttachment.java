@@ -8,12 +8,14 @@ import org.json.me.JSONArray;
 import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
+import ru.nnproject.vikaui.popup.ImagePreview;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
+import vikatouch.base.VikaTouch;
 import vikatouch.base.items.MsgItem;
 
 public class PhotoAttachment
-	extends ImageAttachment
+	extends ImageAttachment implements ISocialable
 {
 	public int albumid;
 	public long ownerid;
@@ -43,7 +45,7 @@ public class PhotoAttachment
 		
 		// EXPERIMENTAL
 		{
-			//System.out.println(json.optJSONArray("sizes").toString());
+			System.out.println(json.toString());
 		}
 	}
 	
@@ -87,15 +89,12 @@ public class PhotoAttachment
 
 	public String getFullImageUrl()
 	{
-		try
-		{
-			PhotoSize ps = PhotoSize.getSize(sizes, "o");
-			return ps.url;
-		}
-		catch (Exception e2)
-		{
-			return null;
-		}
+		return PhotoSize.searchNearestSize(sizes, 0xffff).url;
+	}
+	
+	public void press()
+	{
+		VikaTouch.popup(new ImagePreview(this));
 	}
 	
 	// имеющиеся методы для идиотов. Точнее я не уверен что вот то будет работать, и мне проще написать это чем 2 часа ловить баги. Потом втюхаю в I.
@@ -139,6 +138,47 @@ public class PhotoAttachment
 	public Image getImage(int height) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	
+	public boolean canSave() {
+		// TODO
+		return false;
+	}
+
+	public void save() {
+		// TODO
+	}
+
+	public boolean canLike() {
+		// TODO
+		return true;
+	}
+
+	public boolean getLikeStatus() {
+		// TODO
+		return false;
+	}
+
+	public void like(boolean val) {
+		// TODO
+	}
+
+	public void send() {
+		// TODO
+	}
+
+	public void repost() {
+		// TODO
+	}
+
+	public boolean commentsAliveable() {
+		// TODO
+		return true;
+	}
+
+	public void openComments() {
+		// TODO
 	}
 }
 
