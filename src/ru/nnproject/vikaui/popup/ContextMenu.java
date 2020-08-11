@@ -52,7 +52,7 @@ public class ContextMenu extends VikaNotice {
 		}
 	}
 	
-	public void key(int key)
+	public void press(int key)
 	{
 		ScrollableCanvas.keysMode = true;
 		if(key == PressableUIItem.KEY_OK)
