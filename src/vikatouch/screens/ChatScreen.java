@@ -553,7 +553,7 @@ public class ChatScreen
 		{
 			scrolledDown = true;
 			scrolled = -(itemsh);
-			currentItem = (short) (uiItems.length-1);
+			currentItem = (short) (uiItems.length-1-loadSpace);
 			uiItems[currentItem].setSelected(true);
 		}
 	}
