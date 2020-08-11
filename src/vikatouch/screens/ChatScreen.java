@@ -143,8 +143,11 @@ public class ChatScreen
 		}
 		
 		System.gc();
-		scroll = -10000;
-		dragging = true;
+		System.out.println("Dialog ready.");
+		//scroll = -10000;
+		//dragging = true;
+		repaint();
+		runUpdater();
 	}
 
 	private void messagesChat()
@@ -199,7 +202,6 @@ public class ChatScreen
 			this.title2 = "Не удалось загрузить сообщения.";
 			e.printStackTrace();
 		}
-		runUpdater();
 	}
 
 	private void messagesDialog()
@@ -240,7 +242,6 @@ public class ChatScreen
 			this.title2 = "Не удалось загрузить сообщения.";
 			e.printStackTrace();
 		}
-		runUpdater();
 	}
 
 	public void draw(Graphics g)
