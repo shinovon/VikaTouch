@@ -37,11 +37,12 @@ public class MenuScreen
 	public static Image menuImg;
 	public static Image dialImg;
 	private static Image profileimg;
-	private static Image friendimg;
-	private static Image groupimg;
+	/*private static Image friendimg;
+	private static Image groupimg;*/
 	public static String name;
 	public static boolean hasAva;
 	public static String lastname;
+	public static String status;
 	public static String avaurl;
 	private static Image musicimg;
 	private static Image videosimg;
@@ -130,6 +131,7 @@ public class MenuScreen
 		{
 			name = "Арман";
 			lastname = "Джусупгалиев";
+			status = "Волк тот кто волк, а не тот кто волк.";
 			try
 			{
 				profileimg = ResizeUtils.resizeava(Image.createImage("/camera.png"));
@@ -148,10 +150,11 @@ public class MenuScreen
 				{
 					String var10 = VikaUtils.download(new URLBuilder("users.get")
 						.addField("user_ids", VikaTouch.userId)
-						.addField("fields", "photo_id,verified,sex,bdate,city,country,home_town,has_photo,photo_50"));
+						.addField("fields", "photo_id,verified,sex,bdate,city,country,home_town,has_photo,photo_50,status"));
 					final JSONObject profileobj = new JSONObject(var10).getJSONArray("response").getJSONObject(0);
 					name = profileobj.optString("first_name");
 					lastname = profileobj.optString("last_name");
+					status = profileobj.optString("status");
 					avaurl = JSONBase.fixJSONString(profileobj.optString("photo_50"));
 					hasAva = profileobj.optInt("has_photo") == 1;
 				}
@@ -213,6 +216,9 @@ public class MenuScreen
 		uiItems[7] = new OptionItem(this, aboutStr, IconsManager.INFO, 15, uiih);
 		uiItems[8] = new OptionItem(this, exitStr, IconsManager.CLOSE, -1, uiih);
 		
+		// sending stats
+		//TODO ENABLE ON OBT
+		/*VikaTouch.sendStats();*/
 	}
 
 	/*protected final void up()
@@ -284,7 +290,7 @@ public class MenuScreen
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
 		g.drawString(name+" "+lastname, 74, 74, 0);
 		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
-		g.drawString("Статус: живой", 74, 98, 0);
+		g.drawString(status==null?"":status, 74, 98, 0);
 		
 		ColorUtils.setcolor(g, -3);
 		//g.drawRect(0, 140, DisplayUtils.width, 50);

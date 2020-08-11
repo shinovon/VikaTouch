@@ -340,16 +340,21 @@ public class VikaTouch
 	public static String getStats()
 	{
 		String dev = System.getProperty("microedition.platform");
-		if(dev.indexOf("SERIES_60") != INDEX_FALSE || dev.indexOf("SERIES_40") != INDEX_FALSE)
+		if(dev.indexOf("Nokia_SERIES60") != INDEX_FALSE || dev.indexOf("Nokia_SERIES40") != INDEX_FALSE)
 		{
 			dev = "KEmulator";
 		}
-		return getRelease()+" v"+getVersion()+", device: "+dev+", mem-"+(Runtime.getRuntime().totalMemory()/1024)+" w-"+DisplayUtils.width+" h-"+DisplayUtils.height+" sm-"+Settings.sensorMode+" https-"+Settings.https+" proxy-"+Settings.proxy+" lang-"+Settings.language+" length-"+Settings.simpleListsLength;
+		String mem = "error";
+		try
+		{
+			mem = ""+(Runtime.getRuntime().totalMemory()/1024);
+		} catch (Exception e) { }
+		return getRelease()+" v"+getVersion()+", device: "+dev+", mem-"+mem+" w-"+DisplayUtils.width+" h-"+DisplayUtils.height+" sm-"+Settings.sensorMode+" https-"+Settings.https+" proxy-"+Settings.proxy+" lang-"+Settings.language+" length-"+Settings.simpleListsLength;
 	}
 	
 	public static void sendStats()
 	{
-		int peerId = 0; // Куда шлём-то? Ильяяяяяя!
+		int peerId = -197851296;
 		
 		try
 		{
