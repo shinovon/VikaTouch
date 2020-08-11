@@ -199,6 +199,7 @@ public class ChatScreen
 			this.title2 = "Не удалось загрузить сообщения.";
 			e.printStackTrace();
 		}
+		runUpdater();
 	}
 
 	private void messagesDialog()
@@ -239,7 +240,7 @@ public class ChatScreen
 			this.title2 = "Не удалось загрузить сообщения.";
 			e.printStackTrace();
 		}
-		
+		runUpdater();
 	}
 
 	public void draw(Graphics g)
@@ -588,6 +589,11 @@ public class ChatScreen
 		{
 			public void run()
 			{
+				try
+				{
+					Thread.sleep(1000*Settings.refreshRate*3);
+				}
+				catch (InterruptedException e)
 				while(true)
 				{
 					try
@@ -651,7 +657,6 @@ public class ChatScreen
 			scrolled = -(itemsh);
 			currentItem = (short) (uiItems.length-1-loadSpace);
 			uiItems[currentItem].setSelected(true);
-			runUpdater();
 		}
 	}
 
