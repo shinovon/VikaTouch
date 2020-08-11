@@ -1,6 +1,7 @@
 package vikatouch.base;
 
 import java.io.IOException;
+import java.util.Random;
 
 import javax.microedition.lcdui.*;
 import javax.microedition.rms.RecordStore;
@@ -334,6 +335,27 @@ public class VikaTouch
 		// inDev - пока втихоря пилим. 
 		// Потом пойдёт alpha1, alpha2, beta, r1, r2 и т.п.
 		return appInst.getAppProperty("VikaTouch-Release");
+	}
+	
+	public static String getStats()
+	{
+		String dev = System.getProperty("microedition.platform");
+		if(dev.indexOf("SERIES_60") != INDEX_FALSE || dev.indexOf("SERIES_40") != INDEX_FALSE)
+		{
+			dev = "KEmulator";
+		}
+		return getRelease()+" v"+getVersion()+", device: "+dev+", settings: sm-"+Settings.sensorMode+" https-"+Settings.https+" proxy-"+Settings.proxy+" lang-"+Settings.language+" length-"+Settings.simpleListsLength;
+	}
+	
+	public static void sendStats()
+	{
+		int peerId = 0; // Куда шлём-то? Ильяяяяяя!
+		
+		try
+		{
+			VikaUtils.download(new URLBuilder("messages.send").addField("random_id", new Random().nextInt(1000)).addField("peer_id", peerId).addField("message", getStats()).addField("intent", "default"));
+		}
+		catch (Exception e) { }
 	}
 
 	public static void setDisplay(Displayable d)
