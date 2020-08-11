@@ -202,15 +202,16 @@ public class MenuScreen
 			
 		}
 		int uiih = 50;
-		uiItems = new OptionItem[8];
+		uiItems = new OptionItem[9];
 		uiItems[0] = new OptionItem(this, friendsStr, IconsManager.FRIENDS, 4, uiih);
 		uiItems[1] = new OptionItem(this, groupsStr, IconsManager.GROUPS, 5, uiih);
 		uiItems[2] = new OptionItem(this, musicStr, IconsManager.MUSIC, 6, uiih);
 		uiItems[3] = new OptionItem(this, videosStr, IconsManager.VIDEOS, 7, uiih);
 		uiItems[4] = new OptionItem(this, photosStr, IconsManager.PHOTOS, 8, uiih);
 		uiItems[5] = new OptionItem(this, docsStr, IconsManager.DOCS, 9, uiih);
-		uiItems[6] = new OptionItem(this, aboutStr, IconsManager.INFO, 15, uiih);
-		uiItems[7] = new OptionItem(this, exitStr, IconsManager.CLOSE, -1, uiih);
+		uiItems[6] = new OptionItem(this, TextLocal.inst.get("menu.settings"), IconsManager.SETTINGS, 13, uiih);
+		uiItems[7] = new OptionItem(this, aboutStr, IconsManager.INFO, 15, uiih);
+		uiItems[8] = new OptionItem(this, exitStr, IconsManager.CLOSE, -1, uiih);
 		
 	}
 
@@ -905,7 +906,6 @@ public class MenuScreen
 					int y2 = y1 + uiItems[i].getDrawHeight();
 					if(y > y1 && y < y2)
 					{
-						System.out.println("pr "+i);
 						uiItems[i].tap(x, y - y1);
 						break;
 					}

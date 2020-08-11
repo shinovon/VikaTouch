@@ -101,6 +101,7 @@ menu.writemsg=Написать сообщение
 menu.nowebsite=нет
 menu.discussions=Обсуждения
 menu.about=О программе
+menu.settings=Настройки
 menu.loading=Загрузка...
 
 group=Группа
