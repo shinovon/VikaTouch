@@ -160,17 +160,21 @@ public class DialogsScreen
 			int y = oneitemheight + w;
 			try
 			{
-				for(int i = 0; i < Dialogs.itemsCount; i++)
+				if(Dialogs.dialogs !=null)
 				{
-					if(Dialogs.dialogs[i] != null)
+					for(int i = 0; i < Dialogs.itemsCount; i++)
 					{
-						Dialogs.dialogs[i].paint(g, y, scrolled);
-						y += Dialogs.dialogs[i].itemDrawHeight;
+						if(Dialogs.dialogs[i] != null)
+						{
+							Dialogs.dialogs[i].paint(g, y, scrolled);
+							y += Dialogs.dialogs[i].itemDrawHeight;
+						}
 					}
 				}
 			}
 			catch (Exception e)
 			{
+				e.printStackTrace();
 				VikaTouch.error(e, ErrorCodes.DIALOGSITEMDRAW);
 			}
 			g.translate(0, -g.getTranslateY());

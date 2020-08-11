@@ -151,7 +151,7 @@ public class ConversationItem
 			ColorUtils.setcolor(g, -5);
 			g.fillRect(72, y + itemDrawHeight, 640, 1);
 			
-			if(unread)
+			if(unread && unreadImg!=null)
 			{
 				g.drawImage(unreadImg, DisplayUtils.width - 24, y + 42, 0);
 			}
