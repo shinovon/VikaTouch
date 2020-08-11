@@ -344,7 +344,7 @@ public class VikaTouch
 		{
 			dev = "KEmulator";
 		}
-		return getRelease()+" v"+getVersion()+", device: "+dev+", w-"+DisplayUtils.width+" h-"+DisplayUtils.height+" sm-"+Settings.sensorMode+" https-"+Settings.https+" proxy-"+Settings.proxy+" lang-"+Settings.language+" length-"+Settings.simpleListsLength;
+		return getRelease()+" v"+getVersion()+", device: "+dev+", mem-"+(Runtime.getRuntime().totalMemory()/1024)+" w-"+DisplayUtils.width+" h-"+DisplayUtils.height+" sm-"+Settings.sensorMode+" https-"+Settings.https+" proxy-"+Settings.proxy+" lang-"+Settings.language+" length-"+Settings.simpleListsLength;
 	}
 	
 	public static void sendStats()
