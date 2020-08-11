@@ -467,6 +467,7 @@ public class ChatScreen
 				VikaUtils.download(new URLBuilder("messages.send").addField("random_id", new Random().nextInt(1000)).addField("peer_id", peerId).addField("message", inputText).addField("intent", "default"));
 				inputText = "";
 				inputChanged = true;
+				inputedLinesCount = 0;
 			}
 		}.start();
 	}
