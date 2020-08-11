@@ -516,85 +516,98 @@ public class ChatScreen
 	// будет подгружать новые
 	private void update () throws JSONException
 	{
-		final String x = VikaUtils.download(new URLBuilder("messages.getHistory")
-				.addField("start_message_id", ""+((MsgItem) uiItems[uiItems.length-hasSpace-1]).mid)
-				.addField("peer_id", peerId).addField("count", loadSpace/2).addField("offset", -1).addField("extended", 1));
-		JSONArray items;
-		System.out.println(x);
-		try
+		boolean more = true;
+		while(more)
 		{
-			items = new JSONObject(x).getJSONObject("response").getJSONArray("items");
-		}
-		catch (JSONException e)
-		{
-			e.printStackTrace();
-			return;
-		}
-		int newMsgCount = items.length();
-		if(newMsgCount==0)
-		{
-			
-		}
-		else
-		{
-			if(newMsgCount>=hasSpace-1)
+			long mid = ((MsgItem) uiItems[uiItems.length-hasSpace-1]).mid;
+			final String x = VikaUtils.download(new URLBuilder("messages.getHistory")
+					.addField("start_message_id", String.valueOf(mid))
+					.addField("peer_id", peerId).addField("count", 1).addField("offset", -1).addField("extended", 1));
+			JSONArray items;
+			System.out.println(x);
+			System.out.println(((MsgItem) uiItems[uiItems.length-hasSpace-1]).mid);
+			try
 			{
-				shiftList();
+				items = new JSONObject(x).getJSONObject("response").getJSONArray("items");
 			}
-			if(type == TYPE_CHAT)
+			catch (JSONException e)
 			{
-				try
+				e.printStackTrace();
+				return;
+			}
+			int newMsgCount = items.length();
+			if(newMsgCount==0)
+			{
+				more = false;
+				break;
+			}
+			else
+			{
+				if(items.getJSONObject(0).optLong("id")==mid)
 				{
-					final JSONArray profiles = new JSONObject(x).getJSONObject("response").getJSONArray("profiles");
-					for(int i = 0; i < profiles.length(); i++)
+					more = false;
+					break;
+				}
+				if(newMsgCount>=hasSpace-1)
+				{
+					System.out.println("List shifting");
+					shiftList();
+				}
+				if(type == TYPE_CHAT)
+				{
+					try
 					{
-						final JSONObject profile = profiles.getJSONObject(i);
-						String firstname = profile.optString("first_name");
-						String lastname = profile.optString("last_name");
-						int id = profile.optInt("id");
-						if(id > 0 && firstname != null && !profileNames.containsKey(new Integer(id)))
-							profileNames.put(new Integer(id), firstname + " " + lastname);
+						final JSONArray profiles = new JSONObject(x).getJSONObject("response").getJSONArray("profiles");
+						for(int i = 0; i < profiles.length(); i++)
+						{
+							final JSONObject profile = profiles.getJSONObject(i);
+							String firstname = profile.optString("first_name");
+							String lastname = profile.optString("last_name");
+							int id = profile.optInt("id");
+							if(id > 0 && firstname != null && !profileNames.containsKey(new Integer(id)))
+								profileNames.put(new Integer(id), firstname + " " + lastname);
+						}
 					}
+					catch(JSONException e)
+					{ }
+					catch(NullPointerException e)
+					{ }
 				}
-				catch(JSONException e)
-				{ }
-				catch(NullPointerException e)
-				{ }
-			}
-			MsgItem[] newMsgs = new MsgItem[newMsgCount];
-			for(int i = 0; i < newMsgCount; i++)
-			{
-				MsgItem m = new MsgItem(items.getJSONObject(i));
-				m.parseJSON();
-				int fromId = m.fromid; 
-				String name = "user" + fromId;
-				Integer ii = new Integer(fromId);
-				
-				if(profileNames.containsKey(ii))
+				MsgItem[] newMsgs = new MsgItem[newMsgCount];
+				for(int i = 0; i < newMsgCount; i++)
 				{
-					name = (String) profileNames.get(ii);
+					MsgItem m = new MsgItem(items.getJSONObject(i));
+					m.parseJSON();
+					int fromId = m.fromid; 
+					String name = "user" + fromId;
+					Integer ii = new Integer(fromId);
+					
+					if(profileNames.containsKey(ii))
+					{
+						name = (String) profileNames.get(ii);
+					}
+					
+					boolean chain = false;
+					if(i+1<newMsgCount)
+					{
+						chain = fromId == items.getJSONObject(i+1).optInt("from_id");
+					}
+					if(!chain)
+					{
+						m.name = (m.foreign ? name :"Вы");
+					}
+					newMsgs[i] = m;
 				}
-				
-				boolean chain = false;
-				if(i+1<newMsgCount)
+				// аппенд
+				for(int i=0; i < newMsgCount; i++)
 				{
-					chain = fromId == items.getJSONObject(i+1).optInt("from_id");
+					MsgItem m = newMsgs[newMsgCount-i-1];
+					uiItems[uiItems.length-hasSpace] = m;
+					hasSpace--;
 				}
-				if(!chain)
-				{
-					m.name = (m.foreign ? name :"Вы");
-				}
-				newMsgs[i] = m;
-			}
-			// аппенд
-			for(int i=0; i < newMsgCount; i++)
-			{
-				MsgItem m = newMsgs[newMsgCount-i-1];
-				uiItems[uiItems.length-hasSpace] = m;
-				hasSpace--;
-			}
-		}	
-		System.gc();
+			}	
+			System.gc();
+		}
 	}
 	
 	private void runUpdater()
