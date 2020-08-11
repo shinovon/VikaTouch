@@ -594,6 +594,7 @@ public class ChatScreen
 					Thread.sleep(1000*Settings.refreshRate*3);
 				}
 				catch (InterruptedException e)
+				{ return; }
 				while(true)
 				{
 					try
