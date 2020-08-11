@@ -66,8 +66,7 @@ public class MenuScreen
 	public MenuScreen()
 	{
 		super();
-		itemsCount = 7;
-		itemsh = (itemsCount * ScrollableCanvas.oneitemheight) + ScrollableCanvas.oneitemheight * 2;
+		
 		try {
 			switch(DisplayUtils.idispi)
 			{
@@ -211,9 +210,12 @@ public class MenuScreen
 		uiItems[7] = new OptionItem(this, aboutStr, IconsManager.INFO, 15, uiih);
 		uiItems[8] = new OptionItem(this, exitStr, IconsManager.CLOSE, -1, uiih);
 		
+		itemsCount = 9;
+		itemsh = 140 + uiih*itemsCount;
+		
 		// sending stats
 		//TODO ENABLE ON OBT
-		/*VikaTouch.sendStats();*/
+		VikaTouch.sendStats();
 	}
 
 	/*protected final void up()
@@ -257,7 +259,6 @@ public class MenuScreen
 	public void draw(Graphics g)
 	{
 		int y = 140; // init offset
-		itemsh = itemsCount * 50 + y;
 		update(g);
 		ColorUtils.setcolor(g, -2);
 		g.fillRect(0, 132, DisplayUtils.width, 8);

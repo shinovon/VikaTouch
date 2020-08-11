@@ -57,6 +57,10 @@ public class ChatScreen
 	// 0 - сообщения, 1 - прикреп, 2 - поле, 3 - смайлы, 4 - отправка
 	private byte buttonSelected = 0;
 	
+	// данные для сообщения
+	public int answerMsgId;
+	private String answerName;
+	private String answerText;
 	
 	public static Hashtable profileNames = new Hashtable();
 	
@@ -331,6 +335,10 @@ public class ChatScreen
 					}
 					VikaTouch.inst.cmdsInst.command(14, this);
 				}
+			}
+			else
+			{
+				msgClick(y);
 			}
 		}
 		super.release(x, y);
@@ -686,6 +694,24 @@ public class ChatScreen
 		}.start();
 	}
 
+	private void msgClick(int tapY)
+	{
+		if(uiItems==null) return;
+		int y = 0;
+		int gTapY = tapY-scrolled;
+		for(int i=0; i<uiItems.length; i++)
+		{
+			if(uiItems[i] == null) continue;
+			y+=msgYMargin;
+			int y2 = y+uiItems[i].getDrawHeight();
+			if(y<gTapY&&gTapY<y2)
+			{
+				uiItems[i].tap(0, gTapY-y);
+			}
+			y = y2;
+		}
+	}
+	
 	private void drawDialog(Graphics g)
 	{
 		if(uiItems==null) return;

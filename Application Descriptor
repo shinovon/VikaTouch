@@ -6,7 +6,7 @@ MIDlet-1: Vika Touch,/diary.png,ru.nnproject.vikatouch.VikaTouchApp
 MIDlet-Jar-URL: vikaTouch.jar
 MIDlet-Icon: diary.png
 MicroEdition-Configuration: CLDC-1.1
-MIDlet-Version: 2.6.8
+MIDlet-Version: 2.6.9
 VikaTouch-Release: inDev
 MIDlet-Name: Vika Touch
 MIDlet-Vendor: nnproject
