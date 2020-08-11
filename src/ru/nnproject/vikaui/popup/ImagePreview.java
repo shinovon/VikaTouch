@@ -9,6 +9,7 @@ import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.IconsManager;
 import vikatouch.base.VikaTouch;
+import vikatouch.base.attachments.DocumentAttachment;
 import vikatouch.base.attachments.ISocialable;
 import vikatouch.base.attachments.PhotoAttachment;
 import vikatouch.base.items.DocItem;
@@ -37,6 +38,14 @@ public class ImagePreview extends VikaNotice {
 		imgUrl = doc.prevImgUrl;
 		downloadUrl = doc.url;
 		socialActions = (ISocialable) doc;
+		title = doc.name;
+		Load();
+	}
+	public ImagePreview (DocumentAttachment doc)
+	{
+		imgUrl = doc.prevImgUrl;
+		downloadUrl = doc.url;
+		socialActions = null;
 		title = doc.name;
 		Load();
 	}

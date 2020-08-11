@@ -5,24 +5,28 @@ import javax.microedition.lcdui.Graphics;
 
 import org.json.me.JSONException;
 
+import ru.nnproject.vikaui.menu.IMenu;
+import ru.nnproject.vikaui.popup.ContextMenu;
+import ru.nnproject.vikaui.popup.ImagePreview;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import vikatouch.base.IconsManager;
 import vikatouch.base.VikaTouch;
+import vikatouch.base.items.OptionItem;
 import vikatouch.base.utils.ErrorCodes;
 
 public class DocumentAttachment
-	extends Attachment
+	extends Attachment implements IMenu
 {
 	public DocumentAttachment() {
 		this.type = "doc";
 	}
 	
 	public String name;
-	private String url;
+	public String url;
 	private int docType;
 	public int size;
 	private String ext;
-	private String prevImgUrl;
+	public String prevImgUrl;
 
 	public void parseJSON() 
 	{
@@ -57,8 +61,6 @@ public class DocumentAttachment
 					prevImgUrl = fixJSONString(prevPs.url);
 			}
 		}
-		catch (JSONException e)
-		{ }
 		catch (Exception e)
 		{
 			e.printStackTrace();
@@ -86,5 +88,32 @@ public class DocumentAttachment
 		g.setFont(f);
 		g.drawString(size / 1000 + "kb", x1+34, y1 + 30 - f.getHeight()/2, 0);
 	}
+	
+	public void press()
+	{
+		OptionItem[] i = new OptionItem[prevImgUrl==null?1:2];
+		i[0] = new OptionItem(this, "Скачать", IconsManager.DOCS, 0, 50);
+		if(prevImgUrl!=null)
+		{
+			i[1] = new OptionItem(this, "Открыть", IconsManager.PHOTOS, 1, 50);
+		}
+		VikaTouch.popup(new ContextMenu(i));
+	}
+	public void onMenuItemPress(int i) {
+		if(i==0)
+		{
+			try
+			{
+				VikaTouch.appInst.platformRequest(url);
+			}
+			catch(Exception e)
+			{ }
+		}
+		else if(i==1&&prevImgUrl!=null)
+		{
+			VikaTouch.popup(new ImagePreview(this));
+		}
+	}
+	public void onMenuItemOption(int i) { }
 
 }
