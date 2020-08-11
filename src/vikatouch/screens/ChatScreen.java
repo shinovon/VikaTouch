@@ -402,7 +402,7 @@ public class ChatScreen
 			catch (Exception e)
 			{ }
 			currentItem++;
-			if(currentItem >= itemsCount || uiItems[currentItem] == null)
+			if(currentItem >= uiItems.length || uiItems[currentItem] == null)
 			{
 				currentItem--;
 				buttonSelected = 2;
@@ -499,22 +499,60 @@ public class ChatScreen
 	}
 	
 	// будет подгружать новые
-	private void update ()
+	private void update () throws JSONException
 	{
-		// запросить список
-		int newMsgCount = 0; // = json.length();
+		final String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("start_message_id", ""+((MsgItem) uiItems[uiItems.length-hasSpace-1]).mid).addField("peer_id", peerId).addField("count", loadSpace/2).addField("offset", -1));
+		JSONArray items = new JSONObject(x).getJSONObject("response").getJSONArray("items");
+		int newMsgCount = items.length();
 		if(newMsgCount>=hasSpace-1)
 		{
 			shiftList();
 		}
-		// парс
+		if(type == TYPE_CHAT)
 		{
+			final JSONArray profiles = new JSONObject(x).getJSONObject("response").getJSONArray("profiles");
+			for(int i = 0; i < profiles.length(); i++)
+			{
+				final JSONObject profile = profiles.getJSONObject(i);
+				String firstname = profile.optString("first_name");
+				String lastname = profile.optString("last_name");
+				int id = profile.optInt("id");
+				if(id > 0 && firstname != null && !profileNames.containsKey(new Integer(id)))
+					profileNames.put(new Integer(id), firstname + " " + lastname);
+			}
+		}
+		MsgItem[] newMsgs = new MsgItem[newMsgCount];
+		for(int i = 0; i < newMsgCount; i++)
+		{
+			MsgItem m = new MsgItem(items.getJSONObject(i));
+			m.parseJSON();
+			int fromId = m.fromid; 
+			String name = "user" + fromId;
+			Integer ii = new Integer(fromId);
 			
+			if(profileNames.containsKey(ii))
+			{
+				name = (String) profileNames.get(ii);
+			}
+			
+			boolean chain = false;
+			if(i+1<newMsgCount)
+			{
+				chain = fromId == items.getJSONObject(i+1).optInt("from_id");
+			}
+			if(!chain)
+			{
+				m.name = (m.foreign ? name :"Вы");
+			}
+			newMsgs[i] = m;
 		}
 		// аппенд
+		for(int i=0; i < newMsgCount; i++)
 		{
-			// TODO
+			MsgItem m = newMsgs[newMsgCount-i-1];
+			uiItems[uiItems.length-hasSpace] = m;
 		}
+		System.gc();
 	}
 	private void showTextBox()
 	{
