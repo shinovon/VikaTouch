@@ -54,6 +54,8 @@ public class Settings
 	public static boolean cacheImages;
 
 	public static boolean dontLoadAvas;
+	
+	public static int refreshRate = 5;
 
 	public static final int SENSOR_OK = 0;
 	public static final int SENSOR_J2MELOADER = 1;

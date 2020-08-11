@@ -52,6 +52,8 @@ public class ChatScreen
 	private int loadSpace = 20;
 	private int hasSpace = loadSpace;
 	
+	private Thread updater = null;
+	
 	// 0 - сообщения, 1 - прикреп, 2 - поле, 3 - смайлы, 4 - отправка
 	private byte buttonSelected = 0;
 	
@@ -319,6 +321,11 @@ public class ChatScreen
 				//верхняя панель
 				if(x < 50)
 				{
+					if(updater!=null&&updater.isAlive())
+					{
+						updater.interrupt();
+						System.out.println("Updater stopped.");
+					}
 					VikaTouch.inst.cmdsInst.command(14, this);
 				}
 			}
@@ -386,6 +393,11 @@ public class ChatScreen
 		}
 		else if(key == -7)
 		{ // rsk
+			if(updater!=null&&updater.isAlive())
+			{
+				updater.interrupt();
+				System.out.println("Updater stopped.");
+			}
 			VikaTouch.inst.cmdsInst.command(14, this);
 		}
 		repaint();
@@ -554,6 +566,43 @@ public class ChatScreen
 		}
 		System.gc();
 	}
+	
+	private void runUpdater()
+	{
+		if(updater!=null&&updater.isAlive())
+		{
+			updater.interrupt();
+			System.out.println("Updater stopped.");
+		}
+		
+		updater = new Thread()
+		{
+			public void run()
+			{
+				while(true)
+				{
+					try
+					{
+						Thread.sleep(1000*Settings.refreshRate);
+					}
+					catch (InterruptedException e)
+					{ return; }
+					try
+					{
+						System.out.println("Chat updating...");
+						update();
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+					}
+				
+				}
+			}
+		};
+		updater.run();
+	}
+	
 	private void showTextBox()
 	{
 		new Thread()
@@ -593,6 +642,7 @@ public class ChatScreen
 			scrolled = -(itemsh);
 			currentItem = (short) (uiItems.length-1-loadSpace);
 			uiItems[currentItem].setSelected(true);
+			runUpdater();
 		}
 	}
 
