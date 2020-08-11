@@ -85,6 +85,8 @@ public class InfoPopup
 	
 	public void press(int key)
 	{
+		if(!(key == PressableUIItem.KEY_OK || key == PressableUIItem.KEY_FUNC))
+			return;
 		VikaTouch.canvas.currentAlert = null;
 		if(ok!=null)
 			ok.start();
@@ -103,7 +105,7 @@ public class InfoPopup
 		{
 			if(x>DisplayUtils.width/2-25 && x<DisplayUtils.width/2+25)
 			{
-				key(PressableUIItem.KEY_OK);
+				press(PressableUIItem.KEY_OK);
 			}
 		}
 	}
