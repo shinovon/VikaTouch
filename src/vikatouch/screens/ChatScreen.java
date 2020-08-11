@@ -560,7 +560,9 @@ public class ChatScreen
 			if(buttonSelected == 2)
 			{
 				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
+				g.setFont(Font.getFont(0, Font.STYLE_BOLD, Font.SIZE_MEDIUM));
 				g.drawString("Нажмите ОК для ввода", 48, dh-24-font.getHeight()/2, 0);
+				g.setFont(font);
 			}
 			else
 			{
