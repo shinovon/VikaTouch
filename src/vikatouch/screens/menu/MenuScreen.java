@@ -83,17 +83,14 @@ public class MenuScreen
 						dialImg = Image.createImage("/msg1.png");
 						newsImg = Image.createImage("/lenta1.png");
 						logoImg = Image.createImage("/vikahead.png");
-						friendimg = Image.createImage("/friend1.png");
 					}
 					else
 					{
 						dialImg = Image.createImage("/msg.png"); 
 						newsImg = Image.createImage("/lenta.png");
 						logoImg = Image.createImage("/vikahead.jpg");
-						friendimg = Image.createImage("/friend.png");
 					}
 					profileimg = Image.createImage("/ava.png");
-					groupimg = Image.createImage("/group.png");
 					musicimg = Image.createImage("/music.png");
 					videosimg = Image.createImage("/video.png");
 					photosimg = Image.createImage("/fotki.png");
@@ -111,8 +108,6 @@ public class MenuScreen
 
 					profileimg = Image.createImage("/ava25.png");
 					logoImg = Image.createImage("/vikaheadsmall.png");
-					groupimg = Image.createImage("/group12.png");
-					friendimg = Image.createImage("/friend25.png");
 					exit = VikaUtils.resize(Image.createImage("/exit.png"), 12, 12);
 					settingsImg = VikaUtils.resize(Image.createImage("/settings.png"), 12, 12);
 					menuImg = VikaUtils.resize(Image.createImage("/menuo.png"), 10, 9);

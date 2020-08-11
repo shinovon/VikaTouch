@@ -519,7 +519,17 @@ public class ChatScreen
 		final String x = VikaUtils.download(new URLBuilder("messages.getHistory")
 				.addField("start_message_id", ""+((MsgItem) uiItems[uiItems.length-hasSpace-1]).mid)
 				.addField("peer_id", peerId).addField("count", loadSpace/2).addField("offset", -1).addField("extended", 1));
-		JSONArray items = new JSONObject(x).getJSONObject("response").getJSONArray("items");
+		JSONArray items;
+		System.out.println(x);
+		try
+		{
+			items = new JSONObject(x).getJSONObject("response").getJSONArray("items");
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+			return;
+		}
 		int newMsgCount = items.length();
 		if(newMsgCount==0)
 		{
@@ -602,7 +612,7 @@ public class ChatScreen
 				Thread.yield();
 				try
 				{
-					Thread.sleep(1000*Settings.refreshRate*3);
+					Thread.sleep(1000*Settings.refreshRate);
 				}
 				catch (InterruptedException e)
 				{ return; }
