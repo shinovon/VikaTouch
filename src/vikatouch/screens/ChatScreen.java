@@ -148,6 +148,7 @@ public class ChatScreen
 		//dragging = true;
 		repaint();
 		runUpdater();
+		System.out.println("Updater started returned.");
 	}
 
 	private void messagesChat()
@@ -590,6 +591,7 @@ public class ChatScreen
 		{
 			public void run()
 			{
+				Thread.yield();
 				try
 				{
 					Thread.sleep(1000*Settings.refreshRate*3);
