@@ -15,13 +15,13 @@ public class ConfirmBox
 
 	private String line1;
 	private String line2;
-	private Thread ok;
-	private Thread cancel;
+	private Runnable ok;
+	private Runnable cancel;
 	private boolean hasYes;
 	private String customYes;
 	private String customNo;
 	
-	public ConfirmBox(String text, String subtext, Thread onOk, Thread onCancel)
+	public ConfirmBox(String text, String subtext, Runnable onOk, Runnable onCancel)
 	{
 		line1 = text;
 		line2 = subtext;
@@ -30,7 +30,7 @@ public class ConfirmBox
 		this.hasYes = true;
 	}
 	
-	public ConfirmBox(String text, String subtext, Thread onOk, Thread onCancel, boolean hasYes)
+	public ConfirmBox(String text, String subtext, Runnable onOk, Runnable onCancel, boolean hasYes)
 	{
 		line1 = text;
 		line2 = subtext;
@@ -39,7 +39,7 @@ public class ConfirmBox
 		this.hasYes = hasYes;
 	}
 	
-	public ConfirmBox(String text, String subtext, Thread onOk, Thread onCancel, String customYes, String customNo, boolean hasYes)
+	public ConfirmBox(String text, String subtext, Runnable onOk, Runnable onCancel, String customYes, String customNo, boolean hasYes)
 	{
 		line1 = text;
 		line2 = subtext;
@@ -94,13 +94,13 @@ public class ConfirmBox
 		{
 			VikaTouch.canvas.currentAlert = null;
 			if(ok!=null)
-				ok.start();
+				new Thread(ok).start();
 		}
 		else if(key == PressableUIItem.KEY_RFUNC || key == PressableUIItem.KEY_BACK)
 		{
 			VikaTouch.canvas.currentAlert = null;
 			if(cancel!=null)
-				cancel.start();
+				new Thread(cancel).start();
 		}
 	}
 	

@@ -4,5 +4,4 @@ import ru.nnproject.vikaui.screen.VikaScreen;
 
 public abstract class VikaNotice
 	extends VikaScreen
-{
-}
+	{}
