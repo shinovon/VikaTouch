@@ -122,7 +122,7 @@ public class ImagePreview extends VikaNotice {
 				currX-=24;
 				if(downloadUrl!=null)
 				{
-					g.drawImage(IconsManager.ico[IconsManager.DOCS], currX, 0, 0);
+					g.drawImage(IconsManager.ico[IconsManager.DOWNLOAD], currX, 0, 0);
 					currX -= 24;
 				}
 				if(socialActions!=null) 

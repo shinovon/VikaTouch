@@ -63,5 +63,7 @@ public class IconsManager {
 	public static final int PIN = 27;
 	public static final int ANSWER = 28;
 	public static final int FAV = 29;
+	public static final int LINK = 30;
+	public static final int DOWNLOAD = 31;
 	
 }

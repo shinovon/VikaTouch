@@ -44,7 +44,7 @@ public class MenuScreen
 	public static String lastname;
 	public static String status;
 	public static String avaurl;
-	private static Image musicimg;
+	/*private static Image musicimg;
 	private static Image videosimg;
 	private static Image photosimg;
 	private static int[] itemscmd = {4, 5, 6, 7, 8, 9, -1};
@@ -52,7 +52,7 @@ public class MenuScreen
 	public static Image docsimg;
 	private Image exit;
 	private Image settingsImg;
-	private int selectedBtn;
+	private int selectedBtn;*/
 	private int btnsLen = 8;
 	public String exitStr;
 	public String docsStr;
@@ -68,7 +68,7 @@ public class MenuScreen
 		super();
 		
 		try {
-			switch(DisplayUtils.idispi)
+			/*switch(DisplayUtils.idispi)
 			{
 				default:
 				case DisplayUtils.DISPLAY_ALBUM:
@@ -115,7 +115,7 @@ public class MenuScreen
 					dialImg2 = VikaUtils.resize(Image.createImage("/msgh.png"), 18, 14);
 					break;
 				}
-			}
+			}*/
 		}
 		catch (Exception e)
 		{

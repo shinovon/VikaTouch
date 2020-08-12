@@ -174,8 +174,8 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 						uiItems[7] = new OptionItem(thisC, videosStr + " ("+videos+")", IconsManager.VIDEOS, 7, 50);
 						uiItems[8] = new OptionItem(thisC, docsStr + " ("+docs+")", IconsManager.DOCS, 8, 50);
 						uiItems[9] = new OptionItem(thisC, discussionsStr + " ("+topics+")", IconsManager.COMMENTS, 9, 50);
-						uiItems[10] = new OptionItem(thisC, (site==null||site.length()<5)?siteStr+": "+noWebsiteStr:siteStr+": "+site, IconsManager.REPOST, 10, 50);
-						uiItems[11] = new OptionItem(thisC, linksStr, IconsManager.REPOST, 11, 50);
+						uiItems[10] = new OptionItem(thisC, (site==null||site.length()<5)?siteStr+": "+noWebsiteStr:siteStr+": "+site, IconsManager.LINK, 10, 50);
+						uiItems[11] = new OptionItem(thisC, linksStr, IconsManager.LINK, 11, 50);
 						uiItems[12] = new OptionItem(thisC, contactsStr, IconsManager.GROUPS, 11, 50);
 					}
 					catch (JSONException e)

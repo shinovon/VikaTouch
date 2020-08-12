@@ -238,7 +238,7 @@ public class MsgItem
 			opts[2] = new OptionItem(this, "Редактировать", IconsManager.EDIT, -4, h);
 			opts[3] = new OptionItem(this, "Копировать текст", IconsManager.ADD, -5, h);
 			opts[4] = new OptionItem(this, "Переслать", IconsManager.SEND, -6, h);
-			opts[5] = new OptionItem(this, "Ссылки...", IconsManager.REPOST, -8, h);
+			opts[5] = new OptionItem(this, "Ссылки...", IconsManager.LINK, -8, h);
 			opts[6] = new OptionItem(this, "Вложения...", IconsManager.ATTACHMENT, -9, h);
 			VikaTouch.popup(new ContextMenu(opts));
 		}
