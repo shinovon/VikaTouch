@@ -343,7 +343,7 @@ public class VikaTouch
 		// тут НАЗВАНИЕ ключа. См. апп дескриптор > user defined.
 	}
 	
-	public static String getStats()
+	public static String getStats(boolean extended)
 	{
 		String dev = mobilePlatform;
 		if(dev.indexOf("Nokia_SERIES60") != INDEX_FALSE || dev.indexOf("Nokia_SERIES40") != INDEX_FALSE)
@@ -355,21 +355,26 @@ public class VikaTouch
 		{
 			mem = ""+(Runtime.getRuntime().totalMemory()/1024);
 		} catch (Exception e) { }
-		return "ViKa Touch "+getRelease()+" login. Version: "+getVersion()+", device: "+dev+", memory: "+mem+"K, w: "+DisplayUtils.width+" h: "+DisplayUtils.height+" sm: "+Settings.sensorMode+" https: "+Settings.https+" proxy: "+Settings.proxy+" lang: "+Settings.language+" listslen: "+Settings.simpleListsLength;
+		String main = "ViKa Touch "+getRelease()+" login. Version: "+getVersion()+", device: "+dev
+			+", display (WxH): "+DisplayUtils.width+"x"+DisplayUtils.height;
+		String details = "";
+		if(extended)
+		{
+			details = "\n\n Device information: \n memory: "+mem+"K, profile: "+System.getProperty("microedition.profile")
+				+"\n\n Settings: \n sm: "+Settings.sensorMode+" https: "+Settings.https+" proxy: "+Settings.proxy+" lang: "+Settings.language+" listslen: "+Settings.simpleListsLength;
+		}
+		return main+details;
 	}
 	
 	public static void sendStats()
 	{
-		if(Settings.logs)
+		int peerId = -197851296;
+		// мы ВСЕГДА отправляем отчёт о входе. Но если телеметрия выключена, шлём только версию, устройство и экран. Почему? Чтоб знать сколько людей юзают викуТ.
+		try
 		{
-			int peerId = -197851296;
-			
-			try
-			{
-				VikaUtils.download(new URLBuilder("messages.send").addField("random_id", new Random().nextInt(1000)).addField("peer_id", peerId).addField("message", getStats()).addField("intent", "default"));
-			}
-			catch (Exception e) { }
+			VikaUtils.download(new URLBuilder("messages.send").addField("random_id", new Random().nextInt(1000)).addField("peer_id", peerId).addField("message", getStats(Settings.telemetry)).addField("intent", "default"));
 		}
+		catch (Exception e) { }
 	}
 
 	public static void setDisplay(Displayable d)
