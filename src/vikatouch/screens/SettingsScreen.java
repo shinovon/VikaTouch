@@ -4,6 +4,7 @@ import javax.microedition.lcdui.Graphics;
 
 import ru.nnproject.vikaui.menu.IMenu;
 import ru.nnproject.vikaui.menu.items.PressableUIItem;
+import ru.nnproject.vikaui.popup.InfoPopup;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikatouch.base.IconsManager;
 import vikatouch.base.VikaTouch;
@@ -17,14 +18,13 @@ public class SettingsScreen
 	implements IMenu 
 {
 	
-	
+	int[] countVals = new int[] { 10, 20, 30, 50, 80, 100 }; int countValDef = 1;
+	int[] refreshVals = new int[] { 0, 2, 5, 8, 10, 15 }; int refreshValDef = 3;
 	
 	public SettingsScreen()
 	{
 		super();
 		String[] eOd = new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.enabled") };
-		int[] countVals = new int[] { 10, 20, 30, 50, 80, 100 }; int countValDef = 1;
-		int[] refreshVals = new int[] { 0, 2, 5, 8, 10, 15 }; int refreshValDef = 3;
 		oneitemheight = 40;
 		uiItems = new PressableUIItem[16];
 		// анимация
@@ -181,7 +181,38 @@ public class SettingsScreen
 				Settings.sensorMode = var;
 				break;
 			}
+			case 5:
+			{
+				Settings.simpleListsLength = countVals[var];
+				break;
+			}
+			case 6:
+			{
+				Settings.messagesPerLoad = countVals[var];
+				break;
+			}
+			case 7:
+			{
+				Settings.refreshRate = refreshVals[var];
+				break;
+			}
+			case 10:
+			{
+				Settings.debugInfo = var==1;
+				break;
+			}
+			case 11:
+			{
+				Settings.telemetry = var==1;
+				break;
+			}
+			case 12:
+			{
+				Settings.sendErrors = var==1;
+				break;
+			}
 		}
+		Settings.setted = true;
 		Settings.saveSettings();
 	}
 
@@ -200,7 +231,14 @@ public class SettingsScreen
 			case -3:
 			{
 				Settings.loadDefaultSettings();
+				Settings.setted = true;
 				Settings.saveSettings();
+				break;
+			}
+			case 21:
+			case 22:
+			{
+				VikaTouch.popup(new InfoPopup("Не изобрели", null));
 				break;
 			}
 		}
