@@ -25,8 +25,8 @@ public class SettingsScreen
 	{
 		super();
 		String[] eOd = new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.enabled") };
-		oneitemheight = 40;
-		uiItems = new PressableUIItem[16];
+		oneitemheight = 50;
+		uiItems = new PressableUIItem[17];
 		// анимация
 		uiItems[0] = new SettingMenuItem(this, TextLocal.inst.get("settings.animTr"), IconsManager.MENU, 0, 
 				oneitemheight, eOd, Settings.animateTransition?1:0, null);
@@ -100,6 +100,7 @@ public class SettingsScreen
 		uiItems[13] = new OptionItem(this, TextLocal.inst.get("settings.logout"), IconsManager.CLOSE, -1, oneitemheight);
 		uiItems[14] = new OptionItem(this, TextLocal.inst.get("settings.clearCache"), IconsManager.CLOSE, -2, oneitemheight);
 		uiItems[15] = new OptionItem(this, TextLocal.inst.get("settings.reset"), IconsManager.CLOSE, -3, oneitemheight);
+		uiItems[16] = new OptionItem(this, TextLocal.inst.get("menu.about"), IconsManager.INFO, 1, oneitemheight);
 		itemsh = 58 + (oneitemheight * uiItems.length);
 	}
 
@@ -239,6 +240,13 @@ public class SettingsScreen
 			case 22:
 			{
 				VikaTouch.popup(new InfoPopup("Не изобрели", null));
+				break;
+			}
+			case 1:
+			{
+				if(VikaTouch.about == null)
+					VikaTouch.about = new AboutScreen();
+				VikaTouch.setDisplay(VikaTouch.about, 1);
 				break;
 			}
 		}

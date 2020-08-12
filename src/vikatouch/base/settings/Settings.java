@@ -60,7 +60,7 @@ public class Settings
 	public static boolean sendErrors;
 	
 	// На ЗБТ чтоб было включено!!11!1!!
-	public static boolean telemetry = false;
+	public static boolean telemetry = true;
 
 	public static final int SENSOR_OK = 0;
 	public static final int SENSOR_J2MELOADER = 1;

@@ -15,11 +15,13 @@ import ru.nnproject.vikaui.VikaCanvas;
 import ru.nnproject.vikaui.menu.items.PressableUIItem;
 import ru.nnproject.vikaui.popup.ContextMenu;
 import ru.nnproject.vikaui.popup.InfoPopup;
+import ru.nnproject.vikaui.screen.VikaScreen;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.TextBreaker;
 import vikamobilebase.VikaUtils;
 import vikatouch.base.IconsManager;
+import vikatouch.base.VikaCanvasInst;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.items.MsgItem;
 import vikatouch.base.settings.Settings;
@@ -36,7 +38,7 @@ public class ChatScreen
 	public int localId;
 	public int type;
 	public static final int OFFSET_INT = 2000000000;
-	private static final int msgYMargin = 0;
+	private static final int msgYMargin = 4;
 	public String title = "dialog";
 	public String title2 = "оффлайн";
 	public String inputText = "";
@@ -68,8 +70,19 @@ public class ChatScreen
 	
 	// данные для сообщения
 	public int answerMsgId;
-	private String answerName;
-	private String answerText;
+	public String answerName;
+	public String answerText;
+	
+	public static void attachAnswer(int id, String name, String text)
+	{
+		if(VikaTouch.canvas.currentScreen instanceof ChatScreen)
+		{
+			ChatScreen c = (ChatScreen) VikaTouch.canvas.currentScreen;
+			c.answerMsgId = id;
+			c.answerName = name;
+			c.answerText = text;
+		}
+	}
 	
 	public static Hashtable profileNames = new Hashtable();
 	

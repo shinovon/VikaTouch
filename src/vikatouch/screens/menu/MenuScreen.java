@@ -51,8 +51,9 @@ public class MenuScreen
 	public static Image dialImg2;
 	public static Image docsimg;
 	private Image exit;
-	private Image settingsImg;
+	
 	private int selectedBtn;*/
+	private Image settingsImg;
 	private int btnsLen = 8;
 	public String exitStr;
 	public String docsStr;
@@ -68,6 +69,7 @@ public class MenuScreen
 		super();
 		
 		try {
+			settingsImg = Image.createImage("/settings.png");
 			/*switch(DisplayUtils.idispi)
 			{
 				default:
@@ -96,7 +98,7 @@ public class MenuScreen
 					docsimg = Image.createImage("/doc.png");
 					dialImg2 = Image.createImage("/msgh.png");
 					exit = Image.createImage("/exit.png");
-					settingsImg = Image.createImage("/settings.png");
+					
 					break;
 				}
 				
@@ -199,16 +201,14 @@ public class MenuScreen
 			
 		}
 		int uiih = 50;
-		uiItems = new OptionItem[9];
+		uiItems = new OptionItem[7];
 		uiItems[0] = new OptionItem(this, friendsStr, IconsManager.FRIENDS, 4, uiih);
 		uiItems[1] = new OptionItem(this, groupsStr, IconsManager.GROUPS, 5, uiih);
 		uiItems[2] = new OptionItem(this, musicStr, IconsManager.MUSIC, 6, uiih);
 		uiItems[3] = new OptionItem(this, videosStr, IconsManager.VIDEOS, 7, uiih);
 		uiItems[4] = new OptionItem(this, photosStr, IconsManager.PHOTOS, 8, uiih);
 		uiItems[5] = new OptionItem(this, docsStr, IconsManager.DOCS, 9, uiih);
-		uiItems[6] = new OptionItem(this, TextLocal.inst.get("menu.settings"), IconsManager.SETTINGS, 13, uiih);
-		uiItems[7] = new OptionItem(this, aboutStr, IconsManager.INFO, 15, uiih);
-		uiItems[8] = new OptionItem(this, exitStr, IconsManager.CLOSE, -1, uiih);
+		uiItems[6] = new OptionItem(this, exitStr, IconsManager.CLOSE, -1, uiih);
 		
 		itemsCount = 9;
 		itemsh = 140 + uiih*itemsCount;
@@ -301,7 +301,8 @@ public class MenuScreen
 			}
 		}
 		g.translate(0, -g.getTranslateY());
-		drawHUD(g, "Vika Touch "+VikaTouch.getRelease());
+		drawHUD(g, "Vika Touch");
+		g.drawImage(settingsImg, DisplayUtils.width-35, 18, 0);
 	}
 /*
 	public final void draw(Graphics g)

@@ -114,7 +114,12 @@ public abstract class MainScreen
 		g.drawImage(((this instanceof MenuScreen)?IconsManager.selIco:IconsManager.ico)[IconsManager.MENU], dw-dw/6-12, bpiy, 0);
 		
 		// header & icon
-		g.drawImage(IconsManager.logoImg, topPanelH/2-IconsManager.logoImg.getHeight()/2, 2, 0);
+		if(hasBackButton && backImg != null)
+		{
+			g.drawImage(IconsManager.ico[IconsManager.BACK], 24, topPanelH/2-12, 0);
+		}
+		else
+			g.drawImage(IconsManager.logoImg, topPanelH/2-IconsManager.logoImg.getHeight()/2, 2, 0);
 		g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
 		g.setGrayScale(255);
 		g.drawString(title, 72, 29-g.getFont().getHeight()/2, 0);
@@ -125,21 +130,13 @@ public abstract class MainScreen
 		{
 			Font f = Font.getFont(0, 0, Font.SIZE_SMALL);
 			g.setFont(f);
-			int d = f.getHeight()+2;
+			int d = f.getHeight()-2;
 			
 			g.setColor(255,0,0);
 			g.fillArc(dw/2+12-d+5, bpiy-5, d, d, 0, 360);
 			
 			g.setGrayScale(255);
 			g.drawString(""+VikaTouch.unreadCount, dw/2+12-d/2-f.stringWidth(""+VikaTouch.unreadCount)/2+5, bpiy-4, 0);
-		}
-		
-		
-		
-		
-		if(hasBackButton && backImg != null)
-		{
-			g.drawImage(backImg, 2, 2, 0);
 		}
 		
 		
