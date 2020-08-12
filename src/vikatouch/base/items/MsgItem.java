@@ -202,6 +202,12 @@ public class MsgItem
 					int x1 = foreign ? (margin + attMargin) : (DisplayUtils.width - (margin + msgWidth) + attMargin);
 					((DocumentAttachment) at).draw(g, x1, y+attY, msgWidth - attMargin*2);
 				}
+				else if(at instanceof WallAttachment)
+				{
+					int x1 = foreign ? (margin + attMargin) : (DisplayUtils.width - (margin + msgWidth) + attMargin);
+					g.drawString("Запись на стене", x1, y+attY, 0);
+				}
+				
 				attY += at.getDrawHeight()+attMargin;
 			}
 		}
@@ -209,7 +215,12 @@ public class MsgItem
 	
 	public String[] searchLinks()
 	{
-		return null;
+		int lm = 8;
+		String[] l = new String[lm];
+		int fc=0;
+		
+		
+		return l;
 	}
 
 	public String getTime()

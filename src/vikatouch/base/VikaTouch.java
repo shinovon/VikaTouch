@@ -3,6 +3,7 @@ package vikatouch.base;
 import java.io.IOException;
 import java.util.Random;
 
+import javax.microedition.io.SocketConnection;
 import javax.microedition.lcdui.*;
 import javax.microedition.rms.RecordStore;
 
@@ -405,7 +406,8 @@ public class VikaTouch
 	public static void error(Throwable e, int i)
 	{
 		inst.errReason = e.toString();
-		final boolean fatal = e instanceof IOException || e instanceof NullPointerException || e instanceof OutOfMemoryError;
+		boolean fatal = e instanceof IOException || e instanceof NullPointerException || e instanceof OutOfMemoryError;
+		//if(e instanceof SocketConnectionResetException) fatal = false;
 		if(e instanceof OutOfMemoryError)
 		{
 			canvas.currentScreen = null;

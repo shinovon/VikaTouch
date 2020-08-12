@@ -8,5 +8,7 @@ public class WallAttachment
 	{
 		
 	}
+	
+	public int getDrawHeight() { return 20; }
 
 }
