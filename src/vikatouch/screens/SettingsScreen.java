@@ -22,12 +22,22 @@ public class SettingsScreen
 	public SettingsScreen()
 	{
 		super();
-		String[] eOd = new String[] { TextLocal.inst.get("settings.disbled"), TextLocal.inst.get("settings.enabled") };
+		String[] eOd = new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.enabled") };
 		
 		oneitemheight = 40;
 		uiItems = new PressableUIItem[15];
 		uiItems[0] = new SettingMenuItem(this, TextLocal.inst.get("settings.animTr"), IconsManager.MENU, 0, 
 				oneitemheight, eOd, Settings.animateTransition?1:0, null);
+		uiItems[1] = new SettingMenuItem(this, TextLocal.inst.get("settings.enableCache"), IconsManager.PHOTOS, 1, 
+				oneitemheight, eOd, Settings.cacheImages?1:0, null);
+		uiItems[2] = new SettingMenuItem(this, TextLocal.inst.get("settings.dontLoadAvas"), IconsManager.PHOTOS, 2, 
+				oneitemheight, eOd, Settings.dontLoadAvas?1:0, null);
+		uiItems[3] = new SettingMenuItem(this, TextLocal.inst.get("settings.conn"), IconsManager.LINK, 1, 
+				oneitemheight, new String[] { TextLocal.inst.get("settings.proxy"), TextLocal.inst.get("settings.https") }, 
+				Settings.https?1:0, null);
+		uiItems[4] = new SettingMenuItem(this, TextLocal.inst.get("settings.sensor"), IconsManager.OPTIONS, 1, 
+				oneitemheight, new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.j2meLs"), TextLocal.inst.get("settings.resistive") }, 
+				Settings.https?1:0, TextLocal.inst.get("settings.sensorInfo"));
 		
 		uiItems[13] = new OptionItem(this, TextLocal.inst.get("settings.logout"), IconsManager.CLOSE, -1, oneitemheight);
 		uiItems[14] = new OptionItem(this, TextLocal.inst.get("settings.clearCache"), IconsManager.CLOSE, -2, oneitemheight);
@@ -94,6 +104,23 @@ public class SettingsScreen
 			}
 			case 1:
 			{
+				Settings.cacheImages = var==1;
+				break;
+			}
+			case 2:
+			{
+				Settings.dontLoadAvas = var==1;
+				break;
+			}
+			case 3:
+			{
+				Settings.https = var==1;
+				Settings.proxy = var!=1;
+				break;
+			}
+			case 4:
+			{
+				Settings.sensorMode = var;
 				break;
 			}
 		}
