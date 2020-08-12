@@ -57,7 +57,10 @@ public class Settings
 	
 	public static int refreshRate = 5;
 
-	public static boolean logs;
+	public static boolean sendErrors;
+	
+	// На ЗБТ чтоб было включено!!11!1!!
+	public static boolean telemetry = false;
 
 	public static final int SENSOR_OK = 0;
 	public static final int SENSOR_J2MELOADER = 1;
@@ -164,7 +167,7 @@ public class Settings
 		language = "ru_RU";
 		cacheImages = true;
 		dontLoadAvas = true; // мне тестить надо, а не ждать по 2 минуты пока скачается. И нет, нихера оно не кэшируется. Ещё и скачивается 2 раза.
-		logs = true;
+		sendErrors = true;
 	}
 
 }

@@ -99,6 +99,9 @@ public class SettingMenuItem implements PressableUIItem, IMenu {
 				po[i] = new OptionItem(this, opts[i], IconsManager.SETTINGS, i, 40);
 			}
 			VikaTouch.popup(new ContextMenu(po));
+		} else if(help!=null && key == KEY_FUNC)
+		{
+			VikaTouch.popup(new InfoPopup(help, null, TextLocal.inst.get("settings.help"), null));
 		}
 	}
 
