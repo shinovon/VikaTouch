@@ -339,8 +339,9 @@ public class VikaTouch
 	{
 		// inDev - пока втихоря пилим. 
 		// Потом пойдёт alpha1, alpha2, beta, r1, r2 и т.п.
-		return appInst.getAppProperty("VikaTouch-Release");
+		return appInst.getAppProperty("VikaTouch-Edition");
 		// тут НАЗВАНИЕ ключа. См. апп дескриптор > user defined.
+		//тупанул соре
 	}
 	
 	public static String getStats()
