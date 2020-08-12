@@ -207,6 +207,7 @@ public class MenuScreen
 		uiItems[3] = new OptionItem(this, videosStr, IconsManager.VIDEOS, 7, uiih);
 		uiItems[4] = new OptionItem(this, photosStr, IconsManager.PHOTOS, 8, uiih);
 		uiItems[5] = new OptionItem(this, docsStr, IconsManager.DOCS, 9, uiih);
+		//вотэто чтобы убрал
 		uiItems[6] = new OptionItem(this, TextLocal.inst.get("menu.settings"), IconsManager.SETTINGS, 13, uiih);
 		uiItems[7] = new OptionItem(this, aboutStr, IconsManager.INFO, 15, uiih);
 		uiItems[8] = new OptionItem(this, exitStr, IconsManager.CLOSE, -1, uiih);
