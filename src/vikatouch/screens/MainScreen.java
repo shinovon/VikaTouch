@@ -128,10 +128,10 @@ public abstract class MainScreen
 			int d = f.getHeight()+2;
 			
 			g.setColor(255,0,0);
-			g.fillArc(dw/2+12-d, bpiy, d, d, 0, 360);
+			g.fillArc(dw/2+12-d+2, bpiy-2, d, d, 0, 360);
 			
 			g.setGrayScale(255);
-			g.drawString(""+VikaTouch.unreadCount, dw/2+12-d/2-f.stringWidth(""+VikaTouch.unreadCount)/2, bpiy+1, 0);
+			g.drawString(""+VikaTouch.unreadCount, dw/2+12-d/2-f.stringWidth(""+VikaTouch.unreadCount)/2+2, bpiy-1, 0);
 		}
 		
 		
