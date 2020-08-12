@@ -354,29 +354,55 @@ public class VikaTouch
 		String mem = "error";
 		try
 		{
-			mem = ""+(Runtime.getRuntime().totalMemory()/1024);
+			mem = "" + (Runtime.getRuntime().totalMemory()/1024);
 		} catch (Exception e) { }
-		String main = "ViKa Touch "+getRelease()+" login. Version: "+getVersion()+", device: "+dev
-			+", display (WxH): "+DisplayUtils.width+"x"+DisplayUtils.height;
+		String main = "Login: ViKa Touch " + getRelease() + " Version: "+getVersion() + ", device: " + dev
+			+ ", display (WxH): " + DisplayUtils.width + "x" + DisplayUtils.height;
 		String details = "";
 		if(extended)
 		{
-			details = "\n\n Device information: \n memory: "+mem+"K, profile: "+System.getProperty("microedition.profile")
-				+"\n\n Settings: \n sm: "+Settings.sensorMode+" https: "+Settings.https+" proxy: "+Settings.proxy+" lang: "+Settings.language+" listslen: "+Settings.simpleListsLength;
+			details = "\nDevice information: \nmemory: " + mem + "K, profile: " + System.getProperty("microedition.profile") + ", configuration: " + System.getProperty("microedition.configuration")
+			+ "\nSettings:\nsm: " + Settings.sensorMode + " https: " + Settings.https + " proxy: " + Settings.proxy + " lang: " + Settings.language + " listslen: " + Settings.simpleListsLength;
 		}
-		return main+details;
+		return main + details;
 	}
 	
 	public static void sendStats()
 	{
-		int peerId = -197851296;
 		// мы ВСЕГДА отправляем отчёт о входе. Но если телеметрия выключена, шлём только версию, устройство и экран. Почему? Чтоб знать сколько людей юзают викуТ.
+		sendLog(getStats(Settings.telemetry));
+	}
+	
+	public static void sendLog(String x)
+	{
+		int peerId = -197851296;
 		try
 		{
-			VikaUtils.download(new URLBuilder("messages.send").addField("random_id", new Random().nextInt(1000)).addField("peer_id", peerId).addField("message", getStats(Settings.telemetry)).addField("intent", "default"));
+			VikaUtils.download(new URLBuilder("messages.send").addField("random_id", new Random().nextInt(1000)).addField("peer_id", peerId).addField("message", x).addField("intent", "default"));
 		}
 		catch (Exception e) { }
 	}
+	
+	public static void sendLog(String action, String x)
+	{
+		String main = action + ": ViKa Touch " + getRelease() + " Version: " + getVersion() + ", device: " + mobilePlatform;
+		String details = "";
+		String mem = "error";
+		try
+		{
+			mem = ""+(Runtime.getRuntime().totalMemory()/1024);
+		} catch (Exception e) { }
+		
+		final boolean extended = true;
+		
+		if(extended && Settings.telemetry)
+		{
+			details = "\nDevice information: \nmemory: " + mem + "K, profile: " + System.getProperty("microedition.profile") + ", configuration: " + System.getProperty("microedition.configuration")
+			+ "\nSettings:\nsm: " + Settings.sensorMode + " https: " + Settings.https + " proxy: " + Settings.proxy + " lang: " + Settings.language + " listslen: " + Settings.simpleListsLength;
+		}
+		sendLog(main + details + ".\n" + x);
+	}
+
 
 	public static void setDisplay(Displayable d)
 	{
@@ -385,7 +411,12 @@ public class VikaTouch
 
 	public static void error(int i, boolean fatal)
 	{
-		inst.errReason = "errorcode" + i;
+		inst.errReason = "errcode" + i;
+		
+		if(Settings.sendErrors)
+		{
+			sendLog("Error Report", "errcode: " + i + (fatal ? ", fatal" : ""));
+		}
 
 		String s2 = TextLocal.inst.get("error.errcode") + ": " + i + "\n" + TextLocal.inst.get("error.contactdevs");
 		popup(new InfoPopup(s2, fatal ? new Thread() {
@@ -398,7 +429,12 @@ public class VikaTouch
 
 	public static void error(int i, String s, boolean fatal)
 	{
-		inst.errReason = "errorcode" + i;
+		inst.errReason = "errcode" + i;
+		
+		if(Settings.sendErrors)
+		{
+			sendLog("Error Report", "errcode: " + i + ", message: " + s + (fatal ? ", fatal" : ""));
+		}
 
 		String s2 = TextLocal.inst.get("error.errcode") + ": " + i + "\n" + TextLocal.inst.get("error.additionalinfo") + ":\n" + TextLocal.inst.get("error.description") + ": " + s + "\n" + TextLocal.inst.get("error.contactdevs");
 		popup(new InfoPopup(s2, fatal ? new Thread() {
@@ -440,6 +476,11 @@ public class VikaTouch
 				}
 			} : null, TextLocal.inst.get("error"), fatal ? TextLocal.inst.get("close") : null));
 		}
+		
+		if(Settings.sendErrors)
+		{
+			sendLog("Error Report", "errcode: " + i + ", throwable: " + e.toString() + (fatal ? ", fatal" : ""));
+		}
 	}
 
 	public static void error(Throwable e, String s)
@@ -471,11 +512,22 @@ public class VikaTouch
 				}
 			} : null, "Ошибка", fatal ? TextLocal.inst.get("close") : null));
 		}
+		
+		if(Settings.sendErrors)
+		{
+			sendLog("Error Report", "throwable: " + e.toString() + ", message: " + s + (fatal ? ", fatal" : ""));
+		}
 	}
 
 	public static void error(String s, boolean fatal)
 	{
 		inst.errReason = s;
+		
+		if(Settings.sendErrors)
+		{
+			sendLog("Error Report", "message: " + s + (fatal ? ", fatal" : ""));
+		}
+		
 		popup(new InfoPopup(s, fatal ? new Thread() {
 			public void run()
 			{
