@@ -5,9 +5,11 @@ import javax.microedition.lcdui.Graphics;
 import ru.nnproject.vikaui.menu.IMenu;
 import ru.nnproject.vikaui.menu.items.PressableUIItem;
 import ru.nnproject.vikaui.utils.DisplayUtils;
+import vikatouch.base.IconsManager;
 import vikatouch.base.VikaTouch;
-import vikatouch.base.items.DocItem;
-import vikatouch.base.items.OptionItem;
+import vikatouch.base.items.*;
+import vikatouch.base.local.TextLocal;
+import vikatouch.base.settings.Settings;
 import vikatouch.screens.menu.MenuScreen;
 
 public class SettingsScreen
@@ -20,10 +22,16 @@ public class SettingsScreen
 	public SettingsScreen()
 	{
 		super();
+		String[] eOd = new String[] { TextLocal.inst.get("settings.disbled"), TextLocal.inst.get("settings.enabled") };
+		
 		oneitemheight = 40;
 		uiItems = new PressableUIItem[15];
-		uiItems[0] = new OptionItem(this, "123", -1, 0, 50);
-		uiItems[1] = new OptionItem(this, "", -1, 1, 50);
+		uiItems[0] = new SettingMenuItem(this, TextLocal.inst.get("settings.animTr"), IconsManager.MENU, 0, 
+				oneitemheight, eOd, Settings.animateTransition?1:0, null);
+		
+		uiItems[13] = new OptionItem(this, TextLocal.inst.get("settings.logout"), IconsManager.CLOSE, -1, oneitemheight);
+		uiItems[14] = new OptionItem(this, TextLocal.inst.get("settings.clearCache"), IconsManager.CLOSE, -2, oneitemheight);
+		uiItems[15] = new OptionItem(this, TextLocal.inst.get("settings.reset"), IconsManager.CLOSE, -3, oneitemheight);
 		itemsh = 58 + (oneitemheight * uiItems.length);
 	}
 
@@ -77,20 +85,38 @@ public class SettingsScreen
 	
 	public void SettingSet (int setIndex, int var)
 	{
-		
+		switch(setIndex)
+		{
+			case 0:
+			{
+				Settings.animateTransition = var==1;
+				break;
+			}
+			case 1:
+			{
+				break;
+			}
+		}
+		Settings.saveSettings();
 	}
 
 	public void onMenuItemPress(int i)
 	{
 		switch(i)
 		{
-			case 0:
+			case -1:
 			{
-				
+				break;
 			}
-			case 1:
+			case -2:
 			{
-				
+				break;
+			}
+			case -3:
+			{
+				Settings.loadDefaultSettings();
+				Settings.saveSettings();
+				break;
 			}
 		}
 	}
