@@ -125,6 +125,7 @@ public class MenuScreen
 		{
 			name = "Арман";
 			lastname = "Джусупгалиев";
+			//БЕЗУМНО МОЖНО БЫТЬ ПЕРВЫМ
 			status = "Волк тот кто волк, а не тот кто волк.";
 			try
 			{
@@ -301,7 +302,7 @@ public class MenuScreen
 			}
 		}
 		g.translate(0, -g.getTranslateY());
-		drawHUD(g, "Vika Touch "+VikaTouch.getRelease());
+		drawHUD(g, "");
 	}
 /*
 	public final void draw(Graphics g)
