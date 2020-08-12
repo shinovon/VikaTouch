@@ -3,6 +3,7 @@ package ru.nnproject.vikatouch;
 import javax.microedition.midlet.*;
 
 import vikatouch.base.VikaTouch;
+import vikatouch.screens.ChatScreen;
 
 public final class VikaTouchApp
 	extends MIDlet
@@ -14,6 +15,7 @@ public final class VikaTouchApp
 
 	public void destroyApp(boolean arg0)
 	{
+		ChatScreen.stopUpdater();
 		this.notifyDestroyed();
 	}
 
