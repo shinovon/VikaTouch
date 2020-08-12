@@ -30,6 +30,23 @@ public class SettingMenuItem implements PressableUIItem, IMenu {
 	
 	public int drawX; public int fillW; // for context menu
 	
+	public SettingMenuItem(SettingsScreen s, String title, int ic, int optN, int h, int[] list, int curr, String info)
+	{
+		this.h = h;
+		this.optN = optN;
+		icon = ic;
+		text = title;
+		ss = s;
+		opts = new String[list.length];
+		for(int i=0;i<list.length;i++)
+		{
+			opts[i] = String.valueOf(list[i]);
+		}
+		currentOption = curr;
+		help = info;
+		f = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM);
+	}
+	
 	public SettingMenuItem(SettingsScreen s, String title, int ic, int optN, int h, String[] list, int curr, String info)
 	{
 		this.h = h;

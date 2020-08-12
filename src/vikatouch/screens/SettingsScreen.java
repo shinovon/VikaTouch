@@ -23,22 +23,53 @@ public class SettingsScreen
 	{
 		super();
 		String[] eOd = new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.enabled") };
-		
+		int[] countVals = new int[] { 10, 20, 30, 50, 80, 100 }; int countValDef = 1;
+		int[] refreshVals = new int[] { 0, 2, 5, 8, 10, 15 }; int refreshValDef = 3;
 		oneitemheight = 40;
 		uiItems = new PressableUIItem[15];
+		// анимация
 		uiItems[0] = new SettingMenuItem(this, TextLocal.inst.get("settings.animTr"), IconsManager.MENU, 0, 
 				oneitemheight, eOd, Settings.animateTransition?1:0, null);
+		// кэш
 		uiItems[1] = new SettingMenuItem(this, TextLocal.inst.get("settings.enableCache"), IconsManager.PHOTOS, 1, 
 				oneitemheight, eOd, Settings.cacheImages?1:0, null);
+		// минус авы
 		uiItems[2] = new SettingMenuItem(this, TextLocal.inst.get("settings.dontLoadAvas"), IconsManager.PHOTOS, 2, 
 				oneitemheight, eOd, Settings.dontLoadAvas?1:0, null);
+		// соединение
 		uiItems[3] = new SettingMenuItem(this, TextLocal.inst.get("settings.conn"), IconsManager.LINK, 1, 
 				oneitemheight, new String[] { TextLocal.inst.get("settings.proxy"), TextLocal.inst.get("settings.https") }, 
 				Settings.https?1:0, null);
+		// сенсор
 		uiItems[4] = new SettingMenuItem(this, TextLocal.inst.get("settings.sensor"), IconsManager.OPTIONS, 1, 
 				oneitemheight, new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.j2meLs"), TextLocal.inst.get("settings.resistive") }, 
-				Settings.https?1:0, TextLocal.inst.get("settings.sensorInfo"));
+				Settings.sensorMode, TextLocal.inst.get("settings.sensorInfo"));
+		// списки
+		int j = -1;
+		for(int i=0;i<countVals.length;i++)
+		{
+			if(countVals[i]==Settings.simpleListsLength) j = i;
+		}
+		if(j==-1)
+		{
+			j = countValDef;
+			Settings.simpleListsLength = countVals[j];
+		}
+		uiItems[5] = new SettingMenuItem(this, TextLocal.inst.get("settings.listsLength"), IconsManager.MENU, 1, 
+				oneitemheight, countVals, j, null);
+		// сообщения за раз
 		
+		// частота обновления
+		
+		// размер видео
+		
+		// поведение аудио
+		
+		// отладка тача
+		
+		// статистика
+		
+		// ошибки
 		uiItems[12] = new OptionItem(this, TextLocal.inst.get("settings.logout"), IconsManager.CLOSE, -1, oneitemheight);
 		uiItems[13] = new OptionItem(this, TextLocal.inst.get("settings.clearCache"), IconsManager.CLOSE, -2, oneitemheight);
 		uiItems[14] = new OptionItem(this, TextLocal.inst.get("settings.reset"), IconsManager.CLOSE, -3, oneitemheight);
