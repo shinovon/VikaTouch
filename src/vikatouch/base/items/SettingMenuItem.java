@@ -6,6 +6,7 @@ import javax.microedition.lcdui.Graphics;
 import ru.nnproject.vikaui.menu.IMenu;
 import ru.nnproject.vikaui.menu.items.PressableUIItem;
 import ru.nnproject.vikaui.popup.ContextMenu;
+import ru.nnproject.vikaui.popup.InfoPopup;
 import ru.nnproject.vikaui.screen.ScrollableCanvas;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
@@ -20,7 +21,7 @@ public class SettingMenuItem implements PressableUIItem, IMenu {
 	public String text;
 	public int icon;
 	public int h;
-	public int i;
+	public int optN;
 	boolean s;
 	static Font f;
 	public String[] opts;
@@ -32,7 +33,7 @@ public class SettingMenuItem implements PressableUIItem, IMenu {
 	public SettingMenuItem(SettingsScreen s, String title, int ic, int optN, int h, String[] list, int curr, String info)
 	{
 		this.h = h;
-		i = optN;
+		this.optN = optN;
 		icon = ic;
 		text = title;
 		ss = s;
@@ -103,8 +104,8 @@ public class SettingMenuItem implements PressableUIItem, IMenu {
 	}
 
 	public void onMenuItemPress(int i) {
-		// TODO Auto-generated method stub
-		
+		ss.SettingSet(optN, i);
+		currentOption = i;
 	}
 
 	public void onMenuItemOption(int i) {
