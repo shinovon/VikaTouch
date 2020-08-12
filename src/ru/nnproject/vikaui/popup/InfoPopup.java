@@ -14,12 +14,12 @@ public class InfoPopup
 	extends VikaNotice
 {
 	private String[] lines;
-	private Thread ok;
+	private Runnable ok;
 	private int linesCount;
 	private String button;
 	private String header;
 	
-	public InfoPopup(String text, Thread onOk, String title, String btnText)
+	public InfoPopup(String text, Runnable onOk, String title, String btnText)
 	{
 		lines = TextBreaker.breakText(text, false, null, true, Math.min(DisplayUtils.width-20, 340)-60);
 		ok = onOk;
@@ -33,7 +33,7 @@ public class InfoPopup
 		button = btnText==null?"OK":btnText;
 	}
 	
-	public InfoPopup(String text, Thread onOk)
+	public InfoPopup(String text, Runnable onOk)
 	{
 		lines = TextBreaker.breakText(text, false, null, true, Math.min(DisplayUtils.width-20, 340)-60);
 		ok = onOk;
@@ -89,7 +89,7 @@ public class InfoPopup
 			return;
 		VikaTouch.canvas.currentAlert = null;
 		if(ok!=null)
-			ok.start();
+			new Thread(ok).start();
 	}
 	
 	public void release(int x, int y)
