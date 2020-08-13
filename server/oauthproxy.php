@@ -2,7 +2,7 @@
 if(isset($_GET["url"]))
 {
 $url = $_GET["url"];
-$token = "serverdata\page_" . randoms() . ".txt";
+$filename = "serverdata\page_" . randoms() . ".txt";
 $confidential = false;
 if(isset($_GET["token"]))
 {
