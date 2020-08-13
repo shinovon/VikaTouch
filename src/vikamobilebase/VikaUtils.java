@@ -590,7 +590,7 @@ public final class VikaUtils
 			{
 				Image image = Image.createImage(imgBytes, 0, imgBytes.length);
 				try
-					{
+				{
 					if(image != null && caching)
 					{
 						ImageStorage.save(filename, image);
