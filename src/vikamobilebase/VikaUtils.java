@@ -589,9 +589,16 @@ public final class VikaUtils
 			try
 			{
 				Image image = Image.createImage(imgBytes, 0, imgBytes.length);
-				if(image != null && caching)
+				try
+					{
+					if(image != null && caching)
+					{
+						ImageStorage.save(filename, image);
+					}
+				}
+				catch (Exception e)
 				{
-					ImageStorage.save(filename, image);
+					
 				}
 				return image;
 			}

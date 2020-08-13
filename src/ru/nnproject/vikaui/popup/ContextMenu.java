@@ -8,7 +8,7 @@ import ru.nnproject.vikaui.screen.ScrollableCanvas;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikatouch.VikaTouch;
-import vikatouch.items.OptionItem;
+import vikatouch.items.menu.OptionItem;
 
 public class ContextMenu extends VikaNotice {
 

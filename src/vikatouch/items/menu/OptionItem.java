@@ -1,4 +1,4 @@
-package vikatouch.items;
+package vikatouch.items.menu;
 
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;

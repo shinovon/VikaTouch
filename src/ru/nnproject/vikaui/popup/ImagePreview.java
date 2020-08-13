@@ -12,7 +12,7 @@ import vikatouch.VikaTouch;
 import vikatouch.attachments.DocumentAttachment;
 import vikatouch.attachments.ISocialable;
 import vikatouch.attachments.PhotoAttachment;
-import vikatouch.items.DocItem;
+import vikatouch.items.menu.DocItem;
 import vikatouch.utils.ErrorCodes;
 
 public class ImagePreview extends VikaNotice {

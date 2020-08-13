@@ -1,4 +1,4 @@
-package vikatouch.items;
+package vikatouch.items.menu;
 
 import java.io.IOException;
 
@@ -13,6 +13,7 @@ import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.attachments.PhotoSize;
+import vikatouch.items.JSONUIItem;
 import vikatouch.screens.menu.GroupsScreen;
 import vikatouch.screens.page.GroupPageScreen;
 import vikatouch.utils.ErrorCodes;

@@ -9,6 +9,7 @@ import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
 import vikatouch.items.*;
+import vikatouch.items.menu.OptionItem;
 import vikatouch.local.TextLocal;
 import vikatouch.screens.AboutScreen;
 import vikatouch.screens.MainScreen;

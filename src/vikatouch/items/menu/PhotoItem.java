@@ -1,4 +1,4 @@
-package vikatouch.items;
+package vikatouch.items.menu;
 
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -6,6 +6,7 @@ import javax.microedition.lcdui.Image;
 import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.menu.items.UIItem;
+import vikatouch.items.JSONUIItem;
 
 public class PhotoItem
 	extends JSONUIItem

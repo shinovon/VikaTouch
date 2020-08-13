@@ -1,4 +1,4 @@
-package vikatouch.items;
+package vikatouch.items.menu;
 
 import javax.microedition.io.ConnectionNotFoundException;
 import javax.microedition.lcdui.Graphics;
@@ -15,6 +15,7 @@ import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
 import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
+import vikatouch.items.JSONUIItem;
 import vikatouch.settings.Settings;
 import vikatouch.utils.ResizeUtils;
 

@@ -15,7 +15,7 @@ import ru.nnproject.vikaui.utils.TextBreaker;
 import vikamobilebase.VikaUtils;
 import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
-import vikatouch.items.OptionItem;
+import vikatouch.items.menu.OptionItem;
 import vikatouch.json.JSONBase;
 import vikatouch.local.TextLocal;
 import vikatouch.screens.MainScreen;

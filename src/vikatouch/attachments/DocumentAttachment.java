@@ -11,7 +11,7 @@ import ru.nnproject.vikaui.popup.ImagePreview;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
-import vikatouch.items.OptionItem;
+import vikatouch.items.menu.OptionItem;
 import vikatouch.utils.ErrorCodes;
 
 public class DocumentAttachment

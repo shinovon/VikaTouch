@@ -17,7 +17,7 @@ import vikamobilebase.VikaUtils;
 import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
 import vikatouch.attachments.*;
-import vikatouch.items.OptionItem;
+import vikatouch.items.menu.OptionItem;
 import vikatouch.screens.ChatScreen;
 
 public class MsgItem

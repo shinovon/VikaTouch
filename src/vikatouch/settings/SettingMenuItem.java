@@ -12,7 +12,7 @@ import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
-import vikatouch.items.OptionItem;
+import vikatouch.items.menu.OptionItem;
 import vikatouch.local.TextLocal;
 
 public class SettingMenuItem implements PressableUIItem, IMenu {
