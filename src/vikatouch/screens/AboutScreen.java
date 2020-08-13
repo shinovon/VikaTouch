@@ -20,7 +20,7 @@ public class AboutScreen
 	{
 		strings = new String[]{ 
 				"Издатель:",
-				"Ilya Visotky",
+				"Ilya Visotsky",
 				"",
 				"Разработчики:",
 				"shinovon",
