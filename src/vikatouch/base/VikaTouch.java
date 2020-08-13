@@ -357,7 +357,7 @@ public class VikaTouch
 			mem = "" + (Runtime.getRuntime().totalMemory()/1024);
 		} catch (Exception e) { }
 		String main = "Login: ViKa Touch " + getRelease() + " Version: "+getVersion() + ", device: " + dev
-			+ ", display (WxH): " + DisplayUtils.width + "x" + DisplayUtils.height;
+			+ ", display: " + DisplayUtils.width + "x" + DisplayUtils.height;
 		String details = "";
 		if(extended)
 		{
