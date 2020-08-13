@@ -1,4 +1,4 @@
-package vikatouch.items;
+package vikatouch.items.chat;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
 import vikatouch.attachments.AudioAttachment;
 import vikatouch.attachments.PhotoAttachment;
-import vikatouch.items.chat.MsgItem;
+import vikatouch.items.JSONUIItem;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
 

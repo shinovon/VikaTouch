@@ -1,4 +1,4 @@
-package vikatouch.items;
+package vikatouch.items.chat;
 
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
@@ -8,7 +8,6 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
-import vikatouch.items.chat.ChatItem;
 
 public final class DateItem
 	extends ChatItem
