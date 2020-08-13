@@ -36,6 +36,7 @@ public class MsgItem
 	public static int attMargin = 5;
 	public int linesC;
 	private String time;
+	public boolean showName;
 	
 	private int attH = -1;
 	
@@ -150,7 +151,7 @@ public class MsgItem
 				g.drawRoundRect(DisplayUtils.width-(margin+msgWidth), y, msgWidth, th, radius, radius);
 			}
 		}
-		if(name!=null)
+		if(name!=null&&showName)
 		{
 			ColorUtils.setcolor(g, ColorUtils.COLOR1);
 			g.drawString(name, textX, y+h1/2, 0);
@@ -285,7 +286,7 @@ public class MsgItem
 		switch(i)
 		{
 		case -1:
-			VikaTouch.popup(new InfoPopup("Ответы не изобрели", null));
+			ChatScreen.attachAnswer(mid, name, text);
 			break; // БРЕАК НА МЕСТЕ!!11!!1!
 		case -2:
 			VikaTouch.popup(new InfoPopup("УДОЛИ", null));

@@ -88,13 +88,13 @@ public class SettingsScreen
 		// поведение аудио
 		uiItems[9] = new OptionItem(this, TextLocal.inst.get("settings.audio"), IconsManager.MUSIC, 22, oneitemheight);
 		// отладка тача
-		uiItems[10] = new SettingMenuItem(this, TextLocal.inst.get("settings.touchDebug"), IconsManager.MENU, 10, 
+		uiItems[10] = new SettingMenuItem(this, TextLocal.inst.get("settings.touchDebug"), IconsManager.SETTINGS, 10, 
 				oneitemheight, eOd, Settings.debugInfo?1:0, null);
 		// статистика
-		uiItems[11] = new SettingMenuItem(this, TextLocal.inst.get("settings.telemetry"), IconsManager.MENU, 11, 
+		uiItems[11] = new SettingMenuItem(this, TextLocal.inst.get("settings.telemetry"), IconsManager.SEND, 11, 
 				oneitemheight, eOd, Settings.telemetry?1:0, TextLocal.inst.get("settings.telemetryInfo"));
 		// ошибки
-		uiItems[12] = new SettingMenuItem(this, TextLocal.inst.get("settings.sendErrors"), IconsManager.MENU, 12, 
+		uiItems[12] = new SettingMenuItem(this, TextLocal.inst.get("settings.sendErrors"), IconsManager.SEND, 12, 
 				oneitemheight, eOd, Settings.sendErrors?1:0, null);
 		
 		uiItems[13] = new OptionItem(this, TextLocal.inst.get("settings.logout"), IconsManager.CLOSE, -1, oneitemheight);

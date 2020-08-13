@@ -69,11 +69,11 @@ public class ChatScreen
 	private byte buttonSelected = 0;
 	
 	// данные для сообщения
-	public int answerMsgId;
+	public long answerMsgId = 0;
 	public String answerName;
 	public String answerText;
 	
-	public static void attachAnswer(int id, String name, String text)
+	public static void attachAnswer(long id, String name, String text)
 	{
 		if(VikaTouch.canvas.currentScreen instanceof ChatScreen)
 		{
@@ -216,10 +216,9 @@ public class ChatScreen
 				{
 					chain = fromId == items.getJSONObject(i+1).optInt("from_id");
 				}
-				if(!chain)
-				{
-					m.name = (m.foreign ? name :"Вы");
-				}
+				m.showName = !chain;
+				
+				m.name = (m.foreign ? name :"Вы");
 				uiItems[uiItems.length-1-i-loadSpace] = m;
 				itemsCount = (short) uiItems.length;
 			}
@@ -256,10 +255,9 @@ public class ChatScreen
 				{
 					chain = fromId == json.getJSONObject(i+1).optInt("from_id");
 				}
-				if(!chain)
-				{
-					m.name = (m.foreign?title:"Вы");
-				}
+				m.showName = !chain;
+						
+				m.name = (m.foreign?title:"Вы");
 				uiItems[uiItems.length-1-i-loadSpace] = m;
 				itemsCount = (short) uiItems.length;
 			}
@@ -322,27 +320,35 @@ public class ChatScreen
 	{
 		if(!dragging)
 		{
-			if(y > DisplayUtils.height-50)
+			if(y > DisplayUtils.height-inputBoxH-(answerMsgId==0?0:Font.getFont(0, 0, Font.SIZE_SMALL).getHeight()*2))
 			{
-				//нижняя панель
-				
-				//текстбокс
-				if(x > 50 && x < DisplayUtils.width - 98)
+				if(answerMsgId!=0&&y<DisplayUtils.height-inputBoxH)
 				{
-					showTextBox();
+					// ответ
+					if(x > DisplayUtils.width - 40) answerMsgId = 0;
 				}
-				else if(x < 50)
+				else
 				{
-					//прикреп
-				}
-				else if(x > DisplayUtils.width - 40)
-				{
-					//отправить
-					send();
-				}
-				else if(x > DisplayUtils.width - 90)
-				{
-					//емоци и стикеры
+					//нижняя панель
+					
+					//текстбокс
+					if(x > 50 && x < DisplayUtils.width - 98)
+					{
+						showTextBox();
+					}
+					else if(x < 50)
+					{
+						//прикреп
+					}
+					else if(x > DisplayUtils.width - 40)
+					{
+						//отправить
+						send();
+					}
+					else if(x > DisplayUtils.width - 90)
+					{
+						//емоци и стикеры
+					}
 				}
 			}
 			else if(y < 50)
@@ -510,7 +516,13 @@ public class ChatScreen
 			{
 				try
 				{
-					VikaUtils.download(new URLBuilder("messages.send").addField("random_id", new Random().nextInt(10000)).addField("peer_id", peerId).addField("message", inputText).addField("intent", "default"));
+					URLBuilder url = new URLBuilder("messages.send").addField("random_id", new Random().nextInt(10000)).addField("peer_id", peerId).addField("message", inputText).addField("intent", "default");
+					if(answerMsgId!=0)
+					{
+						url = url.addField("reply_to", ""+answerMsgId);
+						answerMsgId = 0;
+					}
+					VikaUtils.download(url);
 					inputText = null;
 					inputChanged = true;
 					inputedLinesCount = 0;
@@ -752,6 +764,7 @@ public class ChatScreen
 		int dw = DisplayUtils.width; int dh = DisplayUtils.height;
 		Font font = Font.getFont(0, 0, Font.SIZE_SMALL);
 		g.setFont(font);
+		int answerH = (int)(font.getHeight()*2);
 		
 		if(inputChanged)
 		{
@@ -816,6 +829,25 @@ public class ChatScreen
 		g.drawImage((buttonSelected != 4?IconsManager.ico:IconsManager.selIco)[inputedLinesCount==0?IconsManager.VOICE:IconsManager.SEND], DisplayUtils.width - 40, DisplayUtils.height - 36, 0);
 		
 		if(keysMode) drawKeysTips(g);
+		
+		if(answerMsgId!=0)
+		{
+			try
+			{
+				int rh = inputBoxH+answerH;
+				ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+				g.fillRect(0, dh - rh, dw, answerH);
+				ColorUtils.setcolor(g, ColorUtils.TEXT);
+				g.drawString(answerText, 12, dh - rh+font.getHeight(), 0);
+				ColorUtils.setcolor(g, ColorUtils.COLOR1);
+				g.drawString(answerName, 12, dh - rh, 0);
+				g.fillRect(6, dh - rh+2, 2, answerH-4);
+				ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+				g.fillRect(dw-40, dh - rh, 40, answerH);
+				g.drawImage(IconsManager.ico[IconsManager.CLOSE], dw - 32, dh-rh+answerH/2-12, 0);
+			}
+			catch (Exception e) { }
+		}
 	}
 
 	private void drawHeader(Graphics g)

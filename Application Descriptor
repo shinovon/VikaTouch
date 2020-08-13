@@ -7,7 +7,7 @@ VikaTouch-Edition: prealpha
 MIDlet-Jar-URL: vikaTouch.jar
 MIDlet-Icon: diary.png
 MicroEdition-Configuration: CLDC-1.1
-MIDlet-Version: 2.6.10
+MIDlet-Version: 2.6.11
 MIDlet-Name: Vika Touch
 MIDlet-Vendor: nnproject
 MicroEdition-Profile: MIDP-2.1
