@@ -13,18 +13,18 @@ import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.TextBreaker;
 import vikamobilebase.VikaUtils;
-import vikatouch.base.IconsManager;
-import vikatouch.base.VikaTouch;
-import vikatouch.base.items.OptionItem;
-import vikatouch.base.json.JSONBase;
-import vikatouch.base.local.TextLocal;
-import vikatouch.base.utils.ErrorCodes;
-import vikatouch.base.utils.url.URLBuilder;
+import vikatouch.IconsManager;
+import vikatouch.VikaTouch;
+import vikatouch.items.OptionItem;
+import vikatouch.json.JSONBase;
+import vikatouch.local.TextLocal;
 import vikatouch.screens.MainScreen;
 import vikatouch.screens.menu.DocsScreen;
 import vikatouch.screens.menu.FriendsScreen;
 import vikatouch.screens.menu.GroupsScreen;
 import vikatouch.screens.menu.MenuScreen;
+import vikatouch.utils.ErrorCodes;
+import vikatouch.utils.url.URLBuilder;
 
 public class ProfilePageScreen
 	extends MainScreen

@@ -11,16 +11,16 @@ import ru.nnproject.vikaui.menu.items.PressableUIItem;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
-import vikatouch.base.VikaTouch;
-import vikatouch.base.items.GroupItem;
-import vikatouch.base.items.LoadMoreButtonItem;
-import vikatouch.base.items.VideoItem;
-import vikatouch.base.json.INextLoadable;
-import vikatouch.base.local.TextLocal;
-import vikatouch.base.settings.Settings;
-import vikatouch.base.utils.ErrorCodes;
-import vikatouch.base.utils.url.URLBuilder;
+import vikatouch.VikaTouch;
+import vikatouch.items.GroupItem;
+import vikatouch.items.LoadMoreButtonItem;
+import vikatouch.items.VideoItem;
+import vikatouch.json.INextLoadable;
+import vikatouch.local.TextLocal;
 import vikatouch.screens.MainScreen;
+import vikatouch.settings.Settings;
+import vikatouch.utils.ErrorCodes;
+import vikatouch.utils.url.URLBuilder;
 
 public class VideosScreen
 	extends MainScreen implements INextLoadable

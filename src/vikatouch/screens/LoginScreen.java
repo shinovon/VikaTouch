@@ -18,10 +18,10 @@ import ru.nnproject.vikaui.popup.InfoPopup;
 import ru.nnproject.vikaui.screen.VikaScreen;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
-import vikatouch.base.VikaTouch;
-import vikatouch.base.local.TextLocal;
-import vikatouch.base.utils.TextEditor;
+import vikatouch.VikaTouch;
+import vikatouch.local.TextLocal;
 import vikatouch.screens.menu.MenuScreen;
+import vikatouch.utils.TextEditor;
 
 public class LoginScreen
 	extends VikaScreen

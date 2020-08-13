@@ -7,8 +7,8 @@ import ru.nnproject.vikaui.screen.ScrollableCanvas;
 import ru.nnproject.vikaui.screen.VikaScreen;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
-import vikatouch.base.CommandsImpl;
-import vikatouch.base.VikaTouch;
+import vikatouch.CommandsImpl;
+import vikatouch.VikaTouch;
 
 public class AboutScreen
 	extends ScrollableCanvas

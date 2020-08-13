@@ -2,8 +2,8 @@ package vikatouch.screens.menu;
 
 import javax.microedition.lcdui.Graphics;
 
-import vikatouch.base.VikaTouch;
-import vikatouch.base.local.TextLocal;
+import vikatouch.VikaTouch;
+import vikatouch.local.TextLocal;
 import vikatouch.screens.MainScreen;
 
 public class PhotosScreen
