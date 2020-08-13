@@ -1,4 +1,4 @@
-package vikatouch.screens;
+package vikatouch.screens.page;
 
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
@@ -20,6 +20,7 @@ import vikatouch.base.json.JSONBase;
 import vikatouch.base.local.TextLocal;
 import vikatouch.base.utils.ErrorCodes;
 import vikatouch.base.utils.url.URLBuilder;
+import vikatouch.screens.MainScreen;
 import vikatouch.screens.menu.DocsScreen;
 import vikatouch.screens.menu.FriendsScreen;
 import vikatouch.screens.menu.GroupsScreen;

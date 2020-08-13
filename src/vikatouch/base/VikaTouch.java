@@ -25,6 +25,7 @@ import vikatouch.base.utils.ResizeUtils;
 import vikatouch.base.utils.url.URLBuilder;
 import vikatouch.screens.*;
 import vikatouch.screens.menu.*;
+import vikatouch.screens.page.GroupPageScreen;
 
 public class VikaTouch
 {

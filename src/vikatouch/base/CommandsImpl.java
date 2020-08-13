@@ -13,7 +13,6 @@ import vikatouch.base.settings.SettingsScreen;
 import vikatouch.screens.AboutScreen;
 import vikatouch.screens.ChatScreen;
 import vikatouch.screens.DialogsScreen;
-import vikatouch.screens.GroupPageScreen;
 import vikatouch.screens.LoginScreen;
 import vikatouch.screens.NewsScreen;
 import vikatouch.screens.menu.DocsScreen;
@@ -22,6 +21,7 @@ import vikatouch.screens.menu.GroupsScreen;
 import vikatouch.screens.menu.MenuScreen;
 import vikatouch.screens.menu.PhotosScreen;
 import vikatouch.screens.menu.VideosScreen;
+import vikatouch.screens.page.GroupPageScreen;
 
 public class CommandsImpl
 	implements CommandListener

@@ -15,8 +15,8 @@ import vikatouch.base.IconsManager;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.utils.ErrorCodes;
 import vikatouch.base.utils.ResizeUtils;
-import vikatouch.screens.ProfilePageScreen;
 import vikatouch.screens.menu.DocsScreen;
+import vikatouch.screens.page.ProfilePageScreen;
 
 public class FriendItem extends JSONUIItem
 {
