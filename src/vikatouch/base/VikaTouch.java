@@ -18,6 +18,7 @@ import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.*;
 import vikatouch.base.local.TextLocal;
 import vikatouch.base.settings.Settings;
+import vikatouch.base.settings.SettingsScreen;
 import vikatouch.base.utils.CaptchaObject;
 import vikatouch.base.utils.ErrorCodes;
 import vikatouch.base.utils.ResizeUtils;

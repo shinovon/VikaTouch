@@ -13,6 +13,7 @@ import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikatouch.base.IconsManager;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.settings.Settings;
+import vikatouch.base.settings.SettingsScreen;
 import vikatouch.screens.menu.MenuScreen;
 
 public abstract class MainScreen 

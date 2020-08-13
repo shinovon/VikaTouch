@@ -1,4 +1,4 @@
-package vikatouch.base.items;
+package vikatouch.base.settings;
 
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
@@ -12,8 +12,8 @@ import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikatouch.base.IconsManager;
 import vikatouch.base.VikaTouch;
+import vikatouch.base.items.OptionItem;
 import vikatouch.base.local.TextLocal;
-import vikatouch.screens.SettingsScreen;
 
 public class SettingMenuItem implements PressableUIItem, IMenu {
 

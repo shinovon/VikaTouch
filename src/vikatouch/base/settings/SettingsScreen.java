@@ -1,4 +1,4 @@
-package vikatouch.screens;
+package vikatouch.base.settings;
 
 import javax.microedition.lcdui.Graphics;
 
@@ -10,7 +10,8 @@ import vikatouch.base.IconsManager;
 import vikatouch.base.VikaTouch;
 import vikatouch.base.items.*;
 import vikatouch.base.local.TextLocal;
-import vikatouch.base.settings.Settings;
+import vikatouch.screens.AboutScreen;
+import vikatouch.screens.MainScreen;
 import vikatouch.screens.menu.MenuScreen;
 
 public class SettingsScreen
