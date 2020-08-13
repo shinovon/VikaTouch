@@ -1,4 +1,4 @@
-package vikatouch.items;
+package vikatouch.items.chat;
 
 import javax.microedition.lcdui.Graphics;
 

@@ -8,6 +8,7 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
+import vikatouch.items.chat.ChatItem;
 
 public final class DateItem
 	extends ChatItem

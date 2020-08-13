@@ -17,6 +17,7 @@ import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
 import vikatouch.attachments.AudioAttachment;
 import vikatouch.attachments.PhotoAttachment;
+import vikatouch.items.chat.MsgItem;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
 

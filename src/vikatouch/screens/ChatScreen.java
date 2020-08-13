@@ -23,7 +23,7 @@ import vikamobilebase.VikaUtils;
 import vikatouch.IconsManager;
 import vikatouch.VikaCanvasInst;
 import vikatouch.VikaTouch;
-import vikatouch.items.MsgItem;
+import vikatouch.items.chat.MsgItem;
 import vikatouch.settings.Settings;
 import vikatouch.utils.TextEditor;
 import vikatouch.utils.url.URLBuilder;

@@ -1,4 +1,4 @@
-package vikatouch.items;
+package vikatouch.items.chat;
 
 import javax.microedition.io.ConnectionNotFoundException;
 import javax.microedition.lcdui.Font;
@@ -17,6 +17,7 @@ import vikamobilebase.VikaUtils;
 import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
 import vikatouch.attachments.*;
+import vikatouch.items.OptionItem;
 import vikatouch.screens.ChatScreen;
 
 public class MsgItem
