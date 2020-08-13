@@ -52,7 +52,7 @@ function randoms($str = true)
 	}
 	else
 	{
-		return rand(0, 32000)
+		return rand(0, 32000);
 	}
 }
 ?>
