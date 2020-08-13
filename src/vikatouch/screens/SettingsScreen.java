@@ -155,6 +155,7 @@ public class SettingsScreen
 	
 	public void settingSet(int setIndex, int var)
 	{
+		Settings.setted = true;
 		switch(setIndex)
 		{
 			case 0:
@@ -214,7 +215,6 @@ public class SettingsScreen
 				break;
 			}
 		}
-		Settings.setted = true;
 		Settings.saveSettings();
 	}
 
