@@ -101,7 +101,7 @@ public class SettingsScreen
 		uiItems[14] = new OptionItem(this, TextLocal.inst.get("settings.clearCache"), IconsManager.CLOSE, -2, oneitemheight);
 		uiItems[15] = new OptionItem(this, TextLocal.inst.get("settings.reset"), IconsManager.CLOSE, -3, oneitemheight);
 		uiItems[16] = new OptionItem(this, TextLocal.inst.get("menu.about"), IconsManager.INFO, 1, oneitemheight);
-		itemsh = 58 + (oneitemheight * uiItems.length);
+		itemsh = 58 + ((oneitemheight+4) * uiItems.length);
 	}
 
 	public void draw(Graphics g)
@@ -114,8 +114,9 @@ public class SettingsScreen
 			for (int i=0;i<uiItems.length;i++)
 			{
 				if(uiItems[i]!=null) {
+					y+=2;
 					uiItems[i].paint(g, y, scrolled);
-					y+=uiItems[i].getDrawHeight();
+					y+=uiItems[i].getDrawHeight()+2;
 				}
 			}
 		}
@@ -130,7 +131,7 @@ public class SettingsScreen
 		{
 			if(y > 58 && y < DisplayUtils.height - oneitemheight)
 			{
-				int h = oneitemheight;
+				int h = oneitemheight+4;
 				int yy1 = y - (scrolled + 58);
 				int i = yy1 / h;
 				if(i < 0)
@@ -152,7 +153,7 @@ public class SettingsScreen
 		super.release(x, y);
 	}
 	
-	public void SettingSet (int setIndex, int var)
+	public void settingSet(int setIndex, int var)
 	{
 		switch(setIndex)
 		{

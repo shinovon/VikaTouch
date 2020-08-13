@@ -124,7 +124,7 @@ public class SettingMenuItem implements PressableUIItem, IMenu {
 	}
 
 	public void onMenuItemPress(int i) {
-		ss.SettingSet(optN, i);
+		ss.settingSet(optN, i);
 		currentOption = i;
 	}
 
