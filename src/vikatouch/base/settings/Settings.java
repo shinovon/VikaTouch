@@ -77,7 +77,7 @@ public class Settings
 	{
 		try
 		{
-			RecordStore rs = RecordStore.openRecordStore("setts", false);
+			RecordStore rs = RecordStore.openRecordStore("setts", true);
 			if(rs.getNumRecords() > 0)
 			{
 		        setted = true;
