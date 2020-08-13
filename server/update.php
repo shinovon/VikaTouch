@@ -1,18 +1,113 @@
 <?php
-$current = "2.4.0";
-$current1 = 2;
-$current2 = 4;
-$current3 = 0;
+
+//constants
+$lastglobal = "2.6.11";
+
+$lastprealpha = "2.6.11";
+$lastalpha = "none";
+$lastprebeta = "none";
+$lastclosedbeta = "none";
+$lastopenbeta = "none";
+$lastprerelease = "none";
+$lastupdatebeta = "none";
+$lastrelease = "none";
+$lastlts = "none";
+$lastupdatebetacantupd = "none";
+
+$releaseupdated == false;
+
 $v = $_GET["v"];
+$e = $_GET["e"];
 
 $a = explode(".", $v);
-
-if(intval($a[0]) < $current1 || intval($a[1]) < $current2 || intval($a[2]) < $current3)
+if($e == "prealpha")
 {
-	echo "outdated"
-}
-else
+	if($v != $lastprealpha)
+	{
+		echo "outdated"
+	} else
+	{
+		echo "uptodate";
+	}
+} else
+if($e == "release")
 {
-	echo "uptodate";
-}
+	if($releaseupdated == true)
+	{
+		echo "outdated";
+	} else
+	{
+		echo "uptodate";
+	}
+} else
+if($e == "alpha")
+{
+	if($v != $lastalpha)
+	{
+		echo "outdated";
+	} else
+	{
+		echo "uptodate";
+	}
+} else
+if($e == "prebeta")
+{
+	if($v != $lastprebeta)
+	{
+		echo "outdated";
+	} else
+	{
+		echo "uptodate";
+	}
+} else
+if($e == "closedbeta")
+{
+	
+	if($v != $lastclosedbeta)
+	{
+		echo "outdated";
+	} else
+	{
+		echo "uptodate";
+	}
+} else
+if($e == "openbeta")
+{
+	if($v != $lastopenbeta)
+	{
+		echo "outdated";
+	} else
+	{
+		echo "uptodate";
+	}
+} else
+if($e == "releaseupdate")
+{
+	if($v != $lastrelease)
+	{
+		echo "outdated";
+	} else
+	{
+		echo "uptodate";
+	}
+} else
+if($e == "releaseupdatebeta")
+{
+	if($v != $lastupdatebeta || ($v == $lastupdatebeta && $v != $lastrelease && $v != $lastupdatebetacantupd))
+	{
+		echo "outdated";
+	} else
+	{
+		echo "uptodate";
+	}
+if($e == "longtimesupport")
+{
+	if($v != $lastlts)
+	{
+		echo "outdated";
+	} else
+	{
+		echo "uptodate";
+	}
+} else
 ?>
