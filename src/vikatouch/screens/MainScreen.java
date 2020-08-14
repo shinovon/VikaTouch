@@ -126,7 +126,7 @@ public abstract class MainScreen
 			g.setFont(f);
 			int d = f.getHeight()-2;
 			
-			g.setColor(255,0,0);
+			g.setColor(225, 73, 73);
 			g.fillArc(dw/2+12-d+5, bpiy-5, d, d, 0, 360);
 			
 			g.setGrayScale(255);

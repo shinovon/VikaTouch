@@ -33,7 +33,7 @@ public class MenuScreen
 	extends MainScreen implements IMenu
 {
 
-	public static Image logoImg;
+	//public static Image logoImg;
 	//public static Image menuImg;
 	//public static Image dialImg;
 	private static Image profileImg;
