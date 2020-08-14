@@ -1,12 +1,19 @@
 package vikatouch.items.menu;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+
 import javax.microedition.io.ConnectionNotFoundException;
+import javax.microedition.io.Connector;
+import javax.microedition.io.file.FileConnection;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
+import ru.nnproject.vikatouch.VikaTouchApp;
 import ru.nnproject.vikaui.popup.ConfirmBox;
 import ru.nnproject.vikaui.popup.InfoPopup;
 import ru.nnproject.vikaui.screen.ScrollableCanvas;
@@ -17,6 +24,7 @@ import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
 import vikatouch.items.JSONUIItem;
 import vikatouch.settings.Settings;
+import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
 
 public class VideoItem
@@ -85,25 +93,11 @@ public class VideoItem
 	{
 		if(x<DisplayUtils.width - 50)
 		{
-			try {
-				VikaTouch.appInst.platformRequest(playerUrl);
-			} catch (ConnectionNotFoundException e) {
-				e.printStackTrace();
-			}
+			keyPressed(KEY_OK);
 		}
 		else
 		{
-			if(file!=null)
-				VikaTouch.popup(new ConfirmBox("Загрузить видео-файл?","Будет скачано "+Settings.videoResolution+"p.", new Thread() {
-					public void run() 
-					{
-						try {
-							VikaTouch.appInst.platformRequest(file);
-						} catch (ConnectionNotFoundException e) {
-							e.printStackTrace();
-						}
-					}
-				}, null));
+			keyPressed(KEY_FUNC);
 		}
 	}
 
@@ -112,7 +106,7 @@ public class VideoItem
 		if(key == KEY_FUNC)
 		{
 			if(file!=null)
-				VikaTouch.popup(new ConfirmBox("Загрузить видео-файл?","Будет скачано "+Settings.videoResolution+"p.", new Thread() {
+				VikaTouch.popup(new ConfirmBox("Загрузить видео-файл?","Будет скачано "+Settings.videoResolution+"p.", new Runnable() {
 					public void run() 
 					{
 						try {
@@ -125,15 +119,71 @@ public class VideoItem
 		}
 		if(key == KEY_OK)
 		{
-			try
+			if(VikaTouch.mobilePlatform.equals("KEmulator"))
 			{
-				VikaTouch.appInst.platformRequest(playerUrl);
+				try
+				{
+					VikaTouch.appInst.platformRequest(playerUrl);
+				}
+				catch (ConnectionNotFoundException e) 
+				{ }
 			}
-			catch (ConnectionNotFoundException e) 
+			else
 			{
-				
+				if(file!=null)
+				{
+					VikaTouch.popup(new ConfirmBox("Выбрано разрешение: "+Settings.videoResolution+"p", "Воспроизвести?", new Runnable() {
+						public void run() 
+						{
+							playOnline();
+						}
+					}, null));
+				}
+				else
+				{
+					VikaTouch.popup(new InfoPopup("Файл видео недоступен.", null));
+				}
 			}
 		}
+	}
+	
+	public void playOnline()
+	{
+		try {
+			String urlF = VikaUtils.replace(VikaUtils.replace(file, "\\", ""), "https:", "http:");
+			FileConnection fileCon = null;
+			fileCon = (FileConnection) Connector.open(System.getProperty("fileconn.dir.music") + "test.ram", 3);
+			if (!fileCon.exists()) {
+				fileCon.create();
+			} else {
+				fileCon.delete();
+				fileCon.create();
+			}
+
+			OutputStream stream = fileCon.openOutputStream();
+			stream.write(urlF.getBytes("UTF-8"));
+			try
+			{
+				stream.flush();
+				stream.close();
+				fileCon.close();
+			} 
+			catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			String mobilePlatform = VikaTouch.mobilePlatform;
+			if (mobilePlatform.indexOf("5.5") <= 0 && mobilePlatform.indexOf("5.4") <= 0 && mobilePlatform.indexOf("5.3") <= 0
+					&& mobilePlatform.indexOf("5.2") <= 0 && mobilePlatform.indexOf("5.1") <= 0
+					&& mobilePlatform.indexOf("Samsung") <= 0) {
+				VikaTouch.appInst.platformRequest(urlF);
+			} else {
+				VikaTouch.appInst.platformRequest("file:///C:/Data/Sounds/test.ram");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			VikaTouch.error(e, ErrorCodes.VIDEOPLAY);
+		}
+		
 	}
 
 	public void paint(Graphics g, int y, int scrolled)
