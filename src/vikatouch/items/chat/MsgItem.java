@@ -121,7 +121,7 @@ public class MsgItem
 		Font font = Font.getFont(0, 0, 8);
 		g.setFont(font);
 		int h1 = font.getHeight();
-		int attY = h1*(linesC+1+(showName?0:1)+(hasReply?2:0));
+		int attY = h1*(linesC+1+(showName?1:0)+(hasReply?2:0));
 		int th = attY + attH;
 		itemDrawHeight = th;
 		int textX = 0;
@@ -166,15 +166,15 @@ public class MsgItem
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
 		for(int i = 0; i < linesC; i++)
 		{
-			g.drawString(drawText[i]==null?" ":drawText[i], textX, y+h1/2+h1*(i+(showName?0:1)), 0);
+			g.drawString(drawText[i]==null?" ":drawText[i], textX, y+h1/2+h1*(i+(showName?1:0)), 0);
 		}
 		
 		if(hasReply)
 		{
-			g.drawString(replyText, textX+h1, y+h1/2+h1*(linesC+1+(showName?0:1)), 0);
+			g.drawString(replyText, textX+h1, y+h1/2+h1*(linesC+1+(showName?1:0)), 0);
 			ColorUtils.setcolor(g, ColorUtils.COLOR1);
-			g.drawString(replyName, textX+h1, y+h1/2+h1*(linesC+(showName?0:1)), 0);
-			g.fillRect(textX+h1/2-1, y+h1/2+h1*(linesC+(showName?0:1)), 2, h1*2);
+			g.drawString(replyName, textX+h1, y+h1/2+h1*(linesC+(showName?1:0)), 0);
+			g.fillRect(textX+h1/2-1, y+h1/2+h1*(linesC+(showName?1:0)), 2, h1*2);
 		}
 		
 		// рендер аттачей
