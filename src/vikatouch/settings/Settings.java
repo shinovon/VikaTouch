@@ -72,6 +72,7 @@ public class Settings
 	public static final int AUDIO_CACHEANDPLAY = 1;
 	public static final int AUDIO_SYSTEMPLAYER = 2;
 	public static final int AUDIO_DOWNLOAD = 3;
+	public static final String[] supportedLanguages = {"en_US", "en_UK", "ru_RU"};
 
 	public static final boolean slideAnim = true;
 
@@ -175,6 +176,32 @@ public class Settings
 		cacheImages = true;
 		dontLoadAvas = true; // мне тестить надо, а не ждать по 2 минуты пока скачается. И нет, нихера оно не кэшируется. Ещё и скачивается 2 раза.
 		sendErrors = true;
+		
+		//язык соотвествующий настройкам устройства
+		try
+		{
+			final String lang = Settings.hasLanguage(System.getProperty("microedition.locale"));
+			if(lang != null)
+			{
+				Settings.language = lang;
+			}
+		}
+		catch (Exception e)
+		{
+			
+		}
+	}
+
+	public static String hasLanguage(String l)
+	{
+		for(int i = 0; i < supportedLanguages.length; i++)
+		{
+			if(supportedLanguages[i].equalsIgnoreCase(l))
+			{
+				return supportedLanguages[i];
+			}
+		}
+		return "en_US";
 	}
 
 }
