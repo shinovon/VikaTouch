@@ -133,6 +133,8 @@ msg.attach.reply=Ответ
 msg.attach.fwd=Пересланное сообщение
 msg.attach.attachment=Вложение
 msg.attach.video=Видеозапись
+msg.keyboard=Нажмите ОК для ввода
+msg.entermsg=Введите сообщение...
 
 video=Видео
 video.1view=просмотр

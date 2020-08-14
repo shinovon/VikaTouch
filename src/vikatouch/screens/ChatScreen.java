@@ -24,6 +24,7 @@ import vikatouch.IconsManager;
 import vikatouch.VikaCanvasInst;
 import vikatouch.VikaTouch;
 import vikatouch.items.chat.MsgItem;
+import vikatouch.local.TextLocal;
 import vikatouch.settings.Settings;
 import vikatouch.utils.TextEditor;
 import vikatouch.utils.url.URLBuilder;
@@ -103,6 +104,8 @@ public class ChatScreen
 
 	private void parse()
 	{
+		enterMsgStr = TextLocal.inst.get("msg.entermsg");
+		enterMsgStrSel = TextLocal.inst.get("msg.keyboard");
 		if(peerId < 0)
 		{
 			this.localId = -peerId;
@@ -506,6 +509,8 @@ public class ChatScreen
 	}
 
 	public boolean canSend = true;
+	private String enterMsgStr = "";
+	private String enterMsgStrSel = "";
 	private void send()
 	{
 		if(!canSend) return;
@@ -568,7 +573,6 @@ public class ChatScreen
 		System.gc();
 	}
 	
-	// будет подгружать новые
 	private void update () throws JSONException
 	{
 		boolean more = true;
@@ -709,14 +713,7 @@ public class ChatScreen
 		{
 			public void run()
 			{
-				if(inputText != null)
-				{
-					inputText = TextEditor.inputString("Сообщение", inputText, 0);
-				}
-				else
-				{
-					inputText = TextEditor.inputString("Сообщение", "", 0);
-				}
+				inputText = TextEditor.inputString(TextLocal.inst.get("msg"), inputText==null?"":inputText, 0);
 				inputChanged = true;
 			}
 		}.start();
@@ -806,13 +803,13 @@ public class ChatScreen
 			{
 				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 				g.setFont(Font.getFont(0, Font.STYLE_BOLD, Font.SIZE_SMALL));
-				g.drawString("Нажмите ОК для ввода", 48, dh-24-font.getHeight()/2, 0);
+				g.drawString(enterMsgStrSel, 48, dh-24-font.getHeight()/2, 0);
 				g.setFont(font);
 			}
 			else
 			{
 				ColorUtils.setcolor(g, ColorUtils.OUTLINE);
-				g.drawString("Введите сообщение...", 48, dh-24-font.getHeight()/2, 0);
+				g.drawString(enterMsgStr, 48, dh-24-font.getHeight()/2, 0);
 			}
 		}
 		else
