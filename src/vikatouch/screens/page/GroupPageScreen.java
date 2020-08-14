@@ -115,8 +115,6 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 			videosStr = TextLocal.inst.get("menu.videos");
 		}
 		hasBackButton = true;
-		this.menuImg = MenuScreen.menuImg;
-		this.newsImg = VikaTouch.menuScr.newsImg;
 		this.id = id;
 		Load();
 	}

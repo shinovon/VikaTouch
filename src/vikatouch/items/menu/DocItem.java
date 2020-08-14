@@ -1,5 +1,7 @@
 package vikatouch.items.menu;
 
+import java.io.IOException;
+
 import javax.microedition.io.ConnectionNotFoundException;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -51,11 +53,36 @@ public class DocItem
 	private static final int TYPE_EBOOK = 7;
 	private static final int TYPE_UNKNOWN = 8;
 	private static final int TYPE_UNDEFINED = 0;
+	
+	private static Image doczipImg;
+	private static Image docsisImg;
+	private static Image docjarImg;
+	private static Image docmusImg;
+	private static Image docvidImg;
+	private static Image docfileImg;
+	private static Image doctxtImg;
 
 	public DocItem(JSONObject json)
 	{
 		super(json);
 		itemDrawHeight = 50;
+		try
+		{
+			if(doczipImg == null)
+			{
+				doczipImg = ResizeUtils.resizeItemPreview(Image.createImage("/doczip.png"));
+				docsisImg = ResizeUtils.resizeItemPreview(Image.createImage("/docsis.png"));
+				doctxtImg = ResizeUtils.resizeItemPreview(Image.createImage("/doctxt.png"));
+				docfileImg = ResizeUtils.resizeItemPreview(Image.createImage("/docfile.png"));
+				docmusImg = ResizeUtils.resizeItemPreview(Image.createImage("/docmus.png"));
+				docvidImg = ResizeUtils.resizeItemPreview(Image.createImage("/docvid.png"));
+				docjarImg = ResizeUtils.resizeItemPreview(Image.createImage("/docjar.png"));
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	public void parseJSON()
@@ -197,35 +224,35 @@ public class DocItem
 				{
 					case TYPE_PHOTO:
 					case TYPE_GIF:
-						return ResizeUtils.resizeItemPreview(VikaTouch.cameraImg);
+						return VikaTouch.camera48Img;
 					case TYPE_AUDIO:
-						return ResizeUtils.resizeItemPreview(Image.createImage("/docmus.png"));
+						return docmusImg;
 					case TYPE_VIDEO:
-						return ResizeUtils.resizeItemPreview(Image.createImage("/docvid.png"));
+						return docvidImg;
 					case TYPE_ARCHIVE:
 						if(ext.toLowerCase().indexOf("sis") != VikaTouch.INDEX_FALSE)
 						{
-							return ResizeUtils.resizeItemPreview(Image.createImage("/docsis.png"));
+							return docsisImg;
 						}
 						else
-							return ResizeUtils.resizeItemPreview(Image.createImage("/doczip.png"));
+							return doczipImg;
 					case TYPE_TEXT:
 					case TYPE_EBOOK:
-						return ResizeUtils.resizeItemPreview(Image.createImage("/doctxt.png"));
+						return doctxtImg;
 					case TYPE_UNKNOWN:
 					case TYPE_UNDEFINED:
 					default:
 						if(ext.toLowerCase().indexOf("jar") != VikaTouch.INDEX_FALSE || ext.toLowerCase().indexOf("jad") != VikaTouch.INDEX_FALSE)
 						{
-							return ResizeUtils.resizeItemPreview(Image.createImage("/docjar.png"));
+							return docjarImg;
 						}
 						else if(ext.toLowerCase().indexOf("sis") != VikaTouch.INDEX_FALSE)
 						{
-							return ResizeUtils.resizeItemPreview(Image.createImage("/docsis.png"));
+							return docsisImg;
 						}
 						else if(ext.toLowerCase().indexOf("rar") != VikaTouch.INDEX_FALSE || ext.toLowerCase().indexOf("zip") != VikaTouch.INDEX_FALSE || ext.toLowerCase().indexOf("tar") != VikaTouch.INDEX_FALSE || ext.toLowerCase().indexOf("7z") != VikaTouch.INDEX_FALSE)
 						{
-							return ResizeUtils.resizeItemPreview(Image.createImage("/doczip.png"));
+							return doczipImg;
 						}
 						/*else if(ext.toLowerCase().indexOf("torrent") != VikaTouch.INDEX_FALSE)
 						{
@@ -233,7 +260,7 @@ public class DocItem
 						}*/
 						else
 						{
-							return ResizeUtils.resizeItemPreview(Image.createImage("/docfile.png"));
+							return docfileImg;
 						}
 				}
 			}

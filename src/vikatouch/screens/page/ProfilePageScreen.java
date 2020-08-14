@@ -105,8 +105,6 @@ public class ProfilePageScreen
 			wasOnlineJustNowStr = wasOnlineStr + " " + TextLocal.inst.get("date.justnow");
 		}
 		hasBackButton = true;
-		this.menuImg = MenuScreen.menuImg;
-		this.newsImg = VikaTouch.menuScr.newsImg;
 		this.id = id;
 		Load();
 	}
