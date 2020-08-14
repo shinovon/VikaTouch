@@ -14,8 +14,6 @@ public class PhotosScreen
 
 	public PhotosScreen()
 	{
-		this.menuImg = MenuScreen.menuImg;
-		this.newsImg = VikaTouch.menuScr.newsImg;
 		photosStr = TextLocal.inst.get("title.photos");
 	}
 	

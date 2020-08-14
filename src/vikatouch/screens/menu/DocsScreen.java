@@ -36,11 +36,6 @@ public class DocsScreen
 		super();
 		isPreviewShown = false;
 		VikaTouch.loading = true;
-		if(VikaTouch.menuScr == null)
-			VikaTouch.menuScr = new MenuScreen();
-
-		this.menuImg = MenuScreen.menuImg;
-		this.newsImg = VikaTouch.menuScr.newsImg;
 		loadingStr = TextLocal.inst.get("title.loading");
 		docsStr = TextLocal.inst.get("title.docs");
 	}

@@ -34,11 +34,6 @@ public class GroupsScreen
 	{
 		super();
 		VikaTouch.loading = true;
-		if(VikaTouch.menuScr == null)
-			VikaTouch.menuScr = new MenuScreen();
-
-		this.menuImg = MenuScreen.menuImg;
-		this.newsImg = VikaTouch.menuScr.newsImg;
 		loadingStr = TextLocal.inst.get("title.loading");
 		groupsStr = TextLocal.inst.get("title.groups");
 	}

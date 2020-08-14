@@ -30,8 +30,6 @@ public class VideosScreen
 
 	public VideosScreen()
 	{
-		this.menuImg = MenuScreen.menuImg;
-		this.newsImg = VikaTouch.menuScr.newsImg;
 		videosStr = TextLocal.inst.get("title.videos");
 	}
 

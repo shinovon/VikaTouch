@@ -36,8 +36,6 @@ public class FriendsScreen
 
 	public FriendsScreen()
 	{
-		this.menuImg = MenuScreen.menuImg;
-		this.newsImg = VikaTouch.menuScr.newsImg;
 		if(loadingStr == null)
 		{
 			loadingStr = TextLocal.inst.get("title.loading");

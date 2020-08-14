@@ -34,9 +34,9 @@ public class MenuScreen
 {
 
 	public static Image logoImg;
-	public static Image menuImg;
-	public static Image dialImg;
-	private static Image profileimg;
+	//public static Image menuImg;
+	//public static Image dialImg;
+	private static Image profileImg;
 	/*private static Image friendimg;
 	private static Image groupimg;*/
 	public static String name;
@@ -131,7 +131,7 @@ public class MenuScreen
 			status = "Волк тот кто волк, а не тот кто волк.";
 			try
 			{
-				profileimg = ResizeUtils.resizeava(Image.createImage("/camera.png"));
+				profileImg = ResizeUtils.resizeava(Image.createImage("/camera.png"));
 				hasAva = true;
 			}
 			catch (Exception e)
@@ -143,7 +143,7 @@ public class MenuScreen
 		{
 			try
 			{
-				if((avaurl == null && hasAva && profileimg != null) || name == null || name == "null" || name == "" || avaurl == "" || !VikaTouch.offlineMode)
+				if((avaurl == null && hasAva && profileImg != null) || name == null || name == "null" || name == "" || avaurl == "" || !VikaTouch.offlineMode)
 				{
 					String var10 = VikaUtils.download(new URLBuilder("users.get")
 						.addField("user_ids", VikaTouch.userId)
@@ -159,7 +159,7 @@ public class MenuScreen
 				{
 					try
 					{
-						profileimg = ResizeUtils.resizeava(VikaUtils.downloadImage(avaurl));
+						profileImg = ResizeUtils.resizeava(VikaUtils.downloadImage(avaurl));
 					}
 					catch (Exception e)
 					{
@@ -271,9 +271,9 @@ public class MenuScreen
 		g.fillRect(0, 139, DisplayUtils.width, 1);
 		ColorUtils.setcolor(g, -12);
 		g.fillRect(0, 140, DisplayUtils.width, 1);
-		if(profileimg != null)
+		if(profileImg != null)
 		{
-			g.drawImage(profileimg, 16, 71, 0);
+			g.drawImage(profileImg, 16, 71, 0);
 			g.drawImage(IconsManager.ac, 16, 71, 0);
 			if(VikaTouch.offlineMode)
 			{
