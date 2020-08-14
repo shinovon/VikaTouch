@@ -10,11 +10,11 @@ import ru.nnproject.vikaui.popup.ConfirmBox;
 import ru.nnproject.vikaui.screen.ScrollableCanvas;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
-import vikatouch.base.IconsManager;
-import vikatouch.base.VikaTouch;
-import vikatouch.base.settings.Settings;
-import vikatouch.base.settings.SettingsScreen;
+import vikatouch.IconsManager;
+import vikatouch.VikaTouch;
 import vikatouch.screens.menu.MenuScreen;
+import vikatouch.settings.Settings;
+import vikatouch.settings.SettingsScreen;
 
 public abstract class MainScreen 
 	extends ScrollableCanvas 

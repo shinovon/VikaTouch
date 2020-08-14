@@ -10,10 +10,10 @@ import javax.microedition.lcdui.Image;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
-import vikatouch.base.Dialogs;
-import vikatouch.base.VikaTouch;
-import vikatouch.base.utils.ErrorCodes;
+import vikatouch.Dialogs;
+import vikatouch.VikaTouch;
 import vikatouch.screens.menu.MenuScreen;
+import vikatouch.utils.ErrorCodes;
 
 public class DialogsScreen
 	extends MainScreen

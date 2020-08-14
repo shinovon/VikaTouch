@@ -18,16 +18,16 @@ import ru.nnproject.vikaui.screen.ScrollableCanvas;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
-import vikatouch.base.IconsManager;
-import vikatouch.base.VikaCanvasInst;
-import vikatouch.base.VikaTouch;
-import vikatouch.base.items.OptionItem;
-import vikatouch.base.json.JSONBase;
-import vikatouch.base.local.TextLocal;
-import vikatouch.base.utils.ErrorCodes;
-import vikatouch.base.utils.ResizeUtils;
-import vikatouch.base.utils.url.URLBuilder;
+import vikatouch.IconsManager;
+import vikatouch.VikaCanvasInst;
+import vikatouch.VikaTouch;
+import vikatouch.items.menu.OptionItem;
+import vikatouch.json.JSONBase;
+import vikatouch.local.TextLocal;
 import vikatouch.screens.MainScreen;
+import vikatouch.utils.ErrorCodes;
+import vikatouch.utils.ResizeUtils;
+import vikatouch.utils.url.URLBuilder;
 
 public class MenuScreen
 	extends MainScreen implements IMenu

@@ -20,13 +20,13 @@ import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.TextBreaker;
 import vikamobilebase.VikaUtils;
-import vikatouch.base.IconsManager;
-import vikatouch.base.VikaCanvasInst;
-import vikatouch.base.VikaTouch;
-import vikatouch.base.items.MsgItem;
-import vikatouch.base.settings.Settings;
-import vikatouch.base.utils.TextEditor;
-import vikatouch.base.utils.url.URLBuilder;
+import vikatouch.IconsManager;
+import vikatouch.VikaCanvasInst;
+import vikatouch.VikaTouch;
+import vikatouch.items.chat.MsgItem;
+import vikatouch.settings.Settings;
+import vikatouch.utils.TextEditor;
+import vikatouch.utils.url.URLBuilder;
 
 public class ChatScreen
 	extends ReturnableListScreen

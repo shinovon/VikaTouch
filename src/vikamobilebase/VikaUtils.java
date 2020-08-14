@@ -19,10 +19,11 @@ import javax.microedition.io.file.FileConnection;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
-import vikatouch.base.VikaTouch;
-import vikatouch.base.local.TextLocal;
-import vikatouch.base.settings.Settings;
-import vikatouch.base.utils.url.URLBuilder;
+import vikatouch.VikaTouch;
+import vikatouch.caching.ImageStorage;
+import vikatouch.local.TextLocal;
+import vikatouch.settings.Settings;
+import vikatouch.utils.url.URLBuilder;
 
 
 public final class VikaUtils
@@ -588,9 +589,16 @@ public final class VikaUtils
 			try
 			{
 				Image image = Image.createImage(imgBytes, 0, imgBytes.length);
-				if(image != null && caching)
+				try
 				{
-					ImageStorage.save(filename, image);
+					if(image != null && caching)
+					{
+						ImageStorage.save(filename, image);
+					}
+				}
+				catch (Exception e)
+				{
+					
 				}
 				return image;
 			}
