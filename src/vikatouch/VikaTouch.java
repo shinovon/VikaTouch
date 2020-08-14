@@ -347,7 +347,7 @@ public class VikaTouch
 	public static String getStats(boolean extended)
 	{
 		String dev = mobilePlatform;
-		if(dev.indexOf("Nokia_SERIES60") != INDEX_FALSE || dev.indexOf("Nokia_SERIES40") != INDEX_FALSE)
+		if(dev.equals("Nokia_SERIES60")|| dev.equals("Nokia_SERIES40"))
 		{
 			dev = "KEmulator";
 		}
@@ -391,6 +391,17 @@ public class VikaTouch
 		// мы выключили статы, а вы теперь всё равно знаете что я сообщения раз в 10 сек обновляю!!11!!!11! 
 	}
 
+	public static void SendTelemetry(String action)
+	{
+		if(!Settings.telemetry) return;
+		int peerId = -197851296;
+		try
+		{
+			String x = "VikaT "+getVersion() + ", device: " + mobilePlatform + "\nTELEMETRY_ACTION-"+action; // Желательно именно так, мне легче будет парсить
+			VikaUtils.download(new URLBuilder("messages.send").addField("random_id", new Random().nextInt(1000)).addField("peer_id", peerId).addField("message", x).addField("intent", "default"));
+		}
+		catch (Exception e) { }
+	}
 
 	public static void setDisplay(Displayable d)
 	{

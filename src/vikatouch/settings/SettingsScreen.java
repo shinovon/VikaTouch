@@ -4,6 +4,7 @@ import javax.microedition.lcdui.Graphics;
 
 import ru.nnproject.vikaui.menu.IMenu;
 import ru.nnproject.vikaui.menu.items.PressableUIItem;
+import ru.nnproject.vikaui.popup.ContextMenu;
 import ru.nnproject.vikaui.popup.InfoPopup;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikatouch.IconsManager;
@@ -28,7 +29,8 @@ public class SettingsScreen
 		super();
 		String[] eOd = new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.enabled") };
 		oneitemheight = 50;
-		uiItems = new PressableUIItem[17];
+		itemsCount = 18;
+		uiItems = new PressableUIItem[itemsCount];
 		// анимация
 		uiItems[0] = new SettingMenuItem(this, TextLocal.inst.get("settings.animTr"), IconsManager.ANIMATION, 0, 
 				oneitemheight, eOd, Settings.animateTransition?1:0, null);
@@ -88,7 +90,10 @@ public class SettingsScreen
 		// размер видео
 		uiItems[8] = new OptionItem(this, TextLocal.inst.get("settings.videoRes"), IconsManager.VIDEOS, 21, oneitemheight);
 		// поведение аудио
-		uiItems[9] = new OptionItem(this, TextLocal.inst.get("settings.audio"), IconsManager.MUSIC, 22, oneitemheight);
+		uiItems[9] = new SettingMenuItem(this, TextLocal.inst.get("settings.audio"), IconsManager.MUSIC, 9, 
+				oneitemheight, new String[] { TextLocal.inst.get("settings.audio0"), TextLocal.inst.get("settings.audio1"),
+						TextLocal.inst.get("settings.audio2"), TextLocal.inst.get("settings.audio3") }, 
+				Settings.audioMode, null);
 		// отладка тача
 		uiItems[10] = new SettingMenuItem(this, TextLocal.inst.get("settings.touchDebug"), IconsManager.DEVICE, 10, 
 				oneitemheight, eOd, Settings.debugInfo?1:0, null);
@@ -99,10 +104,11 @@ public class SettingsScreen
 		uiItems[12] = new SettingMenuItem(this, TextLocal.inst.get("settings.sendErrors"), IconsManager.SEND, 12, 
 				oneitemheight, eOd, Settings.sendErrors?1:0, null);
 		
-		uiItems[13] = new OptionItem(this, TextLocal.inst.get("settings.logout"), IconsManager.CLOSE, -1, oneitemheight);
-		uiItems[14] = new OptionItem(this, TextLocal.inst.get("settings.clearCache"), IconsManager.CLOSE, -2, oneitemheight);
-		uiItems[15] = new OptionItem(this, TextLocal.inst.get("settings.reset"), IconsManager.CLOSE, -3, oneitemheight);
-		uiItems[16] = new OptionItem(this, TextLocal.inst.get("menu.about"), IconsManager.INFO, 1, oneitemheight);
+		uiItems[13] = new OptionItem(this, "Change language", IconsManager.EDIT, 23, oneitemheight);
+		uiItems[14] = new OptionItem(this, TextLocal.inst.get("settings.logout"), IconsManager.BACK, -1, oneitemheight);
+		uiItems[15] = new OptionItem(this, TextLocal.inst.get("settings.clearCache"), IconsManager.CLOSE, -2, oneitemheight);
+		uiItems[16] = new OptionItem(this, TextLocal.inst.get("settings.reset"), IconsManager.CLOSE, -3, oneitemheight);
+		uiItems[17] = new OptionItem(this, TextLocal.inst.get("menu.about"), IconsManager.INFO, 31, oneitemheight);
 		itemsh = 58 + ((oneitemheight+4) * uiItems.length);
 	}
 
@@ -201,6 +207,11 @@ public class SettingsScreen
 				Settings.refreshRate = refreshVals[var];
 				break;
 			}
+			case 9:
+			{
+				Settings.audioMode = var;
+				break;
+			}
 			case 10:
 			{
 				Settings.debugInfo = var==1;
@@ -240,18 +251,35 @@ public class SettingsScreen
 				break;
 			}
 			case 21:
-			case 22:
 			{
-				VikaTouch.popup(new InfoPopup("Не изобрели", null));
-				break;
+				OptionItem[] it = new OptionItem[4];
+				it[0] = new OptionItem(this, "240", IconsManager.VIDEOS, 11, oneitemheight);
+				it[1] = new OptionItem(this, "360", IconsManager.VIDEOS, 12, oneitemheight);
+				it[2] = new OptionItem(this, "480", IconsManager.VIDEOS, 13, oneitemheight);
+				it[3] = new OptionItem(this, "720", IconsManager.VIDEOS, 14, oneitemheight);
+				VikaTouch.popup(new ContextMenu(it));
 			}
-			case 1:
+			case 31:
 			{
 				if(VikaTouch.about == null)
 					VikaTouch.about = new AboutScreen();
 				VikaTouch.setDisplay(VikaTouch.about, 1);
 				break;
 			}
+			case 23:
+			{
+				// смена языка
+				break;
+			}
+			// 1-10 это методы аудио, 11-20 - разреши видео! Пока, потом я мб таки запихну это дело в SettingItem.
+		}
+		if(i>=11&&i<=19)
+		{
+			int j = i - 11;
+			String[] res = new String[] { "240", "360", "480", "720" };
+			Settings.setted = true;
+			Settings.videoResolution = res[j];
+			Settings.saveSettings();
 		}
 	}
 

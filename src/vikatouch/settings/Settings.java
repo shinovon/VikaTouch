@@ -59,12 +59,19 @@ public class Settings
 
 	public static boolean sendErrors;
 	
+	public static int audioMode = 0; // добавь пж сохранение
+	
 	// На ЗБТ чтоб было включено!!11!1!!
 	public static boolean telemetry = true;
 
 	public static final int SENSOR_OK = 0;
 	public static final int SENSOR_J2MELOADER = 1;
 	public static final int SENSOR_RESISTIVE = 2;
+	
+	public static final int AUDIO_PLAYONLINE = 0;
+	public static final int AUDIO_CACHEANDPLAY = 1;
+	public static final int AUDIO_SYSTEMPLAYER = 2;
+	public static final int AUDIO_DOWNLOAD = 3;
 
 	public static final boolean slideAnim = true;
 
@@ -161,7 +168,7 @@ public class Settings
 		proxyApi = xtrafrancyzApi;
 		proxyOAuth = xtrafrancyzOAuth;
 		sensorMode = SENSOR_OK;
-		simpleListsLength = 30; // выбор из 10, 30, 50 и 80. Экран потом сделаю.
+		simpleListsLength = 30;
 		messagesPerLoad = 30;
 		videoResolution = "480";
 		language = "ru_RU";
