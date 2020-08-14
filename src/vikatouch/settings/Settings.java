@@ -47,8 +47,6 @@ public class Settings
 
 	public static String language;
 
-	public static String platform;
-
 	public static String videoResolution; // 240 360 480 720
 
 	public static boolean cacheImages;
@@ -160,7 +158,6 @@ public class Settings
 	public static void loadDefaultSettings()
 	{
 		setted = false;
-		platform = System.getProperty("microedition.platform");
 		animateTransition = true;
 		proxy = false;
 		https = false;

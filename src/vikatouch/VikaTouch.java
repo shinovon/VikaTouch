@@ -347,10 +347,6 @@ public class VikaTouch
 	public static String getStats(boolean extended)
 	{
 		String dev = mobilePlatform;
-		if(dev.equals("Nokia_SERIES60")|| dev.equals("Nokia_SERIES40"))
-		{
-			dev = "KEmulator";
-		}
 		String mem = "error";
 		try
 		{
