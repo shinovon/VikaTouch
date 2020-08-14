@@ -4,6 +4,7 @@ import javax.microedition.lcdui.Graphics;
 
 import ru.nnproject.vikaui.menu.IMenu;
 import ru.nnproject.vikaui.menu.items.PressableUIItem;
+import ru.nnproject.vikaui.popup.ConfirmBox;
 import ru.nnproject.vikaui.popup.ContextMenu;
 import ru.nnproject.vikaui.popup.InfoPopup;
 import ru.nnproject.vikaui.utils.DisplayUtils;
@@ -245,13 +246,20 @@ public class SettingsScreen
 			}
 			case -3:
 			{
-				Settings.loadDefaultSettings();
-				Settings.setted = true;
-				Settings.saveSettings();
+				VikaTouch.popup(new ConfirmBox(TextLocal.inst.get("settings.resetC"), null, new Runnable()
+				{
+					public void run()
+					{
+						Settings.loadDefaultSettings();
+						Settings.setted = true;
+						Settings.saveSettings();
+					}
+				}, null));
 				break;
 			}
 			case 21:
 			{
+				// со строками сеттинг айтем пока не умеет
 				OptionItem[] it = new OptionItem[4];
 				it[0] = new OptionItem(this, "240", IconsManager.VIDEOS, 11, oneitemheight);
 				it[1] = new OptionItem(this, "360", IconsManager.VIDEOS, 12, oneitemheight);
@@ -268,10 +276,15 @@ public class SettingsScreen
 			}
 			case 23:
 			{
-				// смена языка
+				OptionItem[] it = new OptionItem[4];
+				it[0] = new OptionItem(this, "English (Europe)", IconsManager.EDIT, 1, oneitemheight);
+				it[1] = new OptionItem(this, "English (USA)", IconsManager.EDIT, 2, oneitemheight);
+				it[2] = new OptionItem(this, "Русский", IconsManager.EDIT, 3, oneitemheight);
+				it[3] = new OptionItem(this, "Russian (translit)", IconsManager.EDIT, 4, oneitemheight);
+				VikaTouch.popup(new ContextMenu(it));
 				break;
 			}
-			// 1-10 это методы аудио, 11-20 - разреши видео! Пока, потом я мб таки запихну это дело в SettingItem.
+			// 11-20 - разреши видео! Пока, потом я мб таки запихну это дело в SettingItem.
 		}
 		if(i>=11&&i<=19)
 		{
@@ -280,6 +293,21 @@ public class SettingsScreen
 			Settings.setted = true;
 			Settings.videoResolution = res[j];
 			Settings.saveSettings();
+		}
+		if(i>=1&&i<=9)
+		{
+			int j = i - 1;
+			String[] res = new String[] { "en_UK", "en_US", "ru_RU", "lt_RU" };
+			Settings.setted = true;
+			Settings.language = res[j];
+			Settings.saveSettings();
+			VikaTouch.popup(new InfoPopup("Language was changed to "+res[j]+". The application must be restarted.", new Runnable()
+			{
+				public void run()
+				{
+					VikaTouch.appInst.destroyApp(false);
+				}
+			}, "Impontant set changed", "Restart"));
 		}
 	}
 
