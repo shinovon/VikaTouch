@@ -34,33 +34,6 @@ public class NewsScreen
 			VikaTouch.menuScr = new MenuScreen();
 		
 		loadPosts();
-		
-		try
-		{
-			switch(DisplayUtils.idispi)
-			{
-				case DisplayUtils.DISPLAY_PORTRAIT:
-				case DisplayUtils.DISPLAY_ALBUM:
-				case DisplayUtils.DISPLAY_E6:
-				{
-					menuImg = Image.createImage("/menu.png");
-					newsImg = Image.createImage("/lentao.png");
-					break;
-				}
-				case DisplayUtils.DISPLAY_S40:
-				case DisplayUtils.DISPLAY_ASHA311:
-				case DisplayUtils.DISPLAY_EQWERTY:
-				{
-					menuImg = VikaUtils.resize(Image.createImage("/menu.png"), 10, 9);
-					newsImg = VikaUtils.resize(Image.createImage("/lentao.png"), 11, 11);
-					break;
-				}
-			}
-		}
-		catch(Exception e)
-		{
-			
-		}
 	}
 	
 	private void loadPosts()

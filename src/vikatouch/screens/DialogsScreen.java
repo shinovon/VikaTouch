@@ -29,45 +29,6 @@ public class DialogsScreen
 		{
 			VikaTouch.menuScr = new MenuScreen();
 		}
-		
-		try
-		{
-			switch(DisplayUtils.idispi)
-			{
-				case DisplayUtils.DISPLAY_PORTRAIT:
-				case DisplayUtils.DISPLAY_ALBUM:
-				case DisplayUtils.DISPLAY_E6:
-				{
-					if(menuImg == null)
-					{
-						menuImg = Image.createImage("/menu.png");
-					}
-					if(newsImg == null)
-					{
-						newsImg = Image.createImage("/lenta.png");
-					}
-					break;
-				}
-				case DisplayUtils.DISPLAY_S40:
-				case DisplayUtils.DISPLAY_ASHA311:
-				case DisplayUtils.DISPLAY_EQWERTY:
-				{
-					if(menuImg == null)
-					{
-						menuImg = VikaUtils.resize(Image.createImage("/menu.png"), 10, 9);
-					}
-					if(newsImg == null)
-					{
-						newsImg = VikaUtils.resize(Image.createImage("/lenta.png"), 11, 12);
-					}
-					break;
-				}
-			}
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
 	}
 
 	protected final void callRefresh()

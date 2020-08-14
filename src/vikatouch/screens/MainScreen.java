@@ -21,10 +21,7 @@ public abstract class MainScreen
 {
 
 	public static int lastMenu;
-	public Image menuImg;
-	public Image newsImg;
 	protected boolean hasBackButton;
-	public static Image backImg;
 	
 	public int topPanelH;
 	public int bottomPanelH;
@@ -32,10 +29,6 @@ public abstract class MainScreen
 	public MainScreen()
 	{
 		super();
-		if(backImg == null)
-		{
-			backImg = IconsManager.ico[IconsManager.BACK];
-		}
 	}
 
 	protected void scrollHorizontally(int deltaX)
@@ -115,7 +108,7 @@ public abstract class MainScreen
 		g.drawImage(((this instanceof MenuScreen)?IconsManager.selIco:IconsManager.ico)[IconsManager.MENU], dw-dw/6-12, bpiy, 0);
 		
 		// header & icon
-		if(hasBackButton && backImg != null)
+		if(hasBackButton)
 		{
 			g.drawImage(IconsManager.ico[IconsManager.BACK], 24, topPanelH/2-12, 0);
 		}
