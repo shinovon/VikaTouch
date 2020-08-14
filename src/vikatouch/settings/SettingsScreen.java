@@ -266,6 +266,7 @@ public class SettingsScreen
 				it[2] = new OptionItem(this, "480", IconsManager.VIDEOS, 13, oneitemheight);
 				it[3] = new OptionItem(this, "720", IconsManager.VIDEOS, 14, oneitemheight);
 				VikaTouch.popup(new ContextMenu(it));
+				break;
 			}
 			case 31:
 			{

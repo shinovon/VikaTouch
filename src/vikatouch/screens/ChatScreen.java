@@ -522,10 +522,17 @@ public class ChatScreen
 						url = url.addField("reply_to", ""+answerMsgId);
 						answerMsgId = 0;
 					}
-					VikaUtils.download(url);
-					inputText = null;
-					inputChanged = true;
-					inputedLinesCount = 0;
+					String res = VikaUtils.download(url);
+					if(res==null)
+					{
+						VikaTouch.popup(new InfoPopup("Ошибка при отправке сообщения", null));
+					}
+					else
+					{
+						inputText = null;
+						inputChanged = true;
+						inputedLinesCount = 0;
+					}
 				}
 				catch(Exception e)
 				{
@@ -572,8 +579,7 @@ public class ChatScreen
 					.addField("start_message_id", String.valueOf(mid))
 					.addField("peer_id", peerId).addField("count", 1).addField("offset", -1).addField("extended", 1));
 			JSONArray items;
-			System.out.println(x);
-			System.out.println(((MsgItem) uiItems[uiItems.length-hasSpace-1]).mid);
+			
 			try
 			{
 				items = new JSONObject(x).getJSONObject("response").getJSONArray("items");
@@ -584,6 +590,7 @@ public class ChatScreen
 				return;
 			}
 			int newMsgCount = items.length();
+			System.out.println(newMsgCount+"");
 			if(newMsgCount==0)
 			{
 				more = false;
