@@ -341,11 +341,7 @@ public class VikaTouch
 	}
 	public static String getRelease()
 	{
-		// inDev - пока втихоря пилим. 
-		// Потом пойдёт alpha1, alpha2, beta, r1, r2 и т.п.
 		return appInst.getAppProperty("VikaTouch-Edition");
-		// тут НАЗВАНИЕ ключа. См. апп дескриптор > user defined.
-		//тупанул соре
 	}
 	
 	public static String getStats(boolean extended)
@@ -389,22 +385,10 @@ public class VikaTouch
 	
 	public static void sendLog(String action, String x)
 	{
-		String main = action + ": ViKa Touch " + getRelease() + " Version: " + getVersion() + ", device: " + mobilePlatform;
-		String details = "";
-		String mem = "error";
-		try
-		{
-			mem = ""+(Runtime.getRuntime().totalMemory()/1024);
-		} catch (Exception e) { }
-		
-		final boolean extended = true;
-		
-		if(extended && Settings.telemetry)
-		{
-			details = "\nDevice information: \nmemory: " + mem + "K, profile: " + System.getProperty("microedition.profile") + ", configuration: " + System.getProperty("microedition.configuration")
-			+ "\nSettings:\nsm: " + Settings.sensorMode + " https: " + Settings.https + " proxy: " + Settings.proxy + " lang: " + Settings.language + " listslen: " + Settings.simpleListsLength;
-		}
-		sendLog(main + details + ".\n" + x);
+		sendLog(action + ": " + getStats(false) + ".\n" + x);
+		// Нихера будет не понять в этой куче-мале! (я про FALSE) Если хочет отправлять статы,
+		// то уже это сделал. Если нет, в инете поищем, не трамваи. К тому же будут орать, что мол
+		// мы выключили статы, а вы теперь всё равно знаете что я сообщения раз в 10 сек обновляю!!11!!!11! 
 	}
 
 
@@ -453,7 +437,7 @@ public class VikaTouch
 	{
 		inst.errReason = e.toString();
 		boolean fatal = e instanceof IOException || e instanceof NullPointerException || e instanceof OutOfMemoryError;
-		//if(e instanceof SocketConnectionResetException) fatal = false;
+		//if(e instanceof java.net.SocketException) fatal = false; // Почему нету? Если КЕмуль плюётся?
 		if(e instanceof OutOfMemoryError)
 		{
 			canvas.currentScreen = null;
