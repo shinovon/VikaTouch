@@ -30,7 +30,7 @@ public class SettingsScreen
 		oneitemheight = 50;
 		uiItems = new PressableUIItem[17];
 		// анимация
-		uiItems[0] = new SettingMenuItem(this, TextLocal.inst.get("settings.animTr"), IconsManager.MENU, 0, 
+		uiItems[0] = new SettingMenuItem(this, TextLocal.inst.get("settings.animTr"), IconsManager.ANIMATION, 0, 
 				oneitemheight, eOd, Settings.animateTransition?1:0, null);
 		// кэш
 		uiItems[1] = new SettingMenuItem(this, TextLocal.inst.get("settings.enableCache"), IconsManager.PHOTOS, 1, 
@@ -43,7 +43,7 @@ public class SettingsScreen
 				oneitemheight, new String[] { TextLocal.inst.get("settings.proxy"), TextLocal.inst.get("settings.https") }, 
 				Settings.https?1:0, null);
 		// сенсор
-		uiItems[4] = new SettingMenuItem(this, TextLocal.inst.get("settings.sensor"), IconsManager.OPTIONS, 4, 
+		uiItems[4] = new SettingMenuItem(this, TextLocal.inst.get("settings.sensor"), IconsManager.DEVICE, 4, 
 				oneitemheight, new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.j2meLs"), TextLocal.inst.get("settings.resistive") }, 
 				Settings.sensorMode, TextLocal.inst.get("settings.sensorInfo"));
 		// списки
@@ -83,14 +83,14 @@ public class SettingsScreen
 			j = refreshValDef;
 			Settings.messagesPerLoad = refreshVals[j];
 		}
-		uiItems[7] = new SettingMenuItem(this, TextLocal.inst.get("settings.refreshRate"), IconsManager.MSGS, 7, 
+		uiItems[7] = new SettingMenuItem(this, TextLocal.inst.get("settings.refreshRate"), IconsManager.REFRESH, 7, 
 				oneitemheight, refreshVals, j, null);
 		// размер видео
 		uiItems[8] = new OptionItem(this, TextLocal.inst.get("settings.videoRes"), IconsManager.VIDEOS, 21, oneitemheight);
 		// поведение аудио
 		uiItems[9] = new OptionItem(this, TextLocal.inst.get("settings.audio"), IconsManager.MUSIC, 22, oneitemheight);
 		// отладка тача
-		uiItems[10] = new SettingMenuItem(this, TextLocal.inst.get("settings.touchDebug"), IconsManager.SETTINGS, 10, 
+		uiItems[10] = new SettingMenuItem(this, TextLocal.inst.get("settings.touchDebug"), IconsManager.DEVICE, 10, 
 				oneitemheight, eOd, Settings.debugInfo?1:0, null);
 		// статистика
 		uiItems[11] = new SettingMenuItem(this, TextLocal.inst.get("settings.telemetry"), IconsManager.SEND, 11, 
