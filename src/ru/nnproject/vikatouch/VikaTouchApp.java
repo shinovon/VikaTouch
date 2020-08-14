@@ -27,10 +27,13 @@ public final class VikaTouchApp
 	protected void startApp()
 	{
 		VikaTouch.mobilePlatform = System.getProperty("microedition.platform");
+		//Зачем!!
+		/*
 		if(VikaTouch.mobilePlatform.equals("Nokia_SERIES60")|| VikaTouch.mobilePlatform.equals("Nokia_SERIES40"))
 		{
 			VikaTouch.mobilePlatform = "KEmulator";
 		}
+		*/
 		isPaused = false;
 		
 		if(!started)
