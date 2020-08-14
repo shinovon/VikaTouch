@@ -2,13 +2,14 @@
 #английский
 #English (United States)
 #authors: shinovon
-#version 2020.08.09
+#version 2020.08.14
 #
 #authors' vk:
 #vk.com/shinovon
 
 langinfo.name=English (US)
-langinfo.version=2020.08.09
+#YYYY.MM.DD
+langinfo.version=2020.08.14
 
 # LANG FORMAT
 #| - new line
@@ -75,6 +76,7 @@ error=Error
 error.additionalinfo=Additional info
 error.description=Description
 error.contactdevs=Contact with developers to more information.
+close=Close app
 
 online=online
 offline=offline
@@ -99,6 +101,7 @@ menu.website=Web-site
 menu.writemsg=Write message
 menu.nowebsite=no website
 menu.discussions=Discussions
+menu.settings=Settings
 menu.loading=Loading...
 
 group=Group
@@ -151,4 +154,31 @@ login.failed=Failed to authenticate
 profile.closed=This is a private profile
 user=User
 
-close=Close app
+settings.help=Help
+settings.enabled=On
+settings.disabled=Off
+settings.https=Directly HTTPS
+settings.proxy=Through proxy
+settings.conn=Connection
+settings.sensor=Sensor mode
+settings.norm=Normal
+settings.j2meLs=J2ME Loader
+settings.resistive=Resistive
+settings.sensorInfo=Выкл - работа управления по умолчанию. J2MELoader - дополнительная защита от ложной прокрутки (фикс бага j2meL). Резистивный - некоторые кнопки у края экрана будут побольше, чтоб по ним было легче попасть.
+settings.logout=Logout
+settings.reset=Default settings
+settings.clearCache=Clear cache
+settings.animTr=Transition animations
+settings.listsLength=Items in list
+settings.dontLoadAvas=Don't load images
+settings.enableCache=Cache images
+settings.msgsLength=Messages history length
+settings.refreshRate=Refresh rate
+settings.telemetry=Отправка статистики использования
+settings.telemetryInfo=Если включено, приложение будет отправлять нам дополнительные сведения об устройстве, текущие настройки и статистику использования. Данные ваших действий не отправляются (например, мы узнаем, что вы пытались открыть информацию группы, но не будем знать, какой именно).
+settings.sendErrors=Report errors
+settings.videoRes=Выбрать разрешение видео
+settings.audio=Метод воспроизведения аудио
+settings.apiproxy=Api Proxy
+settings.authproxy=OAuth Proxy
+settings.language=Language

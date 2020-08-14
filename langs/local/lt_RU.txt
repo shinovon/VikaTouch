@@ -3,6 +3,7 @@
 #версия 2020.08.09
 
 info.name=Russky (Translit)
+#YYYY.MM.DD
 langinfo.version=2020.08.09
 
 # LANG FORMAT
