@@ -12,7 +12,7 @@ public class IconsManager {
 	public static void Load()
 			throws IOException
 	{
-		Image sheet = Image.createImage("/Icons.png");
+		Image sheet = Image.createImage("/iconsSheet.png");
 		int c /*count*/ = sheet.getWidth() / 24;
 		ico = new Image[c];
 		selIco = new Image[c];
@@ -65,5 +65,8 @@ public class IconsManager {
 	public static final int FAV = 29;
 	public static final int LINK = 30;
 	public static final int DOWNLOAD = 31;
+	public static final int REFRESH = 32;
+	public static final int ANIMATION = 33;
+	public static final int DEVICE = 34;
 	
 }
