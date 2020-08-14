@@ -640,10 +640,8 @@ public class ChatScreen
 					{
 						chain = fromId == items.getJSONObject(i+1).optInt("from_id");
 					}
-					if(!chain)
-					{
-						m.name = (m.foreign ? name :"Вы");
-					}
+					m.showName = !chain;
+					m.name = (m.foreign ? name :"Вы");
 					newMsgs[i] = m;
 				}
 				// аппенд
@@ -699,6 +697,7 @@ public class ChatScreen
 	
 	private void showTextBox()
 	{
+		if(!canSend) return;
 		new Thread()
 		{
 			public void run()
