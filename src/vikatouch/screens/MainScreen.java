@@ -137,7 +137,7 @@ public abstract class MainScreen
 			g.fillArc(dw/2+12-d+5, bpiy-5, d, d, 0, 360);
 			
 			g.setGrayScale(255);
-			g.drawString(""+VikaTouch.unreadCount, dw/2+12-d/2-f.stringWidth(""+VikaTouch.unreadCount)/2+5, bpiy-4, 0);
+			g.drawString(""+VikaTouch.unreadCount, dw/2+12-d/2-f.stringWidth(""+VikaTouch.unreadCount)/2+5, bpiy-5, 0);
 		}
 		
 		
