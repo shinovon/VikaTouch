@@ -22,8 +22,8 @@ public class IconsManager {
 			selIco[i] = Image.createImage(sheet, i*24, 24, 24, 24, 0);
 		}
 		
-		ac = Image.createImage("/avaMask.png");
-		acs = Image.createImage("/avaMaskSelected.png");
+		ac = Image.createImage("/ava.png");
+		acs = Image.createImage("/avas.png");
 		logoImg = Image.createImage("/vikahead.jpg");
 		
 	}
