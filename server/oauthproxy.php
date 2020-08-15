@@ -9,16 +9,36 @@ if(isset($_GET["url"]))
 		$confidential = true;
 		$username = urlencode($_GET["user"]);
 		$password = urlencode($_GET["pass"]);
-		$url = "http://vk-oauth-proxy.xtrafrancyz.net:80/token?grant_type=password&client_id=2685278&client_secret=lxhD8OD7dMsqtXIm5IUY&username=".
+		//$url = 'http://vk-oauth-proxy.xtrafrancyz.net:80';
+		$url = "https://oauth.vk.com:443"
+		$url .= '/token?grant_type=password&client_id=2685278&client_secret=lxhD8OD7dMsqtXIm5IUY&username='.
 		$username.
-		"&password=".
+		'&password='.
 		$password.
-		"&scope=notify%2Cfriends%2Cphotos%2Caudio%2Cvideo%2Cdocs%2Cnotes%2Cpages%2Cstatus%2Coffers%2Cquestions%2Cwall%2Cgroups%2Cmessages%2Cnotifications%2Cstats%2Cads%2Coffline";
-		$filename = "serverdata\token_" . randoms() . ".txt";
+		'&scope=notify%2Cfriends%2Cphotos%2Caudio%2Cvideo%2Cdocs%2Cnotes%2Cpages%2Cstatus%2Coffers%2Cquestions%2Cwall%2Cgroups%2Cmessages%2Cnotifications%2Cstats%2Cads%2Coffline';
+		$filename = 'serverdata\token_' . randoms() . '.txt';
 	}
 	$fp = fopen($filename, "w");
 	$ch = curl_init($url);
 	curl_setopt($ch, CURLOPT_FILE, $fp);
+	$headers = [
+	/*
+    'X-Apple-Tz: 0',
+    'X-Apple-Store-Front: 143444,12',*/
+    'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'Accept-Encoding: gzip, deflate',
+    'Accept-Language: en-US,en;q=0.5',
+    'Cache-Control: no-cache',
+    'Content-Type: application/x-www-form-urlencoded; charset=utf-8',
+    'X-Forwarded-For: ' . $_SERVER['REMOTE_ADDR'],
+	/*
+    'Host: www.example.com',
+    'Referer: http://www.example.com/index.php', //Your referrer address*/
+    'User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36',
+    //'X-MicrosoftAjax: Delta=true'
+];
+
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 	if(isset($_GET["kate"]))
 	{
 		curl_setopt($ch, CURLOPT_USERAGENT, "KateMobileAndroid/51.1 lite-442 (Symbian; SDK 17; x86; Nokia; ru)");
