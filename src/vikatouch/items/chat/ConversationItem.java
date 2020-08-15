@@ -94,6 +94,13 @@ public class ConversationItem
 	
 	public String getTime()
 	{
+		try
+		{
+			if(date == 0)
+				Thread.sleep(10l);
+		}
+		catch (InterruptedException e) {}
+		
 		return VikaUtils.parseShortTime(date);
 	}
 	
