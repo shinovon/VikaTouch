@@ -109,11 +109,6 @@ public class ConversationItem
 	{
 		Font font = Font.getFont(0, 0, 8);
 		
-		if(time == null)
-		{
-			time = getTime();
-		}
-		
 		ColorUtils.setcolor(g, 0);
 		
 		if(selected)
@@ -235,7 +230,8 @@ public class ConversationItem
 			date = lastmessage.date;
 			
 			text = lastmessage.text;
-			
+
+			time = getTime();
 			
 			String nameauthora = "";
 			
