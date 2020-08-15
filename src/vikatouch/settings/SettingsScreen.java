@@ -229,7 +229,6 @@ public class SettingsScreen
 				break;
 			}
 		}
-		Settings.saveSettings();
 	}
 
 	public void onMenuItemPress(int i)
@@ -252,7 +251,6 @@ public class SettingsScreen
 					{
 						Settings.loadDefaultSettings();
 						Settings.setted = true;
-						Settings.saveSettings();
 					}
 				}, null));
 				break;
@@ -293,7 +291,6 @@ public class SettingsScreen
 			String[] res = new String[] { "240", "360", "480", "720" };
 			Settings.setted = true;
 			Settings.videoResolution = res[j];
-			Settings.saveSettings();
 		}
 		if(i>=1&&i<=9)
 		{

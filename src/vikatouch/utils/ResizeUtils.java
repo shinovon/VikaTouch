@@ -3,6 +3,7 @@ package vikatouch.utils;
 import javax.microedition.lcdui.Image;
 
 import ru.nnproject.vikaui.utils.DisplayUtils;
+import tube42.lib.imagelib.ImageUtils;
 import vikamobilebase.VikaUtils;
 
 public class ResizeUtils
@@ -77,7 +78,8 @@ public class ResizeUtils
 		need = 50;
 		if(h != need)
 		{
-			return VikaUtils.resize(img, need, -1);
+			return ImageUtils.resize(img, need, need, false, false);
+		//	return VikaUtils.resize(img, need, -1);
 		}
 		return img;
 	}

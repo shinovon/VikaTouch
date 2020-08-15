@@ -21,6 +21,7 @@ import vikatouch.screens.menu.MenuScreen;
 import vikatouch.screens.menu.PhotosScreen;
 import vikatouch.screens.menu.VideosScreen;
 import vikatouch.screens.page.GroupPageScreen;
+import vikatouch.settings.Settings;
 import vikatouch.settings.SettingsScreen;
 
 public class CommandsImpl
@@ -217,6 +218,7 @@ public class CommandsImpl
 	{
 		if(s instanceof SettingsScreen)
 		{
+			Settings.saveSettings();
 			if(VikaTouch.menuScr != null)
 			{
 				VikaTouch.setDisplay(VikaTouch.menuScr, -1);
@@ -270,6 +272,10 @@ public class CommandsImpl
 
 	protected void menu(VikaScreen s)
 	{
+		if(s instanceof SettingsScreen)
+		{
+			Settings.saveSettings();
+		}
 		if(MenuScreen.lastMenu == DisplayUtils.CANVAS_MENU || s instanceof DocsScreen  || s instanceof GroupsScreen || s instanceof VideosScreen || s instanceof FriendsScreen || s instanceof PhotosScreen)
 		{
 			if(!(s instanceof MenuScreen))
