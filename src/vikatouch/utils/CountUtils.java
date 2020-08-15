@@ -40,11 +40,11 @@ public class CountUtils
 		}
 		else if(a <= 5)
 		{
-			x2 = "s";
+			x2 = "sfew";
 		}
 		else
 		{
-			x2 = "sfew";
+			x2 = "s";
 		}
 		return x2;
 	}

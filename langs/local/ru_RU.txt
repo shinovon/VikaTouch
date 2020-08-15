@@ -139,6 +139,8 @@ msg.typing=печатает...
 msg.typing2=печатают...
 
 count.message=сообщение
+count.messages=сообщений
+count.messagesfew=сообщения
 count.view=просмотр
 count.views=просмотров
 count.viewsfew=просмотра
