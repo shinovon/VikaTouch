@@ -40,7 +40,8 @@ public class ResizeUtils
 		}
 		if(h != need)
 		{
-			return VikaUtils.resize(img, need, -1);
+			return ImageUtils.resize(img, need, need, false, false);
+			//return VikaUtils.resize(img, need, -1);
 		}
 		return img;
 	}
@@ -86,6 +87,7 @@ public class ResizeUtils
 
 	public static Image prepareForCaching(Image img)
 	{
+		short w = (short) img.getWidth();
 		short h = (short) img.getHeight();
 		short need = h;
 		/*
@@ -119,13 +121,21 @@ public class ResizeUtils
 			need = 48;
 		if(h != need)
 		{
-			return VikaUtils.resize(img, need, -1);
+			short needh = getHeight(w, h, need);
+			return ImageUtils.resize(img, need, needh, false, false);
+			//return VikaUtils.resize(img, need, -1);
 		}
 		return img;
 	}
 
+	private static short getHeight(short w, short h, short need)
+	{
+		return (short) (need * h / w);
+	}
+
 	public static Image resizeItemPreview(Image img)
 	{
+		short w = (short) img.getWidth();
 		short h = (short) img.getHeight();
 		short need = h;
 		/*
@@ -158,7 +168,9 @@ public class ResizeUtils
 		need = 48;
 		if(h != need)
 		{
-			return VikaUtils.resize(img, need, -1);
+			short needh = getHeight(w, h, need);
+			return ImageUtils.resize(img, need, needh, false, false);
+			//return VikaUtils.resize(img, need, -1);
 		}
 		return img;
 	}
