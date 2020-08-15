@@ -94,13 +94,14 @@ public class ConversationItem
 	
 	public String getTime()
 	{
+		/* супер-мега костыль 2000
 		try
 		{
 			if(date == 0)
 				Thread.sleep(10l);
 		}
 		catch (InterruptedException e) {}
-		
+		*/
 		return VikaUtils.parseShortTime(date);
 	}
 	
