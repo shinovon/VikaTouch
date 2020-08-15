@@ -12,12 +12,15 @@ import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
 import vikatouch.Dialogs;
 import vikatouch.VikaTouch;
+import vikatouch.local.TextLocal;
 import vikatouch.screens.menu.MenuScreen;
 import vikatouch.utils.ErrorCodes;
 
 public class DialogsScreen
 	extends MainScreen
 	{
+
+	private static String titleStr;
 
 	public DialogsScreen()
 	{
@@ -28,6 +31,10 @@ public class DialogsScreen
 		if(VikaTouch.menuScr == null)
 		{
 			VikaTouch.menuScr = new MenuScreen();
+		}
+		if(titleStr == null)
+		{
+			titleStr = TextLocal.inst.get("title.chats");
 		}
 	}
 
@@ -140,7 +147,7 @@ public class DialogsScreen
 			}
 			g.translate(0, -g.getTranslateY());
 			
-			drawHUD(g, "Сообщения");
+			drawHUD(g, titleStr);
 		}
 		catch (Exception e)
 		{

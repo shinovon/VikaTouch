@@ -103,6 +103,14 @@ public class Settings
 		        videoResolution = is.readUTF();
 		        language = is.readUTF();
 		        
+		        try
+		        {
+		        	dontLoadAvas = is.readBoolean();
+		        }
+		        catch (Exception e)
+		        {
+		        	
+		        }
 		        is.close();
 		        bais.close();
 			}
@@ -143,11 +151,13 @@ public class Settings
 		        os.writeShort(messagesPerLoad);
 		        os.writeUTF(videoResolution);
 		        os.writeUTF(language);
+		        os.writeBoolean(dontLoadAvas);
 		
 		        final byte[] b = baos.toByteArray();
 		        rs.addRecord(b, 0, b.length);
 		        os.close();
 		        baos.close();
+		        rs.closeRecordStore();
 			}
 			catch (Exception e)
 			{

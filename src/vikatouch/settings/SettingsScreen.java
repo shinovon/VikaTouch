@@ -278,8 +278,8 @@ public class SettingsScreen
 			case 23:
 			{
 				OptionItem[] it = new OptionItem[4];
-				it[0] = new OptionItem(this, "English (Europe)", IconsManager.EDIT, 1, oneitemheight);
-				it[1] = new OptionItem(this, "English (USA)", IconsManager.EDIT, 2, oneitemheight);
+				it[0] = new OptionItem(this, "English (UK)", IconsManager.EDIT, 1, oneitemheight);
+				it[1] = new OptionItem(this, "English (US)", IconsManager.EDIT, 2, oneitemheight);
 				it[2] = new OptionItem(this, "Русский", IconsManager.EDIT, 3, oneitemheight);
 				it[3] = new OptionItem(this, "Russian (translit)", IconsManager.EDIT, 4, oneitemheight);
 				VikaTouch.popup(new ContextMenu(it));
