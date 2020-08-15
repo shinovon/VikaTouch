@@ -19,6 +19,7 @@ import vikatouch.VikaTouch;
 import vikatouch.attachments.*;
 import vikatouch.items.menu.OptionItem;
 import vikatouch.screens.ChatScreen;
+import vikatouch.utils.url.URLBuilder;
 
 public class MsgItem
 	extends ChatItem implements IMenu
@@ -254,10 +255,10 @@ public class MsgItem
 		{
 			int h = DisplayUtils.height>240?36:30;
 			OptionItem[] opts = new OptionItem[7];
-			opts[0] = new OptionItem(this, "Ответить", IconsManager.ANSWER, -1, h);
-			opts[1] = new OptionItem(this, "Удалить", IconsManager.CLOSE, -2, h);
-			opts[2] = new OptionItem(this, "Редактировать", IconsManager.EDIT, -4, h);
-			opts[3] = new OptionItem(this, "Копировать текст", IconsManager.ADD, -5, h);
+			opts[0] = new OptionItem(this, "Прочитано", IconsManager.APPLY, -5, h);
+			opts[1] = new OptionItem(this, "Ответить", IconsManager.ANSWER, -1, h);
+			opts[2] = new OptionItem(this, "Удалить", IconsManager.CLOSE, -2, h);
+			opts[3] = new OptionItem(this, "Редактировать", IconsManager.EDIT, -4, h);
 			opts[4] = new OptionItem(this, "Переслать", IconsManager.SEND, -6, h);
 			opts[5] = new OptionItem(this, "Ссылки...", IconsManager.LINK, -8, h);
 			opts[6] = new OptionItem(this, "Вложения...", IconsManager.ATTACHMENT, -9, h);
@@ -298,13 +299,26 @@ public class MsgItem
 			ChatScreen.attachAnswer(mid, name, text);
 			break; // БРЕАК НА МЕСТЕ!!11!!1!
 		case -2:
-			VikaTouch.popup(new InfoPopup("УДОЛИ", null));
+			OptionItem[] opts1 = new OptionItem[2];
+			opts1[0] = new OptionItem(this, "Удалить у себя", IconsManager.EDIT, -98, 60);
+			opts1[1] = new OptionItem(this, "Удалить везде", IconsManager.CLOSE, -99, 60);
+			VikaTouch.popup(new ContextMenu(opts1));
 			break;
 		case -4:
 			VikaTouch.popup(new InfoPopup("Редачить", null));
 			break;
 		case -5:
-			VikaTouch.popup(new InfoPopup("Я хз как это реализовать на симбе.", null));
+			try
+			{
+				if(VikaTouch.canvas.currentScreen instanceof ChatScreen)
+				{
+					ChatScreen c = (ChatScreen) VikaTouch.canvas.currentScreen;
+					URLBuilder url = new URLBuilder("messages.markAsRead").addField("start_message_id", ""+mid).addField("peer_id", c.peerId);
+					String res = VikaUtils.download(url);
+				}
+			}
+			catch (Exception e)
+			{ e.printStackTrace(); }
 			break;
 		case -6:
 			VikaTouch.popup(new InfoPopup("Пересылку тоже не изобрели", null));
@@ -347,6 +361,27 @@ public class MsgItem
 				}
 			}
 			break;
+		case -98:
+		case -99:
+			{
+				boolean ok = false;
+				try
+				{
+					URLBuilder url = new URLBuilder("messages.delete").addField("message_ids", ""+mid).addField("delete_for_all", i==-99?1:0);
+					String res = VikaUtils.download(url);
+					ok = (new JSONObject(res).getJSONObject("response").optInt(""+mid))==1;
+				}
+				catch (Exception e)
+				{ 
+					e.printStackTrace();
+					ok = false;
+				}
+				if(ok)
+				{
+					text = "[удалено]";
+				}
+				break;
+			}
 		}
 	}
 
