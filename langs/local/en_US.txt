@@ -131,6 +131,7 @@ msg.attach.reply=Unswer
 msg.attach.fwd=Forwarded message
 msg.attach.attachment=Attachment
 msg.attach.video=Video
+msg.entermsg=Enter message...
 
 video=Video
 video.1view=view

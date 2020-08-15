@@ -125,6 +125,7 @@ msg.attach.reply=Otvet
 msg.attach.fwd=Pereslannoe soobshenie
 msg.attach.attachment=Vlozenie
 msg.attach.video=Videozapis
+msg.entermsg=Vedite soobshenie...
 
 video=Video
 video.1view=prosmotr
