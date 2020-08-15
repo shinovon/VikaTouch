@@ -5,6 +5,7 @@ import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
+import org.json.me.JSONArray;
 import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.*;
@@ -20,6 +21,7 @@ import vikatouch.attachments.*;
 import vikatouch.items.menu.OptionItem;
 import vikatouch.screens.ChatScreen;
 import vikatouch.utils.url.URLBuilder;
+import vikatouch.utils.CountUtils;
 
 public class MsgItem
 	extends ChatItem implements IMenu
@@ -54,7 +56,7 @@ public class MsgItem
 			parseAttachments();
 			// {"id":354329,"important":false,"date":1596389831,"attachments":[],"out":0,"is_hidden":false,"conversation_message_id":7560,"fwd_messages":[],"random_id":0,"text":"Будет срач с Лëней или он уже потерял интерес?","from_id":537403336,"peer_id":537403336}
 			
-			foreign = json.optInt("from_id")!=Integer.parseInt(VikaTouch.userId);
+			foreign = !(""+json.optInt("from_id")).equalsIgnoreCase(VikaTouch.userId);
 			mid = json.optLong("id");
 			int h1 = Font.getFont(0, 0, 8).getHeight();
 			drawText = TextBreaker.breakText(text, false, null, true, msgWidth-h1);
@@ -65,16 +67,59 @@ public class MsgItem
 			JSONObject reply = json.optJSONObject("reply_message");
 			if(reply!=null)
 			{
+				boolean breakReplyText = true;
 				hasReply = true;
 				replyText = reply.optString("text");
-				if(replyText==null)
+				if(replyText == null || replyText == "")
 				{
-					replyText = "Вложения";
+					replyText = "";
+					JSONArray replyAttachs = reply.optJSONArray("attachments");
+					JSONArray replyFwds = reply.optJSONArray("fwd_messages");
+					if(replyAttachs != null)
+					{
+						if(replyAttachs.length() == 1)
+						{
+							JSONObject att = replyAttachs.getJSONObject(0);
+							String type = att.getString("type");
+							JSONObject atj = att.getJSONObject(type);
+							if(type == "photo")
+							{
+								replyText = "[Фотография]";
+							}
+							else if(type == "audio_message")
+							{
+								replyText = "[Голосовое сообщение]";
+							}
+							else if(type == "audio")
+							{
+								replyText = "[Аудио]";
+							}
+							else if(type == "wall_reply")
+							{
+								replyText = "[Комментарий]";
+							}
+							else
+							{
+								replyText = "[Вложение]";
+							}
+						}
+						else if(replyAttachs.length() > 1)
+						{
+							replyText = "[Вложения]";
+						}
+					}
+					else if(replyFwds != null)
+					{
+						replyText = CountUtils.countStrMessages(replyFwds.length());
+					}
+					else
+					{
+						replyText = "";
+					}
 				}
-				else
-				{
+				if(breakReplyText)
 					replyText = TextBreaker.breakText(replyText, false, null, true, msgWidth-h1-h1)[0];
-				}
+				
 				int fromId = reply.optInt("from_id");
 				if(fromId==Integer.parseInt(VikaTouch.userId))
 				{

@@ -138,15 +138,19 @@ msg.entermsg=Введите сообщение...
 msg.typing=печатает...
 msg.typing2=печатают...
 
+count.message=сообщение
+count.messages=сообщений
+count.messagesfew=сообщения
+count.view=просмотр
+count.views=просмотров
+count.viewsfew=просмотра
+count.member=участник
+count.members=участников
+count.membersfew=участника
+
 video=Видео
-video.1view=просмотр
-video.views=просмотров
-video.viewsfew=просмотра
 video.addtosebe=Добавить к себе
 
-title2.member=участник
-title2.members=участников
-title2.membersfew=участника
 title2.loading=Загрузка...
 title2.msgloadingfailed=Не удалось обновить сообщения!
 
