@@ -285,9 +285,9 @@ public class MenuScreen
 		}
 		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
-		g.drawString(name+" "+lastname, 74, 74, 0);
+		g.drawString(name+" "+lastname, 74, 80, 0);
 		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
-		g.drawString(status==null?"":status, 74, 98, 0);
+		//g.drawString(status==null?"":status, 74, 98, 0);
 		
 		ColorUtils.setcolor(g, -3);
 		//g.drawRect(0, 140, DisplayUtils.width, 50);
