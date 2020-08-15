@@ -48,6 +48,12 @@ public class ChatScreen
 	private JSONObject json;
 	private JSONObject chatSettings;
 	
+	private String enterMsgStr = "";
+	private String enterMsgStrSel = "";
+	private String typingStr = "";
+	private String typing2Str = "";
+	private String refreshErrorStr = "";
+	
 	private boolean scrolledDown = false;
 	private int inputBoxH = 48;
 	private int inputedLinesCount = 0;
@@ -73,6 +79,8 @@ public class ChatScreen
 	public long answerMsgId = 0;
 	public String answerName;
 	public String answerText;
+	
+	public boolean refreshOk = true;
 	
 	public static void attachAnswer(long id, String name, String text)
 	{
@@ -106,6 +114,9 @@ public class ChatScreen
 	{
 		enterMsgStr = TextLocal.inst.get("msg.entermsg");
 		enterMsgStrSel = TextLocal.inst.get("msg.keyboard");
+		typingStr = TextLocal.inst.get("msg.typing");
+		typing2Str = TextLocal.inst.get("msg.typing2");
+		refreshErrorStr = TextLocal.inst.get("msg.msgloadingfailed");
 		if(peerId < 0)
 		{
 			this.localId = -peerId;
@@ -509,8 +520,7 @@ public class ChatScreen
 	}
 
 	public boolean canSend = true;
-	private String enterMsgStr = "";
-	private String enterMsgStrSel = "";
+	
 	private void send()
 	{
 		if(!canSend) return;
@@ -590,7 +600,7 @@ public class ChatScreen
 			}
 			catch (JSONException e)
 			{
-				e.printStackTrace();
+				refreshOk = false;
 				return;
 			}
 			int newMsgCount = items.length();
@@ -664,7 +674,9 @@ public class ChatScreen
 				}
 			}	
 			System.gc();
+			
 		}
+		refreshOk = true;
 	}
 	
 	private void runUpdater()
@@ -689,7 +701,7 @@ public class ChatScreen
 						Thread.sleep(1000*Settings.refreshRate);
 					}
 					catch (InterruptedException e)
-					{ return; }
+					{ return; } // забавный факт, оно падает при убивании потока во время сна. Я к тому что его надо либо не ловить, либо при поимке завершать галиматью вручную.
 					try
 					{
 						System.out.println("Chat updating...");
@@ -698,6 +710,7 @@ public class ChatScreen
 					catch (Exception e)
 					{
 						e.printStackTrace();
+						refreshOk = false;
 					}
 				
 				}
@@ -709,14 +722,32 @@ public class ChatScreen
 	private void showTextBox()
 	{
 		if(!canSend) return;
-		new Thread()
+		final Thread typer = new Thread()
 		{
 			public void run()
 			{
 				inputText = TextEditor.inputString(TextLocal.inst.get("msg"), inputText==null?"":inputText, 0);
 				inputChanged = true;
 			}
-		}.start();
+		};
+		final Thread reporter = new Thread()
+		{
+			public void run()
+			{
+				while(typer.isAlive())
+				{
+					URLBuilder url = new URLBuilder("messages.setActivity").addField("user_id", VikaTouch.userId).addField("peer_id", peerId).addField("type", "typing");
+					String res = VikaUtils.download(url);
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						return;
+					}
+				}
+			}
+		};
+		typer.start();
+		reporter.start();
 	}
 
 	private void msgClick(int tapY)
@@ -868,7 +899,15 @@ public class ChatScreen
 		Font font2 = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_SMALL);
 		g.setFont(font2);
 		ColorUtils.setcolor(g, ColorUtils.TEXT2);
-		g.drawString(title2, 64, 30, 0);
+		if(refreshOk)
+		{
+			// Арман, подумай о том чтоб ошибку выводить другим цветом. Голосую за белый в красном ректе.
+			g.drawString(title2, 64, 30, 0);
+		}
+		else
+		{
+			g.drawString(this.refreshErrorStr, 64, 30, 0);
+		}
 		
 		g.drawImage(IconsManager.selIco[IconsManager.BACK], 16, 16, 0);
 		g.drawImage(IconsManager.selIco[IconsManager.INFO], DisplayUtils.width - 38, 16, 0);
