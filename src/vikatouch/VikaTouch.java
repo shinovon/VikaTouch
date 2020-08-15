@@ -546,6 +546,15 @@ public class VikaTouch
 
 	public void threadRun()
 	{
+
+		Settings.loadDefaultSettings();
+
+		Settings.loadSettings();
+		
+		TextLocal.init();
+
+		cmdsInst = new CommandsImpl();
+		
 		ImageStorage.init();
 		try
 		{
@@ -556,14 +565,6 @@ public class VikaTouch
 			error(e, ErrorCodes.ICONSLOAD);
 			e.printStackTrace();
 		}
-
-		Settings.loadDefaultSettings();
-
-		Settings.loadSettings();
-		
-		TextLocal.init();
-
-		cmdsInst = new CommandsImpl();
 
 		//Выбор сервера
 		if(!Settings.setted)
