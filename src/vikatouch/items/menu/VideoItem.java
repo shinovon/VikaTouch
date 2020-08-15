@@ -47,6 +47,10 @@ public class VideoItem
 	public VideoItem(JSONObject json)
 	{
 		super(json);
+	}
+	
+	public void parseJSON()
+	{
 		id = json.optInt("id");
 		owner = json.optInt("owner_id");
 		title = json.optString("title");
