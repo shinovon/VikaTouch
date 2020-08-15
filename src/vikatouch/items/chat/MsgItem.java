@@ -48,41 +48,49 @@ public class MsgItem
 	public void parseJSON()
 	{
 		super.parseJSON();
-		parseAttachments();
-		// {"id":354329,"important":false,"date":1596389831,"attachments":[],"out":0,"is_hidden":false,"conversation_message_id":7560,"fwd_messages":[],"random_id":0,"text":"Будет срач с Лëней или он уже потерял интерес?","from_id":537403336,"peer_id":537403336}
-		foreign = json.optInt("from_id")!=Integer.parseInt(VikaTouch.userId);
-		mid = json.optLong("id");
-		int h1 = Font.getFont(0, 0, 8).getHeight();
-		drawText = TextBreaker.breakText(text, false, null, true, msgWidth-h1);
-		for (linesC=0; (linesC<drawText.length && drawText[linesC]!=null); linesC++) { }
-		
-		itemDrawHeight = h1*(linesC+1);
-		
-		JSONObject reply = json.optJSONObject("reply_message");
-		if(reply!=null)
+		try
 		{
-			hasReply = true;
-			replyText = reply.optString("text");
-			if(replyText==null)
+			parseAttachments();
+			// {"id":354329,"important":false,"date":1596389831,"attachments":[],"out":0,"is_hidden":false,"conversation_message_id":7560,"fwd_messages":[],"random_id":0,"text":"Будет срач с Лëней или он уже потерял интерес?","from_id":537403336,"peer_id":537403336}
+			
+			foreign = json.optInt("from_id")!=Integer.parseInt(VikaTouch.userId);
+			mid = json.optLong("id");
+			int h1 = Font.getFont(0, 0, 8).getHeight();
+			drawText = TextBreaker.breakText(text, false, null, true, msgWidth-h1);
+			for (linesC=0; (linesC<drawText.length && drawText[linesC]!=null); linesC++) { }
+			
+			itemDrawHeight = h1*(linesC+1);
+			
+			JSONObject reply = json.optJSONObject("reply_message");
+			if(reply!=null)
 			{
-				replyText = "Вложения";
-			}
-			else
-			{
-				replyText = TextBreaker.breakText(replyText, false, null, true, msgWidth-h1-h1)[0];
-			}
-			int fromId = reply.optInt("from_id");
-			if(fromId==Integer.parseInt(VikaTouch.userId))
-			{
-				replyName = "Вы";
-			}
-			else
-			{
-				if(ChatScreen.profileNames.containsKey(new Integer(fromId)))
+				hasReply = true;
+				replyText = reply.optString("text");
+				if(replyText==null)
 				{
-					replyName = (String) ChatScreen.profileNames.get(new Integer(fromId));
+					replyText = "Вложения";
+				}
+				else
+				{
+					replyText = TextBreaker.breakText(replyText, false, null, true, msgWidth-h1-h1)[0];
+				}
+				int fromId = reply.optInt("from_id");
+				if(fromId==Integer.parseInt(VikaTouch.userId))
+				{
+					replyName = "Вы";
+				}
+				else
+				{
+					if(ChatScreen.profileNames.containsKey(new Integer(fromId)))
+					{
+						replyName = (String) ChatScreen.profileNames.get(new Integer(fromId));
+					}
 				}
 			}
+		}
+		catch (Exception e)
+		{
+			
 		}
 		
 		// experimental

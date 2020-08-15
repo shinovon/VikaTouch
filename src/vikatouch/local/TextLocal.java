@@ -216,13 +216,13 @@ public class TextLocal
 			
 			String tt = TT.toLowerCase();
 			
-			result = replace(result, "tt", tt);
-			result = replace(result, "TT", TT);
 			result = replace(result, "h", h);
 			result = replace(result, "HH", HH);
 			result = replace(result, "H", H);
 			result = replace(result, "MM", MM);
 			result = replace(result, "M", M);
+			result = replace(result, "tt", tt);
+			result = replace(result, "TT", TT);
 		}
 		catch (Exception e)
 		{
