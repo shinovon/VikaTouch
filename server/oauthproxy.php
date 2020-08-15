@@ -22,20 +22,13 @@ if(isset($_GET["url"]))
 	$ch = curl_init($url);
 	curl_setopt($ch, CURLOPT_FILE, $fp);
 	$headers = [
-	/*
-    'X-Apple-Tz: 0',
-    'X-Apple-Store-Front: 143444,12',*/
     'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     'Accept-Encoding: gzip, deflate',
     'Accept-Language: en-US,en;q=0.5',
     'Cache-Control: no-cache',
     'Content-Type: application/x-www-form-urlencoded; charset=utf-8',
     'X-Forwarded-For: ' . $_SERVER['REMOTE_ADDR'],
-	/*
-    'Host: www.example.com',
-    'Referer: http://www.example.com/index.php', //Your referrer address*/
     'User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36',
-    //'X-MicrosoftAjax: Delta=true'
 ];
 
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
