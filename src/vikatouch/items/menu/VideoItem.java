@@ -139,7 +139,7 @@ public class VideoItem
 			}
 			if(key == KEY_OK)
 			{
-				if(VikaTouch.mobilePlatform.equals("KEmulator"))
+				if(VikaTouch.isEmulator)
 				{
 					try
 					{
@@ -246,7 +246,7 @@ public class VideoItem
 		int min = length/60;
 		String subStr = min+":"+(sec<10?"0":"")+sec+"    "+views+" ";
 		g.drawString(subStr, 73, y + 24, 0);
-		g.drawImage(IconsManager.ico[IconsManager.VIEWS], 73+g.getFont().stringWidth(subStr)-2, y+22, 0);
+		g.drawImage(IconsManager.ico[IconsManager.VIEWS], 73+g.getFont().stringWidth(subStr)-2, y+32, 0);
 		if(iconImg != null)
 		{
 			g.drawImage(iconImg, 14, y+1, 0);

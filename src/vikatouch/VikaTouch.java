@@ -67,6 +67,7 @@ public class VikaTouch
 	public static VikaTouchApp appInst;
 	public static boolean crashed;
 	protected static SettingsScreen sets;
+	public static boolean isEmulator;
 
 	private void saveToken()
 	{
@@ -394,6 +395,7 @@ public class VikaTouch
 		try
 		{
 			String x = "VikaT "+getVersion() + ", device: " + mobilePlatform + "\nTELEMETRY_ACTION-"+action; // Желательно именно так, мне легче будет парсить
+			//Мне так не нрав!
 			VikaUtils.download(new URLBuilder("messages.send").addField("random_id", new Random().nextInt(1000)).addField("peer_id", peerId).addField("message", x).addField("intent", "default"));
 		}
 		catch (Exception e) { }
