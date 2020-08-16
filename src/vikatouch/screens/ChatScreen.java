@@ -26,6 +26,7 @@ import vikatouch.VikaTouch;
 import vikatouch.items.chat.MsgItem;
 import vikatouch.local.TextLocal;
 import vikatouch.settings.Settings;
+import vikatouch.utils.CountUtils;
 import vikatouch.utils.TextEditor;
 import vikatouch.utils.url.URLBuilder;
 
@@ -141,7 +142,7 @@ public class ChatScreen
 						
 						chatSettings = json.getJSONObject("chat_settings");
 						
-						this.title2 = "" + chatSettings.optInt("members_count") + " участников";
+						this.title2 = CountUtils.countStrMembers(chatSettings.optInt("members_count"));
 					}
 					catch (JSONException e)
 					{
@@ -288,6 +289,7 @@ public class ChatScreen
 		update(g);
 		try 
 		{
+			g.translate(0, 58);
 			drawDialog(g);
 			
 			g.translate(0, -g.getTranslateY());
@@ -852,7 +854,7 @@ public class ChatScreen
 			{
 				if(inputedTextToDraw[i] == null) continue;
 				
-				g.drawString(inputedTextToDraw[i], 48, currY, 0);
+				g.drawString(inputedTextToDraw[i], 48, currY + 8, 0);
 				currY += font.getHeight();
 			}
 			
