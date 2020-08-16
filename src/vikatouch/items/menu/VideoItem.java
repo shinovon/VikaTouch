@@ -219,7 +219,7 @@ public class VideoItem
 			String mobilePlatform = VikaTouch.mobilePlatform;
 			if (mobilePlatform.indexOf("5.5") <= 0 && mobilePlatform.indexOf("5.4") <= 0 && mobilePlatform.indexOf("5.3") <= 0
 					&& mobilePlatform.indexOf("5.2") <= 0 && mobilePlatform.indexOf("5.1") <= 0
-					&& mobilePlatform.indexOf("Samsung") <= 0) {
+					&& mobilePlatform.indexOf("Samsung") < 0) {
 				VikaTouch.appInst.platformRequest(urlF);
 			} else {
 				VikaTouch.appInst.platformRequest("file:///C:/Data/Sounds/test.ram");
@@ -246,7 +246,7 @@ public class VideoItem
 		int min = length/60;
 		String subStr = min+":"+(sec<10?"0":"")+sec+"    "+views+" ";
 		g.drawString(subStr, 73, y + 24, 0);
-		g.drawImage(IconsManager.ico[IconsManager.VIEWS], 73+g.getFont().stringWidth(subStr)-2, y+20, 0);
+		g.drawImage(IconsManager.ico[IconsManager.VIEWS], 73+g.getFont().stringWidth(subStr)-2, y+22, 0);
 		if(iconImg != null)
 		{
 			g.drawImage(iconImg, 14, y+1, 0);
