@@ -3,11 +3,11 @@ Nokia-MIDlet-No-Exit: false
 Nokia-MIDlet-Background-Event: pause
 Nokia-MIDlet-UID-1: 0xA02033e9
 MIDlet-1: Vika Touch,/vika256.png,ru.nnproject.vikatouch.VikaTouchApp
-VikaTouch-Edition: prealpha
+VikaTouch-Edition: alpha
 MIDlet-Jar-URL: vikaTouch.jar
 MIDlet-Icon: vika256.png
 MicroEdition-Configuration: CLDC-1.1
-MIDlet-Version: 2.6.12
+MIDlet-Version: 2.6.13
 MIDlet-Name: Vika Touch
 MIDlet-Vendor: nnproject
 MicroEdition-Profile: MIDP-2.1
