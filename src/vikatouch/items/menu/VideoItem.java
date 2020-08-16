@@ -26,6 +26,7 @@ import vikatouch.items.JSONUIItem;
 import vikatouch.settings.Settings;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
+import vikatouch.utils.url.URLDecoder;
 
 public class VideoItem
 	extends JSONUIItem
@@ -43,6 +44,7 @@ public class VideoItem
 	
 	public String file;
 	public String playerUrl;
+	public String external = null;
 	
 	public VideoItem(JSONObject json)
 	{
@@ -67,16 +69,28 @@ public class VideoItem
 		
 		try {
 			JSONObject files = json.getJSONObject("files");
-			file = files.optString("mp4_"+Settings.videoResolution);
-			if(file==null)
+			if(files!=null)
 			{
-				file = files.optString("mp4_360");
+				external = files.optString("external");
+				if(external!=null&&external.length()>6)
+				{
+					external = fixJSONString(external);
+				}
+				else
+				{
+					external = null;
+					file = files.optString("mp4_"+Settings.videoResolution);
+					if(file==null)
+					{
+						file = files.optString("mp4_360");
+					}
+					if(file==null)
+					{
+						file = files.optString("mp4_240");
+					}
+					if(file!=null) file = fixJSONString(file);
+				}
 			}
-			if(file==null)
-			{
-				file = files.optString("mp4_240");
-			}
-			if(file!=null) file = fixJSONString(file);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
@@ -107,50 +121,77 @@ public class VideoItem
 
 	public void keyPressed(int key)
 	{
-		if(key == KEY_FUNC)
+		if(external==null)
 		{
-			if(file!=null)
-				VikaTouch.popup(new ConfirmBox("Загрузить видео-файл?","Будет скачано "+Settings.videoResolution+"p.", new Runnable() {
-					public void run() 
-					{
-						try {
-							VikaTouch.appInst.platformRequest(file);
-						} catch (ConnectionNotFoundException e) {
-							e.printStackTrace();
-						}
-					}
-				}, null));
-		}
-		if(key == KEY_OK)
-		{
-			if(VikaTouch.mobilePlatform.equals("KEmulator"))
-			{
-				try
-				{
-					VikaTouch.appInst.platformRequest(playerUrl);
-				}
-				catch (ConnectionNotFoundException e) 
-				{ }
-			}
-			else
+			if(key == KEY_FUNC)
 			{
 				if(file!=null)
-				{
-					VikaTouch.popup(new ConfirmBox("Выбрано разрешение: "+Settings.videoResolution+"p", "Воспроизвести?", new Runnable() {
+					VikaTouch.popup(new ConfirmBox("Загрузить видео-файл?","Будет скачано "+Settings.videoResolution+"p.", new Runnable() {
 						public void run() 
 						{
-							playOnline();
+							try {
+								VikaTouch.appInst.platformRequest(file);
+							} catch (ConnectionNotFoundException e) {
+								e.printStackTrace();
+							}
 						}
 					}, null));
+			}
+			if(key == KEY_OK)
+			{
+				if(VikaTouch.mobilePlatform.equals("KEmulator"))
+				{
+					try
+					{
+						VikaTouch.appInst.platformRequest(playerUrl);
+					}
+					catch (ConnectionNotFoundException e) 
+					{ }
 				}
 				else
 				{
-					VikaTouch.popup(new InfoPopup("Файл видео недоступен.", null));
+					if(file!=null)
+					{
+						VikaTouch.popup(new ConfirmBox("Выбрано разрешение: "+Settings.videoResolution+"p", "Воспроизвести?", new Runnable() {
+							public void run() 
+							{
+								playOnline();
+							}
+						}, null));
+					}
+					else
+					{
+						VikaTouch.popup(new InfoPopup("Файл видео недоступен.", null));
+					}
 				}
 			}
 		}
+		else
+		{
+			VikaTouch.popup(new ConfirmBox(external, "Открыть?", new Runnable() {
+				public void run() 
+				{
+					playExternal();
+				}
+			}, null));
+		}
 	}
-	
+	public void playExternal()
+	{
+		// https://vikamobile.ru/getl.php?url=
+		try {
+			if(external.indexOf("youtube")==-1)
+			{
+				VikaTouch.appInst.platformRequest(external);
+			}
+			else
+			{
+				VikaTouch.appInst.platformRequest("https://vikamobile.ru/getl.php?url="+URLDecoder.encode(external));
+			}
+		} catch (ConnectionNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 	public void playOnline()
 	{
 		try {
@@ -210,7 +251,7 @@ public class VideoItem
 		{
 			g.drawImage(iconImg, 14, y+1, 0);
 		}
-		if(!ScrollableCanvas.keysMode)
+		if(!ScrollableCanvas.keysMode && external == null)
 		{
 			try
 			{
