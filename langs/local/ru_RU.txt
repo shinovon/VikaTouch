@@ -103,7 +103,6 @@ menu.writemsg=Написать сообщение
 menu.nowebsite=нет
 menu.discussions=Обсуждения
 menu.about=О программе
-menu.settings=Настройки
 menu.loading=Загрузка...
 
 group=Группа
@@ -119,6 +118,7 @@ title.members=Участники
 title.login=Вход
 title.groups=Группы
 title.friends=Друзья
+title.settings=Настройки
 
 friend.remove=Удалить из друзей
 friend.add=Добавить в друзья

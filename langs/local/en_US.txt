@@ -102,7 +102,6 @@ menu.writemsg=Write message
 menu.nowebsite=no website
 menu.discussions=Discussions
 menu.about=About
-menu.settings=Settings
 menu.loading=Loading...
 
 group=Group
@@ -118,6 +117,7 @@ title.members=Members
 title.login=Login
 title.groups=Groups
 title.friends=Friends
+title.settings=Settings
 
 friend.remove=Remove friend
 friend.add=Send friendship request

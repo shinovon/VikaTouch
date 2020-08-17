@@ -135,7 +135,7 @@ public class SettingsScreen
 	
 	public final void drawHUD(Graphics g)
 	{
-		drawHUD(g, "Настройки");
+		drawHUD(g, titleStr);
 	}
 	
 	public final void release(int x, int y)

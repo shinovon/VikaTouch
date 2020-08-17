@@ -96,7 +96,6 @@ menu.writemsg=Napisat soobshenie
 menu.nowebsite=net
 menu.discussions=Obsuzhdeniya
 menu.about=O prilozhenii
-menu.settings=Nastroyki
 menu.loading=Zagruzka...
 
 group=Grupa
@@ -112,6 +111,7 @@ title.members=Uchastniki
 title.login=Vhod
 title.groups=Grupa
 title.friends=Druzya
+title.settings=Nastroyki
 
 friend.remove=Udalit iz druzey
 friend.add=Dobavit v druzya
