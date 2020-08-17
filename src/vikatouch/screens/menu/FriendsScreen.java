@@ -150,9 +150,7 @@ public class FriendsScreen
 					e.printStackTrace();
 				}
 				catch (InterruptedException e)
-				{
-					e.printStackTrace();
-				}
+				{ }
 				catch (Exception e)
 				{
 					e.printStackTrace();

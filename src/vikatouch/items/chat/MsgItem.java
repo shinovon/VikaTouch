@@ -273,12 +273,82 @@ public class MsgItem
 	
 	public String[] searchLinks()
 	{
-		int lm = 8;
-		String[] l = new String[lm];
-		int fc=0;
+		if(text == null || text.length()<2) return null;
+		int lm = 8; // links max (больше на экран не влезет (смотря какой конечно))
+		String[] la = new String[lm];
+		int li = 0; // индекс в массиве
+		int tl = text.length();
 		
-		
-		return l;
+		final String[] glinks = new String[] { "http://", "https://", "rtsp://", "ftp://", "smb://" }; // вроде всё. Ага, я слал/принимал пару раз ссылки на расшаренные папки как smb://server/folder
+		try
+		{
+			//System.out.println(text);
+			//System.out.println("tl "+tl);
+			// Поиск внешних ссылок
+			// сначала ищем их на случай сообщения
+			// @id89277233 @id2323 @id4 @id5 @id6 ... [ещё 100509 @] ... @id888292, http://что-тоТам
+			// В беседе вики такое постоянно.
+			for(int gli=0; gli<glinks.length; gli++)
+			{
+				//System.out.println(glinks[gli]);
+				int сс = 0;
+				int ii = 0; // Indexof Index
+				while(true)
+				{
+					ii = text.indexOf(glinks[gli], ii);
+					//System.out.println("ii "+ii);
+					if(ii == -1)
+					{
+						break;
+					}
+					else
+					{
+						int lci = ii+6;
+						while(lci<tl && text.charAt(lci)!=' ') { lci++; }
+						String l = text.substring(ii, lci);
+						la[li] = l;
+						li++;
+						if(li>=lm) return la;
+						ii = lci;
+					}
+				}
+			}
+					
+			// Поиск ссылок ВК
+			int cc = 0; // current char
+			while(cc<tl)
+			{
+				char c = text.charAt(cc);
+				if(c=='@')
+				{
+					int cs = cc;
+					cc++;
+					while(cc<tl && text.charAt(cc)!=' ') { cc++; }
+					String l = text.substring(cs, cc);
+					la[li] = l;
+					li++;
+					if(li>=lm) return la;
+				}
+				else if(c=='[')
+				{
+					cc++;
+					int cs = cc;
+					while(cc<tl && text.charAt(cc)!='|') { cc++; }
+					String l = text.substring(cs, cc);
+					la[li] = l;
+					li++;
+					if(li>=lm) return la;
+				}
+				cc++;
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			// кстати, а попап то нельзя. Он сразу перекроется контексткой со списком.
+		}
+		System.out.println("links c "+li);
+		return la;
 	}
 
 	public String getTime()
@@ -328,8 +398,7 @@ public class MsgItem
 				VikaTouch.popup(new InfoPopup("Не удалось открыть. Возможно, произошла ошибка при обработке адреса либо нет подключения к интернету.", null));
 			}
 			return;
-		}
-		if(i>=0)
+		} else if(i>=0)
 		{ // прикрепы
 			try
 			{
@@ -368,10 +437,31 @@ public class MsgItem
 			{ e.printStackTrace(); }
 			break;
 		case -6:
-			VikaTouch.popup(new InfoPopup("Пересылку тоже не изобрели", null));
+			VikaTouch.popup(new InfoPopup("Пересылку скоро изобретём.", null));
 			break;
 		case -8:
-			VikaTouch.popup(new InfoPopup("Ссылки в сибирь", null));
+			{
+				String[] links = searchLinks();
+				int c = 0;
+				while(links[c]!=null)
+				{
+					c++;
+				}
+				if(c==0)
+				{
+					VikaTouch.popup(new InfoPopup("Ссылки не найдены либо произошла ошибка.", null));
+				}
+				else
+				{
+					OptionItem[] opts2 = new OptionItem[c];
+					int h = DisplayUtils.height>240?36:30; // вот как делается адаптация, а не твои километровые свитчи и да, я буду ещё долго ворчать.
+					for(int j = 0; j < c; j++)
+					{
+						opts2[j] = new OptionItem(this, links[j], links[j].indexOf("id")==-1?IconsManager.LINK:IconsManager.FRIENDS, -(j+100), h);
+					}
+					VikaTouch.popup(new ContextMenu(opts2));
+				}
+			}
 			break;
 		case -9:
 			{
@@ -415,8 +505,10 @@ public class MsgItem
 				try
 				{
 					URLBuilder url = new URLBuilder("messages.delete").addField("message_ids", ""+mid).addField("delete_for_all", i==-99?1:0);
-					String res = VikaUtils.download(url);
+					String res = VikaUtils.download(url); 
 					ok = (new JSONObject(res).getJSONObject("response").optInt(""+mid))==1;
+					// выяснение почему не робит
+					System.out.println(res);
 				}
 				catch (Exception e)
 				{ 
