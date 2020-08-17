@@ -178,10 +178,10 @@ public class DialogsScreen
 	
 	public final void release(int x, int y)
 	{
-		switch(DisplayUtils.idispi)
+		// тача больше нигде нет. Ладно.
+		try
 		{
-			case DisplayUtils.DISPLAY_ALBUM:
-			case DisplayUtils.DISPLAY_PORTRAIT:
+			if(Dialogs.dialogs!=null)
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
@@ -195,14 +195,13 @@ public class DialogsScreen
 						Dialogs.dialogs[i].tap(x, yy1 - (63 * i));
 					}
 					Dialogs.dialogs[i].released(dragging);
-					break;
 				}
-				
-				break;
 			}
-				
 		}
-		
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 		super.release(x, y);
 	}
 	
