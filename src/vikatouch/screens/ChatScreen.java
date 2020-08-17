@@ -58,6 +58,7 @@ public class ChatScreen
 	private boolean scrolledDown = false;
 	private int inputBoxH = 48;
 	private int inputedLinesCount = 0;
+	private int topPanelH = 56;
 	
 	private int loadSpace = 20;
 	private int hasSpace = loadSpace;
@@ -290,7 +291,7 @@ public class ChatScreen
 		update(g);
 		try 
 		{
-			g.translate(0, 58);
+			g.translate(0, topPanelH);
 			drawDialog(g);
 			
 			g.translate(0, -g.getTranslateY());
@@ -756,6 +757,7 @@ public class ChatScreen
 
 	private void msgClick(int tapY, long tapTime)
 	{
+		tapY-=topPanelH;
 		if(tapTime > 200)
 		{
 			if(uiItems==null) return;
@@ -894,9 +896,9 @@ public class ChatScreen
 	private void drawHeader(Graphics g)
 	{
 		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
-		g.fillRect(0, 0, 800, 55);
+		g.fillRect(0, 0, DisplayUtils.width, topPanelH-1);
 		ColorUtils.setcolor(g, -12);
-		g.fillRect(0, 55, 800, 1);
+		g.fillRect(0, topPanelH-1, DisplayUtils.width, 1);
 		
 		Font font1 = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_MEDIUM);
 		g.setFont(font1);
