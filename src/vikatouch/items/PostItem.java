@@ -329,25 +329,27 @@ public class PostItem
 			g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
 		else
 			g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
-		
-		for(int i = 0; i < drawText.length; i++)
+		if(drawText != null)
 		{
-			if(drawText[i] != null)
+			for(int i = 0; i < drawText.length; i++)
 			{
-				if(drawText[i].length() > 0)
+				if(drawText[i] != null)
 				{
-					if(i == 9 && drawText.length == 10)
-						g.setColor(68, 104, 143);
-					
-					g.drawString(""+drawText[i], 16, yy, 0);
-					
-					ColorUtils.setcolor(g, 5);
+					if(drawText[i].length() > 0)
+					{
+						if(i == 9 && drawText.length == 10)
+							g.setColor(68, 104, 143);
+						
+						g.drawString(""+drawText[i], 16, yy, 0);
+						
+						ColorUtils.setcolor(g, 5);
+					}
+					yy += 24;
 				}
-				yy += 24;
-			}
-			else
-			{
-				break;
+				else
+				{
+					break;
+				}
 			}
 		}
 		

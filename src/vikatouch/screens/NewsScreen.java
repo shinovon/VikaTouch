@@ -29,7 +29,7 @@ public class NewsScreen
 	public NewsScreen()
 	{
 		super();
-		titleStr = TextLocal.inst.get("title.news");
+		titleStr = TextLocal.inst.get("title.newsfeed");
 		
 		VikaTouch.loading = true;
 		

@@ -367,7 +367,7 @@ public class VikaTouch
 		String details = "";
 		if(extended)
 		{
-			details = "\nDevice information: \nmemory: " + mem + "K, profile: " + System.getProperty("microedition.profile") + ", configuration: " + System.getProperty("microedition.configuration")
+			details = "\nDevice information: \nmemory: " + mem + "K, configuration: " + System.getProperty("microedition.configuration")
 			+ "\nSettings:\nsm: " + Settings.sensorMode + " https: " + Settings.https + " proxy: " + Settings.proxy + " lang: " + Settings.language + " listslen: " + Settings.simpleListsLength;
 		}
 		return main + details;
@@ -391,7 +391,22 @@ public class VikaTouch
 	
 	public static void sendLog(String action, String x)
 	{
-		sendLog(action + ": " + getStats(false) + ".\n" + x);
+		String main = action + ": ViKa Touch " + getRelease() + " Version: " + getVersion() + ", device: " + mobilePlatform;
+		String details = "";
+		String mem = "error";
+		try
+		{
+			mem = ""+(Runtime.getRuntime().totalMemory()/1024);
+		} catch (Exception e) { }
+		
+		final boolean extended = true;
+		
+		if(extended && Settings.telemetry)
+		{
+			details = "\nDevice information: \nmemory: " + mem + "K, configuration: " + System.getProperty("microedition.configuration")
+			+ "\nSettings:\nsm: " + Settings.sensorMode + " https: " + Settings.https + " proxy: " + Settings.proxy + " lang: " + Settings.language + " listslen: " + Settings.simpleListsLength;
+		}
+		sendLog(main + details + ".\n" + x);
 		// Нихера будет не понять в этой куче-мале! (я про FALSE) Если хочет отправлять статы,
 		// то уже это сделал. Если нет, в инете поищем, не трамваи. К тому же будут орать, что мол
 		// мы выключили статы, а вы теперь всё равно знаете что я сообщения раз в 10 сек обновляю!!11!!!11! 
@@ -441,6 +456,10 @@ public class VikaTouch
 		{
 			sendLog("Error Report", "errcode: " + i + ", message: " + s + (fatal ? ", fatal" : ""));
 		}
+		if(fatal)
+		{
+			crashed = true;
+		}
 
 		String s2 = TextLocal.inst.get("error.errcode") + ": " + i + "\n" + TextLocal.inst.get("error.additionalinfo") + ":\n" + TextLocal.inst.get("error.description") + ": " + s + "\n" + TextLocal.inst.get("error.contactdevs");
 		popup(new InfoPopup(s2, fatal ? new Thread() {
@@ -454,8 +473,12 @@ public class VikaTouch
 	public static void error(Throwable e, int i)
 	{
 		inst.errReason = e.toString();
-		boolean fatal = e instanceof IOException || e instanceof NullPointerException || e instanceof OutOfMemoryError;
+		boolean fatal = e instanceof IOException || e instanceof NullPointerException/* || e instanceof OutOfMemoryError*/;
 		//if(e instanceof java.net.SocketException) fatal = false; // Почему нету? Если КЕмуль плюётся?
+		if(fatal)
+		{
+			crashed = true;
+		}
 		if(e instanceof OutOfMemoryError)
 		{
 			canvas.currentScreen = null;
@@ -493,7 +516,11 @@ public class VikaTouch
 	{
 		System.out.println(s);
 		inst.errReason = e.toString();
-		final boolean fatal = e instanceof IOException || e instanceof NullPointerException || e instanceof OutOfMemoryError;
+		final boolean fatal = e instanceof IOException || e instanceof NullPointerException/* || e instanceof OutOfMemoryError*/;
+		if(fatal)
+		{
+			crashed = true;
+		}
 		if(e instanceof OutOfMemoryError)
 		{
 			canvas.currentScreen = null;
@@ -528,6 +555,11 @@ public class VikaTouch
 	public static void error(String s, boolean fatal)
 	{
 		inst.errReason = s;
+		
+		if(fatal)
+		{
+			crashed = true;
+		}
 		
 		if(Settings.sendErrors)
 		{
