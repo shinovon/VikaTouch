@@ -119,7 +119,7 @@ public class ChatScreen
 		enterMsgStrSel = TextLocal.inst.get("msg.keyboard");
 		typingStr = TextLocal.inst.get("msg.typing");
 		typing2Str = TextLocal.inst.get("msg.typing2");
-		refreshErrorStr = TextLocal.inst.get("msg.msgloadingfailed");
+		refreshErrorStr = TextLocal.inst.get("title2.msgloadingfailed");
 		if(peerId < 0)
 		{
 			this.localId = -peerId;
@@ -910,11 +910,12 @@ public class ChatScreen
 		ColorUtils.setcolor(g, ColorUtils.TEXT2);
 		if(refreshOk)
 		{
-			// Арман, подумай о том чтоб ошибку выводить другим цветом. Голосую за белый в красном ректе.
 			g.drawString(title2, 64, 30, 0);
 		}
 		else
 		{
+			g.setColor(255, 0, 0);
+			g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_SMALL));
 			g.drawString(this.refreshErrorStr, 64, 30, 0);
 		}
 		
