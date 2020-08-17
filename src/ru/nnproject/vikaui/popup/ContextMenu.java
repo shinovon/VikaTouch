@@ -14,6 +14,7 @@ public class ContextMenu extends VikaNotice {
 
 	public OptionItem[] items;
 	public int selected = 0;
+	private boolean dragging;
 	
 	public ContextMenu(OptionItem[] list) 
 	{
@@ -87,8 +88,19 @@ public class ContextMenu extends VikaNotice {
 		}
 	}
 	
+	public void press(int x, int y)
+	{
+		dragging = false;
+	}
+	
+	public void drag(int x, int y)
+	{
+		dragging = true;
+	}
 	public void release(int x, int y)
 	{
+		if(dragging)
+			return;
 		int margin = 8;
 		int itemsH = margin * 2; // margin = 8
 		int width = Math.min(DisplayUtils.width-8, 350);

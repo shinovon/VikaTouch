@@ -70,7 +70,7 @@ public class MsgItem
 				boolean breakReplyText = true;
 				hasReply = true;
 				replyText = reply.optString("text");
-				if(replyText == null || replyText == "")
+				if(replyText == null || replyText == "" || replyText.length() <= 0)
 				{
 					replyText = "";
 					JSONArray replyAttachs = reply.optJSONArray("attachments");
@@ -107,10 +107,12 @@ public class MsgItem
 						{
 							replyText = "[Вложения]";
 						}
+						breakReplyText = false;
 					}
 					else if(replyFwds != null)
 					{
 						replyText = CountUtils.countStrMessages(replyFwds.length());
+						breakReplyText = false;
 					}
 					else
 					{

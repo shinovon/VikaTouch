@@ -400,9 +400,13 @@ public final class VikaUtils
 	
 	public static String replace(String str, String from, String to)
 	{
+		
 		final StringBuffer sb = new StringBuffer();
 		int j = str.indexOf(from);
 		int k = 0;
+		
+		if(j == -1)
+			return str;
 
 		for (int i = from.length(); j != -1; j = str.indexOf(from, k))
 		{

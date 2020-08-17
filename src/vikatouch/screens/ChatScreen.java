@@ -82,6 +82,7 @@ public class ChatScreen
 	public String answerText;
 	
 	public boolean refreshOk = true;
+	private long pressTime;
 	
 	public static void attachAnswer(long id, String name, String text)
 	{
@@ -310,6 +311,7 @@ public class ChatScreen
 	
 	public final void press(int x, int y)
 	{
+		pressTime = System.currentTimeMillis();
 		if(!dragging)
 		{
 			if(y > 590)
@@ -378,7 +380,7 @@ public class ChatScreen
 			}
 			else
 			{
-				msgClick(y);
+				msgClick(y, System.currentTimeMillis() - pressTime);
 			}
 		}
 		super.release(x, y);
@@ -752,21 +754,24 @@ public class ChatScreen
 		reporter.start();
 	}
 
-	private void msgClick(int tapY)
+	private void msgClick(int tapY, long tapTime)
 	{
-		if(uiItems==null) return;
-		int y = 0;
-		int gTapY = tapY-scrolled;
-		for(int i=0; i<uiItems.length; i++)
+		if(tapTime > 200)
 		{
-			if(uiItems[i] == null) continue;
-			y+=msgYMargin;
-			int y2 = y+uiItems[i].getDrawHeight();
-			if(y<gTapY&&gTapY<y2)
+			if(uiItems==null) return;
+			int y = 0;
+			int gTapY = tapY-scrolled;
+			for(int i=0; i<uiItems.length; i++)
 			{
-				uiItems[i].tap(0, gTapY-y);
+				if(uiItems[i] == null) continue;
+				y+=msgYMargin;
+				int y2 = y+uiItems[i].getDrawHeight();
+				if(y<gTapY&&gTapY<y2)
+				{
+					uiItems[i].tap(0, gTapY-y);
+				}
+				y = y2;
 			}
-			y = y2;
 		}
 	}
 	
