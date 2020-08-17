@@ -91,6 +91,7 @@ public class FriendsScreen
 					if(id<0) {
 						// как участники
 						//!!! это дает ошибку! и я не знаю почему!
+						// И какую же? У меня ни разу не падало.
 						x = VikaUtils.download(new URLBuilder("groups.getMembers").addField("count", Settings.simpleListsLength).addField("fields", "domain,last_seen,photo_50").addField("offset", from).addField("group_id", -id));
 					} else {
 						// как друзья
@@ -123,10 +124,14 @@ public class FriendsScreen
 						}
 						VikaTouch.loading = true;
 						repaint();
-						Thread.sleep(1000);
+						Thread.sleep(1000); // ну вдруг юзер уже нажмёт? Зачем зря грузить
 						VikaTouch.loading = true;
 						for(int i = 0; i < itemsCount - (canLoadMore?1:0); i++)
 						{
+							if(!(VikaTouch.canvas.currentScreen instanceof FriendsScreen))
+							{
+								VikaTouch.loading = false; return; // Костыль деревянный, 1 штука, 78 lvl, 6 ранг.
+							}
 							VikaTouch.loading = true;
 							((FriendItem) uiItems[i]).GetAva();
 						}
