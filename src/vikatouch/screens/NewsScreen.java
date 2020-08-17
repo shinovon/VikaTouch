@@ -13,6 +13,7 @@ import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.items.PostItem;
+import vikatouch.local.TextLocal;
 import vikatouch.screens.menu.MenuScreen;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
@@ -23,10 +24,12 @@ public class NewsScreen
 	
 	public static JSONArray profiles;
 	public static JSONArray groups;
+	private static String titleStr;
 	
 	public NewsScreen()
 	{
 		super();
+		titleStr = TextLocal.inst.get("title.news");
 		
 		VikaTouch.loading = true;
 		
@@ -38,6 +41,10 @@ public class NewsScreen
 	
 	private void loadPosts()
 	{
+		new Thread( new Runnable()
+				{
+		public void run()
+		{
 		VikaTouch.loading = true;
 		try
 		{
@@ -86,13 +93,15 @@ public class NewsScreen
 					itemsh += uiItems[i].getDrawHeight() + 8;
 				i2++;
 			}
-			this.itemsCount = postscount;
+			itemsCount = postscount;
 		}
 		catch (Exception e)
 		{
 			VikaTouch.error(e, ErrorCodes.NEWSPARSE);
 			e.printStackTrace();
 		}
+		}
+				}).start();
 		
 		System.gc();
 	}
@@ -127,6 +136,8 @@ public class NewsScreen
 						y += uiItems[i].getDrawHeight() + 8;
 					}
 				}
+				if(y != itemsh)
+					itemsh = y;
 			}
 			catch (Exception e)
 			{
@@ -149,7 +160,7 @@ public class NewsScreen
 	
 	public final void drawHUD(Graphics g)
 	{
-		drawHUD(g, "Новости");
+		drawHUD(g, titleStr);
 	}
 	
 	protected final void down()
