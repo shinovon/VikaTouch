@@ -30,6 +30,7 @@ public class LoginScreen
 	private static Image vikaLogo;
 	private static Image loginpressed;
 	private static Image login;
+	private static Image settingsImg;
 	private static boolean pressed;
 	public static boolean vse;
 	public static String user = "";
@@ -52,13 +53,21 @@ public class LoginScreen
 		{
 			vikaLogo = Image.createImage("/vikab48.jpg");
 		}
-		catch (Exception e) { }
+		catch (IOException e)
+		{ }
 		try
 		{
 			login = Image.createImage("/login.png");
 			loginpressed = Image.createImage("/loginpressed.png");
 		}
-		catch (Exception e) { }
+		catch (IOException e)
+		{ }
+		try
+		{
+			settingsImg = Image.createImage("/settings.png");
+		}
+		catch (IOException e)
+		{ }
 		pressed = false;
 		titleLoginStr = TextLocal.inst.get("title.login");
 		loginStr = TextLocal.inst.get("login.login");
