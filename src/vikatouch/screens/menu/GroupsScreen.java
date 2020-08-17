@@ -179,8 +179,6 @@ public class GroupsScreen
 				VikaTouch.error(e, ErrorCodes.GROUPSITEMDRAW);
 			}
 			g.translate(0, -g.getTranslateY());
-
-
 		}
 		catch (Exception e)
 		{

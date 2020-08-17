@@ -101,6 +101,7 @@ menu.website=Web-site
 menu.writemsg=Write message
 menu.nowebsite=no website
 menu.discussions=Discussions
+menu.about=About
 menu.settings=Settings
 menu.loading=Loading...
 
@@ -188,3 +189,5 @@ settings.audio1=Cache & play
 settings.audio2=Open with system player
 settings.audio3=Download with browser
 settings.resetC=Do you really want to reset settings?
+
+back=Back

@@ -95,6 +95,7 @@ menu.website=Site
 menu.writemsg=Napisat soobshenie
 menu.nowebsite=net
 menu.discussions=Obsuzhdeniya
+menu.about=O prilozhenii
 menu.settings=Nastroyki
 menu.loading=Zagruzka...
 
@@ -182,3 +183,5 @@ settings.audio1=Zakeshirovat i vosproizvesti
 settings.audio2=Otkryt vspomoshyu sistemnogo pleera
 settings.audio3=Skachat cherez brauzer
 settings.resetC=Vi destvitelno hotite sbrosit nastroyki?
+
+back=Nazad

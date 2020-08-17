@@ -192,15 +192,12 @@ public class FriendsScreen
 				VikaTouch.error(e, ErrorCodes.FRIENDSITEMDRAW);
 			}
 			g.translate(0, -g.getTranslateY());
-
-
 		}
 		catch (Exception e)
 		{
 			VikaTouch.error(e, ErrorCodes.FRIENDSDRAW);
 			e.printStackTrace();
 		}
-
 	}
 	
 	public final void drawHUD(Graphics g)

@@ -175,7 +175,6 @@ public class DocsScreen
 			VikaTouch.error(e, ErrorCodes.DOCPREVIEWDRAW);
 			e.printStackTrace();
 		}
-
 	}
 	
 	public final void drawHUD(Graphics g)

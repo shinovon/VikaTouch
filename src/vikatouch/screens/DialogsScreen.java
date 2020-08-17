@@ -147,13 +147,17 @@ public class DialogsScreen
 			}
 			g.translate(0, -g.getTranslateY());
 			
-			drawHUD(g, titleStr);
 		}
 		catch (Exception e)
 		{
 			VikaTouch.error(e, ErrorCodes.DIALOGSDRAW);
 			e.printStackTrace();
 		}
+	}
+	
+	public final void drawHUD(Graphics g)
+	{
+		drawHUD(g, titleStr);
 	}
 	
 	public void unselectAll()
