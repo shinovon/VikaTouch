@@ -438,6 +438,11 @@ public class VikaTouch
 		{
 			sendLog("Error Report", "errcode: " + i + (fatal ? ", fatal" : ""));
 		}
+		
+		if(fatal)
+		{
+			crashed = true;
+		}
 
 		String s2 = TextLocal.inst.get("error.errcode") + ": " + i + "\n" + TextLocal.inst.get("error.contactdevs");
 		popup(new InfoPopup(s2, fatal ? new Thread() {
