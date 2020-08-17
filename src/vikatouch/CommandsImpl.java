@@ -9,6 +9,7 @@ import javax.microedition.lcdui.Displayable;
 import ru.nnproject.vikaui.popup.InfoPopup;
 import ru.nnproject.vikaui.screen.VikaScreen;
 import ru.nnproject.vikaui.utils.DisplayUtils;
+import vikatouch.local.TextLocal;
 import vikatouch.screens.AboutScreen;
 import vikatouch.screens.ChatScreen;
 import vikatouch.screens.DialogsScreen;
@@ -112,7 +113,7 @@ public class CommandsImpl
 						//Музыка
 						if(s instanceof MenuScreen)
 						{
-							VikaTouch.popup(new InfoPopup("Функционал музыки ещё не реализован. Следите за обновлениями.",null,"Музыка","Назад"));
+							VikaTouch.popup(new InfoPopup("Функционал музыки ещё не реализован. Следите за обновлениями.",null,TextLocal.inst.get("title.music"), TextLocal.inst.get("back")));
 						}
 						break;
 					}
@@ -133,7 +134,7 @@ public class CommandsImpl
 						//Фотки
 						if(s instanceof MenuScreen)
 						{
-							VikaTouch.popup(new InfoPopup("Функционал фотографий ещё не реализован. Следите за обновлениями.",null,"Фото","Назад"));
+							VikaTouch.popup(new InfoPopup("Функционал фотографий ещё не реализован. Следите за обновлениями.",null,TextLocal.inst.get("title.photos"), TextLocal.inst.get("back")));
 							/*
 							if(VikaTouch.photosCanv == null)
 								VikaTouch.photosCanv = new PhotosScreen();
