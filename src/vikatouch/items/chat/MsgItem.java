@@ -505,10 +505,9 @@ public class MsgItem
 				try
 				{
 					URLBuilder url = new URLBuilder("messages.delete").addField("message_ids", ""+mid).addField("delete_for_all", i==-99?1:0);
-					String res = VikaUtils.download(url); 
-					ok = (new JSONObject(res).getJSONObject("response").optInt(""+mid))==1;
-					// выяснение почему не робит
-					System.out.println(res);
+					String x = VikaUtils.download(url); 
+					JSONObject res = (new JSONObject(x)).getJSONObject("response");
+					ok = (res.optInt(""+mid)==1);
 				}
 				catch (Exception e)
 				{ 
@@ -518,6 +517,8 @@ public class MsgItem
 				if(ok)
 				{
 					text = "[удалено]";
+					drawText = new String[] { text };
+					linesC = 1;
 				}
 				break;
 			}

@@ -861,7 +861,7 @@ public class ChatScreen
 			{
 				if(inputedTextToDraw[i] == null) continue;
 				
-				g.drawString(inputedTextToDraw[i], 48, currY - 8, 0);
+				g.drawString(inputedTextToDraw[i], 48, currY, 0);
 				currY += font.getHeight();
 			}
 			
