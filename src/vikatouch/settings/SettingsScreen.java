@@ -131,6 +131,10 @@ public class SettingsScreen
 		}
 		
 		g.translate(0, -g.getTranslateY());
+	}
+	
+	public final void drawHUD(Graphics g)
+	{
 		drawHUD(g, "Настройки");
 	}
 	
