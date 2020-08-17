@@ -157,7 +157,7 @@ public class DialogsScreen
 	
 	public final void drawHUD(Graphics g)
 	{
-		drawHUD(g, titleStr);
+		drawHUD(g, Dialogs.dialogs==null?"Загрузка диалогов...":titleStr); // временно, потом оно будет грузиться во время сплеша. Привет Илье))0)
 	}
 	
 	public void unselectAll()
@@ -207,10 +207,9 @@ public class DialogsScreen
 	
 	public final void press(int x, int y)
 	{
-		switch(DisplayUtils.idispi)
+		try
 		{
-			case DisplayUtils.DISPLAY_ALBUM:
-			case DisplayUtils.DISPLAY_PORTRAIT:
+			if(Dialogs.dialogs!=null)
 			{
 				if(y > 58 && y < DisplayUtils.height - oneitemheight)
 				{
@@ -222,11 +221,12 @@ public class DialogsScreen
 					unselectAll();
 					Dialogs.dialogs[i].pressed();
 					repaint();
-					break;
 				}
-				break;
 			}
-				
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 		super.press(x, y);
 	}
