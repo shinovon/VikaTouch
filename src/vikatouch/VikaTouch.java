@@ -126,7 +126,7 @@ public class VikaTouch
 
 	public static void setDisplay(VikaScreen s, int direction)
 	{
-		if(s instanceof MainScreen && canvas.currentScreen instanceof MainScreen)
+		if(direction != -1 && s instanceof MainScreen && canvas.currentScreen instanceof MainScreen)
 			((MainScreen)s).backScreen = (MainScreen) canvas.currentScreen;
 		canvas.oldScreen = canvas.currentScreen;
 		appInst.isPaused = false;
