@@ -193,7 +193,6 @@ public class FriendsScreen
 			}
 			g.translate(0, -g.getTranslateY());
 
-			drawHUD(g, uiItems==null?peopleStr+" ("+loadingStr+"...)":(currId<0?membersStr:friendsStr)/*+(range==null?"":range)*/+" "+(whose==null?"":whose));
 
 		}
 		catch (Exception e)
@@ -203,6 +202,12 @@ public class FriendsScreen
 		}
 
 	}
+	
+	public final void drawHUD(Graphics g)
+	{
+		super.drawHUD(g, uiItems==null?peopleStr+" ("+loadingStr+"...)":(currId<0?membersStr:friendsStr)/*+(range==null?"":range)*/+" "+(whose==null?"":whose));
+	}
+	
 	public final void release(int x, int y)
 	{
 		try 

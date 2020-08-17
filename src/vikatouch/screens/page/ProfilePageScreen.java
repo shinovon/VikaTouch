@@ -285,7 +285,6 @@ public class ProfilePageScreen
 			}
 		}
 		g.translate(0, -g.getTranslateY());
-		drawHUD(g, link==null?userStr:link);
 	}
 	
 	public final void release(int x, int y)
@@ -362,6 +361,11 @@ public class ProfilePageScreen
 				break;
 		}
 		
+	}
+	
+	public void drawHUD(Graphics g)
+	{
+		drawHUD(g, link==null?userStr:link);
 	}
 
 	public void onMenuItemOption(int i)

@@ -154,6 +154,11 @@ public abstract class MainScreen
 		}
 	}
 	
+	public void drawHUD(Graphics g)
+	{
+		drawHUD(g, "");
+	}
+	
 	/*
 	protected void drawHUDOld(Graphics g, String title)
 	{

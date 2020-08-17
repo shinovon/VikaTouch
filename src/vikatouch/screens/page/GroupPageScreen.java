@@ -263,6 +263,10 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 			}
 		}
 		g.translate(0, -g.getTranslateY());
+	}
+	
+	public final void drawHUD(Graphics g)
+	{
 		drawHUD(g, link==null?groupStr:link);
 	}
 	

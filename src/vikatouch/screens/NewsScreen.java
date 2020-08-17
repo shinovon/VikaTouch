@@ -132,11 +132,10 @@ public class NewsScreen
 			{
 				VikaTouch.error(e, ErrorCodes.NEWSPOSTSDRAW);
 			}
-			
 			g.translate(0, -g.getTranslateY());
-			
-			drawHUD(g, "Новости");
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			VikaTouch.error(e, ErrorCodes.NEWSDRAW);
 			e.printStackTrace();
 		}
@@ -146,6 +145,11 @@ public class NewsScreen
 	{
 		scroll += 25;
 		repaint();
+	}
+	
+	public final void drawHUD(Graphics g)
+	{
+		drawHUD(g, "Новости");
 	}
 	
 	protected final void down()

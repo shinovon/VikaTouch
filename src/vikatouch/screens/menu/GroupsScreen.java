@@ -180,7 +180,6 @@ public class GroupsScreen
 			}
 			g.translate(0, -g.getTranslateY());
 
-			drawHUD(g, uiItems==null?groupsStr+" ("+loadingStr+"...)":groupsStr+/*(range==null?"":range)+*/" "+(whose==null?"":whose));
 
 		}
 		catch (Exception e)
@@ -188,8 +187,13 @@ public class GroupsScreen
 			VikaTouch.error(e, ErrorCodes.GROUPSDRAW);
 			e.printStackTrace();
 		}
-
 	}
+	
+	public final void drawHUD(Graphics g)
+	{
+		drawHUD(g, uiItems==null?groupsStr+" ("+loadingStr+"...)":groupsStr+/*(range==null?"":range)+*/" "+(whose==null?"":whose));
+	}
+	
 	public final void release(int x, int y)
 	{
 		try

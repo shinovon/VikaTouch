@@ -128,9 +128,9 @@ extends VikaCanvas
 		
 		g.translate(-g.getTranslateX(), 0);
 		
-		if(currentScreen instanceof MainScreen)
+		if(currentScreen != null && currentScreen instanceof MainScreen)
 		{
-			((MainScreen) currentScreen).drawHUD(g, "");
+			((MainScreen) currentScreen).drawHUD(g);
 		}
 		
 		if(VikaTouch.loading)

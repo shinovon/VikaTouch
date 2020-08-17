@@ -54,7 +54,7 @@ public class MenuScreen
 	
 	private int selectedBtn;*/
 	private Image settingsImg;
-	private int btnsLen = 7;
+	private int btnsLen = 8 ;
 	public String exitStr;
 	public String docsStr;
 	public String photosStr;
@@ -306,7 +306,7 @@ public class MenuScreen
 	
 	public final void drawHUD(Graphics g, String x)
 	{
-		drawHUD(g, "");
+		super.drawHUD(g, "");
 
 		g.drawImage(settingsImg, DisplayUtils.width-35, 18, 0);
 	}

@@ -150,17 +150,19 @@ public class VideosScreen
 				VikaTouch.error(e, ErrorCodes.VIDEOSDRAW);
 			}
 			g.translate(0, -g.getTranslateY());
-
-			drawHUD(g, uiItems==null?(videosStr+" (загрузка...)"):(videosStr+/*(range==null?"":range)+*/" "+(whose==null?"":whose)));
-
 		}
 		catch (Exception e)
 		{
 			VikaTouch.error(e, ErrorCodes.VIDEOSDRAW);
 			e.printStackTrace();
 		}
-
 	}
+	
+	public final void drawHUD(Graphics g)
+	{
+		drawHUD(g, uiItems==null?(videosStr+" (загрузка...)"):(videosStr+/*(range==null?"":range)+*/" "+(whose==null?"":whose)));
+	}
+	
 	public final void release(int x, int y)
 	{
 		try

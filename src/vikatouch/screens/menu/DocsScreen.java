@@ -151,7 +151,6 @@ public class DocsScreen
 			}
 			g.translate(0, -g.getTranslateY());
 
-			drawHUD(g, uiItems==null?docsStr+" ("+loadingStr+"...)":docsStr+/*(range==null?"":range)+*/" "+(whose==null?"":whose));
 
 		}
 		catch (Exception e)
@@ -178,6 +177,12 @@ public class DocsScreen
 		}
 
 	}
+	
+	public final void drawHUD(Graphics g)
+	{
+		drawHUD(g, uiItems==null?docsStr+" ("+loadingStr+"...)":docsStr+/*(range==null?"":range)+*/" "+(whose==null?"":whose));
+	}
+	
 	public final void release(int x, int y)
 	{
 		try
