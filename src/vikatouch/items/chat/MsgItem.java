@@ -213,9 +213,10 @@ public class MsgItem
 			ColorUtils.setcolor(g, ColorUtils.COLOR1);
 			g.drawString(name, textX, y+h1/2, 0);
 			ColorUtils.setcolor(g, ColorUtils.OUTLINE);
-			if(time == null)
+			if(time == null || time.length()<1)
 			{
 				time = getTime();
+				//System.out.println("msg time: "+time);
 			}
 			g.drawString(time, textX-h1+msgWidth-font.stringWidth(time), y+h1/2, 0);
 		}
@@ -421,7 +422,7 @@ public class MsgItem
 			VikaTouch.popup(new ContextMenu(opts1));
 			break;
 		case -4:
-			VikaTouch.popup(new InfoPopup("Редачить", null));
+			VikaTouch.popup(new InfoPopup("Редактирование изобретём не скоро.", null));
 			break;
 		case -5:
 			try
