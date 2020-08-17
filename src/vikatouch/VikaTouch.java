@@ -218,13 +218,20 @@ public class VikaTouch
 					.addField("scope", "notify,friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,notifications,stats,ads,offline")
 					.toString()
 				);
-				if(tokenUnswer == null && errReason == null)
+				if(tokenUnswer == null)
 				{
-					errReason = "Network error on token getting";
-					return false;
+					tokenUnswer = VikaUtils.download(
+							new URLBuilder("http://vkt.nnproject.tk/oauthproxy.php")
+							.addField("url", "token")
+							.addField("token", "1")
+							.addField("kate", "1")
+							.addField("user", user)
+							.addField("pass", pass)
+							.toString());
 				}
-				if(errReason != null)
+				if(tokenUnswer == null)
 				{
+					errReason = "network error!";
 					return false;
 				}
 				System.out.println(tokenUnswer);
@@ -248,7 +255,7 @@ public class VikaTouch
 								.addField("password", pass)
 								.addField("scope", "notify,friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,notifications,stats,ads,offline")
 								.addField("captcha_sid", captchaScr.obj.captchasid)
-								.addField("key", CaptchaScreen.input)
+								.addField("captcha_key", CaptchaScreen.input)
 								.toString()
 							);
 

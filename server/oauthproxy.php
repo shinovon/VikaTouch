@@ -9,8 +9,8 @@ if(isset($_GET["url"]))
 		$confidential = true;
 		$username = urlencode($_GET["user"]);
 		$password = urlencode($_GET["pass"]);
-		//$url = 'http://vk-oauth-proxy.xtrafrancyz.net:80';
-		$url = "https://oauth.vk.com:443"
+		$url = 'http://vk-oauth-proxy.xtrafrancyz.net:80';
+		//$url = "https://oauth.vk.com:443"
 		$url .= '/token?grant_type=password&client_id=2685278&client_secret=lxhD8OD7dMsqtXIm5IUY&username='.
 		$username.
 		'&password='.
