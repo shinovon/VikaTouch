@@ -323,7 +323,7 @@ public class MsgItem
 				{
 					int cs = cc;
 					cc++;
-					while(cc<tl && text.charAt(cc)!=' ') { cc++; }
+					while(cc<tl && text.charAt(cc)!=' ' && text.charAt(cc)!=']') { cc++; }
 					String l = text.substring(cs, cc);
 					la[li] = l;
 					li++;

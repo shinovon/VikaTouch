@@ -854,7 +854,7 @@ public class ChatScreen
 		}
 		else
 		{
-			ColorUtils.setcolor(g, ColorUtils.TEXT);
+			ColorUtils.setcolor(g, buttonSelected == 2?ColorUtils.BUTTONCOLOR:ColorUtils.TEXT);
 			int currY = dh - inputBoxH + m;
 			
 			for(int i = 0; i < inputedLinesCount; i++)

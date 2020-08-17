@@ -160,6 +160,7 @@ public class ImagePreview extends VikaNotice {
 		{
 			VikaTouch.loading = false;
 			VikaTouch.canvas.currentAlert = null;
+			return;
 		}
 		if(img == null) return;
 		currX-=24;
@@ -176,6 +177,7 @@ public class ImagePreview extends VikaNotice {
 				{
 					VikaTouch.popup(new InfoPopup("Не удалось открыть. Возможно, произошла ошибка при обработке адреса либо ваше устройство не может открыть этот документ.", null));
 				}
+				return;
 			}
 			currX -= 24;
 		}
@@ -187,6 +189,7 @@ public class ImagePreview extends VikaNotice {
 				if(x>currX)
 				{
 					VikaTouch.popup(new InfoPopup("Сохранение пока не реализовано.", null));
+					return;
 				}
 				currX -= 24;
 			}
@@ -194,6 +197,7 @@ public class ImagePreview extends VikaNotice {
 			if(x>currX)
 			{
 				VikaTouch.popup(new InfoPopup("Отправку ещё не завезли", null));
+				return;
 			}
 			currX -= 24;
 			if(socialActions.commentsAliveable())
@@ -202,6 +206,7 @@ public class ImagePreview extends VikaNotice {
 				if(x>currX)
 				{
 					VikaTouch.popup(new InfoPopup("Комменты тоже.", null));
+					return;
 				}
 				currX -= 24;
 			}
@@ -211,6 +216,7 @@ public class ImagePreview extends VikaNotice {
 				if(x>currX)
 				{
 					VikaTouch.popup(new InfoPopup("Лайки сожрали неко", null));
+					return;
 				}
 				currX -= 24;
 			}
