@@ -673,7 +673,7 @@ public class VikaTouch
 		}
 		try
 		{
-
+			splash.currState = 5;
 			final VikaScreen canvas;
 			if(DEMO_MODE || getToken())
 			{
