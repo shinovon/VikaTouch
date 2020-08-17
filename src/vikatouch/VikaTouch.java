@@ -582,11 +582,11 @@ public class VikaTouch
 	public void start()
 	{
 		loading = true;
+		DisplayUtils.checkdisplay();
+		canvas = new VikaCanvasInst();
+		setDisplay(canvas);
 		mainThread = new Thread(appInst);
 		mainThread.start();
-		canvas = new VikaCanvasInst();
-		DisplayUtils.checkdisplay();
-		setDisplay(canvas);
 		uiThread = new UIThread(canvas);
 		uiThread.start();
 		DisplayUtils.checkdisplay();
@@ -594,15 +594,20 @@ public class VikaTouch
 
 	public void threadRun()
 	{
-
+		SplashScreen splash = new SplashScreen();
+		cmdsInst = new CommandsImpl();
+		setDisplay(splash, 0);
+		
+		splash.currState = 1;
+		
 		Settings.loadDefaultSettings();
-
 		Settings.loadSettings();
 		
-		TextLocal.init();
-
-		cmdsInst = new CommandsImpl();
+		splash.currState = 2;
 		
+		TextLocal.init();
+		
+		splash.currState = 3;
 		ImageStorage.init();
 		try
 		{
@@ -613,7 +618,19 @@ public class VikaTouch
 			error(e, ErrorCodes.ICONSLOAD);
 			e.printStackTrace();
 		}
-
+		try
+		{
+			final Image camera = Image.createImage("/camera.png");
+			cameraImg = ResizeUtils.resizeava(camera);
+			camera48Img = ResizeUtils.resizeItemPreview(camera);
+		}
+		catch (IOException e1)
+		{
+			e1.printStackTrace();
+		}
+		
+		splash.currState = 4;
+		
 		//Выбор сервера
 		if(!Settings.setted)
 			{
@@ -654,24 +671,6 @@ public class VikaTouch
 				Settings.proxy = true;
 			}
 		}
-
-		try
-		{
-			final Image camera = Image.createImage("/camera.png");
-			cameraImg = ResizeUtils.resizeava(camera);
-			camera48Img = ResizeUtils.resizeItemPreview(camera);
-		}
-		catch (IOException e1)
-		{
-			e1.printStackTrace();
-		}
-		/*
-		LoadingSplash splash = new LoadingSplash("/splash.png", "/indicator2.gif");
-		splash.action = true;
-		LoadingSplash.showloadingbar = true;
-		setDisplay(splash);
-		splash.startthread();
-		*/
 		try
 		{
 
@@ -708,5 +707,6 @@ public class VikaTouch
 	public static void popup(VikaNotice popup)
 	{
 		canvas.currentAlert = popup;
+		canvas.repaint();
 	}
 }

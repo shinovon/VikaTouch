@@ -128,7 +128,7 @@ public class MenuScreen
 			name = "Арман";
 			lastname = "Джусупгалиев";
 			//БЕЗУМНО МОЖНО БЫТЬ ПЕРВЫМ
-			status = "Волк тот кто волк, а не тот кто волк.";
+			status = "Волк если волк, а когда волк волка волку волк - волк."; // так ещё упоротее))0)
 			try
 			{
 				profileImg = ResizeUtils.resizeava(Image.createImage("/camera.png"));
