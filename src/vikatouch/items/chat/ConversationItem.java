@@ -18,6 +18,7 @@ import vikatouch.VikaTouch;
 import vikatouch.attachments.AudioAttachment;
 import vikatouch.attachments.PhotoAttachment;
 import vikatouch.items.JSONUIItem;
+import vikatouch.settings.Settings;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
 
@@ -73,7 +74,7 @@ public class ConversationItem
 		try
 		{
 			img = VikaTouch.cameraImg;
-			if(avaurl != null)	
+			if(avaurl != null && !Settings.dontLoadAvas)
 			{
 				try
 				{
@@ -144,8 +145,8 @@ public class ConversationItem
 		if(ava != null)
 		{
 			g.drawImage(ava, 14, y + 8, 0);
-			if(IconsManager.ac == null) { System.out.print("F"); } else
-			g.drawImage(selected?IconsManager.acs:IconsManager.ac, 14, y + 8, 0);
+			if(IconsManager.ac == null) { System.out.print("F"); } else // а что, бывало что оно не загрузилось? лол))
+			g.drawImage(selected?IconsManager.acs:IconsManager.ac, 14, y + 8, 0); // и вообще, ACS проверить забыли. Приделаю костыль.
 			
 		}
 		
