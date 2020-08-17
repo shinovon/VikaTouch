@@ -7,7 +7,7 @@ VikaTouch-Edition: alpha
 MIDlet-Jar-URL: vikaTouch.jar
 MIDlet-Icon: vika256.png
 MicroEdition-Configuration: CLDC-1.1
-MIDlet-Version: 2.6.14
+MIDlet-Version: 2.6.15
 MIDlet-Name: Vika Touch
 MIDlet-Vendor: nnproject
 MicroEdition-Profile: MIDP-2.1

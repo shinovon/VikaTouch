@@ -54,6 +54,7 @@ public class ChatScreen
 	private String typingStr = "";
 	private String typing2Str = "";
 	private String refreshErrorStr = "";
+	private String sendingStr = "";
 	
 	private boolean scrolledDown = false;
 	private int inputBoxH = 48;
@@ -120,6 +121,7 @@ public class ChatScreen
 		typingStr = TextLocal.inst.get("msg.typing");
 		typing2Str = TextLocal.inst.get("msg.typing2");
 		refreshErrorStr = TextLocal.inst.get("title2.msgloadingfailed");
+		sendingStr = TextLocal.inst.get("msg.sending");
 		if(peerId < 0)
 		{
 			this.localId = -peerId;
@@ -911,6 +913,10 @@ public class ChatScreen
 		if(refreshOk)
 		{
 			g.drawString(title2, 64, 30, 0);
+		}
+		else if(!canSend)
+		{
+			g.drawString(sendingStr, 64, 30, 0);
 		}
 		else
 		{
