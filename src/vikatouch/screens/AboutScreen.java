@@ -9,6 +9,7 @@ import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikatouch.CommandsImpl;
 import vikatouch.VikaTouch;
+import vikatouch.local.TextLocal;
 
 public class AboutScreen
 	extends ScrollableCanvas
@@ -38,10 +39,14 @@ public class AboutScreen
 		};
 	}
 
+	private static String backStr;
+
 	public AboutScreen()
 	{
 		super();
 		itemsh = 48 + (strings.length * 24) + 25;
+		
+		backStr = TextLocal.inst.get("back");
 	}
 
 	public void draw(Graphics g)
@@ -80,7 +85,7 @@ public class AboutScreen
 		g.fillRect(0, DisplayUtils.height - 25, 640, 25);
 
 		ColorUtils.setcolor(g, 0);
-		g.drawString("Назад", 0, DisplayUtils.height - 24, 0);
+		g.drawString(backStr, 0, DisplayUtils.height - 24, 0);
 	}
 	
 	public void release(int x, int y)

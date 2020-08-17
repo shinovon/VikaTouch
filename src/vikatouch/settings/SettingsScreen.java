@@ -24,6 +24,7 @@ public class SettingsScreen
 	
 	int[] countVals = new int[] { 10, 20, 30, 50, 80, 100 }; int countValDef = 1;
 	int[] refreshVals = new int[] { 0, 2, 5, 8, 10, 15 }; int refreshValDef = 3;
+	private static String titleStr;
 	
 	public SettingsScreen()
 	{
@@ -111,6 +112,8 @@ public class SettingsScreen
 		uiItems[16] = new OptionItem(this, TextLocal.inst.get("settings.reset"), IconsManager.CLOSE, -3, oneitemheight);
 		uiItems[17] = new OptionItem(this, TextLocal.inst.get("menu.about"), IconsManager.INFO, 31, oneitemheight);
 		itemsh = 58 + ((oneitemheight+4) * uiItems.length);
+		
+		titleStr = TextLocal.inst.get("title.settings");
 	}
 
 	public void draw(Graphics g)
