@@ -50,6 +50,12 @@ public class PhotoAttachment
 		}
 	}
 	
+	public Image getImg(String x)
+		throws Exception
+	{
+		return VikaUtils.downloadImage(PhotoSize.getSize(sizes, x).url);
+	}
+	
 	public Image getImg(int i)
 	{
 		try

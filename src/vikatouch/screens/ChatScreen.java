@@ -889,9 +889,9 @@ public class ChatScreen
 	private void drawHeader(Graphics g)
 	{
 		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
-		g.fillRect(0, 0, 640, 55);
+		g.fillRect(0, 0, 800, 55);
 		ColorUtils.setcolor(g, -12);
-		g.fillRect(0, 56, 640, 1);
+		g.fillRect(0, 55, 800, 1);
 		
 		Font font1 = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_MEDIUM);
 		g.setFont(font1);

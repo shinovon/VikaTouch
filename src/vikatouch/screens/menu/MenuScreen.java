@@ -54,7 +54,7 @@ public class MenuScreen
 	
 	private int selectedBtn;*/
 	private Image settingsImg;
-	private int btnsLen = 8;
+	private int btnsLen = 7;
 	public String exitStr;
 	public String docsStr;
 	public String photosStr;
@@ -211,7 +211,7 @@ public class MenuScreen
 		uiItems[5] = new OptionItem(this, docsStr, IconsManager.DOCS, 9, uiih);
 		uiItems[6] = new OptionItem(this, exitStr, IconsManager.CLOSE, -1, uiih);
 		
-		itemsCount = 9;
+		itemsCount = 7;
 		itemsh = 140 + uiih*itemsCount;
 		
 		// sending stats
@@ -302,7 +302,12 @@ public class MenuScreen
 			}
 		}
 		g.translate(0, -g.getTranslateY());
+	}
+	
+	public final void drawHUD(Graphics g, String x)
+	{
 		drawHUD(g, "");
+
 		g.drawImage(settingsImg, DisplayUtils.width-35, 18, 0);
 	}
 /*

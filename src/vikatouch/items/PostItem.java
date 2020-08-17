@@ -56,6 +56,7 @@ public class PostItem
 	private String type;
 	private String data;
 	private boolean dontLoadAva;
+	protected boolean hasPrevImg;
 	
 	public void parseJSON()
 	{
@@ -196,42 +197,7 @@ public class PostItem
 			itemDrawHeight += 43;
 		}
 
-		try
-		{
-			if(attachments[0] != null)
-			{
-				switch(DisplayUtils.idispi)
-				{
-					case DisplayUtils.DISPLAY_PORTRAIT:
-					case DisplayUtils.DISPLAY_ALBUM:
-					{
-						if(attachments[0] instanceof PhotoAttachment)
-							prevImage = ((PhotoAttachment)attachments[0]).getImg(3);
-						break;
-					}
-					case DisplayUtils.DISPLAY_S40:
-					case DisplayUtils.DISPLAY_ASHA311:
-					{
-						if(attachments[0] instanceof PhotoAttachment)
-							prevImage = ((PhotoAttachment)attachments[0]).getImg(2);
-						break;
-					}
-					default:
-					{
-						if(attachments[0] instanceof PhotoAttachment)
-							prevImage = ((PhotoAttachment)attachments[0]).getImg(3);
-						break;
-					}
-				}
-				if(prevImage != null)
-					itemDrawHeight += prevImage.getHeight() + 16;
-			}
-		}
-		catch (Exception e)
-		{
-			VikaTouch.error(e, ErrorCodes.POSTIMAGE);
-			e.printStackTrace();
-		}
+		getPhotos();
 		
 		if(data != null && data.equalsIgnoreCase("profile_photo"))
 		{
@@ -243,22 +209,103 @@ public class PostItem
 		System.gc();
 	}
 	
+	private void getPhotos() 
+	{
+		new Thread(new Runnable()
+		{
+			public void run()
+			{
+				try
+				{
+					if(attachments[0] != null)
+					{
+						if(attachments[0] instanceof PhotoAttachment)
+						{
+							hasPrevImg = true;
+							switch(DisplayUtils.idispi)
+							{
+								case DisplayUtils.DISPLAY_PORTRAIT:
+								case DisplayUtils.DISPLAY_ALBUM:
+								case DisplayUtils.DISPLAY_E6:
+								{
+									try
+									{
+										prevImage = ((PhotoAttachment)attachments[0]).getImg("x");
+									}
+									catch (Exception e)
+									{
+										try
+										{
+											prevImage = ((PhotoAttachment)attachments[0]).getImg("p");
+										}
+										catch (Exception e2)
+										{
+											
+										}
+									}
+									break;
+								}
+								case DisplayUtils.DISPLAY_S40:
+								case DisplayUtils.DISPLAY_ASHA311:
+								{
+									try
+									{
+										prevImage = ((PhotoAttachment)attachments[0]).getImg("x");
+									}
+									catch (Exception e)
+									{
+										try
+										{
+											prevImage = ((PhotoAttachment)attachments[0]).getImg("p");
+										}
+										catch (Exception e2)
+										{
+											
+										}
+									}
+									break;
+								}
+								default:
+								{
+									try
+									{
+										prevImage = ((PhotoAttachment)attachments[0]).getImg("x");
+									}
+									catch (Exception e)
+									{
+										try
+										{
+											prevImage = ((PhotoAttachment)attachments[0]).getImg("p");
+										}
+										catch (Exception e2)
+										{
+											
+										}
+									}
+									break;
+								}
+							}
+						}
+						if(prevImage != null)
+						{
+							itemDrawHeight += prevImage.getHeight() + 16;
+						}
+					}
+				}
+				catch (Exception e)
+				{
+					VikaTouch.error(e, ErrorCodes.POSTIMAGE);
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+
 	public void paint(Graphics g, int y, int scrolled)
 	{
 		int yy = 10 + y;
 		
-		try
-		{
-			if(avaurl != null && ava == null && !dontLoadAva)
-			{
-				dontLoadAva = true;
-				ava = VikaUtils.downloadImage(avaurl);
-			}
-		}
-		catch (Exception e)
-		{
-			
-		}
+		getAva();
 		
 		if(ava != null)
 		{
@@ -312,6 +359,28 @@ public class PostItem
 			int ix = (DisplayUtils.width - prevImage.getWidth()) / 2;
 			g.drawImage(prevImage, ix, yy + 3, 0);
 		}
+	}
+
+	private void getAva()
+	{
+			if(avaurl != null && ava == null && !dontLoadAva)
+			{
+				new Thread(new Runnable(){
+				
+					public void run() {
+
+						try
+						{
+				dontLoadAva = true;
+				ava = VikaUtils.downloadImage(avaurl);
+					}
+					catch (Exception e)
+					{
+						
+					}
+				}}).start();
+			}
+		
 	}
 
 	public void tap(int x, int y)

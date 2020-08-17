@@ -117,6 +117,7 @@ public class DocsScreen
 				VikaTouch.loading = false;
 			}
 		};
+		hasBackButton = true;
 
 		downloaderThread.start();
 	}

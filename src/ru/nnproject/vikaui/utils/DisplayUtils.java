@@ -40,6 +40,7 @@ public class DisplayUtils
 	public static final int DISPLAY_EQWERTY = 4;
 	public static final int DISPLAY_ALBUM = 5;
 	public static final int DISPLAY_E6 = 6;
+	public static final int DISPLAY_X1 = 7;
 	public static final int DISPLAY_UNDEFINED = -1;
 
 	public static int checkdisplay()
@@ -93,6 +94,20 @@ public class DisplayUtils
 					ScrollableCanvas.oneitemheight = 50;
 					ScrollableCanvas.vmeshautsa = 368;
 					i = DISPLAY_E6;
+				}
+			}
+			else if(width == 800)
+			{
+				if(height == 480)
+				{
+					
+				}
+			}
+			else if(width == 480)
+			{
+				if(height == 800)
+				{
+					
 				}
 			}
 			else

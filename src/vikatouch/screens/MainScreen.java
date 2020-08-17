@@ -22,6 +22,7 @@ public abstract class MainScreen
 
 	public static int lastMenu;
 	protected boolean hasBackButton;
+	public MainScreen backScreen;
 	
 	public int topPanelH;
 	public int bottomPanelH;
@@ -54,7 +55,8 @@ public abstract class MainScreen
 			{
 				if(hasBackButton && x < oneitemheight)
 				{
-					VikaTouch.inst.cmdsInst.command(14, this);
+					VikaTouch.setDisplay(backScreen, -1);
+					//VikaTouch.inst.cmdsInst.command(14, this);
 				}
 				if(!(this instanceof SettingsScreen) && x > DisplayUtils.width - oneitemheight)
 				{
@@ -84,7 +86,7 @@ public abstract class MainScreen
 		super.release(x, y);
 	}
 	
-	protected void drawHUD(Graphics g, String title)
+	public void drawHUD(Graphics g, String title)
 	{
 		drawHUD(g,title, "OK", "");
 	}

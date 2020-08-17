@@ -12,6 +12,7 @@ import ru.nnproject.vikaui.screen.VikaScreen;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.GifDecoder;
+import vikatouch.screens.MainScreen;
 import vikatouch.settings.Settings;
 import vikatouch.utils.ErrorCodes;
 
@@ -126,6 +127,11 @@ extends VikaCanvas
 		}
 		
 		g.translate(-g.getTranslateX(), 0);
+		
+		if(currentScreen instanceof MainScreen)
+		{
+			((MainScreen) currentScreen).drawHUD(g, "");
+		}
 		
 		if(VikaTouch.loading)
 		{

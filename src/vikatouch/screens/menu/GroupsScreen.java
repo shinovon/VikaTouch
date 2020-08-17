@@ -143,6 +143,7 @@ public class GroupsScreen
 				VikaTouch.loading = false;
 			}
 		};
+		hasBackButton = true;
 
 		downloaderThread.start();
 	}

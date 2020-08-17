@@ -155,6 +155,7 @@ public class FriendsScreen
 				VikaTouch.loading = false;
 			}
 		};
+		hasBackButton = true;
 
 		downloaderThread.start();
 	}
