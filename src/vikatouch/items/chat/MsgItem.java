@@ -457,7 +457,11 @@ public class MsgItem
 					int h = DisplayUtils.height>240?36:30; // вот как делается адаптация, а не твои километровые свитчи и да, я буду ещё долго ворчать.
 					for(int j = 0; j < c; j++)
 					{
-						opts2[j] = new OptionItem(this, links[j], links[j].indexOf("id")==-1?IconsManager.LINK:IconsManager.FRIENDS, -(j+100), h);
+						int icon = IconsManager.LINK;
+						if(links[j].indexOf("id")==0) { icon = IconsManager.FRIENDS; }
+						if(links[j].indexOf("club")==0) { icon = IconsManager.GROUPS; }
+						if(links[j].indexOf("rtsp")==0) { icon = IconsManager.VIDEOS; }
+						opts2[j] = new OptionItem(this, links[j], icon, -(j+100), h);
 					}
 					VikaTouch.popup(new ContextMenu(opts2));
 				}
