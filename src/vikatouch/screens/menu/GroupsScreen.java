@@ -180,7 +180,7 @@ public class GroupsScreen
 			}
 			g.translate(0, -g.getTranslateY());
 
-			drawHUD(g, uiItems==null?groupsStr+" ("+loadingStr+"...)":groupsStr+(range==null?"":range)+" "+(whose==null?"":whose));
+			drawHUD(g, uiItems==null?groupsStr+" ("+loadingStr+"...)":groupsStr+/*(range==null?"":range)+*/" "+(whose==null?"":whose));
 
 		}
 		catch (Exception e)

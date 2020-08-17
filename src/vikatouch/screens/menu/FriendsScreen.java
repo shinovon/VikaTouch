@@ -90,6 +90,7 @@ public class FriendsScreen
 					String x;
 					if(id<0) {
 						// как участники
+						//!!! это дает ошибку! и я не знаю почему!
 						x = VikaUtils.download(new URLBuilder("groups.getMembers").addField("count", Settings.simpleListsLength).addField("fields", "domain,last_seen,photo_50").addField("offset", from).addField("group_id", -id));
 					} else {
 						// как друзья
@@ -192,7 +193,7 @@ public class FriendsScreen
 			}
 			g.translate(0, -g.getTranslateY());
 
-			drawHUD(g, uiItems==null?peopleStr+" ("+loadingStr+"...)":(currId<0?membersStr:friendsStr)+(range==null?"":range)+" "+(whose==null?"":whose));
+			drawHUD(g, uiItems==null?peopleStr+" ("+loadingStr+"...)":(currId<0?membersStr:friendsStr)/*+(range==null?"":range)*/+" "+(whose==null?"":whose));
 
 		}
 		catch (Exception e)

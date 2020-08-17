@@ -57,6 +57,7 @@ public class ProfilePageScreen
 	public static Thread downloaderThread;
 	private boolean friendAdd; // если true, друг добавляется. Если 0, удаляется.
 	private String visitStr;
+	protected String wname;
 	protected static String removeStr;
 	protected static String acceptStr;
 	protected static String cancelStr;
@@ -207,6 +208,16 @@ public class ProfilePageScreen
 						}
 						uiItems[1] = new OptionItem(thisC, (new String[] {addStr,cancelStr,acceptStr,removeStr})[friendState],
 								(friendState==3||friendState==1)?IconsManager.CLOSE:IconsManager.ADD, 1, 50);
+						try
+						{
+							String x2 = VikaUtils.download(new URLBuilder("users.get").addField("user_ids", id).addField("name_case", "gen"));
+							JSONObject cc = new JSONObject(x2).getJSONArray("response").getJSONObject(0);
+							wname = ""+cc.getString("first_name")+" "+cc.getString("last_name");
+						}
+						catch (Exception e)
+						{
+							wname = name;
+						}
 					}
 					catch (JSONException e)
 					{
@@ -328,25 +339,25 @@ public class ProfilePageScreen
 			case 2:
 				FriendsScreen fs = new FriendsScreen();
 				VikaTouch.setDisplay(fs, 1);
-				fs.loadFriends(0, id, name);
+				fs.loadFriends(0, id, wname);
 				break;
 			case 3:
 				break;
 			case 4:
 				GroupsScreen gs = new GroupsScreen();
 				VikaTouch.setDisplay(gs, 1);
-				gs.loadGroups(0, id, name);
+				gs.loadGroups(0, id, wname);
 				break;
 			case 7:
 				VideosScreen vs = new VideosScreen();
 				VikaTouch.setDisplay(vs, 1);
-				vs.load(0, id, name);
+				vs.load(0, id, wname);
 				break;
 			case 8:
 				if(docs>0) {
 					DocsScreen dc = new DocsScreen();
 					VikaTouch.setDisplay(dc, 1);
-					dc.loadDocs(0, id, name);
+					dc.loadDocs(0, id, wname);
 				}
 				break;
 		}

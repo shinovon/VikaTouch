@@ -9,7 +9,6 @@ import vikatouch.screens.MainScreen;
 public class PhotosScreen
 	extends MainScreen
 {
-
 	private String photosStr;
 
 	public PhotosScreen()
