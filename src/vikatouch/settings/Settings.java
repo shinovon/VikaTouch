@@ -169,7 +169,7 @@ public class Settings
 	public static void loadDefaultSettings()
 	{
 		setted = false;
-		animateTransition = true;
+		animateTransition = false;
 		proxy = false;
 		https = false;
 		debugInfo = false;
@@ -181,7 +181,7 @@ public class Settings
 		videoResolution = "480";
 		language = "ru_RU";
 		cacheImages = true;
-		dontLoadAvas = true; // мне тестить надо, а не ждать по 2 минуты пока скачается. И нет, нихера оно не кэшируется. Ещё и скачивается 2 раза.
+		dontLoadAvas = false; // мне тестить надо, а не ждать по 2 минуты пока скачается. И нет, нихера оно не кэшируется. Ещё и скачивается 2 раза.
 		sendErrors = true;
 		
 		//язык соотвествующий настройкам устройства

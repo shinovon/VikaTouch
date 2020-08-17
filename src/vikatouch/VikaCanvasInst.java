@@ -292,8 +292,8 @@ extends VikaCanvas
 			double sliden = Math.abs(slide);
 			if(sliden > 0)
 			{
-				slide *= 0.83;
-				if(sliden < 0.075)
+				slide *= 0.78;
+				if(sliden < 0.015)
 				{
 					oldScreen = null;
 					slide = 0;
