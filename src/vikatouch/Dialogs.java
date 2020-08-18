@@ -32,7 +32,7 @@ public class Dialogs
 
 	private static Thread downloaderThread2;
 	
-	public static void refreshDialogsList(boolean async)
+	public static void refreshDialogsList(final boolean async)
 	{
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();

@@ -1,12 +1,16 @@
 package vikatouch.screens;
 
+import java.util.Random;
+
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
+import ru.nnproject.vikaui.utils.TextBreaker;
 import vikatouch.VikaTouch;
+import vikatouch.local.TextLocal;
 
 public class SplashScreen
 	extends MainScreen 
@@ -32,6 +36,7 @@ public class SplashScreen
 	};
 	public String tipStr = "Tip";
 	public String[] tip;
+	public int tipL;
 
 	public SplashScreen()
 	{
@@ -73,17 +78,40 @@ public class SplashScreen
 				// Подсказка
 				if(tip!=null)
 				{
-					g.drawString(tipStr, hdw-f.stringWidth(tipStr)/2, sy+260+f.getHeight()+30+20+f.getHeight(), 0);
-					for(int i=0;i<tip.length;i++)
+					g.drawString(tipStr, hdw-f.stringWidth(tipStr)/2, sy+260+f.getHeight()*3+50, 0);
+					for(int i=0;i<tipL;i++)
 					{
-						g.drawString(tip[i], hdw-f.stringWidth(tip[i])/2, sy+260+f.getHeight()+30+20+f.getHeight()+f.getHeight()+f.getHeight()*i, 0);
+						g.drawString(tip[i], hdw-f.stringWidth(tip[i])/2, sy+260+50+f.getHeight()*(i+4), 0);
 					}
 				}
 			}
 			catch (Exception e) { e.printStackTrace(); }
 		}
+		else
+		{
+			g.drawImage(logo, hdw-128, dh/2-128, 0);
+			ColorUtils.setcolor(g, ColorUtils.COLOR1);
+			g.fillRect(40, dh-18, dw-80, 16);
+			g.setGrayScale(255);
+			g.fillRect(42, dh-16, dw-84, 12);
+			ColorUtils.setcolor(g, ColorUtils.COLOR1);
+			g.fillRect(43, dh-15, (dw-86)*statesProgress[currState]/100, 10);
+		}
 		
-		
+	}
+	
+	public void setText()
+	{
+		for(int i=3;i<=7;i++)
+		{
+			statesNames[i] = TextLocal.inst.get("splash.title"+i);
+		}
+		tipStr = TextLocal.inst.get("splash.tip");
+		int tipsC = 2;
+		Random r = new Random();
+		int i = r.nextInt(tipsC);
+		tip = TextBreaker.breakText(TextLocal.inst.get("splash.tip"+i), false, null, true, DisplayUtils.width*9/10);
+		for(tipL = 0; (tipL<tip.length && tip[tipL]!=null); tipL++) { }
 	}
 	
 	

@@ -606,8 +606,10 @@ public class VikaTouch
 		splash.currState = 2;
 		
 		TextLocal.init();
+		splash.setText();
 		
 		splash.currState = 3;
+		
 		ImageStorage.init();
 		try
 		{
@@ -673,7 +675,7 @@ public class VikaTouch
 		}
 		try
 		{
-			splash.currState = 5;
+			
 			final VikaScreen canvas;
 			if(DEMO_MODE || getToken())
 			{
@@ -685,6 +687,7 @@ public class VikaTouch
 						userId = "" + jo.optInt("id");
 					}
 				}
+				splash.currState = 5;
 				canvas = menuScr = new MenuScreen();
 				splash.currState = 6;
 				if(accessToken != "" && !offlineMode)
@@ -692,6 +695,7 @@ public class VikaTouch
 					Dialogs.refreshDialogsList(false);
 				}
 				splash.currState = 7;
+				Thread.sleep(250);
 			}
 			else
 			{
