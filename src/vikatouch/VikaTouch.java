@@ -272,7 +272,7 @@ public class VikaTouch
 								final VikaScreen canvas = menuScr = new MenuScreen();
 								setDisplay(canvas, 1);
 								saveToken();
-								Dialogs.refreshDialogsList();
+								Dialogs.refreshDialogsList(true);
 								CaptchaScreen.finished = false;
 								return true;
 							}
@@ -298,7 +298,7 @@ public class VikaTouch
 						final VikaScreen canvas = menuScr = new MenuScreen();
 						setDisplay(canvas, 1);
 						saveToken();
-						Dialogs.refreshDialogsList();
+						Dialogs.refreshDialogsList(true);
 						return true;
 					}
 					else
@@ -684,10 +684,14 @@ public class VikaTouch
 						final JSONObject jo = new JSONObject(VikaUtils.download(new URLBuilder("account.getProfileInfo"))).getJSONObject("response");
 						userId = "" + jo.optInt("id");
 					}
-					if(!offlineMode)
-						Dialogs.refreshDialogsList();
 				}
 				canvas = menuScr = new MenuScreen();
+				splash.currState = 6;
+				if(accessToken != "" && !offlineMode)
+				{
+					Dialogs.refreshDialogsList(false);
+				}
+				splash.currState = 7;
 			}
 			else
 			{

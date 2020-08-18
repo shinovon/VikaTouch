@@ -41,7 +41,7 @@ public class DialogsScreen
 	protected final void callRefresh()
 	{
 		VikaTouch.loading = true;
-		Dialogs.refreshDialogsList();
+		Dialogs.refreshDialogsList(true);
 	}
 	
 	public final void press(int key)

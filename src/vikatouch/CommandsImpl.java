@@ -267,7 +267,7 @@ public class CommandsImpl
 		}
 		else
 		{
-			Dialogs.refreshDialogsList();
+			Dialogs.refreshDialogsList(true);
 		}
 	}
 

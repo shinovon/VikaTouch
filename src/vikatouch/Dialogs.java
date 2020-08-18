@@ -32,7 +32,7 @@ public class Dialogs
 
 	private static Thread downloaderThread2;
 	
-	public static void refreshDialogsList()
+	public static void refreshDialogsList(boolean async)
 	{
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
@@ -130,7 +130,14 @@ public class Dialogs
 				Thread.yield();
 			}
 		};
-		downloaderThread.start();
+		if(async)
+		{
+			downloaderThread.start();
+		}
+		else
+		{
+			downloaderThread.run();
+		}
 	}
 	
 	public static void refreshDialog()
@@ -157,7 +164,7 @@ public class Dialogs
 	{
 		if(!VikaTouch.offlineMode)
 		{
-			refreshDialogsList();
+			refreshDialogsList(true);
 		}
 	}
 

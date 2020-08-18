@@ -67,57 +67,9 @@ public class MenuScreen
 	public MenuScreen()
 	{
 		super();
-		
+
 		try {
 			settingsImg = Image.createImage("/settings.png");
-			/*switch(DisplayUtils.idispi)
-			{
-				default:
-				case DisplayUtils.DISPLAY_ALBUM:
-				case DisplayUtils.DISPLAY_PORTRAIT:
-				case DisplayUtils.DISPLAY_E6:
-				{
-
-					menuImg = Image.createImage("/menuo.png");
-					if(ColorUtils.isTemnaya)
-					{
-						dialImg = Image.createImage("/msg1.png");
-						newsImg = Image.createImage("/lenta1.png");
-						logoImg = Image.createImage("/vikahead.png");
-					}
-					else
-					{
-						dialImg = Image.createImage("/msg.png"); 
-						newsImg = Image.createImage("/lenta.png");
-						logoImg = Image.createImage("/vikahead.jpg");
-					}
-					profileimg = Image.createImage("/ava.png");
-					musicimg = Image.createImage("/music.png");
-					videosimg = Image.createImage("/video.png");
-					photosimg = Image.createImage("/fotki.png");
-					docsimg = Image.createImage("/doc.png");
-					dialImg2 = Image.createImage("/msgh.png");
-					exit = Image.createImage("/exit.png");
-					
-					break;
-				}
-				
-				case DisplayUtils.DISPLAY_S40:
-				case DisplayUtils.DISPLAY_ASHA311:
-				case DisplayUtils.DISPLAY_EQWERTY:
-				{
-
-					profileimg = Image.createImage("/ava25.png");
-					logoImg = Image.createImage("/vikaheadsmall.png");
-					exit = VikaUtils.resize(Image.createImage("/exit.png"), 12, 12);
-					settingsImg = VikaUtils.resize(Image.createImage("/settings.png"), 12, 12);
-					menuImg = VikaUtils.resize(Image.createImage("/menuo.png"), 10, 9);
-					dialImg = VikaUtils.resize(Image.createImage("/msg.png"), 12, 12);
-					newsImg = VikaUtils.resize(Image.createImage("/lenta.png"), 11, 12);
-					dialImg2 = VikaUtils.resize(Image.createImage("/msgh.png"), 18, 14);
-					break;
-				}
-			}*/
 		}
 		catch (Exception e)
 		{
