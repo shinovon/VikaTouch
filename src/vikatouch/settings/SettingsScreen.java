@@ -26,30 +26,79 @@ public class SettingsScreen
 	int[] refreshVals = new int[] { 0, 2, 5, 8, 10, 15 }; int refreshValDef = 3;
 	private static String titleStr;
 	
+	private PressableUIItem[] menuList;
+	private PressableUIItem[] systemList;
+	private PressableUIItem[] mediaList;
+	private PressableUIItem[] uiList;
+	private PressableUIItem backItem;
+	
 	public SettingsScreen()
 	{
 		super();
 		String[] eOd = new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.enabled") };
 		oneitemheight = 50;
-		itemsCount = 18;
-		uiItems = new PressableUIItem[itemsCount];
-		// анимация
-		uiItems[0] = new SettingMenuItem(this, TextLocal.inst.get("settings.animTr"), IconsManager.ANIMATION, 0, 
-				oneitemheight, eOd, Settings.animateTransition?1:0, null);
-		// кэш
-		uiItems[1] = new SettingMenuItem(this, TextLocal.inst.get("settings.enableCache"), IconsManager.PHOTOS, 1, 
-				oneitemheight, eOd, Settings.cacheImages?1:0, null);
-		// минус авы
-		uiItems[2] = new SettingMenuItem(this, TextLocal.inst.get("settings.dontLoadAvas"), IconsManager.PHOTOS, 2, 
-				oneitemheight, eOd, Settings.dontLoadAvas?1:0, null);
-		// соединение
-		uiItems[3] = new SettingMenuItem(this, TextLocal.inst.get("settings.conn"), IconsManager.LINK, 3, 
-				oneitemheight, new String[] { TextLocal.inst.get("settings.proxy"), TextLocal.inst.get("settings.https") }, 
-				Settings.https?1:0, null);
-		// сенсор
-		uiItems[4] = new SettingMenuItem(this, TextLocal.inst.get("settings.sensor"), IconsManager.DEVICE, 4, 
-				oneitemheight, new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.j2meLs"), TextLocal.inst.get("settings.resistive") }, 
-				Settings.sensorMode, TextLocal.inst.get("settings.sensorInfo"));
+		backItem = new OptionItem(this, TextLocal.inst.get("back"), IconsManager.BACK, 0, oneitemheight);
+		
+		menuList = new PressableUIItem[]
+		{
+			new OptionItem(this, TextLocal.inst.get("settings.system"), IconsManager.DEVICE, -100, oneitemheight),
+			new OptionItem(this, TextLocal.inst.get("settings.ui"), IconsManager.MENU, -101, oneitemheight),
+			new OptionItem(this, TextLocal.inst.get("settings.media"), IconsManager.VIDEOS, -102, oneitemheight),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.telemetry"), IconsManager.SEND, 11, 
+					oneitemheight, eOd, Settings.telemetry?1:0, TextLocal.inst.get("settings.telemetryInfo")),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.sendErrors"), IconsManager.SEND, 12, 
+					oneitemheight, eOd, Settings.sendErrors?1:0, null),
+			new OptionItem(this, "Change language", IconsManager.EDIT, 23, oneitemheight),
+			new OptionItem(this, TextLocal.inst.get("settings.logout"), IconsManager.BACK, -1, oneitemheight),
+			new OptionItem(this, TextLocal.inst.get("menu.about"), IconsManager.INFO, 31, oneitemheight)
+		};
+		systemList = new PressableUIItem[]
+		{
+			backItem,
+			new SettingMenuItem(this, TextLocal.inst.get("settings.conn"), IconsManager.LINK, 3, 
+					oneitemheight, new String[] { TextLocal.inst.get("settings.proxy"), TextLocal.inst.get("settings.https") }, 
+					Settings.https?1:0, null),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.sensor"), IconsManager.DEVICE, 4, 
+					oneitemheight, new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.j2meLs"), TextLocal.inst.get("settings.resistive") }, 
+					Settings.sensorMode, TextLocal.inst.get("settings.sensorInfo")),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.enableCache"), IconsManager.PHOTOS, 1, 
+					oneitemheight, eOd, Settings.cacheImages?1:0, null),
+			new OptionItem(this, TextLocal.inst.get("settings.clearCache"), IconsManager.CLOSE, -2, oneitemheight),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.touchDebug"), IconsManager.DEVICE, 10, 
+					oneitemheight, eOd, Settings.debugInfo?1:0, null),
+			new OptionItem(this, TextLocal.inst.get("settings.reset"), IconsManager.CLOSE, -3, oneitemheight)
+		};
+		mediaList = new PressableUIItem[]
+		{
+			backItem,
+			new OptionItem(this, TextLocal.inst.get("settings.videoRes"), IconsManager.VIDEOS, 21, oneitemheight),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.audio"), IconsManager.MUSIC, 9, 
+					oneitemheight, new String[] { TextLocal.inst.get("settings.audio0"), TextLocal.inst.get("settings.audio1"),
+							TextLocal.inst.get("settings.audio2"), TextLocal.inst.get("settings.audio3") }, 
+					Settings.audioMode, null)
+		};
+		// частота обновления
+		int rr = -1;
+		for(int i=0;i<refreshVals.length;i++)
+		{
+			if(refreshVals[i]==Settings.refreshRate) rr = i;
+		}
+		if(rr==-1)
+		{
+			rr = refreshValDef;
+			Settings.messagesPerLoad = refreshVals[rr];
+		}
+		// сообщения за раз
+		int mc = -1;
+		for(int i=0;i<countVals.length;i++)
+		{
+			if(countVals[i]==Settings.messagesPerLoad) mc = i;
+		}
+		if(mc==-1)
+		{
+			mc = countValDef;
+			Settings.messagesPerLoad = countVals[mc];
+		}
 		// списки
 		int j = -1;
 		for(int i=0;i<countVals.length;i++)
@@ -61,59 +110,23 @@ public class SettingsScreen
 			j = countValDef;
 			Settings.simpleListsLength = countVals[j];
 		}
-		uiItems[5] = new SettingMenuItem(this, TextLocal.inst.get("settings.listsLength"), IconsManager.MENU, 5, 
-				oneitemheight, countVals, j, null);
-		// сообщения за раз
-		j = -1;
-		for(int i=0;i<countVals.length;i++)
+		uiList = new PressableUIItem[]
 		{
-			if(countVals[i]==Settings.messagesPerLoad) j = i;
-		}
-		if(j==-1)
-		{
-			j = countValDef;
-			Settings.messagesPerLoad = countVals[j];
-		}
-		uiItems[6] = new SettingMenuItem(this, TextLocal.inst.get("settings.msgsLength"), IconsManager.MSGS, 6, 
-				oneitemheight, countVals, j, null);
-		// частота обновления
-		j = -1;
-		for(int i=0;i<refreshVals.length;i++)
-		{
-			if(refreshVals[i]==Settings.refreshRate) j = i;
-		}
-		if(j==-1)
-		{
-			j = refreshValDef;
-			Settings.messagesPerLoad = refreshVals[j];
-		}
-		uiItems[7] = new SettingMenuItem(this, TextLocal.inst.get("settings.refreshRate"), IconsManager.REFRESH, 7, 
-				oneitemheight, refreshVals, j, null);
-		// размер видео
-		uiItems[8] = new OptionItem(this, TextLocal.inst.get("settings.videoRes"), IconsManager.VIDEOS, 21, oneitemheight);
-		// поведение аудио
-		uiItems[9] = new SettingMenuItem(this, TextLocal.inst.get("settings.audio"), IconsManager.MUSIC, 9, 
-				oneitemheight, new String[] { TextLocal.inst.get("settings.audio0"), TextLocal.inst.get("settings.audio1"),
-						TextLocal.inst.get("settings.audio2"), TextLocal.inst.get("settings.audio3") }, 
-				Settings.audioMode, null);
-		// отладка тача
-		uiItems[10] = new SettingMenuItem(this, TextLocal.inst.get("settings.touchDebug"), IconsManager.DEVICE, 10, 
-				oneitemheight, eOd, Settings.debugInfo?1:0, null);
-		// статистика
-		uiItems[11] = new SettingMenuItem(this, TextLocal.inst.get("settings.telemetry"), IconsManager.SEND, 11, 
-				oneitemheight, eOd, Settings.telemetry?1:0, TextLocal.inst.get("settings.telemetryInfo"));
-		// ошибки
-		uiItems[12] = new SettingMenuItem(this, TextLocal.inst.get("settings.sendErrors"), IconsManager.SEND, 12, 
-				oneitemheight, eOd, Settings.sendErrors?1:0, null);
-		
-		uiItems[13] = new OptionItem(this, "Change language", IconsManager.EDIT, 23, oneitemheight);
-		uiItems[14] = new OptionItem(this, TextLocal.inst.get("settings.logout"), IconsManager.BACK, -1, oneitemheight);
-		uiItems[15] = new OptionItem(this, TextLocal.inst.get("settings.clearCache"), IconsManager.CLOSE, -2, oneitemheight);
-		uiItems[16] = new OptionItem(this, TextLocal.inst.get("settings.reset"), IconsManager.CLOSE, -3, oneitemheight);
-		uiItems[17] = new OptionItem(this, TextLocal.inst.get("menu.about"), IconsManager.INFO, 31, oneitemheight);
-		itemsh = 58 + ((oneitemheight+4) * uiItems.length);
+			backItem,
+			new SettingMenuItem(this, TextLocal.inst.get("settings.animTr"), IconsManager.ANIMATION, 0, 
+				oneitemheight, eOd, Settings.animateTransition?1:0, null),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.dontLoadAvas"), IconsManager.PHOTOS, 2, 
+				oneitemheight, eOd, Settings.dontLoadAvas?1:0, null),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.listsLength"), IconsManager.MENU, 5, 
+				oneitemheight, countVals, j, null),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.msgsLength"), IconsManager.MSGS, 6, 
+				oneitemheight, countVals, j, null),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.refreshRate"), IconsManager.REFRESH, 7, 
+				oneitemheight, refreshVals, rr, null)
+		};
 		
 		titleStr = TextLocal.inst.get("title.settings");
+		switchList(menuList);
 	}
 
 	public void draw(Graphics g)
@@ -242,6 +255,26 @@ public class SettingsScreen
 	{
 		switch(i)
 		{
+			case 0:
+			{
+				switchList(menuList);
+				break;
+			}
+			case -100:
+			{
+				switchList(systemList);
+				break;
+			}
+			case -101:
+			{
+				switchList(uiList);
+				break;
+			}
+			case -102:
+			{
+				switchList(mediaList);
+				break;
+			}
 			case -1:
 			{
 				break;
@@ -313,6 +346,28 @@ public class SettingsScreen
 					VikaTouch.appInst.destroyApp(false);
 				}
 			}, "Impontant set changed", "Restart"));
+		}
+	}
+
+	private void switchList(PressableUIItem[] l) {
+		try
+		{
+			uiItems[currentItem].setSelected(false); // точно упадёт на старте - списка то ещё нет.
+		} catch (Exception e) { }
+		try
+		{
+			uiItems = l;
+			itemsh = 58 + ((oneitemheight+4) * uiItems.length);
+			itemsCount = (short) uiItems.length;
+			if(keysMode)
+			{
+				currentItem = 0;
+				uiItems[0].setSelected(true);
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 	}
 

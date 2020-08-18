@@ -175,6 +175,9 @@ login.failed=Не удалось ввойти
 profile.closed=Это закрытый профиль
 user=Пользователь 
 
+settings.system=Основные настройки
+settings.ui=Настройки интерфейса
+settings.media=Настройки аудио/видео
 settings.help=Помощь
 settings.enabled=Вкл
 settings.disabled=Выкл
