@@ -75,7 +75,14 @@ public class SettingsScreen
 			new SettingMenuItem(this, TextLocal.inst.get("settings.audio"), IconsManager.MUSIC, 9, 
 					oneitemheight, new String[] { TextLocal.inst.get("settings.audio0"), TextLocal.inst.get("settings.audio1"),
 							TextLocal.inst.get("settings.audio2"), TextLocal.inst.get("settings.audio3") }, 
-					Settings.audioMode, null)
+					Settings.audioMode, null),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.rtspMethod"), IconsManager.VIDEOS, 13, 
+					oneitemheight, new String[] { TextLocal.inst.get("settings.rtspMethod0"), TextLocal.inst.get("settings.rtspMethod1"),
+							TextLocal.inst.get("settings.rtspMethod2") }, 
+					Settings.rtspMethod, null),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.youtube"), IconsManager.VIDEOS, 14, 
+					oneitemheight, new String[] { "m.youtube.com", "SymTube" }, 
+					Settings.https?1:0, null),
 		};
 		// частота обновления
 		int rr = -1;
@@ -246,6 +253,16 @@ public class SettingsScreen
 			case 12:
 			{
 				Settings.sendErrors = var==1;
+				break;
+			}
+			case 13:
+			{
+				Settings.rtspMethod = var;
+				break;
+			}
+			case 14:
+			{
+				Settings.symtube = var==1;
 				break;
 			}
 		}

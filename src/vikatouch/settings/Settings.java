@@ -59,6 +59,10 @@ public class Settings
 	
 	public static int audioMode = 0; // добавь пж сохранение
 	
+	public static int rtspMethod = 0;
+	
+	public static boolean symtube;
+	
 	// На ЗБТ чтоб было включено!!11!1!!
 	public static boolean telemetry = true;
 
