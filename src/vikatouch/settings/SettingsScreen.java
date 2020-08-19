@@ -140,8 +140,8 @@ public class SettingsScreen
 		{
 			backItem,
 			new OptionItem(this, TextLocal.inst.get("settings.clearсache"), IconsManager.CLOSE, -2, oneitemheight),
-			//new SettingMenuItem(this, TextLocal.inst.get("settings.touchDebug"), IconsManager.DEVICE, 10, 
-			//		oneitemheight, eOd, Settings.debugInfo?1:0, null),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.touchDebug"), IconsManager.DEVICE, 10, 
+					oneitemheight, eOd, Settings.debugInfo?1:0, null),
 		};
 		uiList = new PressableUIItem[]
 		{

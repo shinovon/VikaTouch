@@ -233,10 +233,8 @@ public abstract class ScrollableCanvas
 			if(currentItem >= itemsCount)
 			{
 				currentItem = 0;
-				scrolled += 1900;
 			}
-			else
-				scrolled -= uiItems[currentItem].getDrawHeight();
+			scrolled = -(getItemY(currentItem)+uiItems[currentItem].getDrawHeight()/2-DisplayUtils.height/2);
 			uiItems[currentItem].setSelected(true);
 		}
 	}
@@ -252,12 +250,8 @@ public abstract class ScrollableCanvas
 		if(currentItem < 0)
 		{
 			currentItem = (short) (itemsCount-1);
-			scrolled -= 1900;
 		}
-		else
-		{
-			scrolled += uiItems[currentItem].getDrawHeight();
-		}
+		scrolled = -(getItemY(currentItem)+uiItems[currentItem].getDrawHeight()/2-DisplayUtils.height/2);
 		try 
 		{
 			uiItems[currentItem].setSelected(true);
@@ -330,6 +324,16 @@ public abstract class ScrollableCanvas
 	protected void callRefresh()
 	{
 		
+	}
+	
+	public int getItemY(int n)
+	{
+		int y=0;
+		for(int i=0;(i<uiItems.length&&i<n);i++)
+		{
+			y += uiItems[i].getDrawHeight(); // не УМНОЖИТЬ! айтемы могут быть разной высоты.
+		}
+		return y;
 	}
 	
 }
