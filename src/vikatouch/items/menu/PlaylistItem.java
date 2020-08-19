@@ -3,6 +3,7 @@ package vikatouch.items.menu;
 import java.io.IOException;
 
 import javax.microedition.io.ConnectionNotFoundException;
+import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
@@ -40,7 +41,6 @@ public class PlaylistItem extends JSONUIItem {
 
 		try
 		{
-			
 			name = json.optString("title");
 			size = json.optInt("count");
 			iconUrl = fixJSONString(json.getJSONObject("photo").optString("photo_135"));
@@ -78,10 +78,12 @@ public class PlaylistItem extends JSONUIItem {
 		}
 
 		ColorUtils.setcolor(g, 0);
+		g.setFont(Font.getFont(0, 0, Font.SIZE_MEDIUM));
 		if(name != null)
-			g.drawString(name, 102, y+4, 0);
+			g.drawString(name, 102, y+12, 0);
 		ColorUtils.setcolor(g, ColorUtils.OUTLINE);
-		g.drawString(size+" аудиозаписей", 102, y + 24, 0);
+		g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
+		g.drawString(size+" аудиозаписей", 102, y + 46, 0);
 	}
 
 	private Image getIcon()
