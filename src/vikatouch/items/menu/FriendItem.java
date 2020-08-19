@@ -35,7 +35,7 @@ public class FriendItem extends JSONUIItem
 	public FriendItem(JSONObject json)
 	{
 		super(json);
-		itemDrawHeight = 50;
+		itemDrawHeight = 52;
 	}
 
 	public void parseJSON()
@@ -128,9 +128,13 @@ public class FriendItem extends JSONUIItem
 		
 		if(ava != null)
 		{
-			g.drawImage(ava, 14, y + BORDER + 1, 0);
+			g.drawImage(ava, 14, y + BORDER, 0);
 		}
-		g.drawImage(selected ? IconsManager.acs : IconsManager.ac, 14, y + BORDER + 1, 0);
+		else
+		{
+			g.fillRect(14, y + BORDER, 50, 50);
+		}
+		g.drawImage(selected ? IconsManager.acs : IconsManager.ac, 14, y + BORDER, 0);
 		if(online)
 		{
 			ColorUtils.setcolor(g, ColorUtils.ONLINE);

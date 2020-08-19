@@ -91,34 +91,9 @@ public class ResizeUtils
 		short h = (short) img.getHeight();
 		short need = h;
 		/*
-		switch(DisplayUtils.idispi)
-		{
-			case DisplayUtils.DISPLAY_E6:
-			case DisplayUtils.DISPLAY_PORTRAIT:
-			case DisplayUtils.DISPLAY_ALBUM:
-			{
-				need = 48;
-				break;
-			}
-			
-			case DisplayUtils.DISPLAY_S40:
-			case DisplayUtils.DISPLAY_ASHA311:
-			case DisplayUtils.DISPLAY_EQWERTY:
-			{
-				need = 48;
-				break;
-			}
-
-			case DisplayUtils.DISPLAY_UNDEFINED:
-			default:
-			{
-				need = 48;
-				break;
-			}
-		}
-		*/
 		if(h == 50)
 			need = 48;
+			*/
 		if(h != need)
 		{
 			short needh = getHeight(w, h, need);
@@ -165,7 +140,7 @@ public class ResizeUtils
 			}
 		}
 		*/
-		need = 48;
+		need = 50;
 		if(h != need)
 		{
 			short needh = getHeight(w, h, need);

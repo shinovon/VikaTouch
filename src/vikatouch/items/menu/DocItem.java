@@ -167,7 +167,7 @@ public class DocItem
 
 	private void setDrawHeight()
 	{
-		itemDrawHeight = 48 + (BORDER * 2);
+		itemDrawHeight = 50 + (BORDER * 2);
 	}
 
 	public void paint(Graphics g, int y, int scrolled)
