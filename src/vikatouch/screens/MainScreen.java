@@ -112,7 +112,7 @@ public abstract class MainScreen
 		// header & icon
 		if(hasBackButton)
 		{
-			g.drawImage(IconsManager.ico[IconsManager.BACK], 24, topPanelH/2-12, 0);
+			g.drawImage(IconsManager.backImg, topPanelH/2-IconsManager.backImg.getHeight()/2, 2, 0);
 		}
 		else
 			g.drawImage(IconsManager.logoImg, topPanelH/2-IconsManager.logoImg.getHeight()/2, 2, 0);

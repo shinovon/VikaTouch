@@ -25,13 +25,13 @@ public class IconsManager {
 		ac = Image.createImage("/ava.png");
 		acs = Image.createImage("/avas.png");
 		logoImg = Image.createImage("/vikahead.jpg");
-		
+		backImg = Image.createImage("/back.png");
 	}
 	
 	public static Image ac;
 	public static Image acs;
 	public static Image logoImg;
-	//public static Image backBtn;
+	public static Image backImg;
 	
 	public static final int FRIENDS = 0;
 	public static final int GROUPS = 1;
