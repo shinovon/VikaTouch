@@ -72,8 +72,10 @@ public class Settings
 	
 	public static final int AUDIO_PLAYONLINE = 0;
 	public static final int AUDIO_CACHEANDPLAY = 1;
-	public static final int AUDIO_SYSTEMPLAYER = 2;
-	public static final int AUDIO_DOWNLOAD = 3;
+	public static final int AUDIO_LOADANDPLAY = 2;
+	public static final int AUDIO_SYSTEMPLAYER = 3;
+	public static final int AUDIO_VLC = 4;
+	public static final int AUDIO_DOWNLOAD = 5;
 	public static final String[] supportedLanguages = {"en_US", "en_UK", "ru_RU"};
 
 	public static final boolean slideAnim = true;
