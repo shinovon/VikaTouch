@@ -9,6 +9,7 @@ import javax.microedition.lcdui.Displayable;
 import ru.nnproject.vikaui.popup.InfoPopup;
 import ru.nnproject.vikaui.screen.VikaScreen;
 import ru.nnproject.vikaui.utils.DisplayUtils;
+import vikamobilebase.VikaUtils;
 import vikatouch.local.TextLocal;
 import vikatouch.screens.AboutScreen;
 import vikatouch.screens.ChatScreen;
@@ -24,6 +25,7 @@ import vikatouch.screens.menu.VideosScreen;
 import vikatouch.screens.page.GroupPageScreen;
 import vikatouch.settings.Settings;
 import vikatouch.settings.SettingsScreen;
+import vikatouch.utils.url.URLBuilder;
 
 public class CommandsImpl
 	implements CommandListener
@@ -50,6 +52,10 @@ public class CommandsImpl
 					case -1:
 					{
 						//Выход
+						try
+						{
+							VikaUtils.download(new URLBuilder("account.setOffline"));
+						} catch (Exception e) { }
 						VikaTouch.appInst.destroyApp(false);
 						break;
 					}

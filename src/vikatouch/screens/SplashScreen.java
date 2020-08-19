@@ -113,7 +113,7 @@ public class SplashScreen
 			statesNames[i] = TextLocal.inst.get("splash.title."+i);
 		}
 		tipStr = TextLocal.inst.get("splash.tip");
-		int tipsC = 2;
+		int tipsC = 16;
 		Random r = new Random();
 		int i = r.nextInt(tipsC);
 		tip = TextBreaker.breakText(TextLocal.inst.get("splash.tip."+i), false, null, true, DisplayUtils.width*8/10);
