@@ -111,6 +111,7 @@ title.members=Uchastniki
 title.login=Vhod
 title.groups=Grupa
 title.friends=Druzya
+title.music=Muzika
 title.settings=Nastroyki
 
 friend.remove=Udalit iz druzey

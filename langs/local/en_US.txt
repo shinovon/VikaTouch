@@ -117,6 +117,7 @@ title.members=Members
 title.login=Login
 title.groups=Groups
 title.friends=Friends
+title.music=Music
 title.settings=Settings
 
 friend.remove=Remove friend
