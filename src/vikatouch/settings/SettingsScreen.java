@@ -81,7 +81,7 @@ public class SettingsScreen
 		{
 			new OptionItem(this, TextLocal.inst.get("settings.system"), IconsManager.DEVICE, -100, oneitemheight),
 			new OptionItem(this, TextLocal.inst.get("settings.appearance"), IconsManager.MENU, -101, oneitemheight),
-			new OptionItem(this, TextLocal.inst.get("settings.media"), IconsManager.VIDEOS, -102, oneitemheight),
+			new OptionItem(this, TextLocal.inst.get("settings.media"), IconsManager.PLAY, -102, oneitemheight),
 			new OptionItem(this, TextLocal.inst.get("settings.spabilities"), IconsManager.FRIENDS, -103, oneitemheight),
 			new OptionItem(this, TextLocal.inst.get("settings.debug"), IconsManager.SETTINGS, -104, oneitemheight),
 			new SettingMenuItem(this, TextLocal.inst.get("settings.telemetry"), IconsManager.SEND, 11, 
@@ -117,11 +117,11 @@ public class SettingsScreen
 					oneitemheight, new String[] { TextLocal.inst.get("settings.audioc.0"), TextLocal.inst.get("settings.audioc.1"),
 							TextLocal.inst.get("settings.audioc.2"), TextLocal.inst.get("settings.audioc.3") }, 
 					Settings.audioMode, null),
-			new SettingMenuItem(this, TextLocal.inst.get("settings.rtspMethod"), IconsManager.VIDEOS, 13, 
+			new SettingMenuItem(this, TextLocal.inst.get("settings.rtspMethod"), IconsManager.LINK, 13, 
 					oneitemheight, new String[] { TextLocal.inst.get("settings.rtspс.0"), TextLocal.inst.get("settings.rtspс.1"),
 							TextLocal.inst.get("settings.rtspс.2") }, 
 					Settings.rtspMethod, null),
-			new SettingMenuItem(this, TextLocal.inst.get("settings.youtube"), IconsManager.VIDEOS, 14, 
+			new SettingMenuItem(this, TextLocal.inst.get("settings.youtube"), IconsManager.PLAY, 14, 
 					oneitemheight, new String[] { "m.youtube.com", "SymTube" }, 
 					Settings.https?1:0, null),
 		};

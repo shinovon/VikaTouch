@@ -159,7 +159,7 @@ public class MenuScreen
 		uiItems[1] = new OptionItem(this, groupsStr, IconsManager.GROUPS, 5, uiih);
 		uiItems[2] = new OptionItem(this, musicStr, IconsManager.MUSIC, 6, uiih);
 		uiItems[3] = new OptionItem(this, videosStr, IconsManager.VIDEOS, 7, uiih);
-		uiItems[4] = new OptionItem(this, photosStr, IconsManager.PHOTOS, 8, uiih);
+		uiItems[4] = new OptionItem(this, photosStr, IconsManager.CAMERA, 8, uiih);
 		uiItems[5] = new OptionItem(this, docsStr, IconsManager.DOCS, 9, uiih);
 		uiItems[6] = new OptionItem(this, exitStr, IconsManager.CLOSE, -1, uiih);
 		

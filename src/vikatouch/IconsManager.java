@@ -68,5 +68,6 @@ public class IconsManager {
 	public static final int REFRESH = 32;
 	public static final int ANIMATION = 33;
 	public static final int DEVICE = 34;
-	
+	public static final int CAMERA = 35;
+	public static final int PLAY = 36;
 }
