@@ -126,13 +126,14 @@ public abstract class MainScreen
 		{
 			Font f = Font.getFont(0, 0, Font.SIZE_SMALL);
 			g.setFont(f);
-			int d = f.getHeight()-2;
+			int d = 16;
+			int fh = f.getHeight();
 			
 			g.setColor(225, 73, 73);
-			g.fillArc(dw/2+12-d+5, bpiy-5, d, d, 0, 360);
+			g.fillArc(dw/2+2, bpiy-5, d, d, 0, 360);
 			
 			g.setGrayScale(255);
-			g.drawString(""+VikaTouch.unreadCount, dw/2+12-d/2-f.stringWidth(""+VikaTouch.unreadCount)/2+5, bpiy-5, 0);
+			g.drawString(""+VikaTouch.unreadCount, dw/2+2+(d-f.stringWidth(""+VikaTouch.unreadCount))/2, bpiy-5+(d-fh)/2+1, 0);
 		}
 		
 		
