@@ -667,6 +667,7 @@ public class VikaTouch
 				{
 					OAUTH = "https://oauth.vk.com:443";
 					API = "https://api.vk.com:443";
+					Settings.https = true;
 				}
 	
 			}

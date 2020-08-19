@@ -2,7 +2,7 @@
 #русский
 #оригинальный язык
 #авторы shinovon, Feodor0090
-#версия 2020.08.13
+#версия 2020.08.19
 #
 #вк авторов:
 #vk.com/shinovon
@@ -10,7 +10,7 @@
 
 langinfo.name=Русский
 #YYYY.MM.DD
-langinfo.version=2020.08.13
+langinfo.version=2020.08.19
 
 # LANG FORMAT
 #| - new line
@@ -105,15 +105,15 @@ menu.discussions=Обсуждения
 menu.about=О программе
 menu.loading=Загрузка...
 
-splash.title3=Подготовка ассетов
-splash.title4=Авторизация
-splash.title5=Загрузка информации профиля
-splash.title6=Загрузка диалогов
-splash.title7=Готово.
+splash.title.3=Подготовка ассетов
+splash.title.4=Авторизация
+splash.title.5=Загрузка информации профиля
+splash.title.6=Загрузка диалогов
+splash.title.7=Готово.
 splash.tip=Подсказка
-splash.tip0=Приложение постоянно крашится из-за нехватки памяти? Попробуйте отключить загрузку аватарок в настройках и уменьшить длину списков.
-splash.tip1=Если в списке документов нажать на иконку документа-картинки, откроется его предпросмотр.
-splash.tip2=TODO БОЛЬШЕ подсказок. Надо объяснить смысл ВСЕХ кнопочек в программе. Потому что почему нет?
+splash.tip.0=Приложение постоянно крашится из-за нехватки памяти? Попробуйте отключить загрузку аватарок в настройках и уменьшить длину списков.
+splash.tip.1=Если в списке документов нажать на иконку документа-картинки, откроется его предпросмотр.
+splash.tip.2=TODO БОЛЬШЕ подсказок. Надо объяснить смысл ВСЕХ кнопочек в программе. Потому что почему нет?
 
 group=Группа
 group.descriptionempty=[описание пусто]
@@ -176,46 +176,46 @@ login.failed=Не удалось ввойти
 profile.closed=Это закрытый профиль
 user=Пользователь 
 
-settings.system=Основные настройки
-settings.ui=Настройки интерфейса
-settings.media=Настройки аудио/видео
+settings.system=Основное
+settings.appearance=Интерфейс
+settings.media=Медиа
 settings.help=Помощь
 settings.enabled=Вкл
 settings.disabled=Выкл
-settings.https=Напрямую через https
+settings.directhttps=Напрямую через https
 settings.proxy=Через прокси
-settings.conn=Подключение
+settings.connection=Подключение
 settings.sensor=Оптимизация сенсорного управления
 settings.norm=Нормальный
-settings.j2meLs=J2MELoader
+settings.j2meloader=J2ME Loader
 settings.resistive=Резистивный тач
-settings.sensorInfo=Выкл - работа управления по умолчанию. J2MELoader - дополнительная защита от ложной прокрутки (фикс бага j2meL). Резистивный - некоторые кнопки у края экрана будут побольше, чтоб по ним было легче попасть.
 settings.logout=Выйти из аккаунта
 settings.reset=Настройки по умолчанию
-settings.clearCache=Удалить кэшированные изображения
-settings.animTr=Анимация переходов
-settings.listsLength=Количество элементов в списках
-settings.dontLoadAvas=Не загружать аватарки
-settings.enableCache=Кэшировать картинки
-settings.msgsLength=Длина истории переписки
-settings.refreshRate=Частота обновления (с)
+settings.clearcache=Удалить кэшированные изображения
+settings.transitionanimation=Анимация переходов
+settings.listslength=Количество элементов в списках
+settings.dontloadavas=Не загружать аватарки
+settings.cacheimages=Кэшировать картинки
+settings.historycount=Длина истории переписки
+settings.refreshrate=Частота обновления (с)
 settings.telemetry=Отправка статистики использования
-settings.telemetryInfo=Если включено, приложение будет отправлять нам дополнительные сведения об устройстве, текущие настройки и статистику использования. Данные ваших действий не отправляются (например, мы узнаем, что вы пытались открыть информацию группы, но не будем знать, какой именно).
-settings.sendErrors=Отправка ошибок
-settings.videoRes=Разрешение видео при воспроизведении
-settings.rtspMethod=Способ открытия RTSP ссылок
-settings.rtspMethod0=По умолчанию
-settings.rtspMethod1=Вызов плеера [Symbian]
-settings.rtspMethod2=Выполнить "vlc.exe <MRL>" [KEmulator]
+settings.reporterrors=Отправка ошибок
+settings.videoresolution=Разрешение видео при воспроизведении
+settings.rtsp=Способ открытия RTSP ссылок
+settings.rtspc.0=По умолчанию
+settings.rtspc.1=Вызов плеера [Symbian]
+settings.rtspc.2=Выполнить "vlc.exe <MRL>" [KEmulator]
 settings.youtube=Открытие YouTube через
 settings.audio=Метод воспроизведения аудио
 settings.apiproxy=Api Proxy
 settings.authproxy=OAuth Proxy
 settings.language=Язык
-settings.audio0=Воспроизводить онлайн
-settings.audio1=Кэшировать и воспроизводить
-settings.audio2=Открывать в системном плеере
-settings.audio3=Скачивать файл через браузер
-settings.resetC=Выполнить сброс настроек?
+settings.audioc.0=Воспроизводить онлайн
+settings.audioc.1=Кэшировать и воспроизводить
+settings.audioc.2=Открывать в системном плеере
+settings.audioc.3=Скачивать файл через браузер
+settings.reset=Выполнить сброс настроек?
+settings.spabilites=Специальные возможности
+settings.debug=Отладка
 
 back=Назад
