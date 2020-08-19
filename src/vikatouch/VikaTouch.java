@@ -1,9 +1,13 @@
 package vikatouch;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Random;
 
+import javax.microedition.io.ConnectionNotFoundException;
+import javax.microedition.io.Connector;
 import javax.microedition.io.SocketConnection;
+import javax.microedition.io.file.FileConnection;
 import javax.microedition.lcdui.*;
 import javax.microedition.rms.RecordStore;
 
@@ -716,5 +720,66 @@ public class VikaTouch
 	{
 		canvas.currentAlert = popup;
 		canvas.repaint();
+	}
+	public static void callSystemPlayer(String file)
+	{
+		try {
+			String urlF = VikaUtils.replace(VikaUtils.replace(file, "\\", ""), "https:", "http:");
+			FileConnection fileCon = null;
+			fileCon = (FileConnection) Connector.open(System.getProperty("fileconn.dir.music") + "test.ram", 3);
+			if (!fileCon.exists()) {
+				fileCon.create();
+			} else {
+				fileCon.delete();
+				fileCon.create();
+			}
+
+			OutputStream stream = fileCon.openOutputStream();
+			stream.write(urlF.getBytes("UTF-8"));
+			try
+			{
+				stream.flush();
+				stream.close();
+				fileCon.close();
+			} 
+			catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			String mobilePlatform = VikaTouch.mobilePlatform;
+			if (mobilePlatform.indexOf("5.5") <= 0 && mobilePlatform.indexOf("5.4") <= 0 && mobilePlatform.indexOf("5.3") <= 0
+					&& mobilePlatform.indexOf("5.2") <= 0 && mobilePlatform.indexOf("5.1") <= 0
+					&& mobilePlatform.indexOf("Samsung") < 0) {
+				VikaTouch.appInst.platformRequest(urlF);
+			} else {
+				VikaTouch.appInst.platformRequest("file:///C:/Data/Sounds/test.ram");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			VikaTouch.error(e, ErrorCodes.VIDEOPLAY);
+		}
+		
+	}
+	public static void openRtspLink(String link)
+	{
+		if(Settings.rtspMethod==1)
+		{
+			callSystemPlayer(link);
+		}
+		else if(Settings.rtspMethod==2)
+		{
+			try {
+				VikaTouch.appInst.platformRequest("vlc "+link);
+			} catch (ConnectionNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			try {
+				VikaTouch.appInst.platformRequest(link);
+			} catch (ConnectionNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

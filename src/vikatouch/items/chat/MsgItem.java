@@ -20,7 +20,9 @@ import vikatouch.VikaTouch;
 import vikatouch.attachments.*;
 import vikatouch.items.menu.OptionItem;
 import vikatouch.screens.ChatScreen;
+import vikatouch.settings.Settings;
 import vikatouch.utils.url.URLBuilder;
+import vikatouch.utils.url.URLDecoder;
 import vikatouch.utils.CountUtils;
 
 public class MsgItem
@@ -392,11 +394,36 @@ public class MsgItem
 			i = i - 100;
 			try
 			{
-				VikaTouch.appInst.platformRequest(searchLinks()[i]);
+				String s = searchLinks()[i];
+				if(s.indexOf("@")==0)
+				{
+					// упоминание
+				}
+				else if(s.indexOf("id")==0)
+				{
+					// сслка на профиль
+				}
+				else if(s.indexOf("rtsp://")!=-1)
+				{
+					VikaTouch.openRtspLink(s);
+				}
+				else if(s.indexOf("youtube.com")!=-1)
+				{
+					if(!Settings.symtube)
+					{
+						VikaTouch.appInst.platformRequest(s);
+					}
+					else
+					{
+						VikaTouch.appInst.platformRequest("https://vikamobile.ru/getl.php?url="+URLDecoder.encode(s));
+					}
+				}
+				else
+					VikaTouch.appInst.platformRequest(s);
 			}
-			catch (ConnectionNotFoundException e) 
+			catch (Exception e) 
 			{
-				VikaTouch.popup(new InfoPopup("Не удалось открыть. Возможно, произошла ошибка при обработке адреса либо нет подключения к интернету.", null));
+				e.printStackTrace();
 			}
 			return;
 		} else if(i>=0)

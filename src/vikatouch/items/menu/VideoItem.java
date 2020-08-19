@@ -180,7 +180,7 @@ public class VideoItem
 	{
 		// https://vikamobile.ru/getl.php?url=
 		try {
-			if(external.indexOf("youtube")==-1)
+			if(external.indexOf("youtube")==-1 || !Settings.symtube)
 			{
 				VikaTouch.appInst.platformRequest(external);
 			}
@@ -194,41 +194,7 @@ public class VideoItem
 	}
 	public void playOnline()
 	{
-		try {
-			String urlF = VikaUtils.replace(VikaUtils.replace(file, "\\", ""), "https:", "http:");
-			FileConnection fileCon = null;
-			fileCon = (FileConnection) Connector.open(System.getProperty("fileconn.dir.music") + "test.ram", 3);
-			if (!fileCon.exists()) {
-				fileCon.create();
-			} else {
-				fileCon.delete();
-				fileCon.create();
-			}
-
-			OutputStream stream = fileCon.openOutputStream();
-			stream.write(urlF.getBytes("UTF-8"));
-			try
-			{
-				stream.flush();
-				stream.close();
-				fileCon.close();
-			} 
-			catch (Exception e2) {
-				e2.printStackTrace();
-			}
-			String mobilePlatform = VikaTouch.mobilePlatform;
-			if (mobilePlatform.indexOf("5.5") <= 0 && mobilePlatform.indexOf("5.4") <= 0 && mobilePlatform.indexOf("5.3") <= 0
-					&& mobilePlatform.indexOf("5.2") <= 0 && mobilePlatform.indexOf("5.1") <= 0
-					&& mobilePlatform.indexOf("Samsung") < 0) {
-				VikaTouch.appInst.platformRequest(urlF);
-			} else {
-				VikaTouch.appInst.platformRequest("file:///C:/Data/Sounds/test.ram");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			VikaTouch.error(e, ErrorCodes.VIDEOPLAY);
-		}
-		
+		VikaTouch.callSystemPlayer(file);
 	}
 
 	public void paint(Graphics g, int y, int scrolled)
