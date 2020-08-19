@@ -96,6 +96,34 @@ public class ChatScreen
 			c.answerText = text;
 		}
 	}
+	public static void editMsg(final MsgItem msg)
+	{
+		if(VikaTouch.canvas.currentScreen instanceof ChatScreen)
+		{
+			final ChatScreen c = (ChatScreen) VikaTouch.canvas.currentScreen;
+			final Thread typer = new Thread()
+			{
+				public void run()
+				{
+					String newText = TextEditor.inputString("Редактирование", msg.text==null?"":msg.text, 0);
+					URLBuilder url = new URLBuilder("messages.edit").addField("peer_id", c.peerId)
+							.addField("message", newText).addField("keep_forward_messages", "1")
+							.addField("keep_snippets", "1").addField("dont_parse_links", "1");
+					if(c.type == TYPE_CHAT)
+					{
+						url = url.addField("conversation_message_id", ""+msg.mid);
+					}
+					else
+					{
+						url = url.addField("message_id", ""+msg.mid);
+					}
+					String res = VikaUtils.download(url);
+					msg.ChangeText(newText);
+				}
+			};
+			typer.start();
+		}
+	}
 	
 	public static Hashtable profileNames = new Hashtable();
 	

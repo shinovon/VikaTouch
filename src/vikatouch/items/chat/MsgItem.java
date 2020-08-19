@@ -1,29 +1,30 @@
 package vikatouch.items.chat;
 
-import javax.microedition.io.ConnectionNotFoundException;
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
-import javax.microedition.lcdui.Image;
 
 import org.json.me.JSONArray;
 import org.json.me.JSONObject;
 
-import ru.nnproject.vikaui.*;
 import ru.nnproject.vikaui.menu.IMenu;
-import ru.nnproject.vikaui.popup.*;
+import ru.nnproject.vikaui.popup.ContextMenu;
+import ru.nnproject.vikaui.popup.InfoPopup;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.TextBreaker;
 import vikamobilebase.VikaUtils;
 import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
-import vikatouch.attachments.*;
+import vikatouch.attachments.Attachment;
+import vikatouch.attachments.DocumentAttachment;
+import vikatouch.attachments.PhotoAttachment;
+import vikatouch.attachments.WallAttachment;
 import vikatouch.items.menu.OptionItem;
 import vikatouch.screens.ChatScreen;
 import vikatouch.settings.Settings;
+import vikatouch.utils.CountUtils;
 import vikatouch.utils.url.URLBuilder;
 import vikatouch.utils.url.URLDecoder;
-import vikatouch.utils.CountUtils;
 
 public class MsgItem
 	extends ChatItem implements IMenu
@@ -50,6 +51,14 @@ public class MsgItem
 	public String replyName;
 	public String replyText;
 
+	public void ChangeText(String s)
+	{
+		text = s;
+		int h1 = Font.getFont(0, 0, 8).getHeight();
+		drawText = TextBreaker.breakText(text, false, null, true, msgWidth-h1);
+		for (linesC=0; (linesC<drawText.length && drawText[linesC]!=null); linesC++) { }
+		itemDrawHeight = h1*(linesC+1);
+	}
 	public void parseJSON()
 	{
 		super.parseJSON();
@@ -293,8 +302,6 @@ public class MsgItem
 			// В беседе вики такое постоянно.
 			for(int gli=0; gli<glinks.length; gli++)
 			{
-				//System.out.println(glinks[gli]);
-				int сс = 0;
 				int ii = 0; // Indexof Index
 				while(true)
 				{
@@ -348,7 +355,6 @@ public class MsgItem
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			// кстати, а попап то нельзя. Он сразу перекроется контексткой со списком.
 		}
 		System.out.println("links c "+li);
 		return la;
@@ -449,7 +455,7 @@ public class MsgItem
 			VikaTouch.popup(new ContextMenu(opts1));
 			break;
 		case -4:
-			VikaTouch.popup(new InfoPopup("Редактирование изобретём не скоро.", null));
+			if(!foreign) ChatScreen.editMsg(this);
 			break;
 		case -5:
 			try
