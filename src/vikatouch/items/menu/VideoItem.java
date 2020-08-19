@@ -65,7 +65,7 @@ public class VideoItem
 		length = json.optInt("duration");
 		playerUrl = json.optString("player");
 		views = json.optInt("views");
-		itemDrawHeight = 50;
+		itemDrawHeight = 52;
 		
 		try {
 			JSONObject files = json.getJSONObject("files");

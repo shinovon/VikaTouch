@@ -11,6 +11,7 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
+import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
 import vikatouch.attachments.PhotoSize;
 import vikatouch.items.JSONUIItem;
@@ -80,7 +81,7 @@ public class GroupItem
 				break;
 			}
 		}*/
-		itemDrawHeight = 48;
+		itemDrawHeight = 50;
 		itemDrawHeight += BORDER * 2;
 	}
 
@@ -110,6 +111,15 @@ public class GroupItem
 		{
 			g.drawImage(ava, 14, y + BORDER, 0);
 		}
+		else
+		{
+			ColorUtils.setcolor(g, ColorUtils.OUTLINE);
+			g.fillRect(14, y + BORDER, 50, 50);
+		}
+		if(selected)
+			g.drawImage(IconsManager.acs, 14, y + BORDER, 0);
+		else
+			g.drawImage(IconsManager.ac, 14, y + BORDER, 0);
 	}
 
 	public void tap(int x, int y)

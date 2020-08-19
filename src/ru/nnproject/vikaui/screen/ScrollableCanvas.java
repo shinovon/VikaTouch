@@ -173,25 +173,72 @@ public abstract class ScrollableCanvas
 		repaint();
 	}
 	
+	private int scrolebd;
+	
 	protected void down()
 	{
-		try
+		//TODO: паблик бета
+		/*
+		if(uiItems[currentItem].getDrawHeight() > vmeshautsa)
 		{
-			uiItems[currentItem].setSelected(false);
-		}
-		catch (Exception e)
-		{
+			if(scrolebd == 0)
+			{
+				scrolebd = uiItems[currentItem].getDrawHeight();
+			}
+			if(scrolebd == -1)
+			{
+				scrolebd = 0;
+				try
+				{
+					uiItems[currentItem].setSelected(false);
+				}
+				catch (Exception e)
+				{
+					
+				}
+				currentItem++;
+				if(currentItem >= itemsCount)
+				{
+				}
+				else
+					scrolled -= uiItems[currentItem].getDrawHeight();
+				uiItems[currentItem].setSelected(true);
+			}
 			
-		}
-		currentItem++;
-		if(currentItem >= itemsCount)
-		{
-			currentItem = 0;
-			scrolled += 1900;
+			
+			int x = 20;
+			if(scrolebd < x)
+			{
+				scrolled -= scrolebd;
+				scrolebd = -1;
+			}
+			else
+			{
+				scrolled -= x;
+				scrolebd -= x;
+			}
 		}
 		else
-			scrolled -= uiItems[currentItem].getDrawHeight();
-		uiItems[currentItem].setSelected(true);
+		*/
+		{
+			try
+			{
+				uiItems[currentItem].setSelected(false);
+			}
+			catch (Exception e)
+			{
+				
+			}
+			currentItem++;
+			if(currentItem >= itemsCount)
+			{
+				currentItem = 0;
+				scrolled += 1900;
+			}
+			else
+				scrolled -= uiItems[currentItem].getDrawHeight();
+			uiItems[currentItem].setSelected(true);
+		}
 	}
 
 	protected void up()
