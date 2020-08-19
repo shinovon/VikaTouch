@@ -100,20 +100,23 @@ public class SplashScreen
 			ColorUtils.setcolor(g, ColorUtils.COLOR1);
 			g.fillRect(43, dh-15, (dw-86)*statesProgress[currState]/100, 10);
 		}
+		ColorUtils.setcolor(g, 0);
 		
+		g.drawString("DO NOT DISTRIBUTE",dw/2,0,Graphics.TOP|Graphics.HCENTER);
+		g.drawString("НЕ РАСПРОСТРАНЯТЬ",dw/2,f.getHeight()+2,Graphics.TOP|Graphics.HCENTER);
 	}
 	
 	public void setText()
 	{
 		for(int i=3;i<=7;i++)
 		{
-			statesNames[i] = TextLocal.inst.get("splash.title"+i);
+			statesNames[i] = TextLocal.inst.get("splash.title."+i);
 		}
 		tipStr = TextLocal.inst.get("splash.tip");
 		int tipsC = 2;
 		Random r = new Random();
 		int i = r.nextInt(tipsC);
-		tip = TextBreaker.breakText(TextLocal.inst.get("splash.tip"+i), false, null, true, DisplayUtils.width*8/10);
+		tip = TextBreaker.breakText(TextLocal.inst.get("splash.tip."+i), false, null, true, DisplayUtils.width*8/10);
 		for(tipL = 0; (tipL<tip.length && tip[tipL]!=null); tipL++) { }
 	}
 	

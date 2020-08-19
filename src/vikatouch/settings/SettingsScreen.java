@@ -31,6 +31,8 @@ public class SettingsScreen
 	private PressableUIItem[] mediaList;
 	private PressableUIItem[] uiList;
 	private PressableUIItem backItem;
+	private PressableUIItem[] debugList;
+	private PressableUIItem[] specialAbilitiesList;
 	
 	public SettingsScreen()
 	{
@@ -39,51 +41,8 @@ public class SettingsScreen
 		oneitemheight = 50;
 		backItem = new OptionItem(this, TextLocal.inst.get("back"), IconsManager.BACK, 0, oneitemheight);
 		
-		menuList = new PressableUIItem[]
-		{
-			new OptionItem(this, TextLocal.inst.get("settings.system"), IconsManager.DEVICE, -100, oneitemheight),
-			new OptionItem(this, TextLocal.inst.get("settings.ui"), IconsManager.MENU, -101, oneitemheight),
-			new OptionItem(this, TextLocal.inst.get("settings.media"), IconsManager.VIDEOS, -102, oneitemheight),
-			new SettingMenuItem(this, TextLocal.inst.get("settings.telemetry"), IconsManager.SEND, 11, 
-					oneitemheight, eOd, Settings.telemetry?1:0, TextLocal.inst.get("settings.telemetryInfo")),
-			new SettingMenuItem(this, TextLocal.inst.get("settings.sendErrors"), IconsManager.SEND, 12, 
-					oneitemheight, eOd, Settings.sendErrors?1:0, null),
-			new OptionItem(this, "Change language", IconsManager.EDIT, 23, oneitemheight),
-			new OptionItem(this, TextLocal.inst.get("settings.logout"), IconsManager.BACK, -1, oneitemheight),
-			new OptionItem(this, TextLocal.inst.get("menu.about"), IconsManager.INFO, 31, oneitemheight)
-		};
-		systemList = new PressableUIItem[]
-		{
-			backItem,
-			new SettingMenuItem(this, TextLocal.inst.get("settings.conn"), IconsManager.LINK, 3, 
-					oneitemheight, new String[] { TextLocal.inst.get("settings.proxy"), TextLocal.inst.get("settings.https") }, 
-					Settings.https?1:0, null),
-			new SettingMenuItem(this, TextLocal.inst.get("settings.sensor"), IconsManager.DEVICE, 4, 
-					oneitemheight, new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.j2meLs"), TextLocal.inst.get("settings.resistive") }, 
-					Settings.sensorMode, TextLocal.inst.get("settings.sensorInfo")),
-			new SettingMenuItem(this, TextLocal.inst.get("settings.enableCache"), IconsManager.PHOTOS, 1, 
-					oneitemheight, eOd, Settings.cacheImages?1:0, null),
-			new OptionItem(this, TextLocal.inst.get("settings.clearCache"), IconsManager.CLOSE, -2, oneitemheight),
-			new SettingMenuItem(this, TextLocal.inst.get("settings.touchDebug"), IconsManager.DEVICE, 10, 
-					oneitemheight, eOd, Settings.debugInfo?1:0, null),
-			new OptionItem(this, TextLocal.inst.get("settings.reset"), IconsManager.CLOSE, -3, oneitemheight)
-		};
-		mediaList = new PressableUIItem[]
-		{
-			backItem,
-			new OptionItem(this, TextLocal.inst.get("settings.videoRes"), IconsManager.VIDEOS, 21, oneitemheight),
-			new SettingMenuItem(this, TextLocal.inst.get("settings.audio"), IconsManager.MUSIC, 9, 
-					oneitemheight, new String[] { TextLocal.inst.get("settings.audio0"), TextLocal.inst.get("settings.audio1"),
-							TextLocal.inst.get("settings.audio2"), TextLocal.inst.get("settings.audio3") }, 
-					Settings.audioMode, null),
-			new SettingMenuItem(this, TextLocal.inst.get("settings.rtspMethod"), IconsManager.VIDEOS, 13, 
-					oneitemheight, new String[] { TextLocal.inst.get("settings.rtspMethod0"), TextLocal.inst.get("settings.rtspMethod1"),
-							TextLocal.inst.get("settings.rtspMethod2") }, 
-					Settings.rtspMethod, null),
-			new SettingMenuItem(this, TextLocal.inst.get("settings.youtube"), IconsManager.VIDEOS, 14, 
-					oneitemheight, new String[] { "m.youtube.com", "SymTube" }, 
-					Settings.https?1:0, null),
-		};
+
+
 		// частота обновления
 		int rr = -1;
 		for(int i=0;i<refreshVals.length;i++)
@@ -117,19 +76,78 @@ public class SettingsScreen
 			j = countValDef;
 			Settings.simpleListsLength = countVals[j];
 		}
+		
+		menuList = new PressableUIItem[]
+		{
+			new OptionItem(this, TextLocal.inst.get("settings.system"), IconsManager.DEVICE, -100, oneitemheight),
+			new OptionItem(this, TextLocal.inst.get("settings.appearance"), IconsManager.MENU, -101, oneitemheight),
+			new OptionItem(this, TextLocal.inst.get("settings.media"), IconsManager.VIDEOS, -102, oneitemheight),
+			new OptionItem(this, TextLocal.inst.get("settings.spabilities"), IconsManager.FRIENDS, -103, oneitemheight),
+			new OptionItem(this, TextLocal.inst.get("settings.debug"), IconsManager.SETTINGS, -104, oneitemheight),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.telemetry"), IconsManager.SEND, 11, 
+					oneitemheight, eOd, Settings.telemetry?1:0, null),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.reporterrors"), IconsManager.SEND, 12, 
+					oneitemheight, eOd, Settings.sendErrors?1:0, null),
+			new OptionItem(this, TextLocal.inst.get("settings.language"), IconsManager.EDIT, 23, oneitemheight),
+			new OptionItem(this, TextLocal.inst.get("settings.reset"), IconsManager.SETTINGS, -3, oneitemheight),
+			new OptionItem(this, TextLocal.inst.get("menu.about"), IconsManager.INFO, 31, oneitemheight),
+			new OptionItem(this, TextLocal.inst.get("settings.logout"), -1, -1, oneitemheight),
+		};
+		systemList = new PressableUIItem[]
+		{
+			backItem,
+			new SettingMenuItem(this, TextLocal.inst.get("settings.connection"), IconsManager.LINK, 3, 
+					oneitemheight, new String[] { TextLocal.inst.get("settings.proxy"), TextLocal.inst.get("settings.directhttps") }, 
+					Settings.https?1:0, null),
+			
+			new SettingMenuItem(this, TextLocal.inst.get("settings.cacheimages"), IconsManager.PHOTOS, 1, 
+					oneitemheight, eOd, Settings.cacheImages?1:0, null),
+				new SettingMenuItem(this, TextLocal.inst.get("settings.listslength"), IconsManager.MENU, 5, 
+					oneitemheight, countVals, j, null),
+				new SettingMenuItem(this, TextLocal.inst.get("settings.historycount"), IconsManager.MSGS, 6, 
+					oneitemheight, countVals, j, null),
+				new SettingMenuItem(this, TextLocal.inst.get("settings.refreshrate"), IconsManager.REFRESH, 7, 
+					oneitemheight, refreshVals, rr, null)
+		};
+		mediaList = new PressableUIItem[]
+		{
+			backItem,
+			new OptionItem(this, TextLocal.inst.get("settings.videoresolution"), IconsManager.VIDEOS, 21, oneitemheight),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.audio"), IconsManager.MUSIC, 9, 
+					oneitemheight, new String[] { TextLocal.inst.get("settings.audioc.0"), TextLocal.inst.get("settings.audioc.1"),
+							TextLocal.inst.get("settings.audioc.2"), TextLocal.inst.get("settings.audioc.3") }, 
+					Settings.audioMode, null),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.rtspMethod"), IconsManager.VIDEOS, 13, 
+					oneitemheight, new String[] { TextLocal.inst.get("settings.rtspс.0"), TextLocal.inst.get("settings.rtspс.1"),
+							TextLocal.inst.get("settings.rtspс.2") }, 
+					Settings.rtspMethod, null),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.youtube"), IconsManager.VIDEOS, 14, 
+					oneitemheight, new String[] { "m.youtube.com", "SymTube" }, 
+					Settings.https?1:0, null),
+		};
+		specialAbilitiesList = new PressableUIItem[]
+		{
+			backItem,
+			new SettingMenuItem(this, TextLocal.inst.get("settings.sensor"), IconsManager.DEVICE, 4, 
+					oneitemheight, new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.j2meLs"), TextLocal.inst.get("settings.resistive") }, 
+					Settings.sensorMode, TextLocal.inst.get("settings.sensorInfo")),
+		};
+
+		debugList = new PressableUIItem[]
+		{
+			backItem,
+			new OptionItem(this, TextLocal.inst.get("settings.clearсache"), IconsManager.CLOSE, -2, oneitemheight),
+			//new SettingMenuItem(this, TextLocal.inst.get("settings.touchDebug"), IconsManager.DEVICE, 10, 
+			//		oneitemheight, eOd, Settings.debugInfo?1:0, null),
+		};
 		uiList = new PressableUIItem[]
 		{
 			backItem,
-			new SettingMenuItem(this, TextLocal.inst.get("settings.animTr"), IconsManager.ANIMATION, 0, 
+			new SettingMenuItem(this, TextLocal.inst.get("settings.transitionanimation"), IconsManager.ANIMATION, 0, 
 				oneitemheight, eOd, Settings.animateTransition?1:0, null),
-			new SettingMenuItem(this, TextLocal.inst.get("settings.dontLoadAvas"), IconsManager.PHOTOS, 2, 
-				oneitemheight, eOd, Settings.dontLoadAvas?1:0, null),
-			new SettingMenuItem(this, TextLocal.inst.get("settings.listsLength"), IconsManager.MENU, 5, 
-				oneitemheight, countVals, j, null),
-			new SettingMenuItem(this, TextLocal.inst.get("settings.msgsLength"), IconsManager.MSGS, 6, 
-				oneitemheight, countVals, j, null),
-			new SettingMenuItem(this, TextLocal.inst.get("settings.refreshRate"), IconsManager.REFRESH, 7, 
-				oneitemheight, refreshVals, rr, null)
+
+			new SettingMenuItem(this, TextLocal.inst.get("settings.dontloadavas"), IconsManager.PHOTOS, 2, 
+					oneitemheight, eOd, Settings.dontLoadAvas?1:0, null),
 		};
 		
 		titleStr = TextLocal.inst.get("title.settings");
@@ -290,6 +308,16 @@ public class SettingsScreen
 			case -102:
 			{
 				switchList(mediaList);
+				break;
+			}
+			case -103:
+			{
+				switchList(specialAbilitiesList);
+				break;
+			}
+			case -104:
+			{
+				switchList(debugList);
 				break;
 			}
 			case -1:
