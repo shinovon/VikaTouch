@@ -21,6 +21,7 @@ import vikatouch.screens.menu.FriendsScreen;
 import vikatouch.screens.menu.GroupsScreen;
 import vikatouch.screens.menu.MenuScreen;
 import vikatouch.screens.menu.PhotosScreen;
+import vikatouch.screens.menu.PlaylistsScreen;
 import vikatouch.screens.menu.VideosScreen;
 import vikatouch.screens.page.GroupPageScreen;
 import vikatouch.settings.Settings;
@@ -119,7 +120,10 @@ public class CommandsImpl
 						//Музыка
 						if(s instanceof MenuScreen)
 						{
-							VikaTouch.popup(new InfoPopup("Функционал музыки ещё не реализован. Следите за обновлениями.",null,TextLocal.inst.get("title.music"), TextLocal.inst.get("back")));
+							PlaylistsScreen pls = new PlaylistsScreen();
+							pls.load(Integer.parseInt(VikaTouch.userId),null);
+							VikaTouch.setDisplay(pls, 1);
+							//VikaTouch.popup(new InfoPopup("Функционал музыки ещё не реализован. Следите за обновлениями.",null,TextLocal.inst.get("title.music"), TextLocal.inst.get("back")));
 						}
 						break;
 					}

@@ -234,7 +234,7 @@ public abstract class ScrollableCanvas
 			{
 				currentItem = 0;
 			}
-			scrolled = -(getItemY(currentItem)+uiItems[currentItem].getDrawHeight()/2-DisplayUtils.height/2);
+			scrolled = -(getItemY(currentItem)-uiItems[currentItem].getDrawHeight()/2-DisplayUtils.height/2);
 			uiItems[currentItem].setSelected(true);
 		}
 	}
@@ -251,7 +251,7 @@ public abstract class ScrollableCanvas
 		{
 			currentItem = (short) (itemsCount-1);
 		}
-		scrolled = -(getItemY(currentItem)+uiItems[currentItem].getDrawHeight()/2-DisplayUtils.height/2);
+		scrolled = -(getItemY(currentItem)-uiItems[currentItem].getDrawHeight()/2-DisplayUtils.height/2);
 		try 
 		{
 			uiItems[currentItem].setSelected(true);
