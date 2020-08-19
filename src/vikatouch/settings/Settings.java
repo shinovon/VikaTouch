@@ -63,6 +63,8 @@ public class Settings
 	
 	public static boolean symtube;
 	
+	public static boolean autoMarkAsRead = true;
+	
 	// На ЗБТ чтоб было включено!!11!1!!
 	public static boolean telemetry = true;
 
@@ -187,8 +189,9 @@ public class Settings
 		videoResolution = "480";
 		language = "ru_RU";
 		cacheImages = true;
-		dontLoadAvas = false; // мне тестить надо, а не ждать по 2 минуты пока скачается. И нет, нихера оно не кэшируется. Ещё и скачивается 2 раза.
+		dontLoadAvas = false;
 		sendErrors = true;
+		autoMarkAsRead = true;
 		
 		//язык соотвествующий настройкам устройства
 		try

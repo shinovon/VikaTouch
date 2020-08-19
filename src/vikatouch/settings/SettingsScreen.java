@@ -102,12 +102,14 @@ public class SettingsScreen
 			
 			new SettingMenuItem(this, TextLocal.inst.get("settings.cacheimages"), IconsManager.PHOTOS, 1, 
 					oneitemheight, eOd, Settings.cacheImages?1:0, null),
-				new SettingMenuItem(this, TextLocal.inst.get("settings.listslength"), IconsManager.MENU, 5, 
-					oneitemheight, countVals, j, null),
-				new SettingMenuItem(this, TextLocal.inst.get("settings.historycount"), IconsManager.MSGS, 6, 
-					oneitemheight, countVals, j, null),
-				new SettingMenuItem(this, TextLocal.inst.get("settings.refreshrate"), IconsManager.REFRESH, 7, 
-					oneitemheight, refreshVals, rr, null)
+			new SettingMenuItem(this, TextLocal.inst.get("settings.listslength"), IconsManager.MENU, 5, 
+				oneitemheight, countVals, j, null),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.historycount"), IconsManager.MSGS, 6, 
+				oneitemheight, countVals, j, null),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.refreshrate"), IconsManager.REFRESH, 7, 
+				oneitemheight, refreshVals, rr, null),
+			new SettingMenuItem(this, TextLocal.inst.get("settings.automarkasread"), IconsManager.APPLY, 15, 
+					oneitemheight, eOd, Settings.autoMarkAsRead?1:0, null),
 		};
 		mediaList = new PressableUIItem[]
 		{
@@ -284,6 +286,11 @@ public class SettingsScreen
 				Settings.symtube = var==1;
 				break;
 			}
+			case 15:
+			{
+				Settings.autoMarkAsRead = var==1;
+				break;
+			}
 		}
 	}
 
@@ -331,7 +338,7 @@ public class SettingsScreen
 			}
 			case -3:
 			{
-				VikaTouch.popup(new ConfirmBox(TextLocal.inst.get("settings.resetC"), null, new Runnable()
+				VikaTouch.popup(new ConfirmBox(TextLocal.inst.get("settings.reset"), null, new Runnable()
 				{
 					public void run()
 					{

@@ -267,6 +267,10 @@ public class ChatScreen
 				
 				m.name = (m.foreign ? name :"Вы");
 				uiItems[uiItems.length-1-i-loadSpace] = m;
+				if(Settings.autoMarkAsRead && i == 0)
+				{
+					VikaUtils.download(new URLBuilder("messages.markAsRead").addField("start_message_id", ""+m.mid).addField("peer_id", peerId));
+				}
 				itemsCount = (short) uiItems.length;
 			}
 		}
@@ -290,12 +294,7 @@ public class ChatScreen
 			{
 				MsgItem m = new MsgItem(json.getJSONObject(i));
 				m.parseJSON();
-				int fromId = m.fromid; 
-				
-				// EXPERIMENTAL
-				{
-					//if(i==0) { VikaTouch.popup(new InfoPopup(json.getJSONObject(i).toString(), null)); }
-				}
+				int fromId = m.fromid;
 				
 				boolean chain = false;
 				if(i+1<json.length())
@@ -306,6 +305,10 @@ public class ChatScreen
 						
 				m.name = (m.foreign?title:"Вы");
 				uiItems[uiItems.length-1-i-loadSpace] = m;
+				if(Settings.autoMarkAsRead && i == 0)
+				{
+					VikaUtils.download(new URLBuilder("messages.markAsRead").addField("start_message_id", ""+m.mid).addField("peer_id", peerId));
+				}
 				itemsCount = (short) uiItems.length;
 			}
 		}
@@ -699,6 +702,10 @@ public class ChatScreen
 					m.showName = !chain;
 					m.name = (m.foreign ? name :"Вы");
 					newMsgs[i] = m;
+					if(Settings.autoMarkAsRead)
+					{
+						VikaUtils.download(new URLBuilder("messages.markAsRead").addField("start_message_id", ""+m.mid).addField("peer_id", peerId));
+					}
 				}
 				// аппенд
 				for(int i=0; i < newMsgCount; i++)

@@ -229,7 +229,7 @@ settings.audioc.2=Кэшировать в файл и воспроизводит
 settings.audioc.3=Воспроизвести в системном плеере [Symbian]
 settings.audioc.4=Воспроизвести в VLC [KEmulator]
 settings.audioc.5=Скачать файл через браузер
-settings.reset=Выполнить сброс настроек?
+settings.reset=Выполнить сброс настроек
 settings.spabilites=Специальные возможности
 settings.debug=Отладка
 
