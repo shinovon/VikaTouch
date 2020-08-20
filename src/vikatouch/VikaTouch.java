@@ -212,7 +212,7 @@ public class VikaTouch
 		{
 			try
 			{
-				/*
+				
 				tokenUnswer = VikaUtils.download(
 					new URLBuilder(OAUTH, "token")
 					.addField("grant_type", "password")
@@ -222,7 +222,7 @@ public class VikaTouch
 					.addField("password", pass)
 					.addField("scope", "notify,friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,notifications,stats,ads,offline")
 					.toString()
-				);*/
+				);
 				if(tokenUnswer == null)
 				{
 					tokenUnswer = VikaUtils.download(
@@ -267,13 +267,18 @@ public class VikaTouch
 								.addField("captcha_key", CaptchaScreen.input)
 								.toString()
 							);
+							errReason = tokenUnswer;
+							if(tokenUnswer.indexOf("error") >= 0)
+							{
+								return false;
+							}
 
 							accessToken = tokenUnswer.substring(tokenUnswer.indexOf("access_token") + 15,
 									tokenUnswer.indexOf("expires_in") - 3);
 							userId = tokenUnswer.substring(tokenUnswer.indexOf("user_id") + 9,
 									tokenUnswer.indexOf("}") - 0);
-							VikaUtils.download(URLBuilder.makeSimpleURL("audio.get"));
-							String var5 = ":APA91bFAM-gVwLCkCABy5DJPPRH5TNDHW9xcGu_OLhmdUSA8zuUsBiU_DexHrTLLZWtzWHZTT5QUaVkBk_GJVQyCE_yQj9UId3pU3vxvizffCPQISmh2k93Fs7XH1qPbDvezEiMyeuLDXb5ebOVGehtbdk_9u5pwUw";
+							//String var5 = ":APA91bFAM-gVwLCkCABy5DJPPRH5TNDHW9xcGu_OLhmdUSA8zuUsBiU_DexHrTLLZWtzWHZTT5QUaVkBk_GJVQyCE_yQj9UId3pU3vxvizffCPQISmh2k93Fs7XH1qPbDvezEiMyeuLDXb5ebOVGehtbdk_9u5pwUw";
+							/*
 							if ((refreshToken = VikaUtils.download(new URLBuilder("auth.refreshToken").addField("receipt", var5).toString())).indexOf("method") == INDEX_FALSE) {
 								accessToken = refreshToken.substring(refreshToken.indexOf("access_token") + 23, refreshToken.length() - 3);
 								tokenUnswer = "{\"access_token\":\"" + accessToken + "\",\"expires_in\":0,\"user_id\":"
@@ -288,9 +293,16 @@ public class VikaTouch
 							else
 							{
 								errReason = "failed auth with captcha";
-							}
+							}*/
+
+							final VikaScreen canvas = menuScr = new MenuScreen();
+							setDisplay(canvas, 1);
+							saveToken();
+							Dialogs.refreshDialogsList(true);
 							CaptchaScreen.finished = false;
-							break;
+							return true;
+							//CaptchaScreen.finished = false;
+							//break;
 						}
 					}
 					
@@ -299,7 +311,8 @@ public class VikaTouch
 				{
 					accessToken = tokenUnswer.substring(tokenUnswer.indexOf("access_token") + 15, tokenUnswer.indexOf("expires_in") - 3);
 					userId = tokenUnswer.substring(tokenUnswer.indexOf("user_id") + 9, tokenUnswer.indexOf("}") - 0);
-					VikaUtils.download(URLBuilder.makeSimpleURL("audio.get"));
+					//VikaUtils.download(URLBuilder.makeSimpleURL("audio.get"));
+					/*
 					String var5 = ":APA91bFAM-gVwLCkCABy5DJPPRH5TNDHW9xcGu_OLhmdUSA8zuUsBiU_DexHrTLLZWtzWHZTT5QUaVkBk_GJVQyCE_yQj9UId3pU3vxvizffCPQISmh2k93Fs7XH1qPbDvezEiMyeuLDXb5ebOVGehtbdk_9u5pwUw";
 					if ((refreshToken = VikaUtils.download(new URLBuilder("auth.refreshToken").addField("receipt", var5).toString())).indexOf("method") == INDEX_FALSE) {
 						accessToken = refreshToken.substring(refreshToken.indexOf("access_token") + 23, refreshToken.length() - 3);
@@ -313,8 +326,14 @@ public class VikaTouch
 					}
 					else
 					{
-						errReason = "failed auth";
+						errReason = "failed auth "+refreshToken+" "+tokenUnswer;
 					}
+					*/
+					final VikaScreen canvas = menuScr = new MenuScreen();
+					setDisplay(canvas, 1);
+					saveToken();
+					Dialogs.refreshDialogsList(true);
+					return true;
 				}
 			}
 			catch (NullPointerException e)
