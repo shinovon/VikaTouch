@@ -80,14 +80,14 @@ public class SplashScreen
 				// Подсказка
 				if(tip!=null)
 				{
-					g.drawString(tipStr, hdw/2, sy+260+f.getHeight()*3+50, Graphics.TOP | Graphics.HCENTER);
+					g.drawString(tipStr, hdw-f.stringWidth(tipStr)/2, sy+260+f.getHeight()*3+50, 0);
 					f = Font.getFont(0, 0, Font.SIZE_SMALL);
 					g.setFont(f);
 					for(int i=0;i<tipL;i++)
 					{
-						//int sw = f.stringWidth(tip[i]); // иначе почему-то не работает.
-						//System.out.println("tip"+i+" x:"+(hdw-sw/2));
-						g.drawString(tip[i], hdw/2, sy+260+50+f.getHeight()*(i+3), Graphics.TOP | Graphics.HCENTER);
+						int sw = f.stringWidth(tip[i]); // иначе почему-то не работает.
+						g.drawString(tip[i], hdw-sw/2, sy+260+50+f.getHeight()*(i+5), 0);
+						// Я СКАЗАЛ, ОНО ПО ДРУГОМУ НЕ РАБОТАЕТ. Если пашет на н8 (или что там), не обязано на КЕме / других телах.
 					}
 				}
 			}
