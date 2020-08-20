@@ -133,7 +133,7 @@ public class SettingsScreen
 		{
 			backItem,
 			new SettingMenuItem(this, TextLocal.inst.get("settings.sensor"), IconsManager.DEVICE, 4, 
-					oneitemheight, new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.j2meLs"), TextLocal.inst.get("settings.resistive") }, 
+					oneitemheight, new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.j2meloader"), TextLocal.inst.get("settings.resistive") }, 
 					Settings.sensorMode, TextLocal.inst.get("settings.sensorInfo")),
 		};
 
