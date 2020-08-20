@@ -118,28 +118,37 @@ public class LoginScreen
 				{
 					if(!vse)
 					{
-						VikaTouch.loading = true;
-						
-						//логин
-						if(VikaTouch.DEMO_MODE)
-						{
-							vse = true;
-							VikaScreen canvas = new MenuScreen();
-							VikaTouch.setDisplay(canvas, 1);
-						}
-						else
-						{
-							vse = VikaTouch.inst.login(user, pass);
-						}
-						String reason;
-						if(!vse && (reason = VikaTouch.getReason()) != null)
-						{
-							VikaTouch.popup(new InfoPopup(failedStr, null));
-						}
+						new Thread(
+								new Runnable()
+								{
+									public void run()
+									{
+										//логин
+										if(VikaTouch.DEMO_MODE)
+										{
+											vse = true;
+											VikaScreen canvas = new MenuScreen();
+											VikaTouch.setDisplay(canvas, 1);
+										}
+										else
+										{
+											vse = VikaTouch.inst.login(user, pass);
+										}
+										String reason;
+										if(!vse && (reason = VikaTouch.getReason()) != null)
+										{
+											//VikaTouch.popup(new InfoPopup(reason, null, failedStr, "OK"));
+											VikaTouch.warn(reason, failedStr);
+											VikaTouch.loading = false;
+										}
+									}
+								}
+							).start();
 					}
 				}
 				else
 				{
+					VikaTouch.loading = false;
 					VikaTouch.warn(warnStr);
 				}
 			}
@@ -184,6 +193,8 @@ public class LoginScreen
 			{
 				if(selectedBtn == 0)
 				{
+					if(s == "*")
+						s = "+";
 					user += s;
 				}
 				else if(selectedBtn == 1)
@@ -272,7 +283,7 @@ public class LoginScreen
 			{
 				public void run()
 				{
-					user = TextEditor.inputString(loginStr, "", 28, false);
+					user = TextEditor.inputString(loginStr, user, 28, false);
 					repaint();
 					interrupt();
 				}
@@ -287,7 +298,7 @@ public class LoginScreen
 			{
 				public void run()
 				{
-					pass = TextEditor.inputString(passwordStr, "", 32, true);
+					pass = TextEditor.inputString(passwordStr, pass, 32, true);
 					repaint();
 					interrupt();
 				}
@@ -307,27 +318,40 @@ public class LoginScreen
 					if(!vse)
 					{
 						VikaTouch.loading = true;
-						
-						//логин
-						if(VikaTouch.DEMO_MODE)
-						{
-							vse = true;
-							VikaScreen canvas = new MenuScreen();
-							VikaTouch.setDisplay(canvas, 1);
-						}
-						else
-						{
-							vse = VikaTouch.inst.login(user, pass);
-						}
-						String reason;
-						if(!vse && (reason = VikaTouch.getReason()) != null)
-						{
-							VikaTouch.popup(new InfoPopup(failedStr, null));
-						}
+						new Thread(
+								new Runnable()
+								{
+									public void run()
+									{
+										//логин
+										if(VikaTouch.DEMO_MODE)
+										{
+											vse = true;
+											VikaScreen canvas = new MenuScreen();
+											VikaTouch.setDisplay(canvas, 1);
+										}
+										else
+										{
+											vse = VikaTouch.inst.login(user, pass);
+										}
+										String reason;
+										if(!vse && (reason = VikaTouch.getReason()) != null)
+										{
+											if(reason.indexOf("invalid_user") > 0)
+												reason = warnStr;
+											//VikaTouch.popup(new InfoPopup(reason, null, failedStr, "OK"));
+											VikaTouch.warn(reason, failedStr);
+											VikaTouch.loading = false;
+										}
+									}
+								}
+							).start();
 					}
 				}
 				else
 				{
+
+					VikaTouch.loading = false;
 					VikaTouch.warn(warnStr);
 				}
 			}

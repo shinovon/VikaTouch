@@ -9,6 +9,7 @@ import javax.microedition.lcdui.Image;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.TextBreaker;
+import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
 import vikatouch.local.TextLocal;
 
@@ -27,11 +28,11 @@ public class SplashScreen
 	{ 
 		"Starting application",
 		"Loading settings",
-		"Loading localization",
+		"Loading text tables",
 		"Preparing assets",
 		"Autorization",
 		"Loading profile data",
-		"Loading dialogs",
+		"Pre-loading conversations",
 		"Ready."
 	};
 	public String tipStr = "Tip";
@@ -100,6 +101,21 @@ public class SplashScreen
 			ColorUtils.setcolor(g, ColorUtils.COLOR1);
 			g.fillRect(43, dh-15, (dw-86)*statesProgress[currState]/100, 10);
 		}
+		/*
+		g.setColor(0xffff00);
+		g.fillRect(0,0,90,90);
+		try
+		{
+			
+			if(IconsManager.sheet != null)
+				g.drawImage(IconsManager.sheet, 0, 0, 0);
+		g.drawImage(IconsManager.ico[IconsManager.INFO],0,64,0);
+		}
+		catch(Exception e)
+		{
+			
+		}
+		*/
 		ColorUtils.setcolor(g, 0);
 		
 		g.drawString("DO NOT DISTRIBUTE",dw/2,0,Graphics.TOP|Graphics.HCENTER);

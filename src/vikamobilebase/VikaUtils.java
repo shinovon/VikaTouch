@@ -457,11 +457,16 @@ public final class VikaUtils
 		{
 			return VikaTouch.cameraImg;
 		}
+		caching = true;
 		String filename = null;
 		if(caching)
 		{
 			try
 			{
+				filename = url;
+
+				if(filename.indexOf("?") > 0)
+					filename = filename.substring(0, filename.indexOf("?"));
 				filename = 
 					replace(
 						replace(
@@ -478,7 +483,7 @@ public final class VikaUtils
 																	replace(
 																		replace(
 																			replace(
-										url
+										filename
 										, "vk-api-proxy.xtrafrancyz.net", "")
 										, "?ava=1", "")
 										, VikaTouch.API, "")
@@ -495,7 +500,7 @@ public final class VikaUtils
 						, "vk.comimages", "")
 						, "com", "");
 			
-			
+				System.out.println(filename+" ||| "+url);
 			
 				final Image image = ImageStorage.get(filename);
 				if(image != null)
@@ -506,7 +511,7 @@ public final class VikaUtils
 			}
 			catch (Exception e)
 			{
-				
+				e.printStackTrace();
 			}
 		}
 

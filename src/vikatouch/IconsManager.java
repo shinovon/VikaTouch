@@ -3,22 +3,28 @@ package vikatouch;
 import java.io.IOException;
 
 import javax.microedition.lcdui.*;
+import javax.microedition.lcdui.game.Sprite;
+
+import tube42.lib.imagelib.ImageUtils;
 
 public class IconsManager {
 	
 	public static Image[] ico;
 	public static Image[] selIco;
+	public static Image sheet;
 	
 	public static void Load()
 			throws IOException
 	{
-		Image sheet = Image.createImage("/icons.png");
+		sheet = Image.createImage("/icons.png");
 		int c /*count*/ = sheet.getWidth() / 24;
 		ico = new Image[c];
 		selIco = new Image[c];
+		//sheet = Image.createImage(sheet);
 		for(int i = 0; i < c; i++)
 		{
 			ico[i] = Image.createImage(sheet, i*24, 0, 24, 24, 0);
+			//ico[i] = ImageUtils.crop(sheet, i*24, 0, i*24+24, 24);
 			selIco[i] = Image.createImage(sheet, i*24, 24, 24, 24, 0);
 		}
 		

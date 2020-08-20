@@ -37,6 +37,7 @@ public class SettingsScreen
 	public SettingsScreen()
 	{
 		super();
+		hasBackButton = true;
 		String[] eOd = new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.enabled") };
 		oneitemheight = 50;
 		backItem = new OptionItem(this, TextLocal.inst.get("back"), IconsManager.BACK, 0, oneitemheight);
@@ -391,18 +392,22 @@ public class SettingsScreen
 			String[] res = new String[] { "en_UK", "en_US", "ru_RU", "lt_RU" };
 			Settings.setted = true;
 			Settings.language = res[j];
-			Settings.saveSettings();
-			VikaTouch.popup(new InfoPopup("Language was changed to "+res[j]+". The application must be restarted.", new Runnable()
+			/*VikaTouch.popup(new InfoPopup("Language was changed to "+res[j]+". The application must be restarted.", new Runnable()
 			{
 				public void run()
 				{
 					VikaTouch.appInst.destroyApp(false);
 				}
-			}, "Impontant set changed", "Restart"));
+			}, "Restart required", "Restart"));*/
+			VikaTouch.popup(new InfoPopup("Settings will be applied after restart", null, "","OK"));
 		}
 	}
 
 	private void switchList(PressableUIItem[] l) {
+		if(l ==this.menuList)
+			hasBackButton = true;
+		else
+			hasBackButton = false;
 		try
 		{
 			uiItems[currentItem].setSelected(false); // точно упадёт на старте - списка то ещё нет.

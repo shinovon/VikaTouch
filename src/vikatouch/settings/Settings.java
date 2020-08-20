@@ -10,6 +10,7 @@ import javax.microedition.rms.RecordStoreException;
 import javax.microedition.rms.RecordStoreFullException;
 import javax.microedition.rms.RecordStoreNotFoundException;
 
+import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.local.LangObject;
 import vikatouch.utils.ErrorCodes;
@@ -67,6 +68,8 @@ public class Settings
 	
 	// На ЗБТ чтоб было включено!!11!1!!
 	public static boolean telemetry = true;
+
+	public static boolean alerts;
 
 	public static final int SENSOR_OK = 0;
 	public static final int SENSOR_J2MELOADER = 1;
@@ -206,13 +209,18 @@ public class Settings
 		{
 			
 		}
+		
+		if(VikaTouch.mobilePlatform.indexOf("S60") < 0)
+		{
+			alerts = true;
+		}
 	}
 
 	public static String hasLanguage(String l)
 	{
 		for(int i = 0; i < supportedLanguages.length; i++)
 		{
-			if(supportedLanguages[i].equalsIgnoreCase(l))
+			if(supportedLanguages[i].equalsIgnoreCase(VikaUtils.replace(l, "-", "_")))
 			{
 				return supportedLanguages[i];
 			}

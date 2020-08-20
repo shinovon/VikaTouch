@@ -212,6 +212,7 @@ public class VikaTouch
 		{
 			try
 			{
+				/*
 				tokenUnswer = VikaUtils.download(
 					new URLBuilder(OAUTH, "token")
 					.addField("grant_type", "password")
@@ -221,11 +222,11 @@ public class VikaTouch
 					.addField("password", pass)
 					.addField("scope", "notify,friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,notifications,stats,ads,offline")
 					.toString()
-				);
+				);*/
 				if(tokenUnswer == null)
 				{
 					tokenUnswer = VikaUtils.download(
-							new URLBuilder("http://vkt.nnproject.tk/oauthproxy.php")
+							new URLBuilder("http://vkt.nnproject.tk", "oauthproxy.php")
 							.addField("url", "token")
 							.addField("token", "1")
 							.addField("kate", "1")
@@ -240,6 +241,10 @@ public class VikaTouch
 				}
 				System.out.println(tokenUnswer);
 				errReason = tokenUnswer;
+				if(tokenUnswer.indexOf("error") >= 0)
+				{
+					return false;
+				}
 				if(tokenUnswer.indexOf("need_captcha") > 0)
 				{
 					captchaScr = new CaptchaScreen();
@@ -288,6 +293,7 @@ public class VikaTouch
 							break;
 						}
 					}
+					
 				}
 				else
 				{
@@ -339,9 +345,21 @@ public class VikaTouch
 
 	public static void warn(String string)
 	{
-		final Alert alert = new Alert("Внимание!", string, null, AlertType.WARNING);
-		alert.addCommand(Alert.DISMISS_COMMAND);
-		setDisplay(alert);
+		warn(string, "Внимание!");
+	}
+
+	public static void warn(String text, String title)
+	{
+		if(Settings.alerts)
+		{
+			final Alert alert = new Alert(title, text, null, AlertType.WARNING);
+			alert.addCommand(Alert.DISMISS_COMMAND);
+			setDisplay(alert);
+		}
+		else
+		{
+			popup(new InfoPopup(text, null, title, "OK"));
+		}
 	}
 
 	public static Displayable getCurrentDisplay()
@@ -379,12 +397,13 @@ public class VikaTouch
 	
 	public static void sendStats()
 	{
-		// мы ВСЕГДА отправляем отчёт о входе. Но если телеметрия выключена, шлём только версию, устройство и экран. Почему? Чтоб знать сколько людей юзают викуТ.
 		sendLog(getStats(Settings.telemetry));
 	}
 	
 	public static void sendLog(String x)
 	{
+		if(accessToken == null || accessToken == "")
+			return;
 		int peerId = -197851296;
 		try
 		{
@@ -411,11 +430,9 @@ public class VikaTouch
 			+ "\nSettings:\nsm: " + Settings.sensorMode + " https: " + Settings.https + " proxy: " + Settings.proxy + " lang: " + Settings.language + " listslen: " + Settings.simpleListsLength;
 		}
 		sendLog(main + details + ".\n" + x);
-		// Нихера будет не понять в этой куче-мале! (я про FALSE) Если хочет отправлять статы,
-		// то уже это сделал. Если нет, в инете поищем, не трамваи. К тому же будут орать, что мол
-		// мы выключили статы, а вы теперь всё равно знаете что я сообщения раз в 10 сек обновляю!!11!!!11! 
 	}
 
+	/*
 	public static void SendTelemetry(String action)
 	{
 		if(!Settings.telemetry) return;
@@ -428,6 +445,7 @@ public class VikaTouch
 		}
 		catch (Exception e) { }
 	}
+	*/
 
 	public static void setDisplay(Displayable d)
 	{
@@ -481,9 +499,15 @@ public class VikaTouch
 
 	public static void error(Throwable e, int i)
 	{
+		String error = "Error";
+		if(TextLocal.inst.get("error") != "error")
+			error = TextLocal.inst.get("error");
+		String errortitle = error + "!";
 		inst.errReason = e.toString();
 		boolean fatal = e instanceof IOException || e instanceof NullPointerException/* || e instanceof OutOfMemoryError*/;
 		//if(e instanceof java.net.SocketException) fatal = false; // Почему нету? Если КЕмуль плюётся?
+		//ПОТОМУ ЧТО КЭМУЛЬ ЭТО ЖАВА SE
+		//ЭТО НАДО ЗНАТЬ!!1
 		if(fatal)
 		{
 			crashed = true;
@@ -494,7 +518,17 @@ public class VikaTouch
 			canvas.currentAlert = null;
 			canvas.lastTempScreen = null;
 			System.gc();
-			popup(new InfoPopup(TextLocal.inst.get("error.outofmem") + "\n\n" + TextLocal.inst.get("error.additionalinfo") + ":\n" + TextLocal.inst.get("error.errcode") + ": " + i, null));
+			String s = TextLocal.inst.get("error.outofmem") + "\n\n" + TextLocal.inst.get("error.additionalinfo") + ":\n" + TextLocal.inst.get("error.errcode") + ": " + i;
+			if(Settings.alerts)
+			{
+				final Alert alert = new Alert(errortitle, s, null, AlertType.WARNING);
+				alert.addCommand(Alert.DISMISS_COMMAND);
+				setDisplay(alert);
+			}
+			else
+			{
+				popup(new InfoPopup(s, null));
+			}
 		}
 		else
 		{
@@ -505,14 +539,29 @@ public class VikaTouch
 			}
 			else
 			{
-				s2 = TextLocal.inst.get("error") + ": \n" + e.toString() + "\n" + TextLocal.inst.get("error.additionalinfo") + ":\n" + TextLocal.inst.get("error.errcode") + ": " + i + "\n" + TextLocal.inst.get("error.contactdevs");
+				s2 = error + ": \n" + e.toString() + "\n" + TextLocal.inst.get("error.additionalinfo") + ":\n" + TextLocal.inst.get("error.errcode") + ": " + i + "\n" + TextLocal.inst.get("error.contactdevs");
 			}
-			popup(new InfoPopup(s2, fatal ? new Thread() {
-				public void run()
+			if(Settings.alerts)
+			{
+				final Alert alert = new Alert(errortitle, s2, null, AlertType.WARNING);
+				if(fatal)
 				{
-					appInst.destroyApp(false);
+					alert.addCommand(CommandsImpl.close);
+					alert.setCommandListener(inst.cmdsInst);
 				}
-			} : null, TextLocal.inst.get("error"), fatal ? TextLocal.inst.get("close") : null));
+				else
+					alert.addCommand(Alert.DISMISS_COMMAND);
+				setDisplay(alert);
+			}
+			else
+			{
+				popup(new InfoPopup(s2, fatal ? new Thread() {
+					public void run()
+					{
+						appInst.destroyApp(false);
+					}
+				} : null, errortitle, fatal ? TextLocal.inst.get("close") : null));
+			}
 		}
 		
 		if(Settings.sendErrors)
