@@ -80,12 +80,14 @@ public class SplashScreen
 				// Подсказка
 				if(tip!=null)
 				{
-					g.drawString(tipStr, hdw-f.stringWidth(tipStr)/2, sy+260+f.getHeight()*3+50, 0);
+					g.drawString(tipStr, hdw/2, sy+260+f.getHeight()*3+50, Graphics.TOP | Graphics.HCENTER);
+					f = Font.getFont(0, 0, Font.SIZE_SMALL);
+					g.setFont(f);
 					for(int i=0;i<tipL;i++)
 					{
-						int sw = f.stringWidth(tip[i]); // иначе почему-то не работает.
+						//int sw = f.stringWidth(tip[i]); // иначе почему-то не работает.
 						//System.out.println("tip"+i+" x:"+(hdw-sw/2));
-						g.drawString(tip[i], hdw-sw/2, sy+260+50+f.getHeight()*(i+4), 0);
+						g.drawString(tip[i], hdw/2, sy+260+50+f.getHeight()*(i+3), Graphics.TOP | Graphics.HCENTER);
 					}
 				}
 			}
@@ -132,7 +134,7 @@ public class SplashScreen
 		int tipsC = 16;
 		Random r = new Random();
 		int i = r.nextInt(tipsC);
-		tip = TextBreaker.breakText(TextLocal.inst.get("splash.tip."+i), false, null, true, DisplayUtils.width*8/10);
+		tip = TextBreaker.breakText(TextLocal.inst.get("splash.tip."+i), false, null, true, DisplayUtils.width-40);
 		for(tipL = 0; (tipL<tip.length && tip[tipL]!=null); tipL++) { }
 	}
 	

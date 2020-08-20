@@ -1,7 +1,5 @@
 package vikatouch;
 
-import javax.microedition.lcdui.Alert;
-import javax.microedition.lcdui.AlertType;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
@@ -22,7 +20,6 @@ import vikatouch.screens.menu.GroupsScreen;
 import vikatouch.screens.menu.MenuScreen;
 import vikatouch.screens.menu.MusicScreen;
 import vikatouch.screens.menu.PhotosScreen;
-import vikatouch.screens.menu.PlaylistsScreen;
 import vikatouch.screens.menu.VideosScreen;
 import vikatouch.screens.page.GroupPageScreen;
 import vikatouch.settings.Settings;
@@ -290,8 +287,6 @@ public class CommandsImpl
 		{
 			if(!(s instanceof MenuScreen))
 			{
-				if(VikaTouch.menuScr == null)
-					VikaTouch.menuScr = new MenuScreen();
 				VikaTouch.setDisplay(VikaTouch.menuScr, 1);
 			}
 		}

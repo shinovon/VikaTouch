@@ -9,7 +9,9 @@
 
 langinfo.name=English (US)
 #YYYY.MM.DD
-langinfo.version=2020.08.14
+langinfo.version=2020.08.20
+
+langinfo.hints=2
 
 # LANG FORMAT
 #| - new line
@@ -157,38 +159,56 @@ login.failed=Failed to authenticate
 profile.closed=This is a private profile
 user=User
 
+settings.system=Basic
+settings.appearance=Appearance
+settings.media=Media
 settings.help=Help
 settings.enabled=On
 settings.disabled=Off
-settings.https=Directly HTTPS
-settings.proxy=Through proxy
-settings.conn=Connection
-settings.sensor=Sensor mode
+settings.directhttps=Directly HTTPS
+settings.proxy=Proxy
+settings.connection=Connection via
+settings.sensor=Sensor control optimization
 settings.norm=Normal
-settings.j2meLs=J2ME Loader
+settings.j2meloader=J2ME Loader
 settings.resistive=Resistive
-settings.sensorInfo=Выкл - работа управления по умолчанию. J2MELoader - дополнительная защита от ложной прокрутки (фикс бага j2meL). Резистивный - некоторые кнопки у края экрана будут побольше, чтоб по ним было легче попасть.
 settings.logout=Logout
-settings.reset=Default settings
-settings.clearCache=Clear cache
-settings.animTr=Transition animations
-settings.listsLength=Items in list
-settings.dontLoadAvas=Don't load images
-settings.enableCache=Cache images
-settings.msgsLength=Messages history length
-settings.refreshRate=Refresh rate
-settings.telemetry=Send periodic stats
-settings.telemetryInfo=Если включено, приложение будет отправлять нам дополнительные сведения об устройстве, текущие настройки и статистику использования. Данные ваших действий не отправляются (например, мы узнаем, что вы пытались открыть информацию группы, но не будем знать, какой именно).
-settings.sendErrors=Report errors
-settings.videoRes=Video playing resolution
-settings.audio=Audio playing method
+settings.reset=Reset to defaults
+settings.clearcache=Clear cached images
+settings.transitionanimation=Animate transitions
+settings.listslength=Items count in list
+settings.dontloadavas=Dont load images
+settings.cacheimages=Cache images
+settings.historycount=Messages history count
+settings.refreshrate=Refresh rate
+settings.telemetry=Send usage stats
+settings.reporterrors=Report errors
+settings.videoresolution=Video resolution
+settings.rtsp=RTSP opening method
+settings.rtspc.0=Default
+settings.rtspc.1=Call system player
+settings.rtspc.2=Run VLC
+settings.youtube=Play YouTube videos via
+settings.audio=Audio play method
 settings.apiproxy=Api Proxy
 settings.authproxy=OAuth Proxy
 settings.language=Language
-settings.audio0=Play online
-settings.audio1=Cache & play
-settings.audio2=Open with system player
-settings.audio3=Download with browser
-settings.resetC=Do you really want to reset settings?
+settings.audioc.0=Play online
+settings.audioc.1=Cache into RAM and play
+settings.audioc.2=Cache into phone memory and play
+settings.audioc.3=Play in system player
+settings.audioc.4=Run VLC
+settings.audioc.5=Download file via browser
+settings.spabilities=Special abilities
+settings.debug=Debug
 
 back=Back
+
+splash.title.3=Preparing assets
+splash.title.4=Authentication
+splash.title.5=Loading profile information
+splash.title.6=Pre-loading conversations
+splash.title.7=Ready.
+splash.tip=---- Random hint ----
+splash.tip.0=add some hints pls
+splash.tip.1=vyvyvyvyvy
