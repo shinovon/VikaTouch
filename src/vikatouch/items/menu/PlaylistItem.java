@@ -43,6 +43,8 @@ public class PlaylistItem extends JSONUIItem {
 		{
 			name = json.optString("title");
 			size = json.optInt("count");
+			owner_id = json.optInt("owner_id");
+			id = json.optInt("id");
 			iconUrl = fixJSONString(json.getJSONObject("photo").optString("photo_135"));
 		}
 		catch (Exception e)
