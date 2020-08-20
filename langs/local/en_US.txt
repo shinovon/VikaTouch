@@ -1,8 +1,7 @@
 #info:
 #английский
-#English (United States)
+#English (US)
 #authors: shinovon
-#version 2020.08.14
 #
 #authors' vk:
 #vk.com/shinovon

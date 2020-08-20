@@ -2,14 +2,15 @@
 #английский
 #English (United Kingdom)
 #authors: shinovon
-#version 2020.08.14
 #
 #authors' vk:
 #vk.com/shinovon
 
 langinfo.name=English (UK)
 #YYYY.MM.DD
-langinfo.version=2020.08.14
+langinfo.version=2020.08.20
+
+langinfo.hints=2
 
 # LANG FORMAT
 #| - new line
