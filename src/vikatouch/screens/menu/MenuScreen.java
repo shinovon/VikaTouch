@@ -63,6 +63,7 @@ public class MenuScreen
 	public String groupsStr;
 	public String friendsStr;
 	private String aboutStr;
+	private int selectedBtn;
 
 	public MenuScreen()
 	{
@@ -171,26 +172,34 @@ public class MenuScreen
 		VikaTouch.sendStats();
 	}
 
-	/*protected final void up()
+	protected final void up()
 	{
+		if(selectedBtn > 0)
+			uiItems[selectedBtn-1].setSelected(false);
 		selectedBtn--;
 		if(selectedBtn < 0)
 			selectedBtn = 0;
 		scroll += oneitemheight;
 		dragging = true;
+		if(selectedBtn > 0)
+			uiItems[selectedBtn-1].setSelected(true);
 	}
 	
 	protected final void down()
 	{
+		if(selectedBtn > 0)
+			uiItems[selectedBtn-1].setSelected(false);
 		selectedBtn++;
 		if(selectedBtn >= btnsLen)
 			selectedBtn = btnsLen - 1;
 		if(selectedBtn > 3)
 			scroll -= oneitemheight;
 		dragging = true;
-	}*/
+		if(selectedBtn > 0)
+			uiItems[selectedBtn-1].setSelected(true);
+	}
 	
-	/*public final void press(int key)
+	public final void press(int key)
 	{
 		keysMode = true;
 		if(key == -5)
@@ -201,13 +210,13 @@ public class MenuScreen
 			}
 			else
 			{
-				VikaTouch.inst.cmdsInst.command(itemscmd[selectedBtn - 1], this);
+				VikaTouch.inst.cmdsInst.command(selectedBtn - 1, this);
 			}
 		}
 		else
 			super.press(key);
 		repaint();
-	}*/
+	}
 	
 	public void draw(Graphics g)
 	{
@@ -261,6 +270,11 @@ public class MenuScreen
 		super.drawHUD(g, "");
 
 		g.drawImage(settingsImg, DisplayUtils.width-35, 18, 0);
+		
+		if(keysMode && selectedBtn == 0)
+		{
+			g.drawRect(DisplayUtils.width-35, 18, 24, 24);
+		}
 	}
 /*
 	public final void draw(Graphics g)

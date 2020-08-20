@@ -445,6 +445,10 @@ public class ChatScreen
 		{
 			down();
 		}
+		else if(key == -10)
+		{
+			send();
+		}
 		else if(key == -5)
 		{ // ok
 			switch (buttonSelected)

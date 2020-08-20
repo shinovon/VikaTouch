@@ -149,7 +149,7 @@ public class MsgItem
 		}
 		catch (Exception e)
 		{
-			
+			text = e.toString();
 		}
 		
 		// experimental
@@ -275,7 +275,7 @@ public class MsgItem
 				else if(at instanceof WallAttachment)
 				{
 					int x1 = foreign ? (margin + attMargin) : (DisplayUtils.width - (margin + msgWidth) + attMargin);
-					g.drawString("Запись на стене", x1, y+attY, 0);
+					g.drawString("Запись на стене", x1+10, y+attY, 0);
 				}
 				
 				attY += at.getDrawHeight()+attMargin;

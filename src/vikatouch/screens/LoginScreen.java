@@ -34,7 +34,7 @@ public class LoginScreen
 	private static boolean pressed;
 	public static boolean vse;
 	public static String user = "";
-	public static String pass;
+	public static String pass = "";
 	public static Thread thread;
 	private int selectedBtn;
 	private boolean keysMode;
@@ -76,7 +76,7 @@ public class LoginScreen
 		failedStr = TextLocal.inst.get("login.failed");
 	}
 	
-	public final void release(int key)
+	public final void press(int key)
 	{
 		keysMode = true;
 		if(key == -5)
@@ -90,7 +90,7 @@ public class LoginScreen
 
 					public void run()
 					{
-						user = TextEditor.inputString(loginStr, "", 28, false);
+						user = TextEditor.inputString(loginStr, user, 28, false);
 						repaint();
 						interrupt();
 					}
@@ -105,7 +105,7 @@ public class LoginScreen
 				{
 					public void run()
 					{
-						pass = TextEditor.inputString(passwordStr, "", 32, false);
+						pass = TextEditor.inputString(passwordStr, pass, 32, false);
 						repaint();
 						interrupt();
 					}
@@ -144,7 +144,7 @@ public class LoginScreen
 				}
 			}
 		}
-		if(key == -2)
+		else if(key == -2)
 		{
 			selectedBtn++;
 			if(selectedBtn > 2)
@@ -156,7 +156,7 @@ public class LoginScreen
 				pressed = true;
 			}
 		}
-		if(key == -1)
+		else if(key == -1)
 		{
 			selectedBtn--;
 			if(selectedBtn == 1)
@@ -166,7 +166,7 @@ public class LoginScreen
 			if(selectedBtn < 0)
 				selectedBtn = 0;
 		}
-		else if(key == 8)
+		else if(key == -7 || key == -8 || key == 8)
 		{
 			if(selectedBtn == 0)
 			{
@@ -209,20 +209,27 @@ public class LoginScreen
 		ColorUtils.setcolor(g, ColorUtils.COLOR1);
 		g.fillRect(0, 0, DisplayUtils.width, shortLayout?24:48);
 		if(!shortLayout) g.fillRect(0, DisplayUtils.height-50, DisplayUtils.width, 50);
-		if(vikaLogo != null && !shortLayout)
-		{
-			g.drawImage(vikaLogo, 2, 0, 0);
-		}
-		
-		Font f = Font.getFont(0, 0, Font.SIZE_LARGE);
-		g.setFont(f); ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
-		g.drawString("Vika Touch - "+titleLoginStr, shortLayout?6:52, (shortLayout?12:24)-f.getHeight()/2, 0);
+		//if(vikaLogo != null && !shortLayout)
+		//{
+	//		g.drawImage(vikaLogo, 2, 0, 0);
+		//}
+		Font f;
+		//Font f = Font.getFont(0, 0, Font.SIZE_LARGE);
+		//g.setFont(f); 
+		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+		//g.drawString("Vika Touch - "+titleLoginStr, 8, (shortLayout?12:24)-f.getHeight()/2, 0);
 		
 		tapCoords = new int[] { yCenter - fH/2 - 8 - fH, yCenter - fH/2 - 8, yCenter - fH/2, yCenter + fH/2, yCenter + fH/2 + 8, yCenter + fH/2 + 8 + 32 };
 		
 		ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
+		if(selectedBtn == 0)
+			ColorUtils.setcolor(g, ColorUtils.TEXT);
 		g.drawRect(fieldsMargin, tapCoords[0], sw-fieldsMargin*2, fH);
+		ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
+		if(selectedBtn == 1)
+			ColorUtils.setcolor(g, ColorUtils.TEXT);
 		g.drawRect(fieldsMargin, tapCoords[2], sw-fieldsMargin*2, fH);
+		ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
 		if(loginpressed != null && pressed) {
 			g.drawImage(loginpressed, DisplayUtils.width/2-loginpressed.getWidth()/2, tapCoords[4], 0);
 		} else if(login != null)
@@ -236,8 +243,15 @@ public class LoginScreen
 		if(pass != null)
 		{
 			String strpass = "";
-			for(int i = 0; i < pass.length(); i++)
-				strpass += "*";
+			if(keysMode && selectedBtn == 1)
+			{
+				strpass = pass;
+			}
+			else
+			{
+				for(int i = 0; i < pass.length(); i++)
+					strpass += "*";
+			}
 			g.drawString(strpass, fieldsMargin+10, tapCoords[2]+fH/2-f.getHeight()/2, 0);
 		}
 	}
