@@ -115,7 +115,6 @@ public class CommandsImpl
 						if(s instanceof MenuScreen)
 						{
 							MusicScreen.open(Integer.parseInt(VikaTouch.userId),null);
-							//VikaTouch.popup(new InfoPopup("Функционал музыки ещё не реализован. Следите за обновлениями.",null,TextLocal.inst.get("title.music"), TextLocal.inst.get("back")));
 						}
 						break;
 					}

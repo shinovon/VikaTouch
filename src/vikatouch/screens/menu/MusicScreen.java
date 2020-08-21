@@ -19,6 +19,7 @@ import vikatouch.items.menu.AudioTrackItem;
 import vikatouch.items.menu.FriendItem;
 import vikatouch.items.menu.OptionItem;
 import vikatouch.items.menu.PlaylistItem;
+import vikatouch.local.TextLocal;
 import vikatouch.screens.*;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
@@ -31,8 +32,16 @@ public class MusicScreen
 	public int albumId;
 	
 	public String title;
+	private String loadingStr;
+	
 	
 	public static Thread downloaderThread;
+	
+	public MusicScreen()
+	{
+		super();
+		loadingStr = TextLocal.inst.get("title.loading");
+	}
 
 	public void load(final int oid, final int albumId, String title)
 	{
@@ -129,6 +138,11 @@ public class MusicScreen
 		}
 	}
 	
+	public final void drawHUD(Graphics g)
+	{
+		super.drawHUD(g, uiItems==null?"("+loadingStr+"...)":title);
+	}
+	
 	public final void release(int x, int y)
 	{
 		try 
@@ -164,7 +178,7 @@ public class MusicScreen
 				if(i==0)
 				{
 					MusicScreen pls = new MusicScreen();
-					pls.load(id,0,name);
+					pls.load(id,0,TextLocal.inst.get("title.music")+" "+name);
 					VikaTouch.setDisplay(pls, 1);
 				}
 				else if(i==1)
@@ -178,7 +192,7 @@ public class MusicScreen
 		OptionItem[] oi = new OptionItem[]
 		{ 
 			new OptionItem(m, "Вся музыка", IconsManager.MUSIC, 0, 50),
-			new OptionItem(m, "Плейлисты", IconsManager.MENU, 1, 50)
+			new OptionItem(m, TextLocal.inst.get("title.playlists"), IconsManager.MENU, 1, 50)
 		};
 		VikaTouch.popup(new ContextMenu(oi));
 	}

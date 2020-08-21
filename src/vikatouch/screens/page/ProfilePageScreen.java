@@ -23,6 +23,7 @@ import vikatouch.screens.menu.DocsScreen;
 import vikatouch.screens.menu.FriendsScreen;
 import vikatouch.screens.menu.GroupsScreen;
 import vikatouch.screens.menu.MenuScreen;
+import vikatouch.screens.menu.MusicScreen;
 import vikatouch.screens.menu.VideosScreen;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
@@ -346,6 +347,9 @@ public class ProfilePageScreen
 				GroupsScreen gs = new GroupsScreen();
 				VikaTouch.setDisplay(gs, 1);
 				gs.loadGroups(0, id, wname);
+				break;
+			case 6:
+				MusicScreen.open(id, wname);
 				break;
 			case 7:
 				VideosScreen vs = new VideosScreen();

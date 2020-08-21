@@ -25,6 +25,7 @@ import vikatouch.screens.MainScreen;
 import vikatouch.screens.menu.DocsScreen;
 import vikatouch.screens.menu.FriendsScreen;
 import vikatouch.screens.menu.MenuScreen;
+import vikatouch.screens.menu.MusicScreen;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
 
@@ -335,6 +336,9 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 					break;
 				case 4:
 					isInfoShown = true;
+					break;
+				case 6:
+					MusicScreen.open(-id, name);
 					break;
 				case 8:
 					if(docs>0) {

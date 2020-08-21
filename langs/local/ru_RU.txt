@@ -120,6 +120,7 @@ title.login=Вход
 title.groups=Группы
 title.friends=Друзья
 title.music=Музыка
+title.playlists=Плейлисты
 title.settings=Настройки
 
 friend.remove=Удалить из друзей

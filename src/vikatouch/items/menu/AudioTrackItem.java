@@ -11,6 +11,7 @@ import ru.nnproject.vikaui.screen.ScrollableCanvas;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
+import vikatouch.IconsManager;
 import vikatouch.items.JSONUIItem;
 import vikatouch.music.MusicPlayer;
 import vikatouch.screens.menu.MusicScreen;
@@ -77,7 +78,8 @@ public class AudioTrackItem
 			g.drawString(name, 73, y, 0);
 		ColorUtils.setcolor(g, ColorUtils.OUTLINE);
 		if(artist!=null) g.drawString(artist, 73, y + 24, 0);
-		if(lengthS!=null) g.drawString(lengthS, DisplayUtils.width-10-g.getFont().stringWidth(lengthS), y + 24, 0);
+		if(lengthS!=null) g.drawString(lengthS, DisplayUtils.width-10-g.getFont().stringWidth(lengthS), y, 0);
+		g.drawImage(IconsManager.ico[IconsManager.MUSIC], 20, y+13, 0);
 	}
 
 	public void tap(int x, int y)
