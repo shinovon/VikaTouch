@@ -93,19 +93,19 @@ public class MsgItem
 							JSONObject att = replyAttachs.getJSONObject(0);
 							String type = att.getString("type");
 							JSONObject atj = att.getJSONObject(type);
-							if(type == "photo")
+							if(type.equals("photo"))
 							{
 								replyText = "[Фотография]";
 							}
-							else if(type == "audio_message")
+							else if(type.equals("audio_message"))
 							{
 								replyText = "[Голосовое сообщение]";
 							}
-							else if(type == "audio")
+							else if(type.equals("audio"))
 							{
 								replyText = "[Аудио]";
 							}
-							else if(type == "wall_reply")
+							else if(type.equals("wall_reply"))
 							{
 								replyText = "[Комментарий]";
 							}
@@ -116,7 +116,7 @@ public class MsgItem
 						}
 						else if(replyAttachs.length() > 1)
 						{
-							replyText = "[Вложения]";
+							replyText = "[Вложения " + replyAttachs.length() + "]";
 						}
 						breakReplyText = false;
 					}
@@ -150,6 +150,7 @@ public class MsgItem
 		catch (Exception e)
 		{
 			text = e.toString();
+			e.printStackTrace();
 		}
 		
 		// experimental

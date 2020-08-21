@@ -109,7 +109,7 @@ public abstract class ScrollableCanvas
 		VikaCanvas.debugString = "released " + x +" " +y;
 		if(timer < 7)
 		{
-			if(scrollPrev > 0)
+			if(scrollPrev != 0)
 				drag(x, y);
 			drift = scrollPrev;
 		}

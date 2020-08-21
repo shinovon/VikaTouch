@@ -192,7 +192,8 @@ public class NewsScreen
 								itemsh = 0;
 								for(int i2 = 0; i2 < itemsCount; i2++)
 								{
-									itemsh += uiItems[i2].getDrawHeight();
+									if(uiItems[i2] != null)
+										itemsh += uiItems[i2].getDrawHeight();
 								}
 								break;
 							}
