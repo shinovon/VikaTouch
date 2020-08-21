@@ -16,6 +16,7 @@ public final class VikaTouchApp
 	public void destroyApp(boolean arg0)
 	{
 		ChatScreen.stopUpdater();
+		VikaTouch.inst.stop();
 		this.notifyDestroyed();
 	}
 

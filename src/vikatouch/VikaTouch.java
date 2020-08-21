@@ -851,4 +851,19 @@ public class VikaTouch
 			}
 		}
 	}
+
+	public void stop()
+	{
+		if(VikaTouch.accessToken != null && VikaTouch.accessToken != "")
+		{
+			try
+			{
+				VikaUtils.download(new URLBuilder("account.setOffline"));
+			}
+			catch (Exception e)
+			{
+				
+			}
+		}
+	}
 }

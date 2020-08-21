@@ -51,10 +51,6 @@ public class CommandsImpl
 					case -1:
 					{
 						//Выход
-						try
-						{
-							VikaUtils.download(new URLBuilder("account.setOffline"));
-						} catch (Exception e) { }
 						VikaTouch.appInst.destroyApp(false);
 						break;
 					}

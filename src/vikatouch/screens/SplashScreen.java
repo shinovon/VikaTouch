@@ -75,7 +75,7 @@ public class SplashScreen
 				ColorUtils.setcolor(g, ColorUtils.COLOR1);
 				g.fillRect(43, sy+260+f.getHeight()+30+3, (dw-86)*statesProgress[currState]/100, 10);
 				g.setColor(0,0,0);
-				g.drawString(statesNames[currState], hdw-f.stringWidth(statesNames[currState])/2, sy+260+f.getHeight()+30+20, 0);
+				g.drawString(statesNames[currState], hdw/*-f.stringWidth(statesNames[currState])/2*/, sy+260+f.getHeight()+30+20, Graphics.TOP | Graphics.HCENTER);
 				
 				// Подсказка
 				if(tip!=null)
@@ -85,9 +85,10 @@ public class SplashScreen
 					g.setFont(f);
 					for(int i=0;i<tipL;i++)
 					{
-						int sw = f.stringWidth(tip[i]); // иначе почему-то не работает.
-						g.drawString(tip[i], hdw-sw/2, sy+260+50+f.getHeight()*(i+5), 0);
+						//int sw = f.stringWidth(tip[i]); // иначе почему-то не работает.
+						g.drawString(tip[i], hdw/*-sw/2*/, sy+260+50+f.getHeight()*(i+5), Graphics.TOP | Graphics.HCENTER);
 						// Я СКАЗАЛ, ОНО ПО ДРУГОМУ НЕ РАБОТАЕТ. Если пашет на н8 (или что там), не обязано на КЕме / других телах.
+						//мне похуй
 					}
 				}
 			}
