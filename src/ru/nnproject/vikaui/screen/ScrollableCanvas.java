@@ -30,6 +30,7 @@ public abstract class ScrollableCanvas
 	public short scrollOffset;
 	public short currentItem;
 	public static boolean keysMode = false;
+	public boolean scrollWithKeys = false;
 	
 	public short drift;
 	public short driftSpeed;
@@ -177,6 +178,11 @@ public abstract class ScrollableCanvas
 	
 	protected void down()
 	{
+		if(scrollWithKeys)
+		{
+			keysScroll(-1);
+			return;
+		}
 		//TODO: паблик бета
 		/*
 		if(uiItems[currentItem].getDrawHeight() > vmeshautsa)
@@ -241,6 +247,11 @@ public abstract class ScrollableCanvas
 
 	protected void up()
 	{
+		if(scrollWithKeys)
+		{
+			keysScroll(+1);
+			return;
+		}
 		try
 		{
 			uiItems[currentItem].setSelected(false);
@@ -257,6 +268,16 @@ public abstract class ScrollableCanvas
 			uiItems[currentItem].setSelected(true);
 		}
 		catch (Exception e) { }
+	}
+	
+	protected final void keysScroll(int dir)
+	{
+		scroll = (short)(dir*80);
+		//scrollPrev += scroll;
+		scrollingTimer = 25;
+		driftSpeed = (short) (20*dir);
+		drift = scroll;
+		scrollPrev = 0;
 	}
 
 	protected final void update(Graphics g)

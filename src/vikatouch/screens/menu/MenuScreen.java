@@ -210,7 +210,7 @@ public class MenuScreen
 			}
 			else
 			{
-				VikaTouch.inst.cmdsInst.command(selectedBtn - 1, this);
+				uiItems[selectedBtn-1].keyPressed(-5); // проверял хоть?
 			}
 		}
 		else

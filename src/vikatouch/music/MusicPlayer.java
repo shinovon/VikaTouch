@@ -4,14 +4,17 @@ import javax.microedition.io.ConnectionNotFoundException;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
+import ru.nnproject.vikaui.menu.IMenu;
 import vikatouch.VikaTouch;
 import vikatouch.items.menu.AudioTrackItem;
+import vikatouch.items.menu.OptionItem;
 import vikatouch.screens.MainScreen;
 import vikatouch.screens.menu.MusicScreen;
 import vikatouch.settings.Settings;
 
 // экранчик с названием песни, перемоткой ии... Всё.
 public class MusicPlayer extends MainScreen
+	implements IMenu
 {
 	
 	public MusicScreen playlist;
@@ -54,37 +57,42 @@ public class MusicPlayer extends MainScreen
 	
 	public void loadTrack()
 	{
-		Pause();
+		pause();
 		// загрузка следующего
 	}
 	
-	public void Pause()
+	public void pause()
 	{
 		
 	}
 	
-	public void Play()
+	public void play()
 	{
 		
 	}
 	
-	public void Next()
+	public void next()
 	{
 		current++;
 		if(current>=playlist.uiItems.length) current = 0;
 		loadTrack();
 	}
 	
-	public void Prev()
+	public void prev()
 	{
 		current--;
 		if(current<0) current = playlist.uiItems.length - 1;
 		loadTrack();
 	}
 	
-	public void UpdateDrawData()
+	public void updateDrawData()
 	{
 		
+	}
+	
+	public void options()
+	{
+		OptionItem[] opts;
 	}
 	
 	public static void launch(MusicScreen list, int track)
@@ -123,5 +131,14 @@ public class MusicPlayer extends MainScreen
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	public void onMenuItemPress(int i) {
+		
+	}
+
+
+	public void onMenuItemOption(int i) {
 	}
 }

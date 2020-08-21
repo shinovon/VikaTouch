@@ -37,6 +37,7 @@ public class NewsScreen
 			VikaTouch.menuScr = new MenuScreen();
 		
 		loadPosts();
+		scrollWithKeys = true;
 	}
 	
 	private void loadPosts()
@@ -151,22 +152,9 @@ public class NewsScreen
 			e.printStackTrace();
 		}
 	}
-	
-	protected final void up()
-	{
-		scroll += 25;
-		repaint();
-	}
-	
 	public final void drawHUD(Graphics g)
 	{
 		drawHUD(g, titleStr);
-	}
-	
-	protected final void down()
-	{
-		scroll -= 25;
-		repaint();
 	}
 	
 	public final void release(int x, int y)
