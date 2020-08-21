@@ -38,7 +38,7 @@ public class CountUtils
 		{
 			x2 = "";
 		}
-		else if(a <= 5)
+		else if(a < 5)
 		{
 			x2 = "sfew";
 		}

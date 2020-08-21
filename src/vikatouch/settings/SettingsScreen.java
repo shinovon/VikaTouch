@@ -89,7 +89,6 @@ public class SettingsScreen
 					oneitemheight, eOd, Settings.telemetry?1:0, null),
 			new SettingMenuItem(this, TextLocal.inst.get("settings.reporterrors"), IconsManager.SEND, 12, 
 					oneitemheight, eOd, Settings.sendErrors?1:0, null),
-			new OptionItem(this, TextLocal.inst.get("settings.language"), IconsManager.EDIT, 23, oneitemheight),
 			new OptionItem(this, TextLocal.inst.get("settings.reset"), IconsManager.SETTINGS, -3, oneitemheight),
 			new OptionItem(this, TextLocal.inst.get("menu.about"), IconsManager.INFO, 31, oneitemheight),
 			new OptionItem(this, TextLocal.inst.get("settings.logout"), -1, -1, oneitemheight),
@@ -109,8 +108,9 @@ public class SettingsScreen
 				oneitemheight, countVals, j, null),
 			new SettingMenuItem(this, TextLocal.inst.get("settings.refreshrate"), IconsManager.REFRESH, 7, 
 				oneitemheight, refreshVals, rr, null),
-			new SettingMenuItem(this, TextLocal.inst.get("settings.automarkasread"), IconsManager.APPLY, 15, 
-					oneitemheight, eOd, Settings.autoMarkAsRead?1:0, null),
+			//блять я тебя захуярю
+			/*new SettingMenuItem(this, TextLocal.inst.get("settings.automarkasread"), IconsManager.APPLY, 15, 
+					oneitemheight, eOd, Settings.autoMarkAsRead?1:0, null),*/
 		};
 		mediaList = new PressableUIItem[]
 		{
@@ -135,6 +135,10 @@ public class SettingsScreen
 			new SettingMenuItem(this, TextLocal.inst.get("settings.sensor"), IconsManager.DEVICE, 4, 
 					oneitemheight, new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.j2meloader"), TextLocal.inst.get("settings.resistive") }, 
 					Settings.sensorMode, TextLocal.inst.get("settings.sensorInfo")),
+			
+
+			new SettingMenuItem(this, TextLocal.inst.get("settings.dontloadavas"), IconsManager.PHOTOS, 2, 
+					oneitemheight, eOd, Settings.dontLoadAvas?1:0, null),
 		};
 
 		debugList = new PressableUIItem[]
@@ -150,8 +154,8 @@ public class SettingsScreen
 			new SettingMenuItem(this, TextLocal.inst.get("settings.transitionanimation"), IconsManager.ANIMATION, 0, 
 				oneitemheight, eOd, Settings.animateTransition?1:0, null),
 
-			new SettingMenuItem(this, TextLocal.inst.get("settings.dontloadavas"), IconsManager.PHOTOS, 2, 
-					oneitemheight, eOd, Settings.dontLoadAvas?1:0, null),
+			
+			new OptionItem(this, TextLocal.inst.get("settings.language"), IconsManager.EDIT, 23, oneitemheight),
 		};
 		
 		titleStr = TextLocal.inst.get("title.settings");

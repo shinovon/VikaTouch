@@ -58,7 +58,7 @@ public class Settings
 
 	public static boolean sendErrors;
 	
-	public static int audioMode = 0; // добавь пж сохранение
+	public static int audioMode = 0; // добавь пж сохранение -ок
 	
 	public static int rtspMethod = 0;
 	
@@ -94,7 +94,7 @@ public class Settings
 	{
 		try
 		{
-			RecordStore rs = RecordStore.openRecordStore("setts", true);
+			RecordStore rs = RecordStore.openRecordStore("vikatouchsettings", true);
 			if(rs.getNumRecords() > 0)
 			{
 		        setted = true;
@@ -117,6 +117,10 @@ public class Settings
 		        try
 		        {
 		        	dontLoadAvas = is.readBoolean();
+		        	audioMode = is.readShort();
+		        	rtspMethod = is.readShort();
+		        	symtube = is.readBoolean();
+		        	refreshRate = is.readShort();
 		        }
 		        catch (Exception e)
 		        {
@@ -141,13 +145,13 @@ public class Settings
 			{
 				try
 				{
-					RecordStore.deleteRecordStore("setts");
+					RecordStore.deleteRecordStore("vikatouchsettings");
 				}
 				catch (Exception e)
 				{
 					
 				}
-				RecordStore rs = RecordStore.openRecordStore("setts", true);
+				RecordStore rs = RecordStore.openRecordStore("vikatouchsettings", true);
 		        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		        final DataOutputStream os = new DataOutputStream(baos);
 		        
@@ -163,6 +167,10 @@ public class Settings
 		        os.writeUTF(videoResolution);
 		        os.writeUTF(language);
 		        os.writeBoolean(dontLoadAvas);
+		        os.writeShort(audioMode);
+		        os.writeShort(rtspMethod);
+		        os.writeBoolean(symtube);
+		        os.writeShort(refreshRate);
 		
 		        final byte[] b = baos.toByteArray();
 		        rs.addRecord(b, 0, b.length);
@@ -213,6 +221,8 @@ public class Settings
 		if(VikaTouch.mobilePlatform.indexOf("S60") < 0)
 		{
 			alerts = true;
+			videoResolution = "240";
+			proxy = true;
 		}
 	}
 

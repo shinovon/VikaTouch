@@ -136,6 +136,16 @@ msg.attach.attachment=Attachment
 msg.attach.video=Video
 msg.entermsg=Enter message...
 
+count.message=message
+count.messages=messages
+count.messagesfew=messages
+count.view=view
+count.views=views
+count.viewsfew=views
+count.member=участник
+count.members=участников
+count.membersfew=участника
+
 video=Video
 video.1view=view
 video.views=views
