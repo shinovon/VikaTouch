@@ -2,6 +2,7 @@ package vikatouch.music;
 
 import javax.microedition.io.ConnectionNotFoundException;
 import javax.microedition.lcdui.Graphics;
+import javax.microedition.lcdui.Image;
 
 import vikatouch.VikaTouch;
 import vikatouch.items.menu.AudioTrackItem;
@@ -16,8 +17,31 @@ public class MusicPlayer extends MainScreen
 	public MusicScreen playlist;
 	public int current;
 	
+	// кэш для рисования
+	private String title;
+	private String artist;
+	private String playlistN;
+	private String number;
+	private String time;
+	private String totalTime;
+	private int x1, x2, currX;
+	public Image[] buttons;
+	
 	public MusicPlayer()
 	{
+		try
+		{
+			Image sheet = Image.createImage("/playerbtns.png");
+			buttons = new Image[6];
+			for(int i = 0; i < 6; i++)
+			{
+				buttons[i] = Image.createImage(sheet, i*50, 0, 50, 50, 0);
+			}
+		}
+		catch (Exception e)
+		{
+			
+		}
 		// подгрузка ресов
 	}
 	
@@ -56,6 +80,11 @@ public class MusicPlayer extends MainScreen
 		current--;
 		if(current<0) current = playlist.uiItems.length - 1;
 		loadTrack();
+	}
+	
+	public void UpdateDrawData()
+	{
+		
 	}
 	
 	public static void launch(MusicScreen list, int track)
