@@ -191,7 +191,7 @@ public class MusicScreen
 		};
 		OptionItem[] oi = new OptionItem[]
 		{ 
-			new OptionItem(m, "Вся музыка", IconsManager.MUSIC, 0, 50),
+			new OptionItem(m, TextLocal.inst.get("music.all"), IconsManager.MUSIC, 0, 50),
 			new OptionItem(m, TextLocal.inst.get("title.playlists"), IconsManager.MENU, 1, 50)
 		};
 		VikaTouch.popup(new ContextMenu(oi));

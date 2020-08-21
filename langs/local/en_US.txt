@@ -119,6 +119,7 @@ title.login=Login
 title.groups=Groups
 title.friends=Friends
 title.music=Music
+title.playlists=Playlists
 title.settings=Settings
 
 friend.remove=Remove friend
@@ -127,6 +128,8 @@ friend.accept=Accept friendship request
 friend.cancel=Request sent (cancel)
 
 subscribe=Follow
+
+music.all=All music
 
 msg=Message
 msg.attach.audio=Auio
@@ -142,9 +145,9 @@ count.messagesfew=messages
 count.view=view
 count.views=views
 count.viewsfew=views
-count.member=участник
-count.members=участников
-count.membersfew=участника
+count.member=member
+count.members=members
+count.membersfew=members
 
 video=Video
 video.1view=view
@@ -219,5 +222,5 @@ splash.title.5=Loading profile information
 splash.title.6=Pre-loading conversations
 splash.title.7=Ready.
 splash.tip=---- Random hint ----
-splash.tip.0=add some hints pls
+splash.tip.0=add some hints pls | Closer to release i will translate them
 splash.tip.1=vyvyvyvyvy

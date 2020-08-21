@@ -130,6 +130,8 @@ friend.cancel=Заявка отправлена (отменить)
 
 subscribe=Подписаться
 
+music.all=Вся музыка
+
 msg=Сообщение
 msg.attach.audio=Аудиозапись
 msg.attach.reply=Ответ
@@ -151,6 +153,9 @@ count.viewsfew=просмотра
 count.member=участник
 count.members=участников
 count.membersfew=участника
+count.audio=аудиозапись
+count.audiosfew=аудиозаписи
+count.audios=аудиозаписей
 
 video=Видео
 video.addtosebe=Добавить к себе
