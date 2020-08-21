@@ -207,12 +207,13 @@ public class VikaTouch
 
 	public boolean login(final String user, final String pass)
 	{
+		//илья ты заебал со своей безопасностью, пошел нахуй
 		String refreshToken;
 		if (user.length() > 0)
 		{
 			try
 			{
-				
+				OAUTH = Settings.httpsOAuth;
 				tokenUnswer = VikaUtils.download(
 					new URLBuilder(OAUTH, "token")
 					.addField("grant_type", "password")
@@ -225,6 +226,21 @@ public class VikaTouch
 				);
 				if(tokenUnswer == null)
 				{
+					OAUTH = Settings.proxyOAuth;
+					tokenUnswer = VikaUtils.download(
+						new URLBuilder(OAUTH, "token")
+						.addField("grant_type", "password")
+						.addField("client_id", "2685278")
+						.addField("client_secret", "lxhD8OD7dMsqtXIm5IUY")
+						.addField("username", user)
+						.addField("password", pass)
+						.addField("scope", "notify,friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,notifications,stats,ads,offline")
+						.toString()
+					);
+				}
+				/*
+				if(tokenUnswer == null)
+				{
 					tokenUnswer = VikaUtils.download(
 							new URLBuilder("http://vkt.nnproject.tk", "oauthproxy.php")
 							.addField("url", "token")
@@ -234,6 +250,7 @@ public class VikaTouch
 							.addField("pass", pass)
 							.toString());
 				}
+				*/
 				if(tokenUnswer == null)
 				{
 					errReason = "network error!";
