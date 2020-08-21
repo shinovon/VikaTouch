@@ -31,7 +31,8 @@ public class ConversationItem
 	public long chatid;
 	public boolean ls;
 	public long date;
-	public boolean unread;
+	public int unread;
+	public boolean mention;
 	public boolean isMuted;
 	public String avaurl;
 	private String time;
@@ -154,13 +155,19 @@ public class ConversationItem
 		if(!selected)
 		{
 			ColorUtils.setcolor(g, -5);
-			g.fillRect(72, y + itemDrawHeight, 640, 1);
+			g.fillRect(72, y + itemDrawHeight, DisplayUtils.width-72, 1);
+		}
+		if(unread > 0)
+		{
+			int rh = 18;
+			int hm = 4;
+			String s = (mention?"@ ":"")+unread;
 			
-			if(unread && unreadImg!=null)
-			{
-				g.drawImage(unreadImg, DisplayUtils.width - 24, y + 42, 0);
-			}
+			ColorUtils.setcolor(g, ColorUtils.COLOR1);
+			g.fillRoundRect(DisplayUtils.width - 16 - font.stringWidth(s) - hm*2, y+38, font.stringWidth(s) + hm*2, rh, rh/2, rh/2);
 			
+			g.setGrayScale(255);
+			g.drawString(s, DisplayUtils.width - 16 - font.stringWidth(s) - hm, y+40, 0);
 		}
 	}
 
@@ -169,7 +176,7 @@ public class ConversationItem
 		try
 		{
 			final JSONObject conv = json.getJSONObject("conversation");
-
+			//System.out.println(json.toString());
 			try
 			{
 				JSONObject chatSettings = conv.getJSONObject("chat_settings");
@@ -182,7 +189,8 @@ public class ConversationItem
 				//chat_settings может не существовать, так-что это исключение игнорируется
 			}
 			
-			unread = conv.optInt("unread_count") > 0;
+			unread = conv.optInt("unread_count");
+			mention = conv.has("mentions");
 				
 			final JSONObject peer = conv.getJSONObject("peer");
 			type = fixJSONString(peer.optString("type"));
@@ -224,7 +232,6 @@ public class ConversationItem
 		
 		try
 		{
-			//System.out.println(json.getJSONObject("last_message").toString());
 			lastmessage = new MsgItem(json.getJSONObject("last_message"));
 			lastmessage.parseJSON();
 
