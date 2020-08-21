@@ -18,6 +18,7 @@ import vikatouch.VikaTouch;
 import vikatouch.attachments.PhotoSize;
 import vikatouch.items.JSONUIItem;
 import vikatouch.screens.menu.DocsScreen;
+import vikatouch.screens.menu.MusicScreen;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
 
@@ -108,7 +109,9 @@ public class PlaylistItem extends JSONUIItem {
 	}
 	
 	public void open() {
-		
+		MusicScreen pls = new MusicScreen();
+		pls.load(owner_id,id,name);
+		VikaTouch.setDisplay(pls, 1);
 	}
 
 	public void tap(int x, int y)

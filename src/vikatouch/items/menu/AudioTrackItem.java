@@ -12,6 +12,8 @@ import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
 import vikatouch.items.JSONUIItem;
+import vikatouch.music.MusicPlayer;
+import vikatouch.screens.menu.MusicScreen;
 
 public class AudioTrackItem 
 	extends JSONUIItem implements UIItem 
@@ -20,12 +22,18 @@ public class AudioTrackItem
 	public int owner_id;
 	public String name;
 	public String artist; // исполнтель, ну, вторая строка
-	private int length;
+	public int length;
+	private String lengthS;
+	private MusicScreen playlist;
+	private int indexInPL;
+	public String mp3;
 	
-	public AudioTrackItem(JSONObject json)
+	public AudioTrackItem(JSONObject json, MusicScreen s, int i)
 	{
 		super(json);
 		setDrawHeight();
+		playlist = s;
+		indexInPL = i;
 	}
 
 	public void parseJSON()
@@ -39,6 +47,8 @@ public class AudioTrackItem
 			id = json.optInt("id");
 			owner_id = json.optInt("owner_id");
 			length = json.optInt("duration");
+			lengthS = (length/60)+":"+(length%60<10?"0":"")+(length%60);
+			mp3 = json.optString("url", "");
 		}
 		catch (Exception e)
 		{
@@ -56,6 +66,7 @@ public class AudioTrackItem
 
 	public void paint(Graphics g, int y, int scrolled)
 	{
+		//g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
 		if(ScrollableCanvas.keysMode && selected)
 		{
 			ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
@@ -65,7 +76,8 @@ public class AudioTrackItem
 		if(name != null)
 			g.drawString(name, 73, y, 0);
 		ColorUtils.setcolor(g, ColorUtils.OUTLINE);
-		g.drawString(artist, 73, y + 24, 0);
+		if(artist!=null) g.drawString(artist, 73, y + 24, 0);
+		if(lengthS!=null) g.drawString(lengthS, DisplayUtils.width-10-g.getFont().stringWidth(lengthS), y + 24, 0);
 	}
 
 	public void tap(int x, int y)
@@ -77,7 +89,8 @@ public class AudioTrackItem
 	{
 		if(key == KEY_OK)
 		{
-			
+			System.out.println("Calling player");
+			MusicPlayer.launch(playlist, indexInPL);
 		}
 	}
 }

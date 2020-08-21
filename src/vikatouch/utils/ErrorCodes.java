@@ -48,4 +48,6 @@ public class ErrorCodes
 	public static final int LANGGET = 43;
 	public static final int SETSSAVE = 44;
 	public static final int VIDEOPLAY = 45;
+	public static final int MUSICDRAW = 46;
+	public static final int MUSICITEMDRAW = 47;
 }

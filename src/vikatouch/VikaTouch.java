@@ -675,6 +675,8 @@ public class VikaTouch
 		Settings.loadDefaultSettings();
 		Settings.loadSettings();
 		
+		isEmulator = (mobilePlatform.charAt(0) == ' ') || (mobilePlatform.equals("Nokia_SERIES60"));
+		
 		splash.currState = 2;
 		
 		TextLocal.init();
