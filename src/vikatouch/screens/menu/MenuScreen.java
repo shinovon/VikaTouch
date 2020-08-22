@@ -101,7 +101,7 @@ public class MenuScreen
 					String var10 = VikaUtils.download(new URLBuilder("users.get")
 						.addField("user_ids", VikaTouch.userId)
 						.addField("fields", "photo_id,verified,sex,bdate,city,country,home_town,has_photo,photo_50,status"));
-					final JSONObject profileobj = new JSONObject(var10).getJSONArray("response").getJSONObject(0);
+					JSONObject profileobj = new JSONObject(var10).getJSONArray("response").getJSONObject(0);
 					name = profileobj.optString("first_name");
 					lastname = profileobj.optString("last_name");
 					status = profileobj.optString("status");

@@ -89,7 +89,7 @@ public class PostItem
 
 		try
 		{
-			final JSONObject postSource = json2.getJSONObject("post_source");
+			JSONObject postSource = json2.getJSONObject("post_source");
 			data = postSource.optString("data");
 		}
 		catch (Exception e)

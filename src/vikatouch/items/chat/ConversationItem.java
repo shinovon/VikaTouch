@@ -175,7 +175,7 @@ public class ConversationItem
 	{
 		try
 		{
-			final JSONObject conv = json.getJSONObject("conversation");
+			JSONObject conv = json.getJSONObject("conversation");
 			//System.out.println(json.toString());
 			try
 			{
@@ -192,7 +192,7 @@ public class ConversationItem
 			unread = conv.optInt("unread_count");
 			mention = conv.has("mentions");
 				
-			final JSONObject peer = conv.getJSONObject("peer");
+			JSONObject peer = conv.getJSONObject("peer");
 			type = fixJSONString(peer.optString("type"));
 			peerId = peer.optInt("id");
 			id = peer.optInt("local_id");
@@ -201,7 +201,7 @@ public class ConversationItem
 			{
 				for(int i = 0; i < Dialogs.profiles.length(); i++)
 				{
-					final JSONObject profile = Dialogs.profiles.getJSONObject(i);
+					JSONObject profile = Dialogs.profiles.getJSONObject(i);
 					if(profile.optInt("id") == id)
 					{
 						title = fixJSONString(profile.optString("first_name") + " " + profile.optString("last_name"));
@@ -214,7 +214,7 @@ public class ConversationItem
 			{
 				for(int i = 0; i < Dialogs.groups.length(); i++)
 				{
-					final JSONObject group = Dialogs.groups.getJSONObject(i);
+					JSONObject group = Dialogs.groups.getJSONObject(i);
 					if(group.optInt("id") == id)
 					{
 						title = fixJSONString(group.optString("name"));
@@ -280,7 +280,7 @@ public class ConversationItem
 			{
 				for(int i = 0; i < Dialogs.profiles.length(); i++)
 				{
-					final JSONObject profile = Dialogs.profiles.getJSONObject(i);
+					JSONObject profile = Dialogs.profiles.getJSONObject(i);
 					if(lastmessage.fromid == profile.optInt("id"))
 					{
 						nameauthora = profile.optString("first_name");

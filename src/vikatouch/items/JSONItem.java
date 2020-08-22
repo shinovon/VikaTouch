@@ -34,7 +34,7 @@ public class JSONItem
 		{
 			if(!json.isNull("attachments"))
 			{
-				final JSONArray attachments = json.getJSONArray("attachments");
+				JSONArray attachments = json.getJSONArray("attachments");
 				if(this.attachments.length > attachments.length())
 				{
 					this.attachments = new Attachment[attachments.length()];

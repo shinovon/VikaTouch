@@ -60,8 +60,8 @@ public class NewsScreen
 					.addField("count", requestcount)
 					.addField("fields", "groups,profiles,items")
 					);
-			final JSONObject response = new JSONObject(s).getJSONObject("response");
-			final JSONArray items = response.getJSONArray("items");
+			JSONObject response = new JSONObject(s).getJSONObject("response");
+			JSONArray items = response.getJSONArray("items");
 			profiles = response.getJSONArray("profiles");
 			groups = response.getJSONArray("groups");
 			//System.out.println(s);
@@ -73,7 +73,7 @@ public class NewsScreen
 				{
 					break;
 				}
-				final JSONObject item = items.getJSONObject(i2);
+				JSONObject item = items.getJSONObject(i2);
 				JSONObject itemCopy;
 				try
 				{
