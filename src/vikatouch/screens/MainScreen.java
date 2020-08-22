@@ -56,7 +56,6 @@ public abstract class MainScreen
 				if(hasBackButton && x < oneitemheight)
 				{
 					VikaTouch.setDisplay(backScreen, -1);
-					//VikaTouch.inst.cmdsInst.command(14, this);
 				}
 				if(!(this instanceof SettingsScreen) && x > DisplayUtils.width - oneitemheight)
 				{

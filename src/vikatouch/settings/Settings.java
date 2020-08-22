@@ -102,20 +102,19 @@ public class Settings
 		        final ByteArrayInputStream bais = new ByteArrayInputStream(rs.getRecord(1));
 		        final DataInputStream is = new DataInputStream(bais);
 		        
-		        animateTransition = is.readBoolean();
-		        proxy = is.readBoolean();
-		        https = is.readBoolean();
-		        debugInfo  = is.readBoolean();
-		        proxyApi = is.readUTF();
-		        proxyOAuth = is.readUTF();
-		        sensorMode = is.readShort();
-		        simpleListsLength = is.readShort();
-		        messagesPerLoad = is.readShort();
-		        videoResolution = is.readUTF();
-		        language = is.readUTF();
-		        
 		        try
 		        {
+			        animateTransition = is.readBoolean();
+			        proxy = is.readBoolean();
+			        https = is.readBoolean();
+			        debugInfo  = is.readBoolean();
+			        proxyApi = is.readUTF();
+			        proxyOAuth = is.readUTF();
+			        sensorMode = is.readShort();
+			        simpleListsLength = is.readShort();
+			        messagesPerLoad = is.readShort();
+			        videoResolution = is.readUTF();
+			        language = is.readUTF();
 		        	dontLoadAvas = is.readBoolean();
 		        	audioMode = is.readShort();
 		        	rtspMethod = is.readShort();

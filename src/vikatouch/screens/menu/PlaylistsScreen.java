@@ -35,10 +35,9 @@ public class PlaylistsScreen extends MainScreen {
 		plStr = TextLocal.inst.get("title.playlists");
 	}
 
-	public static PlaylistsScreen current;
 
 	public int currId;
-	public static Thread downloaderThread;
+	public Thread downloaderThread;
 	
 	public String whose = null;
 
@@ -46,11 +45,14 @@ public class PlaylistsScreen extends MainScreen {
 	{
 		scrolled = 0;
 		uiItems = null;
-		final PlaylistsScreen thisC = current = this;
+		final PlaylistsScreen thisC = this;
 		currId = id;
 		whose = name;
 		if(downloaderThread != null && downloaderThread.isAlive())
+		{
 			downloaderThread.interrupt();
+		}
+		downloaderThread = null;
 		
 		downloaderThread = new Thread()
 		{
@@ -170,6 +172,11 @@ public class PlaylistsScreen extends MainScreen {
 							i = 0;
 						if(!dragging)
 						{
+							if(downloaderThread != null && downloaderThread.isAlive())
+							{
+								downloaderThread.interrupt();
+							}
+							downloaderThread = null;
 							uiItems[i].tap(x, yy1 - (h * i));
 						}
 						break;
