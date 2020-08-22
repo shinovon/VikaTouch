@@ -107,6 +107,7 @@ menu.about=О программе
 menu.loading=Загрузка...
 
 group=Группа
+group.s=Группы
 group.descriptionempty=[описание пусто]
 
 title.people=Люди
@@ -122,6 +123,10 @@ title.friends=Друзья
 title.music=Музыка
 title.playlists=Плейлисты
 title.settings=Настройки
+title.friendsw=Друзья %1
+title.documentsw=Документы %1
+title.clubsw=Группы %1
+title.membersw=Участники %1
 
 friend.remove=Удалить из друзей
 friend.add=Добавить в друзья

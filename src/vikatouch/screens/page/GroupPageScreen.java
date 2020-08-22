@@ -54,13 +54,15 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 	// system
 	private boolean isInfoShown = false;
 
+	private static String groupsStr;
+
 	private static String loadingStr;
 
 	private static String emptydescStr;
 
 	protected static String linksStr;
 
-	private static String groupStr;
+	public static String groupStr;
 
 	protected static String discussionsStr;
 
@@ -114,6 +116,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 			infoStr = TextLocal.inst.get("menu.info");
 			docsStr = TextLocal.inst.get("menu.documents");
 			videosStr = TextLocal.inst.get("menu.videos");
+			groupsStr = TextLocal.inst.get("group.s");
 		}
 		hasBackButton = true;
 		this.id = id;
@@ -304,10 +307,13 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 			switch (i) 
 			{
 				case 0:
+					/*
+					  TODO: MembersScreen
 					FriendsScreen fs = new FriendsScreen();
 					VikaTouch.setDisplay(fs, 1);
-					fs.loadFriends(0, -id, name);
+					fs.loadFriends(0, -id, name, null);
 					break;
+					*/
 				case 1:
 					VikaTouch.popup(new ConfirmBox(isMember?leaveStr+"?":joinStr+"?",null,
 
@@ -338,13 +344,13 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 					isInfoShown = true;
 					break;
 				case 6:
-					MusicScreen.open(-id, name);
+					//MusicScreen.open(-id, name);
 					break;
 				case 8:
 					if(docs>0) {
 						DocsScreen dc = new DocsScreen();
 						VikaTouch.setDisplay(dc, 1);
-						dc.loadDocs(0, -id, name);
+						dc.loadDocs(0, -id, groupsStr, groupStr);
 					}
 					break;
 				case 10:

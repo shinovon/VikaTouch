@@ -92,7 +92,7 @@ public class CommandsImpl
 						{
 							if(VikaTouch.friendsScr == null)
 								VikaTouch.friendsScr = new FriendsScreen();
-							VikaTouch.friendsScr.loadFriends(0,0,null);
+							VikaTouch.friendsScr.loadFriends(0, 0, null, null);
 							VikaTouch.setDisplay(VikaTouch.friendsScr, 1);
 						}
 						break;
@@ -104,7 +104,7 @@ public class CommandsImpl
 						{
 							if(VikaTouch.grScr == null)
 								VikaTouch.grScr = new GroupsScreen();
-							VikaTouch.grScr.loadGroups(0, Integer.parseInt(VikaTouch.userId), null);
+							VikaTouch.grScr.loadGroups(0, Integer.parseInt(VikaTouch.userId), null, null);
 							VikaTouch.setDisplay(VikaTouch.grScr, 1);
 						}
 						break;
@@ -114,7 +114,7 @@ public class CommandsImpl
 						//Музыка
 						if(s instanceof MenuScreen)
 						{
-							MusicScreen.open(Integer.parseInt(VikaTouch.userId),null);
+							MusicScreen.open(Integer.parseInt(VikaTouch.userId), null, null);
 						}
 						break;
 					}
@@ -125,7 +125,7 @@ public class CommandsImpl
 						{
 							if(VikaTouch.videosScr == null)
 								VikaTouch.videosScr = new VideosScreen();
-							VikaTouch.videosScr.load(0,0,null);
+							VikaTouch.videosScr.load(0, 0, null, null);
 							VikaTouch.setDisplay(VikaTouch.videosScr, 1);
 						}
 						break;
@@ -150,7 +150,7 @@ public class CommandsImpl
 						{
 							if(VikaTouch.docsScr == null)
 								VikaTouch.docsScr = new DocsScreen();
-							VikaTouch.docsScr.loadDocs(0, 0, null);
+							VikaTouch.docsScr.loadDocs(0, 0, null, null);
 							VikaTouch.setDisplay(VikaTouch.docsScr, 1);
 						}
 						break;

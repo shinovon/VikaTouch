@@ -49,7 +49,7 @@ public class FriendsScreen
 	{
 		return uiItems != null;
 	}
-	public static void AbortLoading() {
+	public static void abortLoading() {
 		try {
 			if(downloaderThread != null && downloaderThread.isAlive())
 				downloaderThread.interrupt();
@@ -58,7 +58,6 @@ public class FriendsScreen
 	
 	public static Thread downloaderThread;
 	
-	public static FriendsScreen current;
 	
 	public int currId;
 	public int fromF;
@@ -67,16 +66,22 @@ public class FriendsScreen
 	public int totalItems;
 	public boolean canLoadMore = true;
 
-	public void loadFriends(final int from, final int id, final String name)
+	private String name2;
+
+	private String formattedTitle;
+
+	public void loadFriends(final int from, final int id, final String name, final String name2)
 	{
+		formattedTitle = peopleStr;
 		scrolled = 0;
 		uiItems = null;
-		final FriendsScreen thisC = current = this;
+		final FriendsScreen thisC = this;
 		fromF = from;
 		currId = id;
 		whose = name;
+		this.name2 = name2;
 		
-		AbortLoading();
+		abortLoading();
 
 		downloaderThread = new Thread()
 		{
@@ -123,14 +128,29 @@ public class FriendsScreen
 							uiItems[0].setSelected(true);
 						}
 						VikaTouch.loading = true;
+						if(whose == null && name2 != null)
+							whose = name2;
+						
+						if(whose == null || name2 == null)
+							formattedTitle = TextLocal.inst.get("title.friends");
+						else
+							formattedTitle = TextLocal.inst.getFormatted("title.friendsw", new String[] { whose, name2 });
+						
 						repaint();
 						Thread.sleep(1000); // ну вдруг юзер уже нажмёт? Зачем зря грузить
 						VikaTouch.loading = true;
 						for(int i = 0; i < itemsCount - (canLoadMore?1:0); i++)
 						{
+							/*
+							if(!this.isAlive())
+							{
+								return;
+							}
+							*/
 							if(!(VikaTouch.canvas.currentScreen instanceof FriendsScreen))
 							{
-								VikaTouch.loading = false; return; // Костыль деревянный, 1 штука, 78 lvl, 6 ранг.
+								VikaTouch.loading = false; return; // Костыль деревянный, 1 штука, 78 lvl, 6 ранг
+								//не одобряю. для чего создали thread.isAlive()?
 							}
 							VikaTouch.loading = true;
 							((FriendItem) uiItems[i]).GetAva();
@@ -205,7 +225,8 @@ public class FriendsScreen
 	
 	public final void drawHUD(Graphics g)
 	{
-		super.drawHUD(g, uiItems==null?peopleStr+" ("+loadingStr+"...)":(currId<0?membersStr:friendsStr)/*+(range==null?"":range)*/+" "+(whose==null?"":whose));
+		//super.drawHUD(g, uiItems==null?peopleStr+" ("+loadingStr+"...)":(currId<0?membersStr:friendsStr)/*+(range==null?"":range)*/+" "+(whose==null?"":whose));
+		super.drawHUD(g, formattedTitle);
 	}
 	
 	public final void release(int x, int y)
@@ -244,6 +265,6 @@ public class FriendsScreen
 		super.release(x, y);
 	}
 	public void loadNext() {
-		loadFriends(fromF+Settings.simpleListsLength, currId, whose);
+		loadFriends(fromF+Settings.simpleListsLength, currId, whose, name2);
 	}
 }

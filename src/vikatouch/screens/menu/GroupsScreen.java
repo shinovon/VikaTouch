@@ -42,13 +42,13 @@ public class GroupsScreen
 	{
 		return uiItems != null;
 	}
-	public static void abortLoading() {
+	public static void abortLoading()
+	{
 		try {
 			if(downloaderThread != null && downloaderThread.isAlive())
 				downloaderThread.interrupt();
 		} catch (Exception e) { }
 	}
-	public static GroupsScreen current;
 	
 	public static Thread downloaderThread;
 	
@@ -63,14 +63,17 @@ public class GroupsScreen
 
 	private String loadingStr;
 
-	public void loadGroups(final int from, final int id, final String name)
+	private String name2;
+
+	public void loadGroups(final int from, final int id, final String name, String name2)
 	{
 		scrolled = 0;
 		uiItems = null;
-		final GroupsScreen thisC = current = this;
+		final GroupsScreen thisC = this;
 		fromG = from;
 		currId = id;
 		whose = name;
+		this.name2 = name2;
 		
 		abortLoading();
 
@@ -234,6 +237,6 @@ public class GroupsScreen
 	}
 
 	public void loadNext() {
-		loadGroups(fromG+Settings.simpleListsLength, currId, whose);
+		loadGroups(fromG+Settings.simpleListsLength, currId, whose, name2);
 	}
 }

@@ -213,7 +213,12 @@ public class VikaTouch
 		{
 			try
 			{
-				OAUTH = Settings.httpsOAuth;
+				if(!Settings.proxy)
+				{
+					Settings.proxy = false;
+					Settings.https = true;
+					OAUTH = Settings.httpsOAuth;
+				}
 				tokenUnswer = VikaUtils.download(
 					new URLBuilder(OAUTH, "token")
 					.addField("grant_type", "password")
@@ -226,6 +231,8 @@ public class VikaTouch
 				);
 				if(tokenUnswer == null)
 				{
+					Settings.proxy = true;
+					Settings.https = false;
 					OAUTH = Settings.proxyOAuth;
 					tokenUnswer = VikaUtils.download(
 						new URLBuilder(OAUTH, "token")
@@ -374,7 +381,7 @@ public class VikaTouch
 
 	public static String getReason()
 	{
-		final String x = inst.errReason;
+		String x = inst.errReason;
 		inst.errReason = null;
 		return x;
 	}
@@ -775,7 +782,7 @@ public class VikaTouch
 				{
 					if(userId == null || userId == "")
 					{
-						final JSONObject jo = new JSONObject(VikaUtils.download(new URLBuilder("account.getProfileInfo"))).getJSONObject("response");
+						JSONObject jo = new JSONObject(VikaUtils.download(new URLBuilder("account.getProfileInfo"))).getJSONObject("response");
 						userId = "" + jo.optInt("id");
 					}
 				}

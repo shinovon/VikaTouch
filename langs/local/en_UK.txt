@@ -106,6 +106,7 @@ menu.about=About
 menu.loading=Loading...
 
 group=Group
+#group.s=unused
 group.descriptionempty=[empty]
 
 title.people=People
@@ -120,6 +121,10 @@ title.groups=Groups
 title.friends=Friends
 title.music=Music
 title.settings=Settings
+title.friendsw=%2's Friends
+title.documentsw=%2's Documents
+title.clubsw=%2's Groups
+title.membersw=%2 Members
 
 friend.remove=Remove friend
 friend.add=Send friendship request
@@ -135,6 +140,16 @@ msg.attach.fwd=Forwarded message
 msg.attach.attachment=Attachment
 msg.attach.video=Video
 msg.entermsg=Enter message...
+
+count.message=message
+count.messages=messages
+count.messagesfew=messages
+count.view=view
+count.views=views
+count.viewsfew=views
+count.member=member
+count.members=members
+count.membersfew=members
 
 video=Video
 video.1view=view

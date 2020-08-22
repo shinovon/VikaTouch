@@ -58,7 +58,9 @@ public class DocsScreen
 	
 	public boolean canLoadMore = true;
 
-	public void loadDocs(final int from, final int id, String name)
+	private String name2;
+
+	public void loadDocs(final int from, final int id, String name, String name2)
 	{
 		scrolled = 0;
 		uiItems = null;
@@ -67,6 +69,7 @@ public class DocsScreen
 		fromDoc = from;
 		currId = id;
 		whose = name;
+		this.name2 = name2;
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
 		
@@ -226,7 +229,7 @@ public class DocsScreen
 	public void loadNext()
 	{
 		down();
-		loadDocs(fromDoc+loadDocsCount, currId, whose);
+		loadDocs(fromDoc+loadDocsCount, currId, whose, name2);
 	}
 
 }

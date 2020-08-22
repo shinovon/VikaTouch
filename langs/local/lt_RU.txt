@@ -100,6 +100,7 @@ menu.about=O prilozhenii
 menu.loading=Zagruzka...
 
 group=Grupa
+group.s=Grupy
 group.descriptionempty=[opisanie pusto]
 
 title.people=Ludi
@@ -114,6 +115,10 @@ title.groups=Grupa
 title.friends=Druzya
 title.music=Muzika
 title.settings=Nastroyki
+title.friendsw=Druzya %1
+title.documentsw=Documenty %1
+title.clubsw=Grupy %1
+title.membersw=Uchastniki %1
 
 friend.remove=Udalit iz druzey
 friend.add=Dobavit v druzya
@@ -129,6 +134,16 @@ msg.attach.fwd=Pereslannoe soobshenie
 msg.attach.attachment=Vlozenie
 msg.attach.video=Videozapis
 msg.entermsg=Vedite soobshenie...
+
+count.message=message
+count.messages=messages
+count.messagesfew=messages
+count.view=view
+count.views=views
+count.viewsfew=views
+count.member=member
+count.members=members
+count.membersfew=members
 
 video=Video
 video.1view=prosmotr

@@ -169,7 +169,7 @@ public class MusicScreen
 		super.release(x, y);
 	}
 
-	public static void open(final int id, final String name)
+	public static void open(final int id, final String name, String name2)
 	{
 		IMenu m = new EmptyMenu()
 		{

@@ -325,4 +325,20 @@ public class TextLocal
 		return get("date.shortmonth." + getMonthS(month));
 	}
 
+	public String getFormatted(String string, String[] strings)
+	{
+		String x = get(string);
+		x = replace(x, "\\%", "\\temp\\");
+		x = replace(x, "%", "\\var\\");
+		x = replace(x, "\\temp\\", "%");
+		
+		for(int i = 0; i < string.length(); i++)
+		{
+			x = replace(x, "\\var\\" + (i + 1), strings[i]);
+		}
+		
+		
+		return x;
+	}
+
 }

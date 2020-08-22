@@ -33,24 +33,24 @@ public class VideosScreen
 		videosStr = TextLocal.inst.get("title.videos");
 	}
 
-	public static VideosScreen current;
-
 	public int fromVid;
 	public int currId;
 	public String whose;
 	public static Thread downloaderThread;
 	public String range = null;
 	public boolean canLoadMore = true;
+	private String name2;
 
-	public void load(final int from, final int id, final String name)
+	public void load(final int from, final int id, final String name, String name2)
 	{
 		scrolled = 0;
 		uiItems = null;
-		final VideosScreen thisC = current = this;
+		final VideosScreen thisC = this;
 		final int count = Settings.simpleListsLength;
 		fromVid = from;
 		currId = id;
 		whose = name;
+		this.name2 = name2;
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
 
@@ -200,7 +200,7 @@ public class VideosScreen
 	}
 
 	public void loadNext() {
-		load(fromVid+Settings.simpleListsLength, currId, whose);
+		load(fromVid+Settings.simpleListsLength, currId, whose, name2);
 	}
 
 }

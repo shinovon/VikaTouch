@@ -59,6 +59,7 @@ public class ProfilePageScreen
 	private boolean friendAdd; // если true, друг добавляется. Если 0, удаляется.
 	private String visitStr;
 	protected String wname;
+	protected String name2;
 	protected static String removeStr;
 	protected static String acceptStr;
 	protected static String cancelStr;
@@ -109,10 +110,10 @@ public class ProfilePageScreen
 		}
 		hasBackButton = true;
 		this.id = id;
-		Load();
+		load();
 	}
 	
-	public void Load()
+	public void load()
 	{
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
@@ -213,12 +214,13 @@ public class ProfilePageScreen
 						{
 							String x2 = VikaUtils.download(new URLBuilder("users.get").addField("user_ids", id).addField("name_case", "gen"));
 							JSONObject cc = new JSONObject(x2).getJSONArray("response").getJSONObject(0);
-							wname = ""+cc.getString("first_name")+" "+cc.getString("last_name");
+							wname = ""+cc.getString("first_name");
 						}
 						catch (Exception e)
 						{
 							wname = name;
 						}
+						name2 = ""+res.optString("first_name");
 					}
 					catch (JSONException e)
 					{
@@ -331,7 +333,7 @@ public class ProfilePageScreen
 						{
 							VikaUtils.download(new URLBuilder("friends.delete").addField("user_id", id));
 						}
-						Load();
+						load();
 					}
 				}
 				).start();
@@ -339,28 +341,28 @@ public class ProfilePageScreen
 			case 2:
 				FriendsScreen fs = new FriendsScreen();
 				VikaTouch.setDisplay(fs, 1);
-				fs.loadFriends(0, id, wname);
+				fs.loadFriends(0, id, wname, name2);
 				break;
 			case 3:
 				break;
 			case 4:
 				GroupsScreen gs = new GroupsScreen();
 				VikaTouch.setDisplay(gs, 1);
-				gs.loadGroups(0, id, wname);
+				gs.loadGroups(0, id, wname, name2);
 				break;
 			case 6:
-				MusicScreen.open(id, wname);
+				MusicScreen.open(id, wname, name2);
 				break;
 			case 7:
 				VideosScreen vs = new VideosScreen();
 				VikaTouch.setDisplay(vs, 1);
-				vs.load(0, id, wname);
+				vs.load(0, id, wname, name2);
 				break;
 			case 8:
 				if(docs>0) {
 					DocsScreen dc = new DocsScreen();
 					VikaTouch.setDisplay(dc, 1);
-					dc.loadDocs(0, id, wname);
+					dc.loadDocs(0, id, wname, name2);
 				}
 				break;
 		}

@@ -167,7 +167,7 @@ public class ChatScreen
 				//title2 = "chat" + this.localId;
 				try
 				{
-					final String x = VikaUtils.download(new URLBuilder("messages.getConversationsById").addField("peer_ids", peerId));
+					String x = VikaUtils.download(new URLBuilder("messages.getConversationsById").addField("peer_ids", peerId));
 					try
 					{
 						json = new JSONObject(x).getJSONObject("response").getJSONArray("items").getJSONObject(0);
@@ -196,7 +196,7 @@ public class ChatScreen
 				//title2 = "dm" + this.localId;
 				try
 				{
-					final String x = VikaUtils.download(new URLBuilder("users.get").addField("user_ids", peerId).addField("fields", "online").addField("name_case", "nom"));
+					String x = VikaUtils.download(new URLBuilder("users.get").addField("user_ids", peerId).addField("fields", "online").addField("name_case", "nom"));
 					try
 					{
 						JSONObject json = new JSONObject(x).getJSONArray("response").getJSONObject(0);
@@ -230,14 +230,14 @@ public class ChatScreen
 		{
 			// скачка сообщений
 			uiItems = new PressableUIItem[Settings.messagesPerLoad+loadSpace];
-			final String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("extended", 1).addField("count", Settings.messagesPerLoad).addField("offset", 0));
-			final JSONArray profiles = new JSONObject(x).getJSONObject("response").getJSONArray("profiles");
-			final JSONArray items = new JSONObject(x).getJSONObject("response").getJSONArray("items");
+			String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("extended", 1).addField("count", Settings.messagesPerLoad).addField("offset", 0));
+			JSONArray profiles = new JSONObject(x).getJSONObject("response").getJSONArray("profiles");
+			JSONArray items = new JSONObject(x).getJSONObject("response").getJSONArray("items");
 			
 			
 			for(int i = 0; i < profiles.length(); i++)
 			{
-				final JSONObject profile = profiles.getJSONObject(i);
+				JSONObject profile = profiles.getJSONObject(i);
 				String firstname = profile.optString("first_name");
 				String lastname = profile.optString("last_name");
 				int id = profile.optInt("id");
@@ -287,7 +287,7 @@ public class ChatScreen
 		{
 			// скачка сообщений
 			uiItems = new PressableUIItem[Settings.messagesPerLoad+loadSpace];
-			final String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("count", Settings.messagesPerLoad).addField("offset", 0));
+			String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("count", Settings.messagesPerLoad).addField("offset", 0));
 			JSONArray json = new JSONObject(x).getJSONObject("response").getJSONArray("items");
 			profileNames.put(new Integer(peerId), title);
 			for(int i = 0; i<json.length();i++) 
@@ -631,7 +631,7 @@ public class ChatScreen
 		while(more)
 		{
 			long mid = ((MsgItem) uiItems[uiItems.length-hasSpace-1]).mid;
-			final String x = VikaUtils.download(new URLBuilder("messages.getHistory")
+			String x = VikaUtils.download(new URLBuilder("messages.getHistory")
 					.addField("start_message_id", String.valueOf(mid))
 					.addField("peer_id", peerId).addField("count", 1).addField("offset", -1).addField("extended", 1));
 			JSONArray items;
@@ -668,10 +668,10 @@ public class ChatScreen
 				{
 					try
 					{
-						final JSONArray profiles = new JSONObject(x).getJSONObject("response").getJSONArray("profiles");
+						JSONArray profiles = new JSONObject(x).getJSONObject("response").getJSONArray("profiles");
 						for(int i = 0; i < profiles.length(); i++)
 						{
-							final JSONObject profile = profiles.getJSONObject(i);
+							JSONObject profile = profiles.getJSONObject(i);
 							String firstname = profile.optString("first_name");
 							String lastname = profile.optString("last_name");
 							int id = profile.optInt("id");
