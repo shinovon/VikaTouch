@@ -325,16 +325,21 @@ public class TextLocal
 		return get("date.shortmonth." + getMonthS(month));
 	}
 
-	public String getFormatted(String string, String[] strings)
+	public String getFormatted(String string, String[] vars)
 	{
+		//vars: илья
+		//in: %1 щас срет 100\%
+		//process: \var\1 щас срет 100\temp\
+		//out: илья щас срет 100%
 		String x = get(string);
 		x = replace(x, "\\%", "\\temp\\");
 		x = replace(x, "%", "\\var\\");
+		
 		x = replace(x, "\\temp\\", "%");
 		
 		for(int i = 0; i < string.length(); i++)
 		{
-			x = replace(x, "\\var\\" + (i + 1), strings[i]);
+			x = replace(x, "\\var\\" + (i + 1), vars[i]);
 		}
 		
 		
