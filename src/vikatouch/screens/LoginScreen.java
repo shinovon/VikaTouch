@@ -27,7 +27,7 @@ public class LoginScreen
 	extends VikaScreen
 {
 	
-	private static Image vikaLogo;
+	//private static Image vikaLogo;
 	private static Image loginpressed;
 	private static Image login;
 	private static Image settingsImg;
@@ -49,12 +49,12 @@ public class LoginScreen
 
 	public LoginScreen()
 	{
-		try
+		/*try
 		{
 			vikaLogo = Image.createImage("/vikab48.jpg");
 		}
 		catch (IOException e)
-		{ }
+		{ }*/
 		try
 		{
 			login = Image.createImage("/login.png");
