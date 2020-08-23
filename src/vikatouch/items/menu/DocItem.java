@@ -224,7 +224,7 @@ public class DocItem
 				{
 					case TYPE_PHOTO:
 					case TYPE_GIF:
-						return VikaTouch.camera48Img;
+						return VikaTouch.cameraImg;
 					case TYPE_AUDIO:
 						return docmusImg;
 					case TYPE_VIDEO:

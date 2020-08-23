@@ -914,6 +914,7 @@ public class VikaTouch
 
 	public void freeMemoryLow()
 	{
+		tokenRMS = null;
 		newsScr = null;
 		loginScr = null;
 		splash = null;

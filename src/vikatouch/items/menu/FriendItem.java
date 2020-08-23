@@ -36,6 +36,7 @@ public class FriendItem extends JSONUIItem
 	{
 		super(json);
 		itemDrawHeight = 52;
+		ava = VikaTouch.cameraImg;
 	}
 
 	public void parseJSON()
@@ -98,7 +99,7 @@ public class FriendItem extends JSONUIItem
 		itemDrawHeight = 50 + BORDER * 2;
 	}
 	
-	public void GetAva() {
+	public void getAva() {
 		try
 		{
 			ava = ResizeUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
