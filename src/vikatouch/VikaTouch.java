@@ -270,10 +270,6 @@ public class VikaTouch
 				}
 				System.out.println(tokenUnswer);
 				errReason = tokenUnswer;
-				if(tokenUnswer.indexOf("error") >= 0)
-				{
-					return false;
-				}
 				if(tokenUnswer.indexOf("need_captcha") > 0)
 				{
 					captchaScr = new CaptchaScreen();
@@ -338,6 +334,12 @@ public class VikaTouch
 				}
 				else
 				{
+
+					if(tokenUnswer.indexOf("error") >= 0)
+					{
+						errReason = tokenUnswer;
+						return false;
+					}
 					accessToken = tokenUnswer.substring(tokenUnswer.indexOf("access_token") + 15, tokenUnswer.indexOf("expires_in") - 3);
 					userId = tokenUnswer.substring(tokenUnswer.indexOf("user_id") + 9, tokenUnswer.indexOf("}") - 0);
 					//VikaUtils.download(URLBuilder.makeSimpleURL("audio.get"));

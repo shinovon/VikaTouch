@@ -343,7 +343,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 					// сообщение
 					if(canMsg)
 					{
-						Dialogs.openDialog(-id);
+						Dialogs.openDialog(-id, name);
 					}
 					break;
 				case 3:

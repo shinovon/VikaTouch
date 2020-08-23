@@ -73,7 +73,7 @@ public class Settings
 
 	public static boolean dontBack;
 
-	private static boolean isLiteOrSomething;
+	public static boolean isLiteOrSomething;
 
 	public static long memoryClearCache = 400;
 

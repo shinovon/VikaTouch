@@ -29,7 +29,7 @@ public class IconsManager {
 		
 		ac = Image.createImage("/ava.png");
 		acs = Image.createImage("/avas.png");
-		logoImg = Image.createImage("/vikahead.jpg");
+		logoImg = Image.createImage("/vikahead.png");
 		backImg = Image.createImage("/back.png");
 	}
 	

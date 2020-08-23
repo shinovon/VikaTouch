@@ -256,6 +256,10 @@ public class CommandsImpl
 			{
 				VikaTouch.setDisplay(((MainScreen)s).backScreen, -1);
 			}
+			if(s instanceof ChatScreen)
+			{
+				VikaTouch.setDisplay(VikaTouch.dialogsScr, -1);
+			}
 		}
 	}
 

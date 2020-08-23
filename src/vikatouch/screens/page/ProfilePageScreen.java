@@ -321,7 +321,7 @@ public class ProfilePageScreen
 				{ } // юзается как алерт, ничего не делаем.
 				if(canMsg)
 				{
-					Dialogs.openDialog(id);
+					Dialogs.openDialog(id, name);
 				}
 				break;
 			case 1:
