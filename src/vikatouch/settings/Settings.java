@@ -75,6 +75,8 @@ public class Settings
 
 	private static boolean isLiteOrSomething;
 
+	public static long memoryClearCache = 400;
+
 	public static final int SENSOR_OK = 0;
 	public static final int SENSOR_J2MELOADER = 1;
 	public static final int SENSOR_RESISTIVE = 2;

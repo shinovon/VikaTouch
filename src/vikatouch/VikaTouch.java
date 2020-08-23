@@ -55,7 +55,7 @@ public class VikaTouch
 	public static CaptchaScreen captchaScr;
 	public static RecordStore tokenRMS;
 	public static Image cameraImg;
-	public static Image camera48Img;
+	//public static Image camera48Img;
 	public static Thread mainThread;
 	public static UIThread uiThread;
 	public static String userId;
@@ -727,7 +727,6 @@ public class VikaTouch
 		{
 			final Image camera = Image.createImage("/camera.png");
 			cameraImg = ResizeUtils.resizeava(camera);
-			camera48Img = ResizeUtils.resizeItemPreview(camera);
 		}
 		catch (IOException e1)
 		{
@@ -911,5 +910,13 @@ public class VikaTouch
 				
 			}
 		}
+	}
+
+	public void freeMemoryLow()
+	{
+		newsScr = null;
+		loginScr = null;
+		splash = null;
+		System.gc();
 	}
 }

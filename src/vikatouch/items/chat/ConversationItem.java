@@ -66,6 +66,8 @@ public class ConversationItem
 		{
 			e.printStackTrace();
 		}
+		
+		ava = VikaTouch.cameraImg;
 	}
 
 	public void getAva()
@@ -205,7 +207,8 @@ public class ConversationItem
 					if(profile.optInt("id") == id)
 					{
 						title = fixJSONString(profile.optString("first_name") + " " + profile.optString("last_name"));
-						avaurl = fixJSONString(profile.optString("photo_50"));
+						if(!Settings.dontLoadAvas)
+							avaurl = fixJSONString(profile.optString("photo_50"));
 						break;
 					}
 				}
@@ -218,7 +221,8 @@ public class ConversationItem
 					if(group.optInt("id") == id)
 					{
 						title = fixJSONString(group.optString("name"));
-						avaurl = fixJSONString(group.optString("photo_50"));
+						if(!Settings.dontLoadAvas)
+							avaurl = fixJSONString(group.optString("photo_50"));
 						break;
 					}
 				}	

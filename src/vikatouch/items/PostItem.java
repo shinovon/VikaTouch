@@ -19,6 +19,7 @@ import vikatouch.VikaTouch;
 import vikatouch.attachments.Attachment;
 import vikatouch.attachments.PhotoAttachment;
 import vikatouch.screens.NewsScreen;
+import vikatouch.settings.Settings;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
 
@@ -365,6 +366,8 @@ public class PostItem
 
 	private void getAva()
 	{
+		if(!Settings.dontLoadAvas)
+		{
 			if(avaurl != null && ava == null && !dontLoadAva)
 			{
 				new Thread(new Runnable(){
@@ -382,7 +385,7 @@ public class PostItem
 					}
 				}}).start();
 			}
-		
+		}
 	}
 
 	public void tap(int x, int y)
