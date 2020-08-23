@@ -286,12 +286,13 @@ public class ImageStorage
     	try 
     	{
     		recordStore = RecordStore.openRecordStore(RMS_IMAGES, true);
-    		if (recordStore.getNumRecords() == 0 && images.size() > 0)
+    		//if (recordStore.getNumRecords() == 0 && images.size() > 0)
             {
-                storeImagesInRMS();
+            //    storeImagesInRMS();
             }
             restoreImagesFromRMS();
             isLoaded = true;
+            recordStore.closeRecordStore();
     	} 
     	catch (RecordStoreNotFoundException e)
     	{ }
