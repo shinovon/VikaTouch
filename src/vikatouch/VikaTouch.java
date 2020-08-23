@@ -67,6 +67,7 @@ public class VikaTouch
 	public CommandsImpl cmdsInst;
 	private String errReason;
 	private String tokenUnswer;
+	private SplashScreen splash;
 	public static VikaTouch inst;
 	public static VikaTouchApp appInst;
 	public static boolean crashed;
@@ -130,9 +131,13 @@ public class VikaTouch
 
 	public static void setDisplay(VikaScreen s, int direction)
 	{
-		if(direction != -1 && s instanceof MainScreen && canvas.currentScreen instanceof MainScreen)
-			((MainScreen)s).backScreen = (MainScreen) canvas.currentScreen;
-		canvas.oldScreen = canvas.currentScreen;
+		if(!Settings.dontBack)
+		{
+			if(direction != -1 && s instanceof MainScreen && canvas.currentScreen instanceof MainScreen)
+				((MainScreen)s).backScreen = (MainScreen) canvas.currentScreen;
+			if(!Settings.animateTransition)
+				canvas.oldScreen = canvas.currentScreen;
+		}
 		appInst.isPaused = false;
 		if(s instanceof MenuScreen)
 		{
@@ -690,7 +695,7 @@ public class VikaTouch
 
 	public void threadRun()
 	{
-		SplashScreen splash = new SplashScreen();
+		splash = new SplashScreen();
 		cmdsInst = new CommandsImpl();
 		setDisplay(splash, 0);
 		
@@ -699,7 +704,7 @@ public class VikaTouch
 		Settings.loadDefaultSettings();
 		Settings.loadSettings();
 		
-		isEmulator = (mobilePlatform.charAt(0) == ' ') || (mobilePlatform.equals("Nokia_SERIES60"));
+		isEmulator = (mobilePlatform.indexOf(" ") > 0) || (mobilePlatform.equals("Nokia_SERIES60")) || (mobilePlatform.equals("Nokia_SERIES40"));
 		
 		splash.currState = 2;
 		
@@ -795,6 +800,7 @@ public class VikaTouch
 				}
 				splash.currState = 7;
 				Thread.sleep(250);
+				disposeSplash();
 			}
 			else
 			{
@@ -809,6 +815,20 @@ public class VikaTouch
 
 		Thread.yield();
 
+	}
+	
+	private void disposeSplash()
+	{
+		if(splash != null)
+		{
+			splash.logo = null;
+			splash = null;
+		}
+	}
+
+	public static boolean isS40()
+	{
+		return mobilePlatform.indexOf("S60") <= -1 || Runtime.getRuntime().totalMemory() / 1024 == 2048;
 	}
 
 	public static void popup(VikaNotice popup)

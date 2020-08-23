@@ -13,6 +13,7 @@ import vikatouch.screens.AboutScreen;
 import vikatouch.screens.ChatScreen;
 import vikatouch.screens.DialogsScreen;
 import vikatouch.screens.LoginScreen;
+import vikatouch.screens.MainScreen;
 import vikatouch.screens.NewsScreen;
 import vikatouch.screens.menu.DocsScreen;
 import vikatouch.screens.menu.FriendsScreen;
@@ -218,29 +219,43 @@ public class CommandsImpl
 
 	protected void back(VikaScreen s)
 	{
-		if(s instanceof SettingsScreen)
+		if(Settings.dontBack)
 		{
-			Settings.saveSettings();
-			if(VikaTouch.menuScr != null)
+			if(s instanceof SettingsScreen)
+			{
+				Settings.saveSettings();
+				if(VikaTouch.menuScr != null)
+				{
+					VikaTouch.setDisplay(VikaTouch.menuScr, -1);
+				}
+				else
+				{
+					VikaTouch.setDisplay(VikaTouch.loginScr, -1);
+				}
+			}
+			if(s instanceof DocsScreen || s instanceof AboutScreen || s instanceof GroupsScreen || s instanceof VideosScreen || s instanceof FriendsScreen || s instanceof PhotosScreen)
 			{
 				VikaTouch.setDisplay(VikaTouch.menuScr, -1);
 			}
-			else
+			if(s instanceof ChatScreen)
 			{
-				VikaTouch.setDisplay(VikaTouch.loginScr, -1);
+				VikaTouch.setDisplay(VikaTouch.dialogsScr, -1);
+			}
+			if(s instanceof GroupPageScreen)
+			{
+				VikaTouch.setDisplay(VikaTouch.grScr, -1);
 			}
 		}
-		if(s instanceof DocsScreen || s instanceof AboutScreen || s instanceof GroupsScreen || s instanceof VideosScreen || s instanceof FriendsScreen || s instanceof PhotosScreen)
+		else
 		{
-			VikaTouch.setDisplay(VikaTouch.menuScr, -1);
-		}
-		if(s instanceof ChatScreen)
-		{
-			VikaTouch.setDisplay(VikaTouch.dialogsScr, -1);
-		}
-		if(s instanceof GroupPageScreen)
-		{
-			VikaTouch.setDisplay(VikaTouch.grScr, -1);
+			if(s instanceof SettingsScreen)
+			{
+				Settings.saveSettings();
+			}
+			if(s instanceof MainScreen)
+			{
+				VikaTouch.setDisplay(((MainScreen)s).backScreen, -1);
+			}
 		}
 	}
 

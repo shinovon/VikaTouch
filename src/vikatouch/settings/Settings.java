@@ -71,6 +71,10 @@ public class Settings
 
 	public static boolean alerts;
 
+	public static boolean dontBack;
+
+	private static boolean isLiteOrSomething;
+
 	public static final int SENSOR_OK = 0;
 	public static final int SENSOR_J2MELOADER = 1;
 	public static final int SENSOR_RESISTIVE = 2;
@@ -203,6 +207,8 @@ public class Settings
 		dontLoadAvas = false;
 		sendErrors = true;
 		autoMarkAsRead = true;
+		isLiteOrSomething = VikaTouch.isS40();
+		dontBack = isLiteOrSomething;
 		
 		//язык соотвествующий настройкам устройства
 		try
@@ -218,7 +224,7 @@ public class Settings
 			
 		}
 		
-		if(VikaTouch.mobilePlatform.indexOf("S60") < 0)
+		if(isLiteOrSomething)
 		{
 			alerts = true;
 			videoResolution = "240";
