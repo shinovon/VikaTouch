@@ -13,6 +13,7 @@ import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.TextBreaker;
 import vikamobilebase.VikaUtils;
+import vikatouch.Dialogs;
 import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
 import vikatouch.items.menu.OptionItem;
@@ -318,6 +319,10 @@ public class ProfilePageScreen
 			case 0:
 				if(closed) 
 				{ } // юзается как алерт, ничего не делаем.
+				if(canMsg)
+				{
+					Dialogs.openDialog(id, name);
+				}
 				break;
 			case 1:
 				VikaTouch.loading = true;

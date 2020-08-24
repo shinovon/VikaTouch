@@ -18,6 +18,7 @@ import vikatouch.VikaTouch;
 import vikatouch.attachments.Attachment;
 import vikatouch.attachments.DocumentAttachment;
 import vikatouch.attachments.PhotoAttachment;
+import vikatouch.attachments.StickerAttachment;
 import vikatouch.attachments.WallAttachment;
 import vikatouch.items.menu.OptionItem;
 import vikatouch.screens.ChatScreen;
@@ -170,12 +171,22 @@ public class MsgItem
 				{
 					Attachment at = attachments[i];
 					if(at==null) continue;
-					
-					if(at instanceof PhotoAttachment)
+					if(!Settings.isLiteOrSomething)
 					{
-						((PhotoAttachment) at).load();
+						if(at instanceof PhotoAttachment)
+						{
+							((PhotoAttachment) at).load();
+						}
+						if(at instanceof StickerAttachment)
+						{
+							int stickerH = DisplayUtils.width > 250 ? 128 : 64;
+							attH += stickerH + attMargin;
+						}
+						else
+						{
+							attH += at.getDrawHeight() + attMargin;
+						}
 					}
-					attH += at.getDrawHeight()+attMargin;
 				}
 				if(attH != 0) { attH += attMargin; }
 			}
@@ -261,7 +272,12 @@ public class MsgItem
 					int rx = foreign ? (margin + attMargin) : (DisplayUtils.width - (margin + attMargin) - pa.renderW);
 					if(pa.renderImg == null)
 					{
-						g.drawString("Не удалось загрузить изображение", textX, y+attY, 0);
+						if(Settings.isLiteOrSomething)
+						{
+							g.drawString("Фотография", textX, y+attY, 0);
+						}
+						else
+							g.drawString("Не удалось загрузить изображение", textX, y+attY, 0);
 					}
 					else
 					{
@@ -277,6 +293,14 @@ public class MsgItem
 				{
 					int x1 = foreign ? (margin + attMargin) : (DisplayUtils.width - (margin + msgWidth) + attMargin);
 					g.drawString("Запись на стене", x1+10, y+attY, 0);
+				}
+				else if(at instanceof StickerAttachment)
+				{
+					int stickerW = DisplayUtils.width > 250 ? 128 : 64;
+					int rx = foreign ? (margin + attMargin) : (DisplayUtils.width - (margin + attMargin) - stickerW);
+					g.drawImage(((StickerAttachment) at).getImage(stickerW), rx, y+attY, 0);
+					//int x1 = foreign ? (margin + attMargin) : (DisplayUtils.width - (margin + msgWidth) + attMargin);
+					//g.drawString("Запись на стене", x1+10, y+attY, 0);
 				}
 				
 				attY += at.getDrawHeight()+attMargin;

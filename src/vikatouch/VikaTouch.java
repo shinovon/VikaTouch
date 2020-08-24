@@ -55,7 +55,7 @@ public class VikaTouch
 	public static CaptchaScreen captchaScr;
 	public static RecordStore tokenRMS;
 	public static Image cameraImg;
-	public static Image camera48Img;
+	//public static Image camera48Img;
 	public static Thread mainThread;
 	public static UIThread uiThread;
 	public static String userId;
@@ -67,6 +67,7 @@ public class VikaTouch
 	public CommandsImpl cmdsInst;
 	private String errReason;
 	private String tokenUnswer;
+	private SplashScreen splash;
 	public static VikaTouch inst;
 	public static VikaTouchApp appInst;
 	public static boolean crashed;
@@ -130,9 +131,13 @@ public class VikaTouch
 
 	public static void setDisplay(VikaScreen s, int direction)
 	{
-		if(direction != -1 && s instanceof MainScreen && canvas.currentScreen instanceof MainScreen)
-			((MainScreen)s).backScreen = (MainScreen) canvas.currentScreen;
-		canvas.oldScreen = canvas.currentScreen;
+		if(!Settings.dontBack)
+		{
+			if(direction != -1 && s instanceof MainScreen && canvas.currentScreen instanceof MainScreen)
+				((MainScreen)s).backScreen = (MainScreen) canvas.currentScreen;
+			if(!Settings.animateTransition)
+				canvas.oldScreen = canvas.currentScreen;
+		}
 		appInst.isPaused = false;
 		if(s instanceof MenuScreen)
 		{
@@ -265,10 +270,6 @@ public class VikaTouch
 				}
 				System.out.println(tokenUnswer);
 				errReason = tokenUnswer;
-				if(tokenUnswer.indexOf("error") >= 0)
-				{
-					return false;
-				}
 				if(tokenUnswer.indexOf("need_captcha") > 0)
 				{
 					captchaScr = new CaptchaScreen();
@@ -333,6 +334,12 @@ public class VikaTouch
 				}
 				else
 				{
+
+					if(tokenUnswer.indexOf("error") >= 0)
+					{
+						errReason = tokenUnswer;
+						return false;
+					}
 					accessToken = tokenUnswer.substring(tokenUnswer.indexOf("access_token") + 15, tokenUnswer.indexOf("expires_in") - 3);
 					userId = tokenUnswer.substring(tokenUnswer.indexOf("user_id") + 9, tokenUnswer.indexOf("}") - 0);
 					//VikaUtils.download(URLBuilder.makeSimpleURL("audio.get"));
@@ -690,7 +697,7 @@ public class VikaTouch
 
 	public void threadRun()
 	{
-		SplashScreen splash = new SplashScreen();
+		splash = new SplashScreen();
 		cmdsInst = new CommandsImpl();
 		setDisplay(splash, 0);
 		
@@ -699,7 +706,7 @@ public class VikaTouch
 		Settings.loadDefaultSettings();
 		Settings.loadSettings();
 		
-		isEmulator = (mobilePlatform.charAt(0) == ' ') || (mobilePlatform.equals("Nokia_SERIES60"));
+		isEmulator = (mobilePlatform.indexOf(" ") > 0) || (mobilePlatform.equals("Nokia_SERIES60")) || (mobilePlatform.equals("Nokia_SERIES40"));
 		
 		splash.currState = 2;
 		
@@ -722,7 +729,6 @@ public class VikaTouch
 		{
 			final Image camera = Image.createImage("/camera.png");
 			cameraImg = ResizeUtils.resizeava(camera);
-			camera48Img = ResizeUtils.resizeItemPreview(camera);
 		}
 		catch (IOException e1)
 		{
@@ -795,6 +801,7 @@ public class VikaTouch
 				}
 				splash.currState = 7;
 				Thread.sleep(250);
+				disposeSplash();
 			}
 			else
 			{
@@ -809,6 +816,20 @@ public class VikaTouch
 
 		Thread.yield();
 
+	}
+	
+	private void disposeSplash()
+	{
+		if(splash != null)
+		{
+			splash.logo = null;
+			splash = null;
+		}
+	}
+
+	public static boolean isS40()
+	{
+		return mobilePlatform.indexOf("S60") <= -1 || Runtime.getRuntime().totalMemory() / 1024 == 2048;
 	}
 
 	public static void popup(VikaNotice popup)
@@ -891,5 +912,14 @@ public class VikaTouch
 				
 			}
 		}
+	}
+
+	public void freeMemoryLow()
+	{
+		tokenRMS = null;
+		newsScr = null;
+		loginScr = null;
+		splash = null;
+		System.gc();
 	}
 }

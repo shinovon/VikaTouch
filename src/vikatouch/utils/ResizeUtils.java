@@ -14,6 +14,7 @@ public class ResizeUtils
 	{
 		short h = (short) img.getHeight();
 		short need = h;
+		/*
 		switch(DisplayUtils.idispi)
 		{
 			case DisplayUtils.DISPLAY_E6:
@@ -37,7 +38,8 @@ public class ResizeUtils
 				need = 50;
 				break;
 			}
-		}
+		}*/
+		need = 50;
 		if(h != need)
 		{
 			return ImageUtils.resize(img, need, need, false, false);

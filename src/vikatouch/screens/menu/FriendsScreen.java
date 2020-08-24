@@ -139,21 +139,24 @@ public class FriendsScreen
 						repaint();
 						Thread.sleep(1000); // ну вдруг юзер уже нажмёт? Зачем зря грузить
 						VikaTouch.loading = true;
-						for(int i = 0; i < itemsCount - (canLoadMore?1:0); i++)
+						if(!Settings.dontLoadAvas)
 						{
-							/*
-							if(!this.isAlive())
+							for(int i = 0; i < itemsCount - (canLoadMore?1:0); i++)
 							{
-								return;
+								/*
+								if(!this.isAlive())
+								{
+									return;
+								}
+								*/
+								if(!(VikaTouch.canvas.currentScreen instanceof FriendsScreen))
+								{
+									VikaTouch.loading = false; return; // Костыль деревянный, 1 штука, 78 lvl, 6 ранг
+									//не одобряю. для чего создали thread.isAlive()?
+								}
+								VikaTouch.loading = true;
+								((FriendItem) uiItems[i]).getAva();
 							}
-							*/
-							if(!(VikaTouch.canvas.currentScreen instanceof FriendsScreen))
-							{
-								VikaTouch.loading = false; return; // Костыль деревянный, 1 штука, 78 lvl, 6 ранг
-								//не одобряю. для чего создали thread.isAlive()?
-							}
-							VikaTouch.loading = true;
-							((FriendItem) uiItems[i]).GetAva();
 						}
 						VikaTouch.loading = false;
 					}

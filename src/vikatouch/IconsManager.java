@@ -11,12 +11,11 @@ public class IconsManager {
 	
 	public static Image[] ico;
 	public static Image[] selIco;
-	public static Image sheet;
 	
 	public static void Load()
 			throws IOException
 	{
-		sheet = Image.createImage("/icons.png");
+		Image sheet = Image.createImage("/icons.png");
 		int c /*count*/ = sheet.getWidth() / 24;
 		ico = new Image[c];
 		selIco = new Image[c];
@@ -30,7 +29,7 @@ public class IconsManager {
 		
 		ac = Image.createImage("/ava.png");
 		acs = Image.createImage("/avas.png");
-		logoImg = Image.createImage("/vikahead.jpg");
+		logoImg = Image.createImage("/vikahead.png");
 		backImg = Image.createImage("/back.png");
 	}
 	

@@ -123,10 +123,13 @@ public class GroupsScreen
 					repaint();
 					Thread.sleep(1000);
 					VikaTouch.loading = true;
-					for(int i = 0; i < itemsCount - (canLoadMore?1:0); i++)
+					if(!Settings.dontLoadAvas)
 					{
-						VikaTouch.loading = true;
-						((GroupItem) uiItems[i]).getAva();
+						for(int i = 0; i < itemsCount - (canLoadMore?1:0); i++)
+						{
+							VikaTouch.loading = true;
+							((GroupItem) uiItems[i]).getAva();
+						}
 					}
 					VikaTouch.loading = false;
 				}

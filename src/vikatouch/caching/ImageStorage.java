@@ -7,6 +7,9 @@ import java.util.Hashtable;
 import javax.microedition.lcdui.*;
 import javax.microedition.rms.*;
 
+import vikatouch.VikaTouch;
+import vikatouch.settings.Settings;
+
 public class ImageStorage
 {
     private static final int MAX_AREA_OF_IMAGE = 640 * 480;
@@ -53,6 +56,11 @@ public class ImageStorage
     	Image i = null;
 		try
 		{
+			if(Runtime.getRuntime().freeMemory() < Settings.memoryClearCache)
+			{
+				images.clear();
+				VikaTouch.inst.freeMemoryLow();
+			}
 	    	i = (Image) images.get(s);
 			if(images.contains(s) && i != null)
 			{
@@ -278,12 +286,13 @@ public class ImageStorage
     	try 
     	{
     		recordStore = RecordStore.openRecordStore(RMS_IMAGES, true);
-    		if (recordStore.getNumRecords() == 0 && images.size() > 0)
+    		//if (recordStore.getNumRecords() == 0 && images.size() > 0)
             {
-                storeImagesInRMS();
+            //    storeImagesInRMS();
             }
             restoreImagesFromRMS();
             isLoaded = true;
+            recordStore.closeRecordStore();
     	} 
     	catch (RecordStoreNotFoundException e)
     	{ }

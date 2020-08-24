@@ -25,6 +25,7 @@ import vikatouch.items.menu.OptionItem;
 import vikatouch.json.JSONBase;
 import vikatouch.local.TextLocal;
 import vikatouch.screens.MainScreen;
+import vikatouch.settings.Settings;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
 import vikatouch.utils.url.URLBuilder;
@@ -76,21 +77,15 @@ public class MenuScreen
 		{
 			VikaTouch.error(e, ErrorCodes.MENUIMAGE);
 		}
+		profileImg = VikaTouch.cameraImg;
 		if(VikaTouch.DEMO_MODE)
 		{
 			name = "Арман";
 			lastname = "Джусупгалиев";
 			//БЕЗУМНО МОЖНО БЫТЬ ПЕРВЫМ
 			status = "Волк если волк, а когда волк волка волку волк - волк."; // так ещё упоротее))0)
-			try
-			{
-				profileImg = ResizeUtils.resizeava(Image.createImage("/camera.png"));
-				hasAva = true;
-			}
-			catch (Exception e)
-			{
-				
-			}
+			
+			hasAva = true;
 		}
 		if(VikaTouch.userId != null)
 		{
@@ -108,13 +103,13 @@ public class MenuScreen
 					avaurl = JSONBase.fixJSONString(profileobj.optString("photo_50"));
 					hasAva = profileobj.optInt("has_photo") == 1;
 				}
-				if(hasAva && avaurl != null && avaurl != "" && avaurl != "null")
+				if(!Settings.dontLoadAvas && hasAva && avaurl != null && avaurl != "" && avaurl != "null")
 				{
 					try
 					{
 						profileImg = ResizeUtils.resizeava(VikaUtils.downloadImage(avaurl));
 					}
-					catch (Exception e)
+					catch (Throwable e)
 					{
 						if(!VikaTouch.offlineMode)
 							VikaTouch.error(e, ErrorCodes.MENUAVATAR);
@@ -133,6 +128,10 @@ public class MenuScreen
 			catch (Exception var19)
 			{
 				VikaTouch.error(var19, ErrorCodes.MENUPROFILEINFO3);
+			}
+			catch (Throwable a)
+			{
+				VikaTouch.error(a, ErrorCodes.MENUPROFILEINFO3);
 			}
 		}
 		else

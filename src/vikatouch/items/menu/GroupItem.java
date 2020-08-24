@@ -37,6 +37,7 @@ public class GroupItem
 	{
 		super(json);
 		itemDrawHeight = 50;
+		ava = VikaTouch.cameraImg;
 	}
 
 	public void parseJSON()

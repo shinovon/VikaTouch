@@ -15,6 +15,7 @@ import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.TextBreaker;
 import vikamobilebase.VikaUtils;
+import vikatouch.Dialogs;
 import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
 import vikatouch.items.menu.FriendItem;
@@ -53,6 +54,8 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 	
 	// system
 	private boolean isInfoShown = false;
+
+	protected static String membersStr;
 
 	private static String groupsStr;
 
@@ -117,6 +120,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 			docsStr = TextLocal.inst.get("menu.documents");
 			videosStr = TextLocal.inst.get("menu.videos");
 			groupsStr = TextLocal.inst.get("group.s");
+			membersStr = TextLocal.inst.get("menu.members");
 		}
 		hasBackButton = true;
 		this.id = id;
@@ -138,7 +142,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 				{
 					VikaTouch.loading = true;
 					String x = VikaUtils.download(new URLBuilder("groups.getById").addField("group_id", id)
-							.addField("fields", "description,contacts,members_count,counters,status,links,fixed_post,site,ban_info"));
+							.addField("fields", "description,contacts,members_count,counters,status,links,fixed_post,site,ban_info,can_message"));
 					try
 					{
 						VikaTouch.loading = true;
@@ -146,9 +150,10 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 						name = res.optString("name");
 						link = res.optString("screen_name");
 						status = res.optString("status");
-						isAdmin = res.optInt("is_admin") == 1;
-						isMember = res.optInt("is_member") == 1;
+						isAdmin = res.optInt("is_admin") > 0;
+						isMember = res.optInt("is_member") > 0;
 						membersCount = res.optInt("members_count");
+						canMsg = res.optInt("can_message") > 0;
 						try {
 							description = TextBreaker.breakText(res.optString("description"), false, null, true, DisplayUtils.width-32);
 						} catch (Exception e) { e.printStackTrace(); }
@@ -166,7 +171,7 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 						} catch (Exception e) { }
 						itemsCount = 13;
 						uiItems = new OptionItem[13];
-						uiItems[0] = new OptionItem(thisC, " ("+membersCount+")", IconsManager.GROUPS, 0, 50);
+						uiItems[0] = new OptionItem(thisC, membersStr + " ("+membersCount+")", IconsManager.GROUPS, 0, 50);
 						uiItems[1] = new OptionItem(thisC, isMember?leaveStr:joinStr, 
 								isMember?IconsManager.CLOSE:IconsManager.ADD, 1, 50);
 						uiItems[2] = new OptionItem(thisC, canMsg?writeMessageStr:cannotWriteStr, IconsManager.MSGS, 2, 50);
@@ -336,6 +341,10 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 					break;
 				case 2:
 					// сообщение
+					if(canMsg)
+					{
+						Dialogs.openDialog(-id, name);
+					}
 					break;
 				case 3:
 					// стена

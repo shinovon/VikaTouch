@@ -16,17 +16,17 @@ import vikatouch.screens.menu.MenuScreen;
 import vikatouch.settings.Settings;
 import vikatouch.settings.SettingsScreen;
 
-public abstract class MainScreen 
-	extends ScrollableCanvas 
+public abstract class MainScreen
+	extends ScrollableCanvas
 {
 
 	public static int lastMenu;
 	protected boolean hasBackButton;
 	public MainScreen backScreen;
-	
+
 	public int topPanelH;
 	public int bottomPanelH;
-	
+
 	public MainScreen()
 	{
 		super();
@@ -45,7 +45,7 @@ public abstract class MainScreen
 		}
 		*/
 	}
-	
+
 	public void release(int x, int y)
 	{
 		if(!dragging || !canScroll)
@@ -55,7 +55,8 @@ public abstract class MainScreen
 			{
 				if(hasBackButton && x < oneitemheight)
 				{
-					VikaTouch.setDisplay(backScreen, -1);
+					//VikaTouch.setDisplay(backScreen, -1);
+					VikaTouch.inst.cmdsInst.command(14, this);
 				}
 				if(!(this instanceof SettingsScreen) && x > DisplayUtils.width - oneitemheight)
 				{
@@ -84,7 +85,7 @@ public abstract class MainScreen
 
 		super.release(x, y);
 	}
-	
+
 	public void drawHUD(Graphics g, String title)
 	{
 		drawHUD(g,title, "OK", "");
@@ -95,7 +96,7 @@ public abstract class MainScreen
 		topPanelH = 58;
 		bottomPanelH = 50;
 		int dw = DisplayUtils.width;
-		
+
 		// fills
 		ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 		g.fillRect(0, 0, dw, topPanelH);
@@ -107,7 +108,7 @@ public abstract class MainScreen
 		g.drawImage(((this instanceof NewsScreen)?IconsManager.selIco:IconsManager.ico)[IconsManager.NEWS], dw/6-12, bpiy, 0);
 		g.drawImage(((this instanceof DialogsScreen)?IconsManager.selIco:IconsManager.ico)[IconsManager.MSGS], dw/2-12, bpiy, 0);
 		g.drawImage(((this instanceof MenuScreen)?IconsManager.selIco:IconsManager.ico)[IconsManager.MENU], dw-dw/6-12, bpiy, 0);
-		
+
 		// header & icon
 		if(hasBackButton)
 		{
@@ -119,7 +120,7 @@ public abstract class MainScreen
 		g.setGrayScale(255);
 		g.drawString(title, 72, 29-g.getFont().getHeight()/2, 0);
 		g.setFont(Font.getFont(0, 0, 8));
-		
+
 		// unread count
 		if(VikaTouch.unreadCount > 0)
 		{
@@ -127,15 +128,15 @@ public abstract class MainScreen
 			g.setFont(f);
 			int d = 16;
 			int fh = f.getHeight();
-			
+
 			g.setColor(225, 73, 73);
 			g.fillArc(dw/2+2, bpiy-5, d, d, 0, 360);
-			
+
 			g.setGrayScale(255);
 			g.drawString(""+VikaTouch.unreadCount, dw/2+2+(d-f.stringWidth(""+VikaTouch.unreadCount))/2, bpiy-5+(d-fh)/2+1, 0);
 		}
-		
-		
+
+
 		if(Settings.debugInfo)
 		{
 			g.setColor(0xffff00);
@@ -153,12 +154,12 @@ public abstract class MainScreen
 			g.drawString("cs"+scroll + " sc" + scrolled + " d" + drift + " ds" + driftSpeed + " st" + scrollingTimer + " sp" + scrollPrev + " t" + timer, 0, 30, 0);
 		}
 	}
-	
+
 	public void drawHUD(Graphics g)
 	{
 		drawHUD(g, "");
 	}
-	
+
 	/*
 	protected void drawHUDOld(Graphics g, String title)
 	{
@@ -175,7 +176,7 @@ public abstract class MainScreen
 				{
 					ColorUtils.setcolor(g, -3);
 					g.fillRect(0, DisplayUtils.height - 50, DisplayUtils.width, 50);
-	
+
 					if(menuImg != null)
 					{
 						g.drawImage(menuImg, 304, 606, 0);
@@ -228,22 +229,22 @@ public abstract class MainScreen
 				{
 					ColorUtils.setcolor(g, -3);
 					g.fillRect(0, DisplayUtils.height - 25, 240, 25);
-					
+
 					if(!hasBackButton && MenuScreen.logoImg != null)
 					{
 						g.drawImage(MenuScreen.logoImg, 2, 1, 0);
 					}
-					
+
 					if(menuImg != null)
 					{
 						g.drawImage(menuImg, 212, 303, 0);
 					}
-					
+
 					if(newsImg != null)
 					{
 						g.drawImage(newsImg, 18, 301, 0);
 					}
-					
+
 					if(VikaTouch.unreadCount > 0)
 					{
 						if(MenuScreen.dialImg2 != null)
@@ -256,7 +257,7 @@ public abstract class MainScreen
 						{
 							g.drawImage(MenuScreen.dialImg, 114, 302, 0);
 						}
-	
+
 					}
 					else
 					{
@@ -285,7 +286,7 @@ public abstract class MainScreen
 				{
 					ColorUtils.setcolor(g, -3);
 					g.fillRect(0, 310, 640, 50);
-	
+
 					if(!hasBackButton && MenuScreen.logoImg != null)
 					{
 						g.drawImage(MenuScreen.logoImg, 2, 2, 0);
@@ -296,7 +297,7 @@ public abstract class MainScreen
 					}
 					if(VikaTouch.unreadCount > 0)
 					{
-	
+
 						if(MenuScreen.dialImg2 != null)
 						{
 							g.drawImage(MenuScreen.dialImg2, 308, 319, 0);
@@ -307,7 +308,7 @@ public abstract class MainScreen
 						{
 							g.drawImage(MenuScreen.dialImg, 308, 324, 0);
 						}
-	
+
 					}
 					else
 					{
@@ -321,7 +322,7 @@ public abstract class MainScreen
 						g.drawImage(menuImg, 584, 326, 0);
 					}
 				}
-				
+
 				if(hasBackButton && backImg != null)
 				{
 					g.drawImage(backImg, 2, 2, 0);
@@ -329,10 +330,10 @@ public abstract class MainScreen
 				g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
 				g.drawString(title, 72, 14, 0);
 				g.setFont(Font.getFont(0, 0, 8));
-				
+
 				break;
 			}
-			
+
 			case DisplayUtils.DISPLAY_EQWERTY:
 			{
 				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
@@ -341,22 +342,22 @@ public abstract class MainScreen
 				{
 					ColorUtils.setcolor(g, -3);
 					g.fillRect(0, 215, 320, 25);
-					
+
 					if(!hasBackButton && MenuScreen.logoImg != null)
 					{
 						g.drawImage(MenuScreen.logoImg, 2, 1, 0);
 					}
-					
+
 					if(menuImg != null)
 					{
 						g.drawImage(menuImg, 292, 303-75, 0);
 					}
-					
+
 					if(newsImg != null)
 					{
 						g.drawImage(newsImg, 18, 301-75, 0);
 					}
-					
+
 					if(VikaTouch.unreadCount > 0)
 					{
 						if(MenuScreen.dialImg2 != null)
@@ -369,7 +370,7 @@ public abstract class MainScreen
 						{
 							g.drawImage(MenuScreen.dialImg, 114, 302-75, 0);
 						}
-	
+
 					}
 					else
 					{
@@ -389,19 +390,19 @@ public abstract class MainScreen
 				g.setFont(Font.getFont(0, 0, 8));
 				break;
 			}
-			
+
 			default:
 			{
 				ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 				g.fillRect(0, 0, DisplayUtils.width, oneitemheight + w);
 				ColorUtils.setcolor(g, -3);
 				g.fillRect(0, DisplayUtils.height - oneitemheight, DisplayUtils.width, oneitemheight);
-				
+
 				if(!hasBackButton && MenuScreen.logoImg != null)
 				{
 					g.drawImage(MenuScreen.logoImg, 2, 1, 0);
 				}
-				
+
 				if(hasBackButton && backImg != null)
 				{
 					g.drawImage(backImg, 2, 1, 0);

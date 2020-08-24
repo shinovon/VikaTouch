@@ -109,24 +109,27 @@ public class Dialogs
 				VikaTouch.loading = true;
 				
 				//поток качающий картинки
-				downloaderThread2 = new Thread()
+				if(!Settings.dontLoadAvas)
 				{
-					public void run()
+					downloaderThread2 = new Thread()
 					{
-						VikaTouch.loading = true;
-						
-						for(int i = 0; i < itemsCount; i++)
+						public void run()
 						{
-							if(dialogs[i] != null)
+							VikaTouch.loading = true;
+							
+							for(int i = 0; i < itemsCount; i++)
 							{
-								dialogs[i].getAva();
+								if(dialogs[i] != null)
+								{
+									dialogs[i].getAva();
+								}
 							}
+							
+							VikaTouch.loading = false;
 						}
-						
-						VikaTouch.loading = false;
-					}
-				};
-				downloaderThread2.start();
+					};
+					downloaderThread2.start();
+				}
 				Thread.yield();
 			}
 		};
