@@ -231,6 +231,15 @@ public class Settings
 			videoResolution = "240";
 			proxy = true;
 		}
+		
+		// простите/извините, мне проверять надо а не ждать пока диалоги скачаются.
+		if(VikaTouch.mobilePlatform.indexOf("Z710") > -1)
+		{
+			dontLoadAvas = true;
+			simpleListsLength = 20;
+			cacheImages = false;
+			autoMarkAsRead = false;
+		}
 	}
 
 	public static String hasLanguage(String l)
