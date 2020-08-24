@@ -102,6 +102,14 @@ extends VikaCanvas
 				}
 			}
 			
+		}
+		catch (Exception e)
+		{
+			VikaTouch.error(e, -2);
+			e.printStackTrace();
+		}
+		try
+		{
 	
 			ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 			g.fillRect(0, 0, DisplayUtils.width, DisplayUtils.height);
