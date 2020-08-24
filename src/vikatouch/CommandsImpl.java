@@ -219,6 +219,12 @@ public class CommandsImpl
 
 	protected void back(VikaScreen s)
 	{
+		if(s instanceof MenuScreen)
+		{
+			command(-1, s);
+			return;
+			// открывался сплеш....
+		}
 		if(Settings.dontBack)
 		{
 			if(s instanceof SettingsScreen)
