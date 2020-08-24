@@ -16,6 +16,8 @@ public class DisplayUtils
 	public static byte current;
 	public static VikaCanvas canvas;
 	
+	public static boolean compact; // дисплеи <300 в высоту (е72, альбом 240х320, портреты 220 и 208.
+	
 	//Дисплеи
 	public static final int CANVAS_LOGIN = 1;
 	public static final int CANVAS_MENU = 2;
@@ -119,6 +121,7 @@ public class DisplayUtils
 		lheight = height;
 		if(i != 0)
 			idispi = i;
+		compact = DisplayUtils.height<300; // ВСЁ. Вот и вся лапша. Потом постепенно примотаю к этому флагу снижение высоты айтемов и т.п.
 		return i;
 	}
 

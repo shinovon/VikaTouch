@@ -12,6 +12,7 @@ import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
+import vikatouch.local.TextLocal;
 import vikatouch.screens.menu.MenuScreen;
 import vikatouch.settings.Settings;
 import vikatouch.settings.SettingsScreen;
@@ -24,8 +25,10 @@ public abstract class MainScreen
 	protected boolean hasBackButton;
 	public MainScreen backScreen;
 
-	public int topPanelH;
-	public int bottomPanelH;
+	public static int topPanelH = 58;
+	public static int bottomPanelH = 50;
+	
+	public static String[] softKeys = null;
 
 	public MainScreen()
 	{
@@ -86,14 +89,10 @@ public abstract class MainScreen
 		super.release(x, y);
 	}
 
-	public void drawHUD(Graphics g, String title)
-	{
-		drawHUD(g,title, "OK", "");
-	}
-	protected void drawHUD(Graphics g, String title, String okText, String leftText)
+	protected void drawHUD(Graphics g, String title)
 	{
 		// vars
-		topPanelH = 58;
+		topPanelH = DisplayUtils.compact?20:58;
 		bottomPanelH = 50;
 		int dw = DisplayUtils.width;
 
@@ -101,41 +100,65 @@ public abstract class MainScreen
 		ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 		g.fillRect(0, 0, dw, topPanelH);
 		ColorUtils.setcolor(g, -3);
-		g.fillRect(0, DisplayUtils.height - bottomPanelH, dw, bottomPanelH);
-
-		// bottom icons
-		int bpiy = DisplayUtils.height - bottomPanelH/2 - 12;
-		g.drawImage(((this instanceof NewsScreen)?IconsManager.selIco:IconsManager.ico)[IconsManager.NEWS], dw/6-12, bpiy, 0);
-		g.drawImage(((this instanceof DialogsScreen)?IconsManager.selIco:IconsManager.ico)[IconsManager.MSGS], dw/2-12, bpiy, 0);
-		g.drawImage(((this instanceof MenuScreen)?IconsManager.selIco:IconsManager.ico)[IconsManager.MENU], dw-dw/6-12, bpiy, 0);
-
+		if(!keysMode) g.fillRect(0, DisplayUtils.height - bottomPanelH, dw, bottomPanelH);
+			
 		// header & icon
 		if(hasBackButton)
 		{
 			g.drawImage(IconsManager.backImg, topPanelH/2-IconsManager.backImg.getHeight()/2, 2, 0);
 		}
-		else
+		else if(!DisplayUtils.compact)
 			g.drawImage(IconsManager.logoImg, topPanelH/2-IconsManager.logoImg.getHeight()/2, 2, 0);
 		g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
 		g.setGrayScale(255);
-		g.drawString(title, 72, 29-g.getFont().getHeight()/2, 0);
-		g.setFont(Font.getFont(0, 0, 8));
-
-		// unread count
-		if(VikaTouch.unreadCount > 0)
+		g.drawString(title, 72, topPanelH/2-g.getFont().getHeight()/2, 0);
+		Font f = Font.getFont(0, 0, Font.SIZE_SMALL);
+		g.setFont(f);
+		
+		// Поясняю. Раз юзер опустился до кнопок, значит с экраном вообще беда (240 и меньше). Некуда иконки рисовать. Если есть возражения, пни в беседе, вызовем Илью и решим.
+		if(keysMode)
 		{
-			Font f = Font.getFont(0, 0, Font.SIZE_SMALL);
-			g.setFont(f);
-			int d = 16;
-			int fh = f.getHeight();
-
-			g.setColor(225, 73, 73);
-			g.fillArc(dw/2+2, bpiy-5, d, d, 0, 360);
-
-			g.setGrayScale(255);
-			g.drawString(""+VikaTouch.unreadCount, dw/2+2+(d-f.stringWidth(""+VikaTouch.unreadCount))/2, bpiy-5+(d-fh)/2+1, 0);
+			if(softKeys==null)
+			{
+				softKeys = new String[] { TextLocal.inst.get("options"), TextLocal.inst.get("select"), TextLocal.inst.get("back") };
+			}
+			if(softKeys!=null&&softKeys.length==3&&VikaTouch.canvas.currentAlert==null)
+			{
+				int fh = f.getHeight();
+				bottomPanelH = fh+5;
+				ColorUtils.setcolor(g, -3);
+				g.fillRect(0, DisplayUtils.height-bottomPanelH+1, DisplayUtils.width, bottomPanelH);
+				ColorUtils.setcolor(g, ColorUtils.TEXT);
+				g.fillRect(0, DisplayUtils.height-bottomPanelH, DisplayUtils.width, 1);
+				
+				int y = DisplayUtils.height-bottomPanelH+3;
+				int o = 4;
+				g.drawString(softKeys[0], o, y, 0);
+				g.drawString(softKeys[1], DisplayUtils.width/2, y, Graphics.TOP | Graphics.HCENTER);
+				g.drawString(softKeys[2], DisplayUtils.width - o, y, Graphics.TOP | Graphics.RIGHT);
+			}
 		}
-
+		else
+		{
+			// bottom icons
+			int bpiy = DisplayUtils.height - bottomPanelH/2 - 12;
+			g.drawImage(((this instanceof NewsScreen)?IconsManager.selIco:IconsManager.ico)[IconsManager.NEWS], dw/6-12, bpiy, 0);
+			g.drawImage(((this instanceof DialogsScreen)?IconsManager.selIco:IconsManager.ico)[IconsManager.MSGS], dw/2-12, bpiy, 0);
+			g.drawImage(((this instanceof MenuScreen)?IconsManager.selIco:IconsManager.ico)[IconsManager.MENU], dw-dw/6-12, bpiy, 0);
+					
+			// unread count
+			if(VikaTouch.unreadCount > 0)
+			{
+				int d = 16;
+				int fh = f.getHeight();
+	
+				g.setColor(225, 73, 73);
+				g.fillArc(dw/2+2, bpiy-5, d, d, 0, 360);
+	
+				g.setGrayScale(255);
+				g.drawString(""+VikaTouch.unreadCount, dw/2+2+(d-f.stringWidth(""+VikaTouch.unreadCount))/2, bpiy-5+(d-fh)/2+1, 0);
+			}
+		}
 
 		if(Settings.debugInfo)
 		{
