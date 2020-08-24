@@ -220,6 +220,8 @@ settings.spabilities=Special abilities
 settings.debug=Debug
 
 back=Back
+select=Select
+options=Options
 
 splash.title.3=Preparing assets
 splash.title.4=Authentication

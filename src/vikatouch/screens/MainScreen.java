@@ -92,7 +92,7 @@ public abstract class MainScreen
 	protected void drawHUD(Graphics g, String title)
 	{
 		// vars
-		topPanelH = DisplayUtils.compact?20:58;
+		topPanelH = DisplayUtils.compact?24:58;
 		bottomPanelH = 50;
 		int dw = DisplayUtils.width;
 
@@ -102,16 +102,23 @@ public abstract class MainScreen
 		ColorUtils.setcolor(g, -3);
 		if(!keysMode) g.fillRect(0, DisplayUtils.height - bottomPanelH, dw, bottomPanelH);
 			
-		// header & icon
-		if(hasBackButton)
+		if(!DisplayUtils.compact)
 		{
-			g.drawImage(IconsManager.backImg, topPanelH/2-IconsManager.backImg.getHeight()/2, 2, 0);
+			// header & icon
+			if(hasBackButton)
+			{
+				g.drawImage(IconsManager.backImg, topPanelH/2-IconsManager.backImg.getHeight()/2, 2, 0);
+			}
+			else
+				g.drawImage(IconsManager.logoImg, topPanelH/2-IconsManager.logoImg.getHeight()/2, 2, 0);
 		}
-		else if(!DisplayUtils.compact)
-			g.drawImage(IconsManager.logoImg, topPanelH/2-IconsManager.logoImg.getHeight()/2, 2, 0);
+		else
+		{
+			if(hasBackButton) g.drawString("<", 6, topPanelH/2-g.getFont().getHeight()/2, 0);
+		}
 		g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
 		g.setGrayScale(255);
-		g.drawString(title, 72, topPanelH/2-g.getFont().getHeight()/2, 0);
+		g.drawString(title, DisplayUtils.compact?20:72, topPanelH/2-g.getFont().getHeight()/2, 0);
 		Font f = Font.getFont(0, 0, Font.SIZE_SMALL);
 		g.setFont(f);
 		

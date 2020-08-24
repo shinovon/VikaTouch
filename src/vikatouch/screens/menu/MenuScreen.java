@@ -221,7 +221,7 @@ public class MenuScreen
 	{
 		try
 		{
-			int y = topPanelH+80; // init offset
+			int y = topPanelH+82; // init offset
 			update(g);
 			if(!DisplayUtils.compact)
 			{
@@ -238,20 +238,20 @@ public class MenuScreen
 			}
 			if(profileImg != null)
 			{
-				g.drawImage(profileImg, 16, 71, 0);
-				g.drawImage(IconsManager.ac, 16, 71, 0);
+				g.drawImage(profileImg, 16, topPanelH+13, 0);
+				g.drawImage(IconsManager.ac, 16, topPanelH+13, 0);
 				if(VikaTouch.offlineMode)
 				{
 					g.setColor(200, 0, 0);
 				}
 				else
 					ColorUtils.setcolor(g, ColorUtils.ONLINE);
-				g.fillArc(16+38, 71+38, 12, 12, 0, 360);
+				g.fillArc(16+38, topPanelH+13+38, 12, 12, 0, 360);
 			}
 			g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
 			ColorUtils.setcolor(g, ColorUtils.TEXT);
-			g.drawString(name+" "+lastname, 74, 80, 0);
-			g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
+			g.drawString(name+" "+lastname, 74, topPanelH+12, 0);
+			//g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
 			//g.drawString(status==null?"":status, 74, 98, 0);
 			
 			ColorUtils.setcolor(g, -3);
@@ -279,12 +279,12 @@ public class MenuScreen
 	{
 		super.drawHUD(g, "");
 
-		g.drawImage(settingsImg, DisplayUtils.width-35, 18, 0);
+		g.drawImage(settingsImg, DisplayUtils.width-35, DisplayUtils.compact?0:18, 0);
 		
 		if(keysMode && selectedBtn == 0)
 		{
 			g.setGrayScale(255);
-			g.drawRect(DisplayUtils.width-35, 18, 24, 24);
+			g.drawRect(DisplayUtils.width-35, DisplayUtils.compact?0:18, 24, 24);
 		}
 	}
 /*

@@ -39,7 +39,7 @@ public class SettingsScreen
 		super();
 		hasBackButton = true;
 		String[] eOd = new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.enabled") };
-		oneitemheight = 50;
+		oneitemheight = (short) (DisplayUtils.compact?30:50);
 		backItem = new OptionItem(this, TextLocal.inst.get("back"), IconsManager.BACK, 0, oneitemheight);
 		
 
