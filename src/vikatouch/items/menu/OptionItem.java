@@ -32,8 +32,9 @@ public class OptionItem
 		icon = ic;
 		text = t;
 		menu = m;
-		f = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM);
-		sf = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_MEDIUM);
+		// ворчали что слишком крупно. Согласен. Ты кстати тоже, это я медиум пихнул, до меня смалл был
+		f = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_SMALL);
+		sf = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_SMALL);
 	}
 	
 	public void paint(Graphics g, int y, int scrolled) {
