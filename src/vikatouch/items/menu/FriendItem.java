@@ -16,6 +16,7 @@ import vikatouch.VikaTouch;
 import vikatouch.items.JSONUIItem;
 import vikatouch.screens.menu.DocsScreen;
 import vikatouch.screens.page.ProfilePageScreen;
+import vikatouch.settings.Settings;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
 
@@ -102,7 +103,8 @@ public class FriendItem extends JSONUIItem
 	public void getAva() {
 		try
 		{
-			ava = ResizeUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
+			if(!Settings.dontLoadAvas)
+				ava = ResizeUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
 		}
 		catch (IOException e)
 		{
