@@ -1,4 +1,4 @@
-package vikatouch;
+package vikatouch.canvas;
 
 import java.io.InputStream;
 
@@ -12,6 +12,7 @@ import ru.nnproject.vikaui.screen.VikaScreen;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.GifDecoder;
+import vikatouch.VikaTouch;
 import vikatouch.screens.MainScreen;
 import vikatouch.screens.temp.SplashScreen;
 import vikatouch.settings.Settings;
