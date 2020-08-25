@@ -107,10 +107,14 @@ public abstract class MainScreen
 			{
 				g.drawImage(IconsManager.backImg, topPanelH/2-IconsManager.backImg.getHeight()/2, 2, 0);
 			}
-			/*
 			else if(this instanceof MenuScreen)
-				g.drawImage(IconsManager.logoImg, topPanelH/2-IconsManager.logoImg.getHeight()/2, 2, 0);
-				*/
+				g.drawImage(IconsManager.logoImg, 16, topPanelH/2-IconsManager.logoImg.getHeight()/2, 0);
+			// Такое себе, согласен. Ну хоть что-то.
+				
+		}
+		else if(this instanceof MenuScreen)
+		{
+			title = "ViKa touch";
 		}
 		g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
 		g.setGrayScale(255);
