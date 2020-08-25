@@ -26,14 +26,6 @@ public class Settings
 
 	public static boolean https;
 
-	public final static String xtrafrancyzApi = "http://vk-api-proxy.xtrafrancyz.net:80";
-
-	public final static String xtrafrancyzOAuth = "http://vk-oauth-proxy.xtrafrancyz.net:80";
-
-	public final static String httpsApi = "https://api.vk.com:443";
-
-	public final static String httpsOAuth = "https://oauth.vk.com:443";
-
 	public static String proxyApi;
 
 	public static String proxyOAuth;
@@ -64,18 +56,27 @@ public class Settings
 	
 	public static boolean symtube;
 	
-	public static boolean autoMarkAsRead = true;
-	
-	// На ЗБТ чтоб было включено!!11!1!!
+	/** На ЗБТ чтоб было включено!!11!1!! */
 	public static boolean telemetry = true;
 
+	public static final boolean slideAnim = true;
+	
+	//Не нуждаются сохранению (м.б передумаем)
+	public static boolean threaded;
+	public static long memoryClearCache = 400;
+	public static boolean dontBack;
+	public static boolean isLiteOrSomething;
+	public static boolean autoMarkAsRead = true;
 	public static boolean alerts;
 
-	public static boolean dontBack;
+	//константы
+	public final static String xtrafrancyzApi = "http://vk-api-proxy.xtrafrancyz.net:80";
 
-	public static boolean isLiteOrSomething;
+	public final static String xtrafrancyzOAuth = "http://vk-oauth-proxy.xtrafrancyz.net:80";
 
-	public static long memoryClearCache = 400;
+	public final static String httpsApi = "https://api.vk.com:443";
+
+	public final static String httpsOAuth = "https://oauth.vk.com:443";
 
 	public static final int SENSOR_OK = 0;
 	public static final int SENSOR_J2MELOADER = 1;
@@ -88,8 +89,6 @@ public class Settings
 	public static final int AUDIO_VLC = 4;
 	public static final int AUDIO_DOWNLOAD = 5;
 	public static final String[] supportedLanguages = {"en_US", "en_UK", "ru_RU"};
-
-	public static final boolean slideAnim = true;
 
 	static
 	{
@@ -211,6 +210,7 @@ public class Settings
 		autoMarkAsRead = true;
 		isLiteOrSomething = VikaTouch.isS40();
 		dontBack = isLiteOrSomething;
+		threaded = true;
 		
 		//язык соотвествующий настройкам устройства
 		try
@@ -231,6 +231,7 @@ public class Settings
 			alerts = true;
 			videoResolution = "240";
 			proxy = true;
+			//threaded = false;
 		}
 	}
 
