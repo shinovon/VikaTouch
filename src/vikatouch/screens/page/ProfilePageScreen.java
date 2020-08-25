@@ -189,6 +189,7 @@ public class ProfilePageScreen
 							ava = VikaUtils.downloadImage(JSONBase.fixJSONString(res.optString("photo_50")));
 						} catch (Exception e) { }
 						
+						int h = oneitemheight=(short) (DisplayUtils.compact?30:50);
 						if(closed) 
 						{
 							itemsCount = 2;
@@ -199,18 +200,18 @@ public class ProfilePageScreen
 						{
 							itemsCount = 9;
 							uiItems = new OptionItem[9];
-							uiItems[0] = new OptionItem(thisC, canMsg?writeMessageStr:cannotWriteStr, IconsManager.MSGS, 0, 50);
+							uiItems[0] = new OptionItem(thisC, canMsg?writeMessageStr:cannotWriteStr, IconsManager.MSGS, 0, h);
 							
-							uiItems[2] = new OptionItem(thisC, friendsStr + " ("+friends+")", IconsManager.FRIENDS, 2, 50);
-							uiItems[3] = new OptionItem(thisC, wallStr, IconsManager.NEWS, 3, 50);
-							uiItems[4] = new OptionItem(thisC, groupsStr+" ("+groups+")", IconsManager.GROUPS, 4, 50);
-							uiItems[5] = new OptionItem(thisC, photosStr+" ("+photos+")", IconsManager.PHOTOS, 5, 50);
-							uiItems[6] = new OptionItem(thisC, musicStr+" ("+music+")", IconsManager.MUSIC, 6, 50);
-							uiItems[7] = new OptionItem(thisC, videosStr+" ("+videos+")", IconsManager.VIDEOS, 7, 50);
-							uiItems[8] = new OptionItem(thisC, docsStr+" ("+docs+")", IconsManager.DOCS, 8, 50);
+							uiItems[2] = new OptionItem(thisC, friendsStr + " ("+friends+")", IconsManager.FRIENDS, 2, h);
+							uiItems[3] = new OptionItem(thisC, wallStr, IconsManager.NEWS, 3, h);
+							uiItems[4] = new OptionItem(thisC, groupsStr+" ("+groups+")", IconsManager.GROUPS, 4, h);
+							uiItems[5] = new OptionItem(thisC, photosStr+" ("+photos+")", IconsManager.PHOTOS, 5, h);
+							uiItems[6] = new OptionItem(thisC, musicStr+" ("+music+")", IconsManager.MUSIC, 6, h);
+							uiItems[7] = new OptionItem(thisC, videosStr+" ("+videos+")", IconsManager.VIDEOS, 7, h);
+							uiItems[8] = new OptionItem(thisC, docsStr+" ("+docs+")", IconsManager.DOCS, 8, h);
 						}
 						uiItems[1] = new OptionItem(thisC, (new String[] {addStr,cancelStr,acceptStr,removeStr})[friendState],
-								(friendState==3||friendState==1)?IconsManager.CLOSE:IconsManager.ADD, 1, 50);
+								(friendState==3||friendState==1)?IconsManager.CLOSE:IconsManager.ADD, 1, h);
 						try
 						{
 							String x2 = VikaUtils.download(new URLBuilder("users.get").addField("user_ids", id).addField("name_case", "gen"));
@@ -250,26 +251,29 @@ public class ProfilePageScreen
 	
 	public void draw(Graphics g)
 	{
-		int y = 140; // init offset
-		itemsh = itemsCount * 50 + y;
+		int y = topPanelH+82; // init offset
 		update(g);
-		ColorUtils.setcolor(g, -2);
-		g.fillRect(0, 132, DisplayUtils.width, 8);
-		ColorUtils.setcolor(g, -10);
-		g.fillRect(0, 133, DisplayUtils.width, 1);
-		ColorUtils.setcolor(g, -11);
-		g.fillRect(0, 134, DisplayUtils.width, 1);
-		ColorUtils.setcolor(g, -7);
-		g.fillRect(0, 139, DisplayUtils.width, 1);
-		ColorUtils.setcolor(g, -12);
-		g.fillRect(0, 140, DisplayUtils.width, 1);
+		if(!DisplayUtils.compact)
+		{
+			ColorUtils.setcolor(g, -2);
+			g.fillRect(0, 132, DisplayUtils.width, 8);
+			ColorUtils.setcolor(g, -10);
+			g.fillRect(0, 133, DisplayUtils.width, 1);
+			ColorUtils.setcolor(g, -11);
+			g.fillRect(0, 134, DisplayUtils.width, 1);
+			ColorUtils.setcolor(g, -7);
+			g.fillRect(0, 139, DisplayUtils.width, 1);
+			ColorUtils.setcolor(g, -12);
+			g.fillRect(0, 140, DisplayUtils.width, 1);
+		}
 		if(ava != null)
 		{
-			g.drawImage(ava, 16, 71, 0);
-			g.drawImage(IconsManager.ac, 16, 71, 0);
+			g.drawImage(ava, 16, topPanelH+13, 0);
+			g.drawImage(IconsManager.ac, 16, topPanelH+13, 0);
 			ColorUtils.setcolor(g, ColorUtils.ONLINE);
-			g.fillArc(16+38, 71+38, 12, 12, 0, 360);
+			g.fillArc(16+38, topPanelH+13+38, 12, 12, 0, 360);
 		}
+		itemsh = itemsCount * oneitemheight + y;
 		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_LARGE));
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
 		g.drawString(name==null?loadingStr+"...":name, 74, 74, 0);

@@ -207,64 +207,69 @@ public class LoginScreen
 
 	public void draw(Graphics g)
 	{
-		short sh = DisplayUtils.height;
-		short sw = DisplayUtils.width;
-		short yCenter = (short) (sh/2);
-		byte fH = 40; // field height
-		boolean shortLayout = sh<250;
-		byte fieldsMargin = (byte) (shortLayout?30:60);
-		
-		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
-		g.fillRect(0, 0, sw, sh);
-		
-		ColorUtils.setcolor(g, ColorUtils.COLOR1);
-		g.fillRect(0, 0, DisplayUtils.width, shortLayout?24:48);
-		if(!shortLayout) g.fillRect(0, DisplayUtils.height-50, DisplayUtils.width, 50);
-		//if(vikaLogo != null && !shortLayout)
-		//{
-	//		g.drawImage(vikaLogo, 2, 0, 0);
-		//}
-		Font f;
-		//Font f = Font.getFont(0, 0, Font.SIZE_LARGE);
-		//g.setFont(f); 
-		ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
-		//g.drawString("Vika Touch - "+titleLoginStr, 8, (shortLayout?12:24)-f.getHeight()/2, 0);
-		
-		tapCoords = new int[] { yCenter - fH/2 - 8 - fH, yCenter - fH/2 - 8, yCenter - fH/2, yCenter + fH/2, yCenter + fH/2 + 8, yCenter + fH/2 + 8 + 32 };
-		
-		ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
-		if(selectedBtn == 0)
-			ColorUtils.setcolor(g, ColorUtils.TEXT);
-		g.drawRect(fieldsMargin, tapCoords[0], sw-fieldsMargin*2, fH);
-		ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
-		if(selectedBtn == 1)
-			ColorUtils.setcolor(g, ColorUtils.TEXT);
-		g.drawRect(fieldsMargin, tapCoords[2], sw-fieldsMargin*2, fH);
-		ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
-		if(loginpressed != null && pressed) {
-			g.drawImage(loginpressed, DisplayUtils.width/2-loginpressed.getWidth()/2, tapCoords[4], 0);
-		} else if(login != null)
-			g.drawImage(login, DisplayUtils.width/2-login.getWidth()/2, tapCoords[4], 0);
-		
-		f = Font.getFont(0, 0, Font.SIZE_SMALL);
-		g.setFont(f);
-		ColorUtils.setcolor(g, ColorUtils.TEXTCOLOR1);
-		if(user != null)
-			g.drawString(user, fieldsMargin+10, tapCoords[0]+fH/2-f.getHeight()/2, 0);
-		if(pass != null)
+		try
 		{
-			String strpass = "";
-			if(keysMode && selectedBtn == 1)
+			short sh = DisplayUtils.height;
+			short sw = DisplayUtils.width;
+			short yCenter = (short) (sh/2);
+			byte fH = 40; // field height
+			boolean shortLayout = sh<250;
+			byte fieldsMargin = (byte) (shortLayout?30:60);
+			
+			ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+			g.fillRect(0, 0, sw, sh);
+			
+			ColorUtils.setcolor(g, ColorUtils.COLOR1);
+			g.fillRect(0, 0, DisplayUtils.width, shortLayout?24:48);
+			if(!shortLayout) g.fillRect(0, DisplayUtils.height-50, DisplayUtils.width, 50);
+			//if(vikaLogo != null && !shortLayout)
+			//{
+		//		g.drawImage(vikaLogo, 2, 0, 0);
+			//}
+			Font f;
+			//Font f = Font.getFont(0, 0, Font.SIZE_LARGE);
+			//g.setFont(f); 
+			ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
+			//g.drawString("Vika Touch - "+titleLoginStr, 8, (shortLayout?12:24)-f.getHeight()/2, 0);
+			
+			tapCoords = new int[] { yCenter - fH/2 - 8 - fH, yCenter - fH/2 - 8, yCenter - fH/2, yCenter + fH/2, yCenter + fH/2 + 8, yCenter + fH/2 + 8 + 32 };
+			
+			ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
+			if(selectedBtn == 0)
+				ColorUtils.setcolor(g, ColorUtils.TEXT);
+			g.drawRect(fieldsMargin, tapCoords[0], sw-fieldsMargin*2, fH);
+			ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
+			if(selectedBtn == 1)
+				ColorUtils.setcolor(g, ColorUtils.TEXT);
+			g.drawRect(fieldsMargin, tapCoords[2], sw-fieldsMargin*2, fH);
+			ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
+			if(loginpressed != null && pressed) {
+				g.drawImage(loginpressed, DisplayUtils.width/2-loginpressed.getWidth()/2, tapCoords[4], 0);
+			} else if(login != null)
+				g.drawImage(login, DisplayUtils.width/2-login.getWidth()/2, tapCoords[4], 0);
+			
+			f = Font.getFont(0, 0, Font.SIZE_SMALL);
+			g.setFont(f);
+			ColorUtils.setcolor(g, ColorUtils.TEXTCOLOR1);
+			if(user != null)
+				g.drawString(user, fieldsMargin+10, tapCoords[0]+fH/2-f.getHeight()/2, 0);
+			if(pass != null)
 			{
-				strpass = pass;
+				String strpass = "";
+				if(keysMode && selectedBtn == 1)
+				{
+					strpass = pass;
+				}
+				else
+				{
+					for(int i = 0; i < pass.length(); i++)
+						strpass += "*";
+				}
+				g.drawString(strpass, fieldsMargin+10, tapCoords[2]+fH/2-f.getHeight()/2, 0);
 			}
-			else
-			{
-				for(int i = 0; i < pass.length(); i++)
-					strpass += "*";
-			}
-			g.drawString(strpass, fieldsMargin+10, tapCoords[2]+fH/2-f.getHeight()/2, 0);
 		}
+		catch(Exception e)
+		{ }
 	}
 	
 	public final void press(int x, int y) {

@@ -17,6 +17,7 @@ import vikatouch.attachments.PhotoSize;
 import vikatouch.items.JSONUIItem;
 import vikatouch.screens.menu.GroupsScreen;
 import vikatouch.screens.page.GroupPageScreen;
+import vikatouch.settings.Settings;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
 
@@ -88,7 +89,8 @@ public class GroupItem
 
 	public void getAva() {
 		try {
-			ava = ResizeUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
+			if(!Settings.dontLoadAvas)
+				ava = ResizeUtils.resizeItemPreview(VikaUtils.downloadImage(fixJSONString(json.optString("photo_50"))));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

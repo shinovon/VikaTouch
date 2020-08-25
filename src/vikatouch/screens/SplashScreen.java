@@ -96,7 +96,7 @@ public class SplashScreen
 		}
 		else
 		{
-			g.drawImage(logo, hdw-128, dh/2-128, 0);
+			if(logo!=null) g.drawImage(logo, hdw-128, dh/2-128, 0);
 			ColorUtils.setcolor(g, ColorUtils.COLOR1);
 			g.fillRect(40, dh-18, dw-80, 16);
 			g.setGrayScale(255);

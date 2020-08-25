@@ -15,4 +15,4 @@ VikaTouch-Edition: alpha
 Progressive_Download: enabled
 MIDlet-Permissions: javax.microedition.io.Connector.http,javax.microedition.io.Connector.file.write,javax.microedition.io.Connector.file.read
 MIDlet-Vendor: nnproject
-MicroEdition-Profile: MIDP-2.1
+MicroEdition-Profile: MIDP-2.0

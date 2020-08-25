@@ -222,6 +222,8 @@ settings.spabilities=Специальные возможности
 settings.debug=Отладка
 
 back=Назад
+select=Выбрать
+options=Опции
 
 splash.title.3=Подготовка ассетов
 splash.title.4=Авторизация

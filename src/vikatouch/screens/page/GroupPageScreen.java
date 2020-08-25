@@ -170,21 +170,22 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 							ava = VikaUtils.downloadImage(JSONBase.fixJSONString(res.optString("photo_50")));
 						} catch (Exception e) { }
 						itemsCount = 13;
+						int h = oneitemheight = (short) (DisplayUtils.compact?30:50);
 						uiItems = new OptionItem[13];
-						uiItems[0] = new OptionItem(thisC, membersStr + " ("+membersCount+")", IconsManager.GROUPS, 0, 50);
+						uiItems[0] = new OptionItem(thisC, membersStr + " ("+membersCount+")", IconsManager.GROUPS, 0, h);
 						uiItems[1] = new OptionItem(thisC, isMember?leaveStr:joinStr, 
-								isMember?IconsManager.CLOSE:IconsManager.ADD, 1, 50);
-						uiItems[2] = new OptionItem(thisC, canMsg?writeMessageStr:cannotWriteStr, IconsManager.MSGS, 2, 50);
-						uiItems[3] = new OptionItem(thisC, wallStr, IconsManager.NEWS, 3, 50);
-						uiItems[4] = new OptionItem(thisC, infoStr, IconsManager.INFO, 4, 50);
-						uiItems[5] = new OptionItem(thisC, photosStr + " ("+photos+")", IconsManager.PHOTOS, 5, 50);
-						uiItems[6] = new OptionItem(thisC, musicStr + " ("+music+")", IconsManager.MUSIC, 6, 50);
-						uiItems[7] = new OptionItem(thisC, videosStr + " ("+videos+")", IconsManager.VIDEOS, 7, 50);
-						uiItems[8] = new OptionItem(thisC, docsStr + " ("+docs+")", IconsManager.DOCS, 8, 50);
-						uiItems[9] = new OptionItem(thisC, discussionsStr + " ("+topics+")", IconsManager.COMMENTS, 9, 50);
-						uiItems[10] = new OptionItem(thisC, (site==null||site.length()<5)?siteStr+": "+noWebsiteStr:siteStr+": "+site, IconsManager.LINK, 10, 50);
-						uiItems[11] = new OptionItem(thisC, linksStr, IconsManager.LINK, 11, 50);
-						uiItems[12] = new OptionItem(thisC, contactsStr, IconsManager.GROUPS, 11, 50);
+								isMember?IconsManager.CLOSE:IconsManager.ADD, 1, h);
+						uiItems[2] = new OptionItem(thisC, canMsg?writeMessageStr:cannotWriteStr, IconsManager.MSGS, 2, h);
+						uiItems[3] = new OptionItem(thisC, wallStr, IconsManager.NEWS, 3, h);
+						uiItems[4] = new OptionItem(thisC, infoStr, IconsManager.INFO, 4, h);
+						uiItems[5] = new OptionItem(thisC, photosStr + " ("+photos+")", IconsManager.PHOTOS, 5, h);
+						uiItems[6] = new OptionItem(thisC, musicStr + " ("+music+")", IconsManager.MUSIC, 6, h);
+						uiItems[7] = new OptionItem(thisC, videosStr + " ("+videos+")", IconsManager.VIDEOS, 7, h);
+						uiItems[8] = new OptionItem(thisC, docsStr + " ("+docs+")", IconsManager.DOCS, 8, h);
+						uiItems[9] = new OptionItem(thisC, discussionsStr + " ("+topics+")", IconsManager.COMMENTS, 9, h);
+						uiItems[10] = new OptionItem(thisC, (site==null||site.length()<5)?siteStr+": "+noWebsiteStr:siteStr+": "+site, IconsManager.LINK, 10, h);
+						uiItems[11] = new OptionItem(thisC, linksStr, IconsManager.LINK, 11, h);
+						uiItems[12] = new OptionItem(thisC, contactsStr, IconsManager.GROUPS, 11, h);
 					}
 					catch (JSONException e)
 					{
@@ -213,29 +214,32 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 	
 	public void draw(Graphics g)
 	{
-		int y = 140; // init offset
-		itemsh = itemsCount * 50 + y;
+		int y = topPanelH+82; // init offset
 		update(g);
-		ColorUtils.setcolor(g, -2);
-		g.fillRect(0, 132, DisplayUtils.width, 8);
-		ColorUtils.setcolor(g, -10);
-		g.fillRect(0, 133, DisplayUtils.width, 1);
-		ColorUtils.setcolor(g, -11);
-		g.fillRect(0, 134, DisplayUtils.width, 1);
-		ColorUtils.setcolor(g, -7);
-		g.fillRect(0, 139, DisplayUtils.width, 1);
-		ColorUtils.setcolor(g, -12);
-		g.fillRect(0, 140, DisplayUtils.width, 1);
+		if(!DisplayUtils.compact)
+		{
+			ColorUtils.setcolor(g, -2);
+			g.fillRect(0, 132, DisplayUtils.width, 8);
+			ColorUtils.setcolor(g, -10);
+			g.fillRect(0, 133, DisplayUtils.width, 1);
+			ColorUtils.setcolor(g, -11);
+			g.fillRect(0, 134, DisplayUtils.width, 1);
+			ColorUtils.setcolor(g, -7);
+			g.fillRect(0, 139, DisplayUtils.width, 1);
+			ColorUtils.setcolor(g, -12);
+			g.fillRect(0, 140, DisplayUtils.width, 1);
+		}
 		if(ava != null)
 		{
-			g.drawImage(ava, 16, 71, 0);
-			g.drawImage(IconsManager.ac, 16, 71, 0);
+			g.drawImage(ava, 16, topPanelH+13, 0);
+			g.drawImage(IconsManager.ac, 16, topPanelH+13, 0);
 		}
+		itemsh = itemsCount * oneitemheight + y;
 		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_LARGE));
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
-		g.drawString(name==null?loadingStr:name, 74, 74, 0);
+		g.drawString(name==null?loadingStr:name, 74, topPanelH+16, 0);
 		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
-		g.drawString(status==null?"":status, 74, 98, 0);
+		g.drawString(status==null?"":status, 74, topPanelH+40, 0);
 		
 		ColorUtils.setcolor(g, -3);
 		g.drawRect(0, 140, DisplayUtils.width, 50);

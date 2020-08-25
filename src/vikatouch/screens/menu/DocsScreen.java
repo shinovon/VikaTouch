@@ -129,13 +129,10 @@ public class DocsScreen
 		ColorUtils.setcolor(g, 0);
 		g.setFont(Font.getFont(0, 0, 8));
 		itemsh = itemsCount * 52;
-		double multiplier = (double)DisplayUtils.height / 640.0;
-		double ww = 10.0 * multiplier;
-		int w = (int)ww;
 		try
 		{
 			update(g);
-			int y = oneitemheight + w;
+			int y = topPanelH;
 			try
 			{
 				if(uiItems!=null) for(int i = 0; i < itemsCount; i++)

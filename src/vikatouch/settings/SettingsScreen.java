@@ -39,7 +39,7 @@ public class SettingsScreen
 		super();
 		hasBackButton = true;
 		String[] eOd = new String[] { TextLocal.inst.get("settings.disabled"), TextLocal.inst.get("settings.enabled") };
-		oneitemheight = 50;
+		oneitemheight = (short) (DisplayUtils.compact?30:50);
 		backItem = new OptionItem(this, TextLocal.inst.get("back"), IconsManager.BACK, 0, oneitemheight);
 		
 
@@ -297,6 +297,8 @@ public class SettingsScreen
 				break;
 			}
 		}
+		Settings.saveSettings();
+		// а вариант "поменял настройку и закрыл приложение" не? Оно кст и не работало, т.к. 14 команда давно не используется. И вообще, точно ли тот командИмпл нужен, когда всё кругом на оптион айтемах с их IMenu...
 	}
 
 	public void onMenuItemPress(int i)
@@ -408,7 +410,7 @@ public class SettingsScreen
 	}
 
 	private void switchList(PressableUIItem[] l) {
-		if(l ==this.menuList)
+		if(l == this.menuList)
 			hasBackButton = true;
 		else
 			hasBackButton = false;
