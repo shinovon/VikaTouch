@@ -3,9 +3,6 @@ package ru.nnproject.vikaui.utils.images;
 import java.io.IOException;
 
 import javax.microedition.lcdui.*;
-//import javax.microedition.lcdui.game.Sprite;
-
-//import tube42.lib.imagelib.ImageUtils;
 
 public class IconsManager {
 	
