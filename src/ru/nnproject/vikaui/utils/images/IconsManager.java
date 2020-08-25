@@ -72,4 +72,5 @@ public class IconsManager {
 	public static final int DEVICE = 34;
 	public static final int CAMERA = 35;
 	public static final int PLAY = 36;
+	public static final int TOPBAR = 37;
 }
