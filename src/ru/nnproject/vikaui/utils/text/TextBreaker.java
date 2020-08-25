@@ -1,4 +1,4 @@
-package ru.nnproject.vikaui.utils;
+package ru.nnproject.vikaui.utils.text;
 
 import javax.microedition.lcdui.Font;
 

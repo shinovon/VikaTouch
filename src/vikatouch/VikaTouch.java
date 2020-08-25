@@ -19,6 +19,7 @@ import ru.nnproject.vikaui.popup.InfoPopup;
 import ru.nnproject.vikaui.popup.VikaNotice;
 import ru.nnproject.vikaui.screen.VikaScreen;
 import ru.nnproject.vikaui.utils.DisplayUtils;
+import ru.nnproject.vikaui.utils.images.IconsManager;
 import vikamobilebase.*;
 import vikatouch.caching.ImageStorage;
 import vikatouch.canvas.VikaCanvasInst;

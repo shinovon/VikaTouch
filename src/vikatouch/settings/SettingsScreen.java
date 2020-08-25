@@ -8,7 +8,7 @@ import ru.nnproject.vikaui.popup.ConfirmBox;
 import ru.nnproject.vikaui.popup.ContextMenu;
 import ru.nnproject.vikaui.popup.InfoPopup;
 import ru.nnproject.vikaui.utils.DisplayUtils;
-import vikatouch.IconsManager;
+import ru.nnproject.vikaui.utils.images.IconsManager;
 import vikatouch.VikaTouch;
 import vikatouch.items.*;
 import vikatouch.items.menu.OptionItem;

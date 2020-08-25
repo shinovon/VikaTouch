@@ -10,7 +10,7 @@ import ru.nnproject.vikaui.popup.ConfirmBox;
 import ru.nnproject.vikaui.screen.ScrollableCanvas;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
-import vikatouch.IconsManager;
+import ru.nnproject.vikaui.utils.images.IconsManager;
 import vikatouch.VikaTouch;
 import vikatouch.locale.TextLocal;
 import vikatouch.screens.menu.MenuScreen;

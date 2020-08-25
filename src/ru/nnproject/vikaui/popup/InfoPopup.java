@@ -6,7 +6,7 @@ import javax.microedition.lcdui.Graphics;
 import ru.nnproject.vikaui.menu.items.PressableUIItem;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
-import ru.nnproject.vikaui.utils.TextBreaker;
+import ru.nnproject.vikaui.utils.text.TextBreaker;
 import vikatouch.VikaTouch;
 import vikatouch.screens.MainScreen;
 

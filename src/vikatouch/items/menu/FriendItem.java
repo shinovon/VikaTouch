@@ -10,8 +10,8 @@ import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
+import ru.nnproject.vikaui.utils.images.IconsManager;
 import vikamobilebase.VikaUtils;
-import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
 import vikatouch.items.JSONUIItem;
 import vikatouch.screens.menu.DocsScreen;

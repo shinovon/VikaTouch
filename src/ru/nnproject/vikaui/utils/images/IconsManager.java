@@ -1,4 +1,4 @@
-package vikatouch;
+package ru.nnproject.vikaui.utils.images;
 
 import java.io.IOException;
 

@@ -8,8 +8,8 @@ import javax.microedition.lcdui.Image;
 
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
-import ru.nnproject.vikaui.utils.TextBreaker;
-import vikatouch.IconsManager;
+import ru.nnproject.vikaui.utils.images.IconsManager;
+import ru.nnproject.vikaui.utils.text.TextBreaker;
 import vikatouch.VikaTouch;
 import vikatouch.locale.TextLocal;
 import vikatouch.screens.MainScreen;
