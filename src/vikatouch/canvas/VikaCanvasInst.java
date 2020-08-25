@@ -28,7 +28,7 @@ extends VikaCanvas
 	private GifDecoder d;
 	public VikaNotice currentAlert;
 	public double slide;
-	VikaScreen oldScreen;
+	public VikaScreen oldScreen;
 
 	public VikaCanvasInst()
 	{
