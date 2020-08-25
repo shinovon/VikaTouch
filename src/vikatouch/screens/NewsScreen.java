@@ -13,7 +13,7 @@ import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.items.PostItem;
-import vikatouch.local.TextLocal;
+import vikatouch.locale.TextLocal;
 import vikatouch.screens.menu.MenuScreen;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;

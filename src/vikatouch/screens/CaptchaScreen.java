@@ -8,7 +8,7 @@ import ru.nnproject.vikaui.screen.VikaScreen;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikatouch.VikaTouch;
-import vikatouch.local.TextLocal;
+import vikatouch.locale.TextLocal;
 import vikatouch.utils.captcha.CaptchaObject;
 import vikatouch.utils.text.TextEditor;
 

@@ -24,7 +24,7 @@ import vikatouch.IconsManager;
 import vikatouch.VikaCanvasInst;
 import vikatouch.VikaTouch;
 import vikatouch.items.chat.MsgItem;
-import vikatouch.local.TextLocal;
+import vikatouch.locale.TextLocal;
 import vikatouch.settings.Settings;
 import vikatouch.utils.text.CountUtils;
 import vikatouch.utils.text.TextEditor;

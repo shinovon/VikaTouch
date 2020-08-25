@@ -14,7 +14,7 @@ import vikamobilebase.VikaUtils;
 import vikatouch.IconsManager;
 import vikatouch.items.JSONUIItem;
 import vikatouch.music.MusicPlayer;
-import vikatouch.screens.menu.MusicScreen;
+import vikatouch.screens.music.MusicScreen;
 
 public class AudioTrackItem 
 	extends JSONUIItem implements UIItem 

@@ -21,7 +21,7 @@ import javax.microedition.lcdui.Image;
 
 import vikatouch.VikaTouch;
 import vikatouch.caching.ImageStorage;
-import vikatouch.local.TextLocal;
+import vikatouch.locale.TextLocal;
 import vikatouch.settings.Settings;
 import vikatouch.utils.url.URLBuilder;
 

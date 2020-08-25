@@ -21,7 +21,7 @@ import ru.nnproject.vikaui.screen.VikaScreen;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.*;
 import vikatouch.caching.ImageStorage;
-import vikatouch.local.TextLocal;
+import vikatouch.locale.TextLocal;
 import vikatouch.screens.*;
 import vikatouch.screens.menu.*;
 import vikatouch.screens.page.GroupPageScreen;

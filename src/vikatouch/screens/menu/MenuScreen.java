@@ -23,7 +23,7 @@ import vikatouch.VikaCanvasInst;
 import vikatouch.VikaTouch;
 import vikatouch.items.menu.OptionItem;
 import vikatouch.json.JSONBase;
-import vikatouch.local.TextLocal;
+import vikatouch.locale.TextLocal;
 import vikatouch.screens.MainScreen;
 import vikatouch.settings.Settings;
 import vikatouch.utils.ErrorCodes;

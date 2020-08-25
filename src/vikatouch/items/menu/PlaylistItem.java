@@ -18,7 +18,7 @@ import vikatouch.VikaTouch;
 import vikatouch.attachments.PhotoSize;
 import vikatouch.items.JSONUIItem;
 import vikatouch.screens.menu.DocsScreen;
-import vikatouch.screens.menu.MusicScreen;
+import vikatouch.screens.music.MusicScreen;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
 

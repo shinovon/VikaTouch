@@ -1,4 +1,4 @@
-package vikatouch.local;
+package vikatouch.locale;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

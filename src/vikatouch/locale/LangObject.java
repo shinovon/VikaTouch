@@ -1,4 +1,4 @@
-package vikatouch.local;
+package vikatouch.locale;
 
 public class LangObject
 {

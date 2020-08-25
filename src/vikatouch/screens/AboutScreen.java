@@ -9,7 +9,7 @@ import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikatouch.CommandsImpl;
 import vikatouch.VikaTouch;
-import vikatouch.local.TextLocal;
+import vikatouch.locale.TextLocal;
 
 public class AboutScreen
 	extends ScrollableCanvas

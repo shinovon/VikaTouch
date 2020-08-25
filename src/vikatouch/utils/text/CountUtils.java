@@ -1,6 +1,6 @@
 package vikatouch.utils.text;
 
-import vikatouch.local.TextLocal;
+import vikatouch.locale.TextLocal;
 
 public class CountUtils
 {

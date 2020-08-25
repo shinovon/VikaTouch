@@ -12,7 +12,7 @@ import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
 import vikatouch.Dialogs;
 import vikatouch.VikaTouch;
-import vikatouch.local.TextLocal;
+import vikatouch.locale.TextLocal;
 import vikatouch.screens.menu.MenuScreen;
 import vikatouch.utils.ErrorCodes;
 

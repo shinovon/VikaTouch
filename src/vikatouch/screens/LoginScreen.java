@@ -20,7 +20,7 @@ import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
-import vikatouch.local.TextLocal;
+import vikatouch.locale.TextLocal;
 import vikatouch.screens.menu.MenuScreen;
 import vikatouch.utils.text.TextEditor;
 

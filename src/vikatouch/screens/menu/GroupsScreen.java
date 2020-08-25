@@ -19,7 +19,7 @@ import vikatouch.items.LoadMoreButtonItem;
 import vikatouch.items.menu.DocItem;
 import vikatouch.items.menu.GroupItem;
 import vikatouch.json.INextLoadable;
-import vikatouch.local.TextLocal;
+import vikatouch.locale.TextLocal;
 import vikatouch.screens.MainScreen;
 import vikatouch.settings.Settings;
 import vikatouch.utils.ErrorCodes;

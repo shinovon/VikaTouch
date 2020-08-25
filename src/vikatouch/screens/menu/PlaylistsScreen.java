@@ -17,7 +17,7 @@ import vikatouch.items.LoadMoreButtonItem;
 import vikatouch.items.menu.DocItem;
 import vikatouch.items.menu.FriendItem;
 import vikatouch.items.menu.PlaylistItem;
-import vikatouch.local.TextLocal;
+import vikatouch.locale.TextLocal;
 import vikatouch.screens.MainScreen;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;

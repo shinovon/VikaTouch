@@ -1,4 +1,4 @@
-package vikatouch.screens.menu;
+package vikatouch.screens.music;
 
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
@@ -19,8 +19,9 @@ import vikatouch.items.menu.AudioTrackItem;
 import vikatouch.items.menu.FriendItem;
 import vikatouch.items.menu.OptionItem;
 import vikatouch.items.menu.PlaylistItem;
-import vikatouch.local.TextLocal;
+import vikatouch.locale.TextLocal;
 import vikatouch.screens.*;
+import vikatouch.screens.menu.PlaylistsScreen;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
 

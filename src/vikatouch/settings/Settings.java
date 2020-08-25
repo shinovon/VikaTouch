@@ -12,7 +12,7 @@ import javax.microedition.rms.RecordStoreNotFoundException;
 
 import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
-import vikatouch.local.LangObject;
+import vikatouch.locale.LangObject;
 import vikatouch.utils.ErrorCodes;
 
 public class Settings

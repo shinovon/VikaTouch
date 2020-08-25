@@ -11,7 +11,7 @@ import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.TextBreaker;
 import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
-import vikatouch.local.TextLocal;
+import vikatouch.locale.TextLocal;
 import vikatouch.screens.MainScreen;
 
 public class SplashScreen

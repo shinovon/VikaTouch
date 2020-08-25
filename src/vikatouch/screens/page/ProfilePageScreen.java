@@ -18,14 +18,14 @@ import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
 import vikatouch.items.menu.OptionItem;
 import vikatouch.json.JSONBase;
-import vikatouch.local.TextLocal;
+import vikatouch.locale.TextLocal;
 import vikatouch.screens.MainScreen;
 import vikatouch.screens.menu.DocsScreen;
 import vikatouch.screens.menu.FriendsScreen;
 import vikatouch.screens.menu.GroupsScreen;
 import vikatouch.screens.menu.MenuScreen;
-import vikatouch.screens.menu.MusicScreen;
 import vikatouch.screens.menu.VideosScreen;
+import vikatouch.screens.music.MusicScreen;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
 

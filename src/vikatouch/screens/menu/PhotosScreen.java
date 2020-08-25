@@ -3,7 +3,7 @@ package vikatouch.screens.menu;
 import javax.microedition.lcdui.Graphics;
 
 import vikatouch.VikaTouch;
-import vikatouch.local.TextLocal;
+import vikatouch.locale.TextLocal;
 import vikatouch.screens.MainScreen;
 
 public class PhotosScreen

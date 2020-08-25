@@ -14,7 +14,7 @@ import vikatouch.VikaTouch;
 import vikatouch.items.menu.AudioTrackItem;
 import vikatouch.items.menu.OptionItem;
 import vikatouch.screens.MainScreen;
-import vikatouch.screens.menu.MusicScreen;
+import vikatouch.screens.music.MusicScreen;
 import vikatouch.settings.Settings;
 
 // экранчик с названием песни, перемоткой ии... Всё.
