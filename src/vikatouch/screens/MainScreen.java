@@ -27,8 +27,6 @@ public abstract class MainScreen
 
 	public static int topPanelH = 58;
 	public static int bottomPanelH = 50;
-	
-	public static String[] softKeys = null;
 
 	public MainScreen()
 	{
@@ -95,57 +93,30 @@ public abstract class MainScreen
 		topPanelH = DisplayUtils.compact?24:58;
 		bottomPanelH = 50;
 		int dw = DisplayUtils.width;
-
+		boolean showBottomPanel = (!keysMode || !DisplayUtils.compact || (this instanceof NewsScreen)||(this instanceof DialogsScreen)||(this instanceof MenuScreen));
 		// fills
 		ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 		g.fillRect(0, 0, dw, topPanelH);
 		ColorUtils.setcolor(g, -3);
-		if(!keysMode) g.fillRect(0, DisplayUtils.height - bottomPanelH, dw, bottomPanelH);
+		if(showBottomPanel) g.fillRect(0, DisplayUtils.height - bottomPanelH, dw, bottomPanelH);
 			
 		if(!DisplayUtils.compact)
 		{
 			// header & icon
-			if(hasBackButton)
+			if(hasBackButton && !keysMode)
 			{
 				g.drawImage(IconsManager.backImg, topPanelH/2-IconsManager.backImg.getHeight()/2, 2, 0);
 			}
-			else
+			else if(this instanceof MenuScreen)
 				g.drawImage(IconsManager.logoImg, topPanelH/2-IconsManager.logoImg.getHeight()/2, 2, 0);
-		}
-		else
-		{
-			if(hasBackButton) g.drawString("<", 6, topPanelH/2-g.getFont().getHeight()/2, 0);
 		}
 		g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
 		g.setGrayScale(255);
-		g.drawString(title, DisplayUtils.compact?20:72, topPanelH/2-g.getFont().getHeight()/2, 0);
+		g.drawString(title, DisplayUtils.compact?10:72, topPanelH/2-g.getFont().getHeight()/2, 0);
 		Font f = Font.getFont(0, 0, Font.SIZE_SMALL);
 		g.setFont(f);
 		
-		// Поясняю. Раз юзер опустился до кнопок, значит с экраном вообще беда (240 и меньше). Некуда иконки рисовать. Если есть возражения, пни в беседе, вызовем Илью и решим.
-		if(keysMode)
-		{
-			if(softKeys==null)
-			{
-				softKeys = new String[] { TextLocal.inst.get("options"), TextLocal.inst.get("select"), TextLocal.inst.get("back") };
-			}
-			if(softKeys!=null&&softKeys.length==3&&VikaTouch.canvas.currentAlert==null)
-			{
-				int fh = f.getHeight();
-				bottomPanelH = fh+5;
-				ColorUtils.setcolor(g, -3);
-				g.fillRect(0, DisplayUtils.height-bottomPanelH+1, DisplayUtils.width, bottomPanelH);
-				ColorUtils.setcolor(g, ColorUtils.TEXT);
-				g.fillRect(0, DisplayUtils.height-bottomPanelH, DisplayUtils.width, 1);
-				
-				int y = DisplayUtils.height-bottomPanelH+3;
-				int o = 4;
-				g.drawString(softKeys[0], o, y, 0);
-				g.drawString(softKeys[1], DisplayUtils.width/2, y, Graphics.TOP | Graphics.HCENTER);
-				g.drawString(softKeys[2], DisplayUtils.width - o, y, Graphics.TOP | Graphics.RIGHT);
-			}
-		}
-		else
+		if (showBottomPanel)
 		{
 			// bottom icons
 			int bpiy = DisplayUtils.height - bottomPanelH/2 - 12;
