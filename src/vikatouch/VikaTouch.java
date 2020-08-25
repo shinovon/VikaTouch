@@ -25,6 +25,7 @@ import vikatouch.local.TextLocal;
 import vikatouch.screens.*;
 import vikatouch.screens.menu.*;
 import vikatouch.screens.page.GroupPageScreen;
+import vikatouch.screens.temp.SplashScreen;
 import vikatouch.settings.Settings;
 import vikatouch.settings.SettingsScreen;
 import vikatouch.utils.ErrorCodes;

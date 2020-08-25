@@ -1,4 +1,4 @@
-package vikatouch.screens;
+package vikatouch.screens.temp;
 
 import java.util.Random;
 
@@ -12,6 +12,7 @@ import ru.nnproject.vikaui.utils.TextBreaker;
 import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
 import vikatouch.local.TextLocal;
+import vikatouch.screens.MainScreen;
 
 public class SplashScreen
 	extends MainScreen 

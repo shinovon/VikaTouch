@@ -13,7 +13,7 @@ import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.GifDecoder;
 import vikatouch.screens.MainScreen;
-import vikatouch.screens.SplashScreen;
+import vikatouch.screens.temp.SplashScreen;
 import vikatouch.settings.Settings;
 import vikatouch.utils.ErrorCodes;
 
