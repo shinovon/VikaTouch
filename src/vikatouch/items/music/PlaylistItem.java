@@ -1,4 +1,4 @@
-package vikatouch.items.menu;
+package vikatouch.items.music;
 
 import java.io.IOException;
 
