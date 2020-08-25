@@ -54,7 +54,7 @@ public class MenuScreen
 	private Image exit;
 	
 	private int selectedBtn;*/
-	private Image settingsImg;
+	//private Image settingsImg;
 	private int btnsLen = 8 ;
 	public String exitStr;
 	public String docsStr;
@@ -70,13 +70,13 @@ public class MenuScreen
 	{
 		super();
 
-		try {
+		/*try {
 			settingsImg = Image.createImage("/settings.png");
 		}
 		catch (Exception e)
 		{
 			VikaTouch.error(e, ErrorCodes.MENUIMAGE);
-		}
+		}*/
 		profileImg = VikaTouch.cameraImg;
 		if(VikaTouch.DEMO_MODE)
 		{
@@ -279,12 +279,18 @@ public class MenuScreen
 	{
 		super.drawHUD(g, "");
 
-		g.drawImage(settingsImg, DisplayUtils.width-35, DisplayUtils.compact?0:18, 0);
+		//g.drawImage(settingsImg, DisplayUtils.width-35, DisplayUtils.compact?0:18, 0);
+		
 		
 		if(keysMode && selectedBtn == 0)
 		{
-			g.setGrayScale(255);
-			g.drawRect(DisplayUtils.width-35, DisplayUtils.compact?0:18, 24, 24);
+		//	g.setGrayScale(255);
+		//	g.drawRect(DisplayUtils.width-35, DisplayUtils.compact?0:18, 24, 24);
+			g.drawImage(IconsManager.selIco[IconsManager.SETTINGS], DisplayUtils.width-35, DisplayUtils.compact?0:18, 0);
+		}
+		else
+		{
+			g.drawImage(IconsManager.ico[IconsManager.SETTINGS], DisplayUtils.width-35, DisplayUtils.compact?0:18, 0);
 		}
 	}
 /*

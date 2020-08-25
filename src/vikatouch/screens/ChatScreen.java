@@ -26,8 +26,8 @@ import vikatouch.VikaTouch;
 import vikatouch.items.chat.MsgItem;
 import vikatouch.local.TextLocal;
 import vikatouch.settings.Settings;
-import vikatouch.utils.CountUtils;
-import vikatouch.utils.TextEditor;
+import vikatouch.utils.text.CountUtils;
+import vikatouch.utils.text.TextEditor;
 import vikatouch.utils.url.URLBuilder;
 
 public class ChatScreen

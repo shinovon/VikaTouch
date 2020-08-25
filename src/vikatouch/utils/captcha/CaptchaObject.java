@@ -1,4 +1,4 @@
-package vikatouch.utils;
+package vikatouch.utils.captcha;
 
 import java.io.IOException;
 

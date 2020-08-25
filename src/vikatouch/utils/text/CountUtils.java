@@ -1,4 +1,4 @@
-package vikatouch.utils;
+package vikatouch.utils.text;
 
 import vikatouch.local.TextLocal;
 

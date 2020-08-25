@@ -9,8 +9,8 @@ import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikatouch.VikaTouch;
 import vikatouch.local.TextLocal;
-import vikatouch.utils.CaptchaObject;
-import vikatouch.utils.TextEditor;
+import vikatouch.utils.captcha.CaptchaObject;
+import vikatouch.utils.text.TextEditor;
 
 public class CaptchaScreen
 	extends VikaScreen

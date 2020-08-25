@@ -337,6 +337,14 @@ public class SettingsScreen
 			}
 			case -1:
 			{
+				if(VikaTouch.accessToken != null && VikaTouch.accessToken != "")
+				{
+					
+				}
+				else
+				{
+					
+				}
 				break;
 			}
 			case -2:

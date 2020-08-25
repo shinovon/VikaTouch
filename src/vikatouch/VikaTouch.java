@@ -27,15 +27,16 @@ import vikatouch.screens.menu.*;
 import vikatouch.screens.page.GroupPageScreen;
 import vikatouch.settings.Settings;
 import vikatouch.settings.SettingsScreen;
-import vikatouch.utils.CaptchaObject;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
+import vikatouch.utils.captcha.CaptchaObject;
+import vikatouch.utils.emulatordetect.EmulatorDetector;
 import vikatouch.utils.url.URLBuilder;
 
 public class VikaTouch
 {
 
-	public static final boolean DEMO_MODE = false;
+	public static boolean DEMO_MODE = false;
 	public static final String API_VERSION = "5.122";
 	public static final String TOKEN_RMS = "vikatouchtoken";
 	public static final int INDEX_FALSE = -1;
@@ -439,7 +440,7 @@ public class VikaTouch
 		String details = "";
 		if(extended)
 		{
-			details = "\nDevice information: \nmemory: " + mem + "K, configuration: " + System.getProperty("microedition.configuration")
+			details = "\nDevice information: \nmemory: " + mem + "K, profiles: " + System.getProperty("microedition.profiles") + ", configuration: " + System.getProperty("microedition.configuration")
 			+ "\nSettings:\nsm: " + Settings.sensorMode + " https: " + Settings.https + " proxy: " + Settings.proxy + " lang: " + Settings.language + " listslen: " + Settings.simpleListsLength;
 		}
 		return main + details;
@@ -476,7 +477,7 @@ public class VikaTouch
 		
 		if(extended && Settings.telemetry)
 		{
-			details = "\nDevice information: \nmemory: " + mem + "K, configuration: " + System.getProperty("microedition.configuration")
+			details = "\nDevice information: \nmemory: " + mem + "K, profiles: " + System.getProperty("microedition.profiles") + ", configuration: " + System.getProperty("microedition.configuration") + "Emulator: " + EmulatorDetector.emulatorType 
 			+ "\nSettings:\nsm: " + Settings.sensorMode + " https: " + Settings.https + " proxy: " + Settings.proxy + " lang: " + Settings.language + " listslen: " + Settings.simpleListsLength;
 		}
 		sendLog(main + details + ".\n" + x);

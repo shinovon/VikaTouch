@@ -15,6 +15,7 @@ import ru.nnproject.vikaui.screen.ScrollableCanvas;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikamobilebase.VikaUtils;
+import vikatouch.IconsManager;
 import vikatouch.VikaTouch;
 import vikatouch.attachments.ISocialable;
 import vikatouch.attachments.PhotoSize;
@@ -39,7 +40,7 @@ public class DocItem
 	private int type;
 	private String time;
 	
-	private static Image downloadBI = null;
+	//private static Image downloadBI = null;
 
 	public static final int BORDER = 1;
 
@@ -196,11 +197,15 @@ public class DocItem
 		{
 			try
 			{
-				if(downloadBI == null)
-				{
-					downloadBI = Image.createImage("/downloadBtn.png");
-				}
-				g.drawImage(downloadBI, DisplayUtils.width-downloadBI.getWidth(), y, 0);
+				//if(downloadBI == null)
+				//{
+				//	downloadBI = Image.createImage("/downloadBtn.png");
+				//}
+				int iy = (itemDrawHeight - 24) / 2;
+				if(iy < 0)
+					iy = 0;
+				iy += y;
+				g.drawImage(IconsManager.ico[IconsManager.DOWNLOAD], DisplayUtils.width - 24, y, 0);
 			} 
 			catch (Exception e)
 			{

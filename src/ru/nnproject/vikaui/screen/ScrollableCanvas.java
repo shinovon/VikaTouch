@@ -124,7 +124,10 @@ public abstract class ScrollableCanvas
 	
 	public void press(int key)
 	{
-		keysMode = true;
+		if(key != -12 && key != -20)
+		{
+			keysMode = true;
+		}
 		if(key == -1)
 		{
 			up();
@@ -162,7 +165,10 @@ public abstract class ScrollableCanvas
 	
 	public void repeat(int key)
 	{
-		keysMode = true;
+		if(key != -12 && key != -20)
+		{
+			keysMode = true;
+		}
 		if(key == -1)
 		{
 			up();

@@ -255,4 +255,9 @@ public class Settings
 		return "en_US";
 	}
 
+	public static void setEmulatorSettings()
+	{
+		
+	}
+
 }

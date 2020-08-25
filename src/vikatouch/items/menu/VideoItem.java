@@ -40,7 +40,7 @@ public class VideoItem
 	public String descr;
 	public int views;
 	
-	private static Image downloadBI = null;
+	//private static Image downloadBI = null;
 	
 	public String file;
 	public String playerUrl;
@@ -221,11 +221,11 @@ public class VideoItem
 		{
 			try
 			{
-				if(downloadBI == null)
-				{
-					downloadBI = Image.createImage("/downloadBtn.png");
-				}
-				g.drawImage(downloadBI, DisplayUtils.width-downloadBI.getWidth(), y, 0);
+				int iy = (itemDrawHeight - 24) / 2;
+				if(iy < 0)
+					iy = 0;
+				iy += y;
+				g.drawImage(IconsManager.ico[IconsManager.DOWNLOAD], DisplayUtils.width - 24, y, 0);
 			} 
 			catch (Exception e)
 			{

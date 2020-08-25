@@ -107,12 +107,14 @@ public abstract class MainScreen
 			{
 				g.drawImage(IconsManager.backImg, topPanelH/2-IconsManager.backImg.getHeight()/2, 2, 0);
 			}
+			/*
 			else if(this instanceof MenuScreen)
 				g.drawImage(IconsManager.logoImg, topPanelH/2-IconsManager.logoImg.getHeight()/2, 2, 0);
+				*/
 		}
 		g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
 		g.setGrayScale(255);
-		g.drawString(title, DisplayUtils.compact?10:72, topPanelH/2-g.getFont().getHeight()/2, 0);
+		g.drawString(title, DisplayUtils.compact || !hasBackButton?10:72, topPanelH/2-g.getFont().getHeight()/2, 0);
 		Font f = Font.getFont(0, 0, Font.SIZE_SMALL);
 		g.setFont(f);
 		

@@ -79,7 +79,7 @@ public class DisplayUtils
 				if(height == 240)
 				{
 					i = DISPLAY_EQWERTY;
-					ScrollableCanvas.oneitemheight = 25;
+					ScrollableCanvas.oneitemheight = 50;
 					ScrollableCanvas.vmeshautsa = 185;
 				}
 			}
@@ -121,7 +121,11 @@ public class DisplayUtils
 		lheight = height;
 		if(i != 0)
 			idispi = i;
-		compact = DisplayUtils.height<300; // ВСЁ. Вот и вся лапша. Потом постепенно примотаю к этому флагу снижение высоты айтемов и т.п.
+		compact = DisplayUtils.height < 240; // ВСЁ. Вот и вся лапша. Потом постепенно примотаю к этому флагу снижение высоты айтемов и т.п.
+		if(compact)
+		{
+			ScrollableCanvas.oneitemheight = 36;
+		}
 		return i;
 	}
 

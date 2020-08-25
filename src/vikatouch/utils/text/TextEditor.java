@@ -1,4 +1,4 @@
-package vikatouch.utils;
+package vikatouch.utils.text;
 
 import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Command;

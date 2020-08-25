@@ -42,13 +42,21 @@ public class ConversationItem
 	public int peerId;
 	private Image ava;
 	//private static Image deleteImg;
-	private static Image unreadImg;
+	//private static Image unreadImg;
 	
 	public ConversationItem(JSONObject json)
 	{
 		super(json);
 		itemDrawHeight = 63;
-
+		if(DisplayUtils.compact)
+		{
+			itemDrawHeight = 36;
+		}
+		else
+		{
+			ava = VikaTouch.cameraImg;
+		}
+		/*
 		try
 		{
 			/*
@@ -56,7 +64,7 @@ public class ConversationItem
 			{
 				deleteImg = Image.createImage("/dialremove.png");
 			}
-			*/
+			
 			if(unreadImg == null)
 			{
 				unreadImg = Image.createImage("/unread.png");
@@ -66,33 +74,35 @@ public class ConversationItem
 		{
 			e.printStackTrace();
 		}
-		
-		ava = VikaTouch.cameraImg;
+		*/
 	}
 
 	public void getAva()
 	{
-		
-		Image img = null;
-		try
+
+		if(!DisplayUtils.compact)
 		{
-			img = VikaTouch.cameraImg;
-			if(avaurl != null && !Settings.dontLoadAvas)
+			Image img = null;
+			try
 			{
-				try
+				img = VikaTouch.cameraImg;
+				if(avaurl != null && !Settings.dontLoadAvas)
 				{
-					img = VikaUtils.downloadImage(avaurl);
+					try
+					{
+						img = VikaUtils.downloadImage(avaurl);
+					}
+					catch (Exception e)
+					{
+						
+					}
 				}
-				catch (Exception e)
-				{
-					
-				}
+				ava = ResizeUtils.resizeChatAva(img);
 			}
-			ava = ResizeUtils.resizeChatAva(img);
-		}
-		catch (Exception e)
-		{
-			
+			catch (Exception e)
+			{
+				
+			}
 		}
 	}
 	
@@ -122,54 +132,62 @@ public class ConversationItem
 			ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 			//g.drawImage(deleteImg, DisplayUtils.width - 25, y + 17, 0);
 		}
-		if(title != null)
+		
+		if(DisplayUtils.compact)
 		{
-			g.drawString(title, 73, y + 16, 0);
-		}
-		
-		if(!selected)
-		{
-			ColorUtils.setcolor(g, ColorUtils.OUTLINE);
-		}
-		
-		g.drawString(text==null?"Сообщение":text, 73, y + 40, 0);
-		
-		if(!selected)
-		{
-			ColorUtils.setcolor(g, 7);
-		}
-		
-		if(time != null)
-		{
-			g.drawString(time, DisplayUtils.width - (16 + font.stringWidth(time)), y + 16, 0);
-		}
-		
-		
-		if(ava != null)
-		{
-			g.drawImage(ava, 14, y + 8, 0);
-			if(IconsManager.ac == null) { System.out.print("F"); } else // а что, бывало что оно не загрузилось? лол))
-			g.drawImage(selected?IconsManager.acs:IconsManager.ac, 14, y + 8, 0); // и вообще, ACS проверить забыли. Приделаю костыль.
 			
 		}
-		
-		
-		if(!selected)
+		else
 		{
-			ColorUtils.setcolor(g, -5);
-			g.fillRect(72, y + itemDrawHeight, DisplayUtils.width-72, 1);
-		}
-		if(unread > 0)
-		{
-			int rh = 18;
-			int hm = 4;
-			String s = (mention?"@ ":"")+unread;
+			if(title != null)
+			{
+				g.drawString(title, 73, y + 16, 0);
+			}
 			
-			ColorUtils.setcolor(g, ColorUtils.COLOR1);
-			g.fillRoundRect(DisplayUtils.width - 16 - font.stringWidth(s) - hm*2, y+38, font.stringWidth(s) + hm*2, rh, rh/2, rh/2);
+			if(!selected)
+			{
+				ColorUtils.setcolor(g, ColorUtils.OUTLINE);
+			}
 			
-			g.setGrayScale(255);
-			g.drawString(s, DisplayUtils.width - 16 - font.stringWidth(s) - hm, y+40, 0);
+			g.drawString(text==null?"Сообщение":text, 73, y + 40, 0);
+			
+			if(!selected)
+			{
+				ColorUtils.setcolor(g, 7);
+			}
+			
+			if(time != null)
+			{
+				g.drawString(time, DisplayUtils.width - (16 + font.stringWidth(time)), y + 16, 0);
+			}
+			
+			
+			if(ava != null)
+			{
+				g.drawImage(ava, 14, y + 8, 0);
+				if(IconsManager.ac == null) { System.out.print("F"); } else // а что, бывало что оно не загрузилось? лол))
+				g.drawImage(selected?IconsManager.acs:IconsManager.ac, 14, y + 8, 0); // и вообще, ACS проверить забыли. Приделаю костыль.
+				
+			}
+			
+			
+			if(!selected)
+			{
+				ColorUtils.setcolor(g, -5);
+				g.fillRect(72, y + itemDrawHeight, DisplayUtils.width-72, 1);
+			}
+			if(unread > 0)
+			{
+				int rh = 18;
+				int hm = 4;
+				String s = (mention?"@ ":"")+unread;
+				
+				ColorUtils.setcolor(g, ColorUtils.COLOR1);
+				g.fillRoundRect(DisplayUtils.width - 16 - font.stringWidth(s) - hm*2, y+38, font.stringWidth(s) + hm*2, rh, rh/2, rh/2);
+				
+				g.setGrayScale(255);
+				g.drawString(s, DisplayUtils.width - 16 - font.stringWidth(s) - hm, y+40, 0);
+			}
 		}
 	}
 
@@ -252,7 +270,7 @@ public class ConversationItem
 				if(lastmessage.attachments != null && lastmessage.attachments.length != 0 && lastmessage.attachments[0] != null)
 				{
 					try
-						{
+					{
 						if(lastmessage.attachments[1] != null)
 						{
 							text = "Вложения";

@@ -3,9 +3,9 @@ package vikatouch;
 import java.io.IOException;
 
 import javax.microedition.lcdui.*;
-import javax.microedition.lcdui.game.Sprite;
+//import javax.microedition.lcdui.game.Sprite;
 
-import tube42.lib.imagelib.ImageUtils;
+//import tube42.lib.imagelib.ImageUtils;
 
 public class IconsManager {
 	
@@ -29,13 +29,13 @@ public class IconsManager {
 		
 		ac = Image.createImage("/ava.png");
 		acs = Image.createImage("/avas.png");
-		logoImg = Image.createImage("/vikahead.png");
+		//logoImg = Image.createImage("/vikahead.png");
 		backImg = Image.createImage("/back.png");
 	}
 	
 	public static Image ac;
 	public static Image acs;
-	public static Image logoImg;
+	//public static Image logoImg;
 	public static Image backImg;
 	
 	public static final int FRIENDS = 0;

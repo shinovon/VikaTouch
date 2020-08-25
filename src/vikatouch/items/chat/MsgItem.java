@@ -23,7 +23,7 @@ import vikatouch.attachments.WallAttachment;
 import vikatouch.items.menu.OptionItem;
 import vikatouch.screens.ChatScreen;
 import vikatouch.settings.Settings;
-import vikatouch.utils.CountUtils;
+import vikatouch.utils.text.CountUtils;
 import vikatouch.utils.url.URLBuilder;
 import vikatouch.utils.url.URLDecoder;
 
