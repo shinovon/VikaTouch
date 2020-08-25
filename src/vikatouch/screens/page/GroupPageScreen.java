@@ -26,6 +26,7 @@ import vikatouch.screens.MainScreen;
 import vikatouch.screens.menu.DocsScreen;
 import vikatouch.screens.menu.FriendsScreen;
 import vikatouch.screens.menu.MenuScreen;
+import vikatouch.screens.menu.VideosScreen;
 import vikatouch.screens.music.MusicScreen;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
@@ -316,13 +317,11 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 			switch (i) 
 			{
 				case 0:
-					/*
-					  TODO: MembersScreen
 					FriendsScreen fs = new FriendsScreen();
 					VikaTouch.setDisplay(fs, 1);
-					fs.loadFriends(0, -id, name, null);
+					// всё ещё падает, я хз почему.
+					fs.loadFriends(0, -id, name, name);
 					break;
-					*/
 				case 1:
 					VikaTouch.popup(new ConfirmBox(isMember?leaveStr+"?":joinStr+"?",null,
 
@@ -357,13 +356,18 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 					isInfoShown = true;
 					break;
 				case 6:
-					//MusicScreen.open(-id, name);
+					MusicScreen.open(-id, name, name);
+					break;
+				case 7:
+					VideosScreen vs = new VideosScreen();
+					VikaTouch.setDisplay(vs, 1);
+					vs.load(0, id, name, name);
 					break;
 				case 8:
 					if(docs>0) {
 						DocsScreen dc = new DocsScreen();
 						VikaTouch.setDisplay(dc, 1);
-						dc.loadDocs(0, -id, groupsStr, groupStr);
+						dc.loadDocs(0, -id, name, name);
 					}
 					break;
 				case 10:

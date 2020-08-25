@@ -22,7 +22,7 @@ public abstract class MainScreen
 {
 
 	public static int lastMenu;
-	protected boolean hasBackButton;
+	protected boolean hasBackButton; // кст, почему не статик?
 	public MainScreen backScreen;
 
 	public static int topPanelH = 58;
@@ -52,7 +52,7 @@ public abstract class MainScreen
 		if(!dragging || !canScroll)
 		{
 			int wyw = bbw(DisplayUtils.idispi);
-			if(y < oneitemheight + 10)
+			if(y < topPanelH)
 			{
 				if(hasBackButton && x < oneitemheight)
 				{
@@ -64,7 +64,7 @@ public abstract class MainScreen
 					VikaTouch.inst.cmdsInst.command(13, this);
 				}
 			}
-			else if(y >= DisplayUtils.height - oneitemheight)
+			else if(y >= DisplayUtils.height - bottomPanelH)
 			{
 				int acenter = (DisplayUtils.width - wyw) / 2;
 				if(x < wyw)
@@ -105,7 +105,7 @@ public abstract class MainScreen
 			// header & icon
 			if(hasBackButton && !keysMode)
 			{
-				g.drawImage(IconsManager.backImg, topPanelH/2-IconsManager.backImg.getHeight()/2, 2, 0);
+				g.drawImage(IconsManager.backImg, 6, topPanelH/2-IconsManager.backImg.getHeight()/2, 0);
 			}
 			else if(this instanceof MenuScreen)
 				g.drawImage(IconsManager.logoImg, 16, topPanelH/2-IconsManager.logoImg.getHeight()/2, 0);
@@ -118,7 +118,7 @@ public abstract class MainScreen
 		}
 		g.setFont(Font.getFont(0, 0, Font.SIZE_LARGE));
 		g.setGrayScale(255);
-		g.drawString(title, DisplayUtils.compact || !hasBackButton?10:72, topPanelH/2-g.getFont().getHeight()/2, 0);
+		g.drawString(title, (DisplayUtils.compact || !hasBackButton) ? 10 : 72, topPanelH/2-g.getFont().getHeight()/2, 0);
 		Font f = Font.getFont(0, 0, Font.SIZE_SMALL);
 		g.setFont(f);
 		

@@ -562,6 +562,7 @@ public class VikaTouch
 		//if(e instanceof java.net.SocketException) fatal = false; // Почему нету? Если КЕмуль плюётся?
 		//ПОТОМУ ЧТО КЭМУЛЬ ЭТО ЖАВА SE
 		//ЭТО НАДО ЗНАТЬ!!1
+		// я рад за него. Так как это говно ловить то?
 		if(fatal)
 		{
 			crashed = true;

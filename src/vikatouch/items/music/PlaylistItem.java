@@ -19,6 +19,7 @@ import vikatouch.attachments.PhotoSize;
 import vikatouch.items.JSONUIItem;
 import vikatouch.screens.menu.DocsScreen;
 import vikatouch.screens.music.MusicScreen;
+import vikatouch.settings.Settings;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
 
@@ -94,7 +95,8 @@ public class PlaylistItem extends JSONUIItem {
 		Image img = null;
 		try
 		{
-			img = VikaUtils.resize(VikaUtils.downloadImage(iconUrl), 100, 100);
+			if(!Settings.dontLoadAvas)
+				img = VikaUtils.resize(VikaUtils.downloadImage(iconUrl), 100, 100);
 		}
 		catch (Exception e)
 		{

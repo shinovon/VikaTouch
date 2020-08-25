@@ -153,6 +153,7 @@ public class FriendsScreen
 								{
 									VikaTouch.loading = false; return; // Костыль деревянный, 1 штука, 78 lvl, 6 ранг
 									//не одобряю. для чего создали thread.isAlive()?
+									// Он как-бы при закрытии экрана не стопается. Кстати, если он умер, то он и проверить не сможет жив ли он
 								}
 								VikaTouch.loading = true;
 								((FriendItem) uiItems[i]).getAva();

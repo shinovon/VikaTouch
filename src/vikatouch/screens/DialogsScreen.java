@@ -82,12 +82,8 @@ public class DialogsScreen
 		if(currentItem < 0)
 		{
 			currentItem = Dialogs.itemsCount--;
-			scroll -= 1900;
 		}
-		else
-		{
-			scroll += 63;
-		}
+		scrollToSelected();
 		Dialogs.dialogs[currentItem].setSelected(true);
 	}
 	
@@ -105,13 +101,19 @@ public class DialogsScreen
 		if(currentItem >= Dialogs.itemsCount)
 		{
 			currentItem = 0;
-			scroll += 1900;
 		}
-		else
-		{
-			scroll -= 63;
-		}
+		scrollToSelected();
 		Dialogs.dialogs[currentItem].setSelected(true);
+	}
+	
+	public final void scrollToSelected()
+	{
+		int itemy=0;
+		for(int i=0;(i<Dialogs.dialogs.length&&i<currentItem);i++)
+		{
+			itemy += Dialogs.dialogs[i].getDrawHeight(); // не УМНОЖИТЬ! айтемы могут быть разной высоты.
+		}
+		scrolled = -(itemy-DisplayUtils.height/2+(Dialogs.dialogs[currentItem].getDrawHeight()/2)+MainScreen.topPanelH);
 	}
 
 	public void draw(Graphics g)

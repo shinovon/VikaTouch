@@ -31,6 +31,7 @@ public class VideosScreen
 	public VideosScreen()
 	{
 		videosStr = TextLocal.inst.get("title.videos");
+		hasBackButton = true;
 	}
 
 	public int fromVid;
