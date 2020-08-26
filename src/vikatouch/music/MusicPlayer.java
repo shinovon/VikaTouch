@@ -111,17 +111,28 @@ public class MusicPlayer extends MainScreen
 		System.gc();
 		
 		//TODO move temp constants
-		final boolean CACHETOPRIVATE = false;
-		final String url = getC().mp3;
-
+		boolean CACHETOPRIVATE = false;
+		
 		try {
 			try {
 				closePlayer();
 			} catch (Exception var20) {
 				VikaTouch.popup(new InfoPopup("Player closing error", null));
 			}
+			String url = getC().mp3;
 			final String path = CACHETOPRIVATE ? (System.getProperty("fileconn.dir.private") + "track.mp3") : (System.getProperty("fileconn.dir.music") + "vikacache/track.mp3");
-			if (url.indexOf("bb2.mp3")<0) {
+			
+			if(Settings.audioMode == Settings.AUDIO_PLAYONLINE)
+			{
+				player = Manager.createPlayer(url);
+				player.realize();
+				player.prefetch();
+				((VolumeControl) player.getControl("VolumeControl")).setLevel(100);
+				player.start();
+			}
+			//else if (url.indexOf("bb2.mp3")<0) 
+			else if(Settings.audioMode != Settings.AUDIO_CACHEANDPLAY)
+			{
 				
 				new Thread()
 				{
@@ -129,7 +140,7 @@ public class MusicPlayer extends MainScreen
 					{
 						try
 						{
-							ContentConnection contCon = (ContentConnection) Connector.open(url);
+							ContentConnection contCon = (ContentConnection) Connector.open(getC().mp3);
 							DataInputStream dis = contCon.openDataInputStream();
 	
 							FileConnection trackFile = (FileConnection) Connector.open(path);
@@ -179,12 +190,14 @@ public class MusicPlayer extends MainScreen
 								output.close();
 							}
 						
-							if ((VikaTouch.mobilePlatform.indexOf("S60") > 0
+							/*if ((VikaTouch.mobilePlatform.indexOf("S60") > 0
 									&& (VikaTouch.mobilePlatform.indexOf("5.5") > 0 || VikaTouch.mobilePlatform.indexOf("5.4") > 0
 											|| VikaTouch.mobilePlatform.indexOf("5.3") > 0 || VikaTouch.mobilePlatform.indexOf("5.2") > 0
 											|| VikaTouch.mobilePlatform.indexOf("5.1") > 0 || VikaTouch.mobilePlatform.indexOf("5.1") > 0
 											|| VikaTouch.mobilePlatform.indexOf("5.0") > 0 || VikaTouch.mobilePlatform.indexOf("S8600") > 0)
 									 ) || VikaTouch.mobilePlatform.indexOf("Sony") > 0)
+							{*/
+							if(Settings.audioMode == Settings.AUDIO_LOADANDPLAY)
 							{
 								getCover();
 								resizeCover();
@@ -221,6 +234,9 @@ public class MusicPlayer extends MainScreen
 								}
 								time = "0:00";
 								totalTime = time(player.getDuration());
+							} else if(Settings.audioMode == Settings.AUDIO_LOADANDSYSTEMPLAY) {
+								VikaTouch.callSystemPlayer(path);
+								// ну вдруг вот то что ниже хер знает на каком ублюдстве не заработает?))
 							} else {
 								try {
 									VikaTouch.appInst.platformRequest(path);
@@ -502,12 +518,19 @@ public class MusicPlayer extends MainScreen
 				{
 					mrl = "https://"+mrl.substring("http://vk-api-proxy.xtrafrancyz.net/_/".length());
 				}
-				String cmd = "vlc.exe "+mrl;
-				System.out.println("RESULT="+VikaTouch.appInst.platformRequest(cmd));
+				String cmd = "vlc.exe \""+mrl+"\"";
+				boolean res = VikaTouch.appInst.platformRequest(cmd);
+				if(!res)
+				{
+					VikaTouch.popup(new InfoPopup("Эмулятор понял запрос, но отказался выполнить. Проверьте настройки системы.", null));
+				}
 				System.out.println(cmd);
 				break;
 			case Settings.AUDIO_DOWNLOAD:
 				VikaTouch.appInst.platformRequest(((AudioTrackItem) list.uiItems[track]).mp3);
+				break;
+			case Settings.AUDIO_SYSTEMPLAYER:
+				VikaTouch.callSystemPlayer(((AudioTrackItem) list.uiItems[track]).mp3);
 				break;
 			default:
 				MusicPlayer mp = new MusicPlayer();

@@ -82,12 +82,21 @@ public class Settings
 	public static final int SENSOR_J2MELOADER = 1;
 	public static final int SENSOR_RESISTIVE = 2;
 	
-	public static final int AUDIO_PLAYONLINE = 0;
-	public static final int AUDIO_CACHEANDPLAY = 1;
-	public static final int AUDIO_LOADANDPLAY = 2;
-	public static final int AUDIO_SYSTEMPLAYER = 3;
-	public static final int AUDIO_VLC = 4;
-	public static final int AUDIO_DOWNLOAD = 5;
+	public static final int AUDIO_PLAYONLINE = 0; // даём плееру урл и пусть играет.
+	public static final int AUDIO_CACHEANDPLAY = 1; // подключаем поток и даём плееру его.
+	public static final int AUDIO_LOADANDPLAY = 2; // скачиваем и даём плееру файл.
+	public static final int AUDIO_LOADANDOPEN = 3; // скачиваем и просим систему открыть.
+	public static final int AUDIO_LOADANDSYSTEMPLAY = 4; // скачиваем и тормошим плеер симбы методом Ильи.
+	public static final int AUDIO_SYSTEMPLAYER = 5; // только не скачивая.
+	public static final int AUDIO_VLC = 6; // алё, ну чо там с кемулятором
+	public static final int AUDIO_DOWNLOAD = 7; // браузер
+	// теперь точно всё, осталось выяснить ГДЕ ВЛЦ и что из этого умеет СЕшка.
+	/* Объясняю нахера столько вариков. Понаблюдав чутка за вашей еблей с музыкой и
+	 * за "работой" плеера вк4ме я пришёл к простому выводу - автовыбор по модели катит НЕ ВСЕГДА.
+	 * Поэтому в установке дефолтных настроек надо будет подбирать автоматом, но давать юзеру
+	 * возможность выбрать, как пинать эту бедную музыку.
+	 */
+	
 	public static final String[] supportedLanguages = {"en_US", "en_UK", "ru_RU"};
 
 	static

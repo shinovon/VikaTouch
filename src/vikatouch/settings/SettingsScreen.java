@@ -119,8 +119,9 @@ public class SettingsScreen
 			new SettingMenuItem(this, TextLocal.inst.get("settings.audio"), IconsManager.MUSIC, 9, 
 					oneitemheight, new String[] { TextLocal.inst.get("settings.audioc.0"), TextLocal.inst.get("settings.audioc.1"),
 							TextLocal.inst.get("settings.audioc.2"), TextLocal.inst.get("settings.audioc.3"),
-							TextLocal.inst.get("settings.audioc.4"), TextLocal.inst.get("settings.audioc.5")}, 
-					Settings.audioMode, null), // Это все способы открыть аудио. В теории. 0,1,2,3 возьму из ВикиМ, 4-5 - одна строчка.
+							TextLocal.inst.get("settings.audioc.4"), TextLocal.inst.get("settings.audioc.5"),
+							TextLocal.inst.get("settings.audioc.6"), TextLocal.inst.get("settings.audioc.7")}, 
+					Settings.audioMode, null), // Это все способы открыть аудио. В теории. UPD: ну-ну.
 			new SettingMenuItem(this, TextLocal.inst.get("settings.rtspMethod"), IconsManager.LINK, 13, 
 					oneitemheight, new String[] { TextLocal.inst.get("settings.rtspc.0"), TextLocal.inst.get("settings.rtspc.1"),
 							TextLocal.inst.get("settings.rtspc.2") }, 
