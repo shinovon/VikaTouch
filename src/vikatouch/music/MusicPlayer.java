@@ -137,7 +137,11 @@ public class MusicPlayer extends MainScreen
 							player = Manager.createPlayer(getC().mp3);
 							player.realize();
 							player.prefetch();
-							((VolumeControl) player.getControl("VolumeControl")).setLevel(100);
+							try
+							{
+								((VolumeControl) player.getControl("VolumeControl")).setLevel(100);
+							}
+							catch (Exception e) { }
 							player.start();
 							isReady = true;
 							isPlaying = true;
@@ -253,7 +257,7 @@ public class MusicPlayer extends MainScreen
 									return;
 								}
 								time = "0:00";
-								totalTime = time(player.getDuration());
+								totalTime = time(player.getDuration()/1000);
 							} else if(Settings.audioMode == Settings.AUDIO_LOADANDSYSTEMPLAY) {
 								VikaTouch.callSystemPlayer(path);
 								// ну вдруг вот то что ниже хер знает на каком ублюдстве не заработает?))
@@ -279,6 +283,7 @@ public class MusicPlayer extends MainScreen
 			} 
 			else 
 			{
+				System.out.println("cache playing");
 				ContentConnection contCon = null;
 				DataInputStream dis = null;
 				try {
@@ -287,14 +292,12 @@ public class MusicPlayer extends MainScreen
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-				int var55 = (int) contCon.getLength();
-			
 				try {
-					int var5;
-					if ((var5 = (int) contCon.getLength()) != -1) {
+					int var5 = (int) contCon.getLength();
+					System.out.println("var5: "+var5);
+					if (var5 != -1) {
 						aByteArray207 = new byte[var5];
 						dis.read(aByteArray207);
-						
 					}
 				} finally {
 					if (dis != null) {
@@ -308,8 +311,6 @@ public class MusicPlayer extends MainScreen
 				System.gc();
 				input = aByteArrayInputStream212;
 				player = Manager.createPlayer(input, "audio/mpeg");
-				player.realize();
-				player.prefetch();
 				try
 				{
 					((VolumeControl) player.getControl("VolumeControl")).setLevel(100);
@@ -321,7 +322,7 @@ public class MusicPlayer extends MainScreen
 				stop = false;
 			}
 
-			System.gc();
+			//System.gc();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -357,6 +358,7 @@ public class MusicPlayer extends MainScreen
 	
 	public void pause()
 	{
+		System.out.println("PAUSE");
 		try
 		{
 			if(isReady)
@@ -376,12 +378,13 @@ public class MusicPlayer extends MainScreen
 		}
 		catch (Exception e)
 		{
-			
+			e.printStackTrace();
 		}
 	}
 	
 	public void play()
 	{
+		System.out.println("PLAY");
 		try
 		{
 			if(isReady)
@@ -392,7 +395,7 @@ public class MusicPlayer extends MainScreen
 		}
 		catch (Exception e)
 		{
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -442,8 +445,8 @@ public class MusicPlayer extends MainScreen
 	public void updateDrawData()
 	{
 		if(!isReady) return;
-		time = time(player.getMediaTime());
-		System.out.println("time:"+player.getMediaTime());
+		time = time(player.getMediaTime()/1000);
+		//System.out.println("time:"+player.getMediaTime());
 		try
 		{
 			int dw = DisplayUtils.width;
@@ -634,7 +637,7 @@ public class MusicPlayer extends MainScreen
 		g.drawString(time, x2+4, timeY, Graphics.TOP | Graphics.LEFT);
 		
 		// так и не понял куда это присрать, пусть тут полежит пока.
-		if(player.getMediaTime()==player.getDuration()) onTrackEnd();
+		//if(player.getMediaTime()==player.getDuration()) onTrackEnd();
 	}
 	
 	public void release(int x, int y)
@@ -661,7 +664,7 @@ public class MusicPlayer extends MainScreen
 		}
 		else if(x>anchor+75)
 		{
-			VikaTouch.inst.cmdsInst.command(13, this);
+			VikaTouch.inst.cmdsInst.command(14, this);
 		}
 		else if(x>anchor+25)
 		{
@@ -716,7 +719,7 @@ public class MusicPlayer extends MainScreen
 		}
 		else if(key == -7 /*|| key == */) //TODO вспомнить кнопку "назад" на SE
 		{
-			VikaTouch.inst.cmdsInst.command(13, this);
+			VikaTouch.inst.cmdsInst.command(14, this);
 		}
 	}
 	
