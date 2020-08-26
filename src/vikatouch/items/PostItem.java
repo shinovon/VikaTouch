@@ -20,7 +20,7 @@ import vikatouch.attachments.Attachment;
 import vikatouch.attachments.PhotoAttachment;
 import vikatouch.screens.NewsScreen;
 import vikatouch.settings.Settings;
-import vikatouch.utils.ErrorCodes;
+import vikatouch.utils.error.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
 
 public class PostItem

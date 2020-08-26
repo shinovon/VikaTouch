@@ -14,7 +14,7 @@ import vikatouch.Dialogs;
 import vikatouch.VikaTouch;
 import vikatouch.locale.TextLocal;
 import vikatouch.screens.menu.MenuScreen;
-import vikatouch.utils.ErrorCodes;
+import vikatouch.utils.error.ErrorCodes;
 
 public class DialogsScreen
 	extends MainScreen

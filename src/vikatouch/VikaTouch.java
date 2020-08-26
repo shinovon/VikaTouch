@@ -30,10 +30,10 @@ import vikatouch.screens.page.GroupPageScreen;
 import vikatouch.screens.temp.SplashScreen;
 import vikatouch.settings.Settings;
 import vikatouch.settings.SettingsScreen;
-import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
 import vikatouch.utils.captcha.CaptchaObject;
 import vikatouch.utils.emulatordetect.EmulatorDetector;
+import vikatouch.utils.error.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
 
 public class VikaTouch

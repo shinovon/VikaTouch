@@ -20,8 +20,8 @@ import vikatouch.items.JSONUIItem;
 import vikatouch.screens.menu.DocsScreen;
 import vikatouch.screens.music.MusicScreen;
 import vikatouch.settings.Settings;
-import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
+import vikatouch.utils.error.ErrorCodes;
 
 public class PlaylistItem extends JSONUIItem {
 	public int id;

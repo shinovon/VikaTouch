@@ -19,8 +19,8 @@ import vikatouch.attachments.AudioAttachment;
 import vikatouch.attachments.PhotoAttachment;
 import vikatouch.items.JSONUIItem;
 import vikatouch.settings.Settings;
-import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
+import vikatouch.utils.error.ErrorCodes;
 
 public class ConversationItem
 	extends JSONUIItem

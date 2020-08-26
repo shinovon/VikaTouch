@@ -16,7 +16,7 @@ import vikatouch.VikaTouch;
 import vikatouch.screens.MainScreen;
 import vikatouch.screens.temp.SplashScreen;
 import vikatouch.settings.Settings;
-import vikatouch.utils.ErrorCodes;
+import vikatouch.utils.error.ErrorCodes;
 
 public class VikaCanvasInst
 extends VikaCanvas

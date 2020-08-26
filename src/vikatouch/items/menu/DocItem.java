@@ -22,8 +22,8 @@ import vikatouch.attachments.PhotoSize;
 import vikatouch.items.JSONUIItem;
 import vikatouch.json.JSONBase;
 import vikatouch.screens.menu.DocsScreen;
-import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
+import vikatouch.utils.error.ErrorCodes;
 
 public class DocItem
 	extends JSONUIItem implements ISocialable

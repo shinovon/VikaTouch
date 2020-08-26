@@ -18,8 +18,8 @@ import vikatouch.items.JSONUIItem;
 import vikatouch.screens.menu.GroupsScreen;
 import vikatouch.screens.page.GroupPageScreen;
 import vikatouch.settings.Settings;
-import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
+import vikatouch.utils.error.ErrorCodes;
 
 public class GroupItem
 	extends JSONUIItem

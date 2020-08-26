@@ -37,7 +37,7 @@ public class EmulatorDetector
 		if(platform.indexOf("03.xx") >= 0)
 		{
 			isEmulator = true;
-			emulatorType = EM_SDK;
+			emulatorType = EM_S40_5_SDK;
 		}
 		else if(platform.equalsIgnoreCase("NOKIA_SERIES60"))
 		{

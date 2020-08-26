@@ -19,7 +19,7 @@ import vikatouch.items.menu.FriendItem;
 import vikatouch.items.music.PlaylistItem;
 import vikatouch.locale.TextLocal;
 import vikatouch.screens.MainScreen;
-import vikatouch.utils.ErrorCodes;
+import vikatouch.utils.error.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
 
 public class PlaylistsScreen extends MainScreen {

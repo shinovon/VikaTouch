@@ -24,9 +24,9 @@ import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.items.JSONUIItem;
 import vikatouch.settings.Settings;
-import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
 import vikatouch.utils.emulatordetect.EmulatorDetector;
+import vikatouch.utils.error.ErrorCodes;
 import vikatouch.utils.url.URLDecoder;
 
 public class VideoItem

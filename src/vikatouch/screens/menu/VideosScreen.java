@@ -19,7 +19,7 @@ import vikatouch.json.INextLoadable;
 import vikatouch.locale.TextLocal;
 import vikatouch.screens.MainScreen;
 import vikatouch.settings.Settings;
-import vikatouch.utils.ErrorCodes;
+import vikatouch.utils.error.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
 
 public class VideosScreen

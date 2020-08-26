@@ -8,7 +8,7 @@ import java.util.Hashtable;
 import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.settings.Settings;
-import vikatouch.utils.ErrorCodes;
+import vikatouch.utils.error.ErrorCodes;
 
 public class TextLocal
 {

@@ -15,7 +15,7 @@ import vikatouch.VikaTouch;
 import vikatouch.items.PostItem;
 import vikatouch.locale.TextLocal;
 import vikatouch.screens.menu.MenuScreen;
-import vikatouch.utils.ErrorCodes;
+import vikatouch.utils.error.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
 
 public class NewsScreen
