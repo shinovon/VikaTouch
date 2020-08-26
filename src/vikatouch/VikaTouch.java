@@ -443,7 +443,7 @@ public class VikaTouch
 		String details = "";
 		if(extended)
 		{
-			details = "\nDevice information: \nmemory: " + mem + "K, profiles: " + System.getProperty("microedition.profiles") + ", configuration: " + System.getProperty("microedition.configuration")
+			details = "\nDevice information: \nmemory: " + mem + "K, profiles: " + System.getProperty("microedition.profiles") + ", configuration: " + System.getProperty("microedition.configuration") + " Emulator: " + EmulatorDetector.emulatorType 
 			+ "\nSettings:\nsm: " + Settings.sensorMode + " https: " + Settings.https + " proxy: " + Settings.proxy + " lang: " + Settings.language + " listslen: " + Settings.simpleListsLength;
 		}
 		return main + details;
@@ -480,7 +480,7 @@ public class VikaTouch
 		
 		if(extended && Settings.telemetry)
 		{
-			details = "\nDevice information: \nmemory: " + mem + "K, profiles: " + System.getProperty("microedition.profiles") + ", configuration: " + System.getProperty("microedition.configuration") + "Emulator: " + EmulatorDetector.emulatorType 
+			details = "\nDevice information: \nmemory: " + mem + "K, profiles: " + System.getProperty("microedition.profiles") + ", configuration: " + System.getProperty("microedition.configuration") + " Emulator: " + EmulatorDetector.emulatorType 
 			+ "\nSettings:\nsm: " + Settings.sensorMode + " https: " + Settings.https + " proxy: " + Settings.proxy + " lang: " + Settings.language + " listslen: " + Settings.simpleListsLength;
 		}
 		sendLog(main + details + ".\n" + x);
