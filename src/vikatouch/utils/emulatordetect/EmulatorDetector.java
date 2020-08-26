@@ -74,7 +74,8 @@ public class EmulatorDetector
 		else if(platform.indexOf(" ") >= 0)
 		{
 			isEmulator = true;
-			emulatorType = EM_KEM_OR_J2L;
+			emulatorType = EM_KEM_OR_J2L; 
+			// кем так не палится. Вроде.
 		}
 		else
 		{

@@ -711,12 +711,15 @@ public class VikaTouch
 		Settings.loadDefaultSettings();
 		Settings.loadSettings();
 		
-		isEmulator = (mobilePlatform.indexOf(" ") > 0) || (mobilePlatform.equals("Nokia_SERIES60")) || (mobilePlatform.equals("Nokia_SERIES40"));
+		EmulatorDetector.checkForEmulator(mobilePlatform);
 		
 		splash.currState = 2;
 		
 		TextLocal.init();
 		splash.setText();
+		
+		if(EmulatorDetector.emulatorNotSupported)
+			VikaTouch.popup(new InfoPopup(TextLocal.inst.get("splash.emnotsupported"), null));
 		
 		splash.currState = 3;
 		

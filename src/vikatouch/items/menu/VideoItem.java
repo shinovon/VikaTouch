@@ -26,6 +26,7 @@ import vikatouch.items.JSONUIItem;
 import vikatouch.settings.Settings;
 import vikatouch.utils.ErrorCodes;
 import vikatouch.utils.ResizeUtils;
+import vikatouch.utils.emulatordetect.EmulatorDetector;
 import vikatouch.utils.url.URLDecoder;
 
 public class VideoItem
@@ -139,7 +140,7 @@ public class VideoItem
 			}
 			if(key == KEY_OK)
 			{
-				if(VikaTouch.isEmulator)
+				if(EmulatorDetector.isEmulator)
 				{
 					try
 					{

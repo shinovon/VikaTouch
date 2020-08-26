@@ -246,7 +246,7 @@ public class Settings
 		if(VikaTouch.mobilePlatform.indexOf("Z710") > -1)
 		{
 			dontLoadAvas = true;
-			simpleListsLength = 20;
+			simpleListsLength = 10;
 			cacheImages = false;
 			autoMarkAsRead = false;
 		}

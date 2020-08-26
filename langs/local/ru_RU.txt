@@ -209,6 +209,7 @@ settings.rtspc.1=Вызов плеера [Symbian]
 settings.rtspc.2=Выполнить "vlc.exe <MRL>" [KEmulator]
 settings.youtube=Открытие YouTube через
 settings.audio=Метод воспроизведения аудио
+settings.keepaudiocache=Сохранять кэшированную музыку
 settings.apiproxy=Api Proxy
 settings.authproxy=OAuth Proxy
 settings.language=Язык
@@ -227,6 +228,7 @@ back=Назад
 select=Выбрать
 options=Опции
 
+splash.emnotsupported=Скорее всего, ViKa Touch сейчас запущена на неподдерживаемом эмуляторе. Мы рекомендуем использовать KEmulator, J2ME Loader, JBed либо официальные эмуляторы из пакетов для разработчиков - на других возможны проблемы с отображением, функционалом и безопасностью.
 splash.title.3=Подготовка ассетов
 splash.title.4=Авторизация
 splash.title.5=Загрузка информации профиля
