@@ -5,6 +5,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Random;
 
 import javax.microedition.io.ConnectionNotFoundException;
 import javax.microedition.io.Connector;
@@ -353,8 +354,16 @@ public class MusicPlayer extends MainScreen
 	
 	public void next()
 	{
-		current++;
-		if(current>=playlist.uiItems.length) current = 0;
+		if(random)
+		{
+			Random r = new Random();
+			current = r.nextInt(playlist.uiItems.length);
+		}
+		else
+		{
+			current++;
+			if(current>=playlist.uiItems.length) current = 0;
+		}
 		loadTrack();
 	}
 	
@@ -363,6 +372,26 @@ public class MusicPlayer extends MainScreen
 		current--;
 		if(current<0) current = playlist.uiItems.length - 1;
 		loadTrack();
+	}
+	
+	public void onTrackEnd()
+	{
+		try
+		{
+			if(loop)
+			{
+				player.setMediaTime(0);
+				player.start();
+			}
+			else
+			{
+				next();
+			}
+		}
+		catch (Exception e)
+		{
+			
+		}
 	}
 	
 	public void updateDrawData()
@@ -447,8 +476,8 @@ public class MusicPlayer extends MainScreen
 	{
 		OptionItem[] opts = new OptionItem[]
 		{
-			new OptionItem(this,"Повторять",IconsManager.REFRESH,0,50),
-			new OptionItem(this,"Случайно",IconsManager.PLAY,1,50),
+			new OptionItem(this,"Повторять",loop?IconsManager.APPLY:IconsManager.REFRESH,0,50),
+			new OptionItem(this,"Случайно",random?IconsManager.APPLY:IconsManager.PLAY,1,50),
 			new OptionItem(this,"Скачать",IconsManager.DOWNLOAD,2,50),
 			new OptionItem(this,"Проблемы с воспроизведением?",IconsManager.INFO,3,50),
 		};
@@ -545,6 +574,9 @@ public class MusicPlayer extends MainScreen
 		g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
 		g.drawString(time, x1-4, timeY+2, Graphics.TOP | Graphics.RIGHT);
 		g.drawString(time, x2+4, timeY+2, Graphics.TOP | Graphics.LEFT);
+		
+		// так и не понял куда это присрать, пусть тут полежит пока.
+		if(player.getMediaTime()==player.getDuration()) onTrackEnd();
 	}
 	
 	public void press(int x, int y)
