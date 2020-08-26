@@ -47,6 +47,8 @@ public class MusicPlayer extends MainScreen
 	public boolean isPlaying = false;
 	public boolean isReady = false;
 	public boolean stop = false;
+	public boolean loop = false;
+	public boolean random = false;
 	
 	// кэш для рисования
 	private String title = "Track name";
@@ -81,7 +83,6 @@ public class MusicPlayer extends MainScreen
 		{
 			
 		}
-		// подгрузка ресов
 	}
 	
 	
@@ -114,7 +115,7 @@ public class MusicPlayer extends MainScreen
 
 		try {
 			try {
-				ClosePlayer();
+				closePlayer();
 			} catch (Exception var20) {
 				VikaTouch.popup(new InfoPopup("Player closing error", null));
 			}
@@ -281,7 +282,7 @@ public class MusicPlayer extends MainScreen
 		}
 	}
 
-	private void ClosePlayer() throws MediaException {
+	private void closePlayer() throws MediaException {
 		if (player != null) {
 			if (player.getState() == 400) {
 				player.stop();
@@ -546,13 +547,112 @@ public class MusicPlayer extends MainScreen
 		g.drawString(time, x2+4, timeY+2, Graphics.TOP | Graphics.LEFT);
 	}
 	
+	public void press(int x, int y)
+	{
+		int dw = DisplayUtils.width;
+		int dh = DisplayUtils.height;
+		int hdw = dw/2;
+		if(y<dh-50) return;
+		int anchor;
+		if(dw>dh)
+		{
+			// альбом
+			int anchor = (dw-50) * 3 / 4;
+		}
+		else
+		{
+			// портрет, квадрат
+			anchor = hdw;
+		}
+		
+		if(x>anchor-125)
+		{
+			options();
+		}
+		else if(x>anchor-75)
+		{
+			prev();
+		}
+		else if(x>anchor-25)
+		{
+			if(isPlaying)
+			{
+				pause();
+			}
+			else
+			{
+				play();
+			}
+		}
+		else if(x>anchor+25)
+		{
+			next();
+		}
+		else if(x>anchor+75)
+		{
+			VikaTouch.inst.cmdsInst.command(13, this);
+		}
+		else if(x>anchor+125)
+			return;
+	}
+	
+	public void press(int key)
+	{
+		if(key == -6)
+		{
+			options();
+		}
+		else if(key == -3)
+		{
+			prev();
+		}
+		else if(key == -5)
+		{
+			if(isPlaying)
+			{
+				pause();
+			}
+			else
+			{
+				play();
+			}
+		}
+		else if(key == -4)
+		{
+			next();
+		}
+		else if(key == -7 /*|| key == */) //TODO вспомнить кнопку "назад" на SE
+		{
+			VikaTouch.inst.cmdsInst.command(13, this);
+		}
+	}
+	
 	public void drawHUD(Graphics g) 
 	{
 		
 	}
 
 	public void onMenuItemPress(int i) {
-		
+		if(i==0)
+		{
+			loop = !loop;
+		}
+		else if(i==1)
+		{
+			random = !random;
+		}
+		else if(i==2)
+		{
+			try {
+				VikaTouch.appInst.platformRequest(getC().mp3);
+			} catch (ConnectionNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		else if(i==3)
+		{
+			// написать что мол выберите другой метод или купите N8
+		}
 	}
 
 
