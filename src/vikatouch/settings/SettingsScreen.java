@@ -1,6 +1,7 @@
 package vikatouch.settings;
 
 import javax.microedition.lcdui.Graphics;
+import javax.microedition.rms.RecordStore;
 
 import ru.nnproject.vikaui.menu.IMenu;
 import ru.nnproject.vikaui.menu.items.PressableUIItem;
@@ -14,6 +15,7 @@ import vikatouch.items.*;
 import vikatouch.items.menu.OptionItem;
 import vikatouch.locale.TextLocal;
 import vikatouch.screens.AboutScreen;
+import vikatouch.screens.LoginScreen;
 import vikatouch.screens.MainScreen;
 import vikatouch.screens.menu.MenuScreen;
 
@@ -238,7 +240,7 @@ public class SettingsScreen
 			}
 			case 3:
 			{
-				Settings.https = var==1;
+				Settings.https = var==1; //TODO real switching
 				Settings.proxy = var!=1;
 				break;
 			}
@@ -340,7 +342,22 @@ public class SettingsScreen
 			{
 				if(VikaTouch.accessToken != null && VikaTouch.accessToken != "")
 				{
-					
+					VikaTouch.popup(new ConfirmBox(TextLocal.inst.get("settings.logout")+"?", null, new Runnable()
+					{
+						public void run()
+						{
+							try
+							{
+								if(VikaTouch.tokenRMS != null)
+									VikaTouch.tokenRMS.closeRecordStore();
+								RecordStore.deleteRecordStore(VikaTouch.TOKEN_RMS);
+							}
+							catch(Exception e)
+							{
+		
+							}
+							VikaTouch.setDisplay(new LoginScreen(), -1);
+						}}, null));
 				}
 				else
 				{

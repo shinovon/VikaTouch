@@ -267,7 +267,7 @@ public class LoginScreen
 			
 			f = Font.getFont(0, 0, Font.SIZE_SMALL);
 			g.setFont(f);
-			ColorUtils.setcolor(g, ColorUtils.TEXTCOLOR1);
+			ColorUtils.setcolor(g, ColorUtils.TEXT); // нихера не видно ни на СЕшке, ни на ж2меЛ. Подозреваю что везде не на амоледе.
 			if(user != null)
 				g.drawString(user, fieldsMargin+10, tapCoords[0]+fH/2-f.getHeight()/2, 0);
 			if(pass != null)
