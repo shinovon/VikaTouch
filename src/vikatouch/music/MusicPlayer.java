@@ -95,7 +95,11 @@ public class MusicPlayer extends MainScreen
 	
 	public void loadTrack()
 	{
-		pause();
+		try
+		{
+			player.stop();
+		}
+		catch (Exception e) { }
 		isPlaying = true;
 		isReady = false;
 		stop = false;
@@ -124,11 +128,27 @@ public class MusicPlayer extends MainScreen
 			
 			if(Settings.audioMode == Settings.AUDIO_PLAYONLINE)
 			{
-				player = Manager.createPlayer(url);
-				player.realize();
-				player.prefetch();
-				((VolumeControl) player.getControl("VolumeControl")).setLevel(100);
-				player.start();
+				new Thread()
+				{
+					public void run()
+					{
+						try
+						{
+							player = Manager.createPlayer(getC().mp3);
+							player.realize();
+							player.prefetch();
+							((VolumeControl) player.getControl("VolumeControl")).setLevel(100);
+							player.start();
+							isReady = true;
+							isPlaying = true;
+							stop = false;
+						}
+						catch(Exception e)
+						{
+							e.printStackTrace();
+						}
+					}
+				}.start();
 			}
 			//else if (url.indexOf("bb2.mp3")<0) 
 			else if(Settings.audioMode != Settings.AUDIO_CACHEANDPLAY)
@@ -245,6 +265,7 @@ public class MusicPlayer extends MainScreen
 								}
 							}
 							isReady = true;
+							isPlaying = true;
 							stop = false;
 						}
 						catch(Exception e)
@@ -289,8 +310,15 @@ public class MusicPlayer extends MainScreen
 				player = Manager.createPlayer(input, "audio/mpeg");
 				player.realize();
 				player.prefetch();
-				((VolumeControl) player.getControl("VolumeControl")).setLevel(100);
+				try
+				{
+					((VolumeControl) player.getControl("VolumeControl")).setLevel(100);
+				}
+				catch (Exception e) { }
 				player.start();
+				isReady = true;
+				isPlaying = true;
+				stop = false;
 			}
 
 			System.gc();
@@ -392,6 +420,7 @@ public class MusicPlayer extends MainScreen
 	
 	public void onTrackEnd()
 	{
+		/*
 		try
 		{
 			if(loop)
@@ -407,28 +436,33 @@ public class MusicPlayer extends MainScreen
 		catch (Exception e)
 		{
 			
-		}
+		}*/
 	}
 	
 	public void updateDrawData()
 	{
 		if(!isReady) return;
 		time = time(player.getMediaTime());
-		int dw = DisplayUtils.width;
-		if(dw > DisplayUtils.height)
+		System.out.println("time:"+player.getMediaTime());
+		try
 		{
-			// альбом
-			x1 = dw/2+40;
-			x2 = dw-40;
-			currX = dw/2 + 40 + (int)((dw/2-80)*player.getMediaTime()/player.getDuration());
+			int dw = DisplayUtils.width;
+			if(dw > DisplayUtils.height)
+			{
+				// альбом
+				x1 = dw/2+40;
+				x2 = dw-40;
+				currX = dw/2 + 40 + (int)((dw/2-80)*player.getMediaTime()/player.getDuration());
+			}
+			else
+			{
+				// квадрат, портрет
+				x1 = 40;
+				x2 = dw-40;
+				currX = 40 + (int)((dw-80)*player.getMediaTime()/player.getDuration());
+			}
 		}
-		else
-		{
-			// квадрат, портрет
-			x1 = 40;
-			x2 = dw-40;
-			currX = 40 + (int)((dw-80)*player.getMediaTime()/player.getDuration());
-		}
+		catch (Exception e) { }
 	}
 	
 	public void loadTrackInfo()
@@ -444,6 +478,7 @@ public class MusicPlayer extends MainScreen
 	
 	public void resizeCover()
 	{
+		if(coverOrig==null) return;
 		int dw = DisplayUtils.width;
 		if(dw > DisplayUtils.height)
 		{
@@ -595,15 +630,16 @@ public class MusicPlayer extends MainScreen
 		if(isReady) g.fillRect(x1+2, timeY+2, currX-x1-4, 6);
 		
 		g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
-		g.drawString(time, x1-4, timeY+2, Graphics.TOP | Graphics.RIGHT);
-		g.drawString(time, x2+4, timeY+2, Graphics.TOP | Graphics.LEFT);
+		g.drawString(time, x1-4, timeY, Graphics.TOP | Graphics.RIGHT);
+		g.drawString(time, x2+4, timeY, Graphics.TOP | Graphics.LEFT);
 		
 		// так и не понял куда это присрать, пусть тут полежит пока.
 		if(player.getMediaTime()==player.getDuration()) onTrackEnd();
 	}
 	
-	public void press(int x, int y)
+	public void release(int x, int y)
 	{
+		System.out.println("Player touch");
 		int dw = DisplayUtils.width;
 		int dh = DisplayUtils.height;
 		int hdw = dw/2;
@@ -619,14 +655,17 @@ public class MusicPlayer extends MainScreen
 			// портрет, квадрат
 			anchor = hdw;
 		}
-		
-		if(x>anchor-125)
+		if(x>anchor+125)
 		{
-			options();
+			return;
 		}
-		else if(x>anchor-75)
+		else if(x>anchor+75)
 		{
-			prev();
+			VikaTouch.inst.cmdsInst.command(13, this);
+		}
+		else if(x>anchor+25)
+		{
+			next();
 		}
 		else if(x>anchor-25)
 		{
@@ -639,16 +678,15 @@ public class MusicPlayer extends MainScreen
 				play();
 			}
 		}
-		else if(x>anchor+25)
+		else if(x>anchor-75)
 		{
-			next();
+			prev();
 		}
-		else if(x>anchor+75)
+		else if(x>anchor-125)
 		{
-			VikaTouch.inst.cmdsInst.command(13, this);
+			options();
 		}
-		else if(x>anchor+125)
-			return;
+		
 	}
 	
 	public void press(int key)

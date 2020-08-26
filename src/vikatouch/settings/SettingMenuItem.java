@@ -45,7 +45,8 @@ public class SettingMenuItem implements PressableUIItem, IMenu {
 		}
 		currentOption = curr;
 		help = info;
-		f = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM);
+		f = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_SMALL);
+		sf = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_SMALL);
 	}
 	
 	public SettingMenuItem(SettingsScreen s, String title, int ic, int optN, int h, String[] list, int curr, String info)
@@ -58,8 +59,8 @@ public class SettingMenuItem implements PressableUIItem, IMenu {
 		opts = list;
 		currentOption = curr;
 		help = info;
-		f = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM);
-		sf = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_MEDIUM);
+		f = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_SMALL);
+		sf = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_SMALL);
 	}
 	
 	public void paint(Graphics g, int y, int scrolled) {
