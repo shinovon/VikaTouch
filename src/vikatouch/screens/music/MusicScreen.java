@@ -52,6 +52,8 @@ public class MusicScreen
 		this.albumId = albumId;
 		ownerId = oid;
 		this.title = title;
+		hasBackButton = true;
+		
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
 		
@@ -63,6 +65,11 @@ public class MusicScreen
 				{
 					VikaTouch.loading = true;
 					String x = VikaUtils.download(new URLBuilder("audio.get").addField("owner_id", oid).addField("album_id", albumId).addField("count", 100).addField("offset", 0));
+					if(x.indexOf("error") != -1)
+					{
+						VikaTouch.error(ErrorCodes.MUSICLISTLOAD, x, false);
+						return;
+					}
 					try
 					{
 						System.out.println(x);
@@ -82,20 +89,19 @@ public class MusicScreen
 					catch (JSONException e)
 					{
 						e.printStackTrace();
-						//VikaTouch.error(e, ErrorCodes.DOCUMENTSPARSE);
+						VikaTouch.error(e, ErrorCodes.MUSICLISTPARSE);
 					}
 					VikaTouch.loading = false;
 				}
 				catch (Exception e)
 				{
 					e.printStackTrace();
-					//VikaTouch.error(e, ErrorCodes.DOCUMENTSLOAD);
+					VikaTouch.error(e, ErrorCodes.MUSICLISTLOAD);
 				}
 				VikaTouch.loading = false;
 				System.gc();
 			}
 		};
-		hasBackButton = true;
 		downloaderThread.start();
 	}
 	public void draw(Graphics g)

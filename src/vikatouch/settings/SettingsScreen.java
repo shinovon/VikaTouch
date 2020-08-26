@@ -124,7 +124,7 @@ public class SettingsScreen
 							TextLocal.inst.get("settings.audioc.4"), TextLocal.inst.get("settings.audioc.5"),
 							TextLocal.inst.get("settings.audioc.6"), TextLocal.inst.get("settings.audioc.7")}, 
 					Settings.audioMode, null), // Это все способы открыть аудио. В теории. UPD: ну-ну.
-			new SettingMenuItem(this, TextLocal.inst.get("settings.rtspMethod"), IconsManager.LINK, 13, 
+			new SettingMenuItem(this, TextLocal.inst.get("settings.rtsp"), IconsManager.LINK, 13, 
 					oneitemheight, new String[] { TextLocal.inst.get("settings.rtspc.0"), TextLocal.inst.get("settings.rtspc.1"),
 							TextLocal.inst.get("settings.rtspc.2") }, 
 					Settings.rtspMethod, null),
@@ -148,7 +148,7 @@ public class SettingsScreen
 		{
 			backItem,
 			new OptionItem(this, TextLocal.inst.get("settings.clearсache"), IconsManager.CLOSE, -2, oneitemheight),
-			new SettingMenuItem(this, TextLocal.inst.get("settings.touchDebug"), IconsManager.DEVICE, 10, 
+			new SettingMenuItem(this, TextLocal.inst.get("settings.debugcrap"), IconsManager.DEVICE, 10, 
 					oneitemheight, eOd, Settings.debugInfo?1:0, null),
 		};
 		uiList = new PressableUIItem[]
