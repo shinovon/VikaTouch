@@ -50,4 +50,6 @@ public class ErrorCodes
 	public static final int VIDEOPLAY = 45;
 	public static final int MUSICDRAW = 46;
 	public static final int MUSICITEMDRAW = 47;
+	public static final int MUSICLISTPARSE = 48;
+	public static final int MUSICLISTLOAD = 49;
 }
