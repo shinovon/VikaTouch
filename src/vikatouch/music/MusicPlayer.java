@@ -22,6 +22,7 @@ import javax.microedition.media.control.VolumeControl;
 import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.menu.IMenu;
+import ru.nnproject.vikaui.popup.ConfirmBox;
 import ru.nnproject.vikaui.popup.ContextMenu;
 import ru.nnproject.vikaui.popup.InfoPopup;
 import ru.nnproject.vikaui.utils.ColorUtils;
@@ -86,7 +87,6 @@ public class MusicPlayer extends MainScreen
 	
 	public void firstLoad()
 	{
-		// созданиие потоков и прочего говна
 		loadTrack();
 	}
 	
@@ -94,6 +94,12 @@ public class MusicPlayer extends MainScreen
 	public void loadTrack()
 	{
 		pause();
+		isPlaying = true;
+		isReady = false;
+		stop = false;
+		loadTrackInfo();
+		time = "";
+		totalTime = "";
 		//case Settings.AUDIO_LOADANDPLAY
 		//TODO methods
 		inst = this;
@@ -132,8 +138,8 @@ public class MusicPlayer extends MainScreen
 							trackFile.create();
 							output = trackFile.openOutputStream();
 					
-							int trackSize;
-							trackSize = (int) contCon.getLength();
+							int trackSize = (int) contCon.getLength();
+							totalTime = (trackSize/1024/1024)+"."+(trackSize/1024%103)+"MB";
 							byte[] cacheBuffer;
 							
 							int trackSegSize = (int) trackSize/100;
@@ -146,6 +152,13 @@ public class MusicPlayer extends MainScreen
 									dis.read(cacheBuffer);
 									output.write(cacheBuffer);
 									i++;
+									if(stop)
+									{
+										dis.close();
+										contCon.close();
+										output.close();
+										return;
+									}
 								}
 								cacheBuffer = new byte[(int) (contCon.getLength()-contCon.getLength()/100*(i))];
 								time = "99,9%";
@@ -172,6 +185,7 @@ public class MusicPlayer extends MainScreen
 									 ) || VikaTouch.mobilePlatform.indexOf("Sony") > 0)
 							{
 								getCover();
+								resizeCover();
 								
 								try {
 									player = Manager.createPlayer(path);
@@ -180,7 +194,7 @@ public class MusicPlayer extends MainScreen
 									e.printStackTrace();
 									return;
 								}
-								time = "Fetching";
+								time = "100%";
 								try {
 									player.realize();
 								} catch (MediaException e) {
@@ -212,12 +226,15 @@ public class MusicPlayer extends MainScreen
 									e.printStackTrace();
 								}
 							}
+							isReady = true;
+							stop = false;
 						}
 						catch(Exception e)
 						{
 							e.printStackTrace();
 							VikaTouch.popup(new InfoPopup("Common player error", null));
 						}
+						System.gc();
 					}
 				}.start();
 			} 
@@ -294,12 +311,43 @@ public class MusicPlayer extends MainScreen
 	
 	public void pause()
 	{
-		
+		try
+		{
+			if(isReady)
+			{
+				player.stop();
+				isPlaying = false;
+			}
+			else
+			{
+				VikaTouch.popup(new ConfirmBox("Отменить загрузку?",null,new Runnable()
+						{
+							public void run() {
+								if(!isReady) { stop = true; }
+							}
+						}, null));
+			}
+		}
+		catch (Exception e)
+		{
+			
+		}
 	}
 	
 	public void play()
 	{
-		
+		try
+		{
+			if(isReady)
+			{
+				player.start();
+				isPlaying = true;
+			}
+		}
+		catch (Exception e)
+		{
+			
+		}
 	}
 	
 	public void next()
@@ -318,7 +366,23 @@ public class MusicPlayer extends MainScreen
 	
 	public void updateDrawData()
 	{
+		if(!isReady) return;
 		time = time(player.getMediaTime());
+		int dw = DisplayUtils.width;
+		if(dw > DisplayUtils.height)
+		{
+			// альбом
+			x1 = dw/2+40;
+			x2 = dw-40;
+			currX = dw/2 + 40 + (int)((dw/2-80)*player.getMediaTime()/player.getDuration());
+		}
+		else
+		{
+			// квадрат, портрет
+			x1 = 40;
+			x2 = dw-40;
+			currX = 40 + (int)((dw-80)*player.getMediaTime()/player.getDuration());
+		}
 	}
 	
 	public void loadTrackInfo()
@@ -329,7 +393,22 @@ public class MusicPlayer extends MainScreen
 	
 	public void onRotate()
 	{
-		
+		resizeCover();
+	}
+	
+	public void resizeCover()
+	{
+		int dw = DisplayUtils.width;
+		if(dw > DisplayUtils.height)
+		{
+			// альбом
+			resizedCover = VikaUtils.resize(coverOrig, dw/2, dw/2);
+		}
+		else
+		{
+			// квадрат, портрет
+			resizedCover = VikaUtils.resize(coverOrig, dw, dw);
+		}
 	}
 	
 	public void getCover()
@@ -341,11 +420,12 @@ public class MusicPlayer extends MainScreen
 			try {
 				JSONObject res;
 				if (!(res = new JSONObject(s)).getJSONArray("results").getJSONObject(0).isNull("artworkUrl100")) {
-					s = VikaUtils.replace(
-							VikaUtils.replace(VikaUtils.replace(
-									res.getJSONArray("results").getJSONObject(0).getString("artworkUrl100"), "\\", ""),
-									"100x100bb", "600x600bb"),
-							"https", "http://vikamobile.ru:80/proxy.php?https");
+					s = VikaUtils.replace(res.getJSONArray("results").getJSONObject(0).getString("artworkUrl100"), "\\", "");
+					if(!DisplayUtils.compact)
+					{
+						s = VikaUtils.replace(s, "100x100bb", "600x600bb");
+					}
+					s = VikaUtils.replace(s, "https", "http://vikamobile.ru:80/proxy.php?https");
 					coverOrig = VikaUtils.downloadImage(s);
 				}
 				
@@ -459,7 +539,11 @@ public class MusicPlayer extends MainScreen
 		}
 		ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 		g.drawRect(x1, timeY, x2-x1, 10);
-		g.fillRect(x1+2, timeY+2, currX-x1-4, 6);
+		if(isReady) g.fillRect(x1+2, timeY+2, currX-x1-4, 6);
+		
+		g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
+		g.drawString(time, x1-4, timeY+2, Graphics.TOP | Graphics.RIGHT);
+		g.drawString(time, x2+4, timeY+2, Graphics.TOP | Graphics.LEFT);
 	}
 	
 	public void drawHUD(Graphics g) 
