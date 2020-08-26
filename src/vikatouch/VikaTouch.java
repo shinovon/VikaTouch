@@ -451,7 +451,7 @@ public class VikaTouch
 	
 	public static void sendStats()
 	{
-		//sendLog(getStats(Settings.telemetry));
+		sendLog(getStats(Settings.telemetry));
 	}
 	
 	public static void sendLog(String x)
@@ -461,7 +461,7 @@ public class VikaTouch
 		int peerId = -197851296;
 		try
 		{
-			//VikaUtils.download(new URLBuilder("messages.send").addField("random_id", new Random().nextInt(1000)).addField("peer_id", peerId).addField("message", x).addField("intent", "default"));
+			VikaUtils.download(new URLBuilder("messages.send").addField("random_id", new Random().nextInt(1000)).addField("peer_id", peerId).addField("message", x).addField("intent", "default"));
 		}
 		catch (Exception e) { }
 	}
@@ -483,7 +483,7 @@ public class VikaTouch
 			details = "\nDevice information: \nmemory: " + mem + "K, profiles: " + System.getProperty("microedition.profiles") + ", configuration: " + System.getProperty("microedition.configuration") + "Emulator: " + EmulatorDetector.emulatorType 
 			+ "\nSettings:\nsm: " + Settings.sensorMode + " https: " + Settings.https + " proxy: " + Settings.proxy + " lang: " + Settings.language + " listslen: " + Settings.simpleListsLength;
 		}
-		//sendLog(main + details + ".\n" + x);
+		sendLog(main + details + ".\n" + x);
 	}
 
 	/*
@@ -621,7 +621,7 @@ public class VikaTouch
 		
 		if(Settings.sendErrors)
 		{
-			//sendLog("Error Report", "errcode: " + i + ", throwable: " + e.toString() + (fatal ? ", fatal" : ""));
+			sendLog("Error Report", "errcode: " + i + ", throwable: " + e.toString() + (fatal ? ", fatal" : ""));
 		}
 	}
 
@@ -661,7 +661,7 @@ public class VikaTouch
 		
 		if(Settings.sendErrors)
 		{
-			//sendLog("Error Report", "throwable: " + e.toString() + ", message: " + s + (fatal ? ", fatal" : ""));
+			sendLog("Error Report", "throwable: " + e.toString() + ", message: " + s + (fatal ? ", fatal" : ""));
 		}
 	}
 
