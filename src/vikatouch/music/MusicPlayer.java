@@ -612,7 +612,7 @@ public class MusicPlayer extends MainScreen
 		if(dw>dh)
 		{
 			// альбом
-			int anchor = (dw-50) * 3 / 4;
+			anchor = (dw-50) * 3 / 4;
 		}
 		else
 		{
