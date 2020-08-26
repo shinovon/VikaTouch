@@ -507,7 +507,8 @@ public class ChatScreen
 				buttonSelected = 2;
 			}
 			else
-				scrolled -= uiItems[currentItem].getDrawHeight();
+				scrollToSelected();
+			// Не тестил. Инета то. Но надеюсь прокатит.
 			uiItems[currentItem].setSelected(true);
 		}
 		else
@@ -531,10 +532,7 @@ public class ChatScreen
 			{
 				currentItem = 0;
 			}
-			else
-			{
-				scrolled += uiItems[currentItem].getDrawHeight();
-			}
+			scrollToSelected();
 			try 
 			{
 				uiItems[currentItem].setSelected(true);
