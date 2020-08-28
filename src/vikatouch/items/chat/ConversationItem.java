@@ -204,8 +204,9 @@ public class ConversationItem
 				isGroup = chatSettings.optBoolean("is_group_channel");
 				avaurl = fixJSONString(chatSettings.getJSONObject("photo").optString("photo_50"));
 			}
-			catch (Exception e)
+			catch (Throwable e)
 			{
+				e.printStackTrace();
 				//chat_settings может не существовать, так-что это исключение игнорируется
 			}
 			

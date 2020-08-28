@@ -2,6 +2,7 @@ package vikatouch.canvas;
 
 import java.io.InputStream;
 
+import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
@@ -62,8 +63,10 @@ extends VikaCanvas
 		}
 		catch (Exception e)
 		{
-			VikaTouch.error(e, ErrorCodes.VIKACANVASPAINT);
 			e.printStackTrace();
+			if(e instanceof IllegalArgumentException)
+				return;
+			VikaTouch.error(e, ErrorCodes.VIKACANVASPAINT);
 		}
 	}
 	
@@ -231,6 +234,10 @@ extends VikaCanvas
 		{
 			currentAlert.drag(x, y);
 		}
+		else if(showCaptcha)
+		{
+			VikaTouch.captchaScr.drag(x, y);
+		}
 		else if(currentScreen != null)
 		{
 			currentScreen.drag(x, y);
@@ -242,6 +249,10 @@ extends VikaCanvas
 		if(currentAlert != null)
 		{
 			currentAlert.press(i);
+		}
+		else if(showCaptcha)
+		{
+			VikaTouch.captchaScr.press(i);
 		}
 		else if(currentScreen != null)
 		{
@@ -255,6 +266,10 @@ extends VikaCanvas
 		{
 			currentAlert.repeat(i);
 		}
+		else if(showCaptcha)
+		{
+			VikaTouch.captchaScr.repeat(i);
+		}
 		else if(currentScreen != null)
 		{
 			currentScreen.repeat(i);
@@ -266,6 +281,10 @@ extends VikaCanvas
 		if(currentAlert != null)
 		{
 			currentAlert.release(i);
+		}
+		else if(showCaptcha)
+		{
+			VikaTouch.captchaScr.release(i);
 		}
 		else if(currentScreen != null)
 		{
@@ -284,29 +303,32 @@ extends VikaCanvas
 
 	public void tick() 
 	{
-		if(VikaTouch.loading)
+		if(Display.getDisplay(VikaTouch.appInst).getCurrent() instanceof VikaCanvasInst)
 		{
-			updategif();
-			if(Settings.animateTransition)
+			if(VikaTouch.loading)
 			{
-				oldScreen = null;
-				slide = 0;
-			}
-		}
-		else
-		{
-			paint();
-		}
-		if(Settings.animateTransition)
-		{
-			double sliden = Math.abs(slide);
-			if(sliden > 0)
-			{
-				slide *= 0.78;
-				if(sliden < 0.015)
+				updategif();
+				if(Settings.animateTransition)
 				{
 					oldScreen = null;
 					slide = 0;
+				}
+			}
+			else
+			{
+				paint();
+			}
+			if(Settings.animateTransition)
+			{
+				double sliden = Math.abs(slide);
+				if(sliden > 0)
+				{
+					slide *= 0.78;
+					if(sliden < 0.015)
+					{
+						oldScreen = null;
+						slide = 0;
+					}
 				}
 			}
 		}

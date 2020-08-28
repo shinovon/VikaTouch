@@ -221,16 +221,17 @@ public class CommandsImpl
 	{
 		if(s instanceof MenuScreen)
 		{
-			command(-1, s);
+			//command(-1, s);
 			return;
 			// открывался сплеш....
+			//дурак чтоли
 		}
 		if(Settings.dontBack)
 		{
 			if(s instanceof SettingsScreen)
 			{
 				Settings.saveSettings();
-				if(VikaTouch.menuScr != null)
+				if(VikaTouch.menuScr != null && VikaTouch.accessToken != null && VikaTouch.accessToken != "")
 				{
 					VikaTouch.setDisplay(VikaTouch.menuScr, -1);
 				}

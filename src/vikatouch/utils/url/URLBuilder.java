@@ -17,11 +17,19 @@ public class URLBuilder
 	
 	public URLBuilder(String method)
 	{
+		this(method, true);
+	}
+	
+	public URLBuilder(String method, boolean defaultParams)
+	{
 		append(VikaTouch.API);
 		append("/method/");
 		append(method);
-		addField("access_token", VikaTouch.accessToken);
-		addField("v", VikaTouch.API_VERSION);
+		if(defaultParams)
+		{
+			addField("access_token", VikaTouch.accessToken);
+			addField("v", VikaTouch.API_VERSION);
+		}
 	}
 	
 	public URLBuilder addField(String param, String value)

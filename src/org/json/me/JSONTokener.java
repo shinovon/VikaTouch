@@ -401,10 +401,10 @@ public class JSONTokener {
             }
             try {
                 return Integer.valueOf(s);
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 try {
                     return new Long(Long.parseLong(s));
-                } catch (Exception f) {
+                } catch (Throwable f) {
 //#if CLDC!="1.0"
 //#                     try {
 //#                         return Double.valueOf(s);

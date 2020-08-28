@@ -15,6 +15,7 @@ import javax.microedition.io.ConnectionNotFoundException;
 import javax.microedition.io.Connector;
 import javax.microedition.io.ContentConnection;
 import javax.microedition.io.HttpConnection;
+import javax.microedition.io.HttpsConnection;
 import javax.microedition.io.file.FileConnection;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -202,23 +203,28 @@ public final class VikaUtils
 	
 	public static String download(String url)
 	{
+		url = replace(url, ":443", "");
 		HttpConnection httpconn = null;
 		InputStream is = null;
 		InputStreamReader isr = null;
 		String result = null;
-
+		
+		
 		try
 		{
-			httpconn = (HttpConnection) Connector.open(url);
+			Connection conn = Connector.open(url);
+			System.out.println("conn is " + conn.toString() + " " + conn.getClass().getName());
+			httpconn = (HttpConnection) conn;
 			httpconn.setRequestMethod("GET");
 			httpconn.setRequestProperty("User-Agent", "KateMobileAndroid/51.1 lite-442 (Symbian; SDK 17; x86; Nokia; ru)");
 			is = httpconn.openInputStream();
 			isr = new InputStreamReader(is, "UTF-8"); 
 			StringBuffer sb = new StringBuffer();
-			char[] chars;
+			char[] buffer;
 			int i;
 			if (httpconn.getResponseCode() != 200 && httpconn.getResponseCode() != 401)
 			{
+				System.out.println("not 200 and not 401");
 				if(httpconn.getHeaderField("Location") != null)
 				{
 					final String replacedURL = httpconn.getHeaderField("Location");
@@ -231,11 +237,11 @@ public final class VikaUtils
 					sb = new StringBuffer();
 					if (httpconn.getResponseCode() == 200 || httpconn.getResponseCode() == 401)
 					{
-						chars = new char[262144];
+						buffer = new char[10000];
 	
-						while ((i = isr.read(chars, 0, 262144)) != -1)
+						while ((i = isr.read(buffer, 0, buffer.length)) != -1)
 						{
-							sb.append(chars, 0, i);
+							sb.append(buffer, 0, i);
 						}
 	
 					}
@@ -243,11 +249,12 @@ public final class VikaUtils
 			}
 			else
 			{
-				chars = new char[262144];
+				System.out.println("yay"+httpconn.getResponseCode());
+				buffer = new char[10000];
 				
-				while ((i = isr.read(chars, 0, 262144)) != -1)
+				while ((i = isr.read(buffer, 0, buffer.length)) != -1)
 				{
-					sb.append(chars, 0, i);
+					sb.append(buffer, 0, i);
 				}
 
 			}
@@ -265,6 +272,11 @@ public final class VikaUtils
 			e.printStackTrace();
 		}
 		catch (NullPointerException e)
+		{
+			System.out.println("Failed to download " + url);
+			e.printStackTrace();
+		}
+		catch (Throwable e)
 		{
 			System.out.println("Failed to download " + url);
 			e.printStackTrace();
@@ -457,7 +469,10 @@ public final class VikaUtils
 		{
 			return VikaTouch.cameraImg;
 		}
-		caching = true;
+		if(url.indexOf("php") >= 0 || url.indexOf("getVideoPreview") >= 0)
+		{
+			caching = false;
+		}
 		String filename = null;
 		if(caching)
 		{

@@ -232,11 +232,11 @@ public class LoginScreen
 			{
 			//	g.setGrayScale(255);
 			//	g.drawRect(DisplayUtils.width-35, DisplayUtils.compact?0:18, 24, 24);
-				g.drawImage(IconsManager.selIco[IconsManager.SETTINGS], DisplayUtils.width-36, DisplayUtils.compact?0:18, 0);
+				g.drawImage(IconsManager.ico[IconsManager.SETTINGS], DisplayUtils.width-36, DisplayUtils.compact?0:8, 0);
 			}
 			else
 			{
-				g.drawImage(IconsManager.ico[IconsManager.SETTINGS], DisplayUtils.width-36, DisplayUtils.compact?0:18, 0);
+				g.drawImage(IconsManager.ico[IconsManager.SETTINGS], DisplayUtils.width-36, DisplayUtils.compact?0:8, 0);
 			}
 			//if(!shortLayout) g.fillRect(0, DisplayUtils.height-50, DisplayUtils.width, 50);
 			//if(vikaLogo != null && !shortLayout)

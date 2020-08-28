@@ -141,9 +141,9 @@ public class MsgItem
 				}
 				else
 				{
-					if(ChatScreen.profileNames.containsKey(new Integer(fromId)))
+					if(fromId > 0 && ChatScreen.profileNames[fromId] != null)
 					{
-						replyName = (String) ChatScreen.profileNames.get(new Integer(fromId));
+						replyName = ChatScreen.profileNames[fromId];
 					}
 				}
 			}

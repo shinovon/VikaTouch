@@ -1,8 +1,6 @@
 package vikatouch.locale;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.Hashtable;
 
 import vikamobilebase.VikaUtils;
@@ -40,13 +38,20 @@ public class TextLocal
 		try
 		{
 			char[] chars = new char[16000];
-			InputStreamReader isr = new InputStreamReader(this.getClass().getResourceAsStream("/local/" + lang + ".txt"),"UTF-8");
+			InputStream stream = this.getClass().getResourceAsStream("/local/" + lang + ".txt");
+			InputStreamReader isr = new InputStreamReader(stream, "UTF-8");
 			isr.read(chars);
+			isr.close();
 			String x = "";
 			boolean iscomment = false;
 			for(int i = 0; i < chars.length; i++)
 			{
 				final char c = chars[i];
+				
+				if(c == 0)
+				{
+					break;
+				}
 				
 				if(c == '#')
 				{
@@ -62,7 +67,7 @@ public class TextLocal
 						String key = x.substring(0, splitLoc);
 						String val = VikaUtils.replace(x.substring(splitLoc + 1, len - 1), "|", "\n");
 						hashtable.put(key, val);
-						System.out.println(key + "=" + val);
+						//System.out.println(key + "=" + val);
 						//System.out.println();
 					}
 					iscomment = false;
@@ -71,6 +76,7 @@ public class TextLocal
 				else
 					x += String.valueOf(c);
 			}
+			x = null;
 		}
 		catch (UnsupportedEncodingException e)
 		{

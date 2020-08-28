@@ -125,7 +125,7 @@ public class ChatScreen
 		}
 	}
 	
-	public static Hashtable profileNames = new Hashtable();
+	public static String[] profileNames = new String[OFFSET_INT + 256];
 	
 	public ChatScreen(int peerId, String title)
 	{
@@ -241,8 +241,8 @@ public class ChatScreen
 				String firstname = profile.optString("first_name");
 				String lastname = profile.optString("last_name");
 				int id = profile.optInt("id");
-				if(id > 0 && firstname != null && !profileNames.containsKey(new Integer(id)))
-					profileNames.put(new Integer(id), firstname + " " + lastname);
+				if(id > 0 && firstname != null && profileNames[id] != null)
+					profileNames[id] = firstname + " " + lastname;
 			}
 			for(int i = 0; i < items.length(); i++)
 			{
@@ -251,11 +251,10 @@ public class ChatScreen
 				int fromId = m.fromid; 
 
 				String name = "user" + fromId;
-				Integer ii = new Integer(fromId);
 				
-				if(profileNames.containsKey(ii))
+				if(fromId > 0 && profileNames[fromId] != null)
 				{
-					name = (String) profileNames.get(ii);
+					name = (String)profileNames[fromId];
 				}
 				
 				boolean chain = false;
@@ -289,7 +288,7 @@ public class ChatScreen
 			uiItems = new PressableUIItem[Settings.messagesPerLoad+loadSpace];
 			String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("count", Settings.messagesPerLoad).addField("offset", 0));
 			JSONArray json = new JSONObject(x).getJSONObject("response").getJSONArray("items");
-			profileNames.put(new Integer(peerId), title);
+			profileNames[peerId] = title;
 			for(int i = 0; i<json.length();i++) 
 			{
 				MsgItem m = new MsgItem(json.getJSONObject(i));
@@ -625,102 +624,112 @@ public class ChatScreen
 	
 	private void update () throws JSONException
 	{
-		boolean more = true;
-		while(more)
+		try
 		{
-			long mid = ((MsgItem) uiItems[uiItems.length-hasSpace-1]).mid;
-			String x = VikaUtils.download(new URLBuilder("messages.getHistory")
-					.addField("start_message_id", String.valueOf(mid))
-					.addField("peer_id", peerId).addField("count", 1).addField("offset", -1).addField("extended", 1));
-			JSONArray items;
-			
-			try
+			boolean more = true;
+			while(more)
 			{
-				items = new JSONObject(x).getJSONObject("response").getJSONArray("items");
-			}
-			catch (JSONException e)
-			{
-				refreshOk = false;
-				return;
-			}
-			int newMsgCount = items.length();
-			System.out.println(newMsgCount+"");
-			if(newMsgCount==0)
-			{
-				more = false;
-				break;
-			}
-			else
-			{
-				if(items.getJSONObject(0).optLong("id")==mid)
+				long mid = ((MsgItem) uiItems[uiItems.length-hasSpace-1]).mid;
+				String x = VikaUtils.download(new URLBuilder("messages.getHistory")
+						.addField("start_message_id", String.valueOf(mid))
+						.addField("peer_id", peerId).addField("count", 1).addField("offset", -1).addField("extended", 1));
+				JSONArray items;
+				
+				try
+				{
+					items = new JSONObject(x).getJSONObject("response").getJSONArray("items");
+				}
+				catch (JSONException e)
+				{
+					refreshOk = false;
+					return;
+				}
+				int newMsgCount = items.length();
+				System.out.println(newMsgCount+"");
+				if(newMsgCount==0)
 				{
 					more = false;
 					break;
 				}
-				if(newMsgCount>=hasSpace-1)
+				else
 				{
-					System.out.println("List shifting");
-					shiftList();
-				}
-				if(type == TYPE_CHAT)
-				{
-					try
+					if(items.getJSONObject(0).optLong("id")==mid)
 					{
-						JSONArray profiles = new JSONObject(x).getJSONObject("response").getJSONArray("profiles");
-						for(int i = 0; i < profiles.length(); i++)
+						more = false;
+						break;
+					}
+					if(newMsgCount>=hasSpace-1)
+					{
+						System.out.println("List shifting");
+						shiftList();
+					}
+					if(type == TYPE_CHAT)
+					{
+						try
 						{
-							JSONObject profile = profiles.getJSONObject(i);
-							String firstname = profile.optString("first_name");
-							String lastname = profile.optString("last_name");
-							int id = profile.optInt("id");
-							if(id > 0 && firstname != null && !profileNames.containsKey(new Integer(id)))
-								profileNames.put(new Integer(id), firstname + " " + lastname);
+							JSONArray profiles = new JSONObject(x).getJSONObject("response").getJSONArray("profiles");
+							for(int i = 0; i < profiles.length(); i++)
+							{
+								JSONObject profile = profiles.getJSONObject(i);
+								String firstname = profile.optString("first_name");
+								String lastname = profile.optString("last_name");
+								int id = profile.optInt("id");
+								if(id > 0 && firstname != null && profileNames[id] != null)
+									profileNames[id] = firstname + " " + lastname;
+							}
+						}
+						catch(JSONException e)
+						{ }
+						catch(NullPointerException e)
+						{ }
+					}
+					MsgItem[] newMsgs = new MsgItem[newMsgCount];
+					for(int i = 0; i < newMsgCount; i++)
+					{
+						MsgItem m = new MsgItem(items.getJSONObject(i));
+						m.parseJSON();
+						int fromId = m.fromid; 
+						String name = "user" + fromId;
+						
+						if(profileNames[fromId] != null)
+						{
+							name = profileNames[fromId];
+						}
+						
+						boolean chain = false;
+						if(i+1<newMsgCount)
+						{
+							chain = fromId == items.getJSONObject(i+1).optInt("from_id");
+						}
+						m.showName = !chain;
+						m.name = (m.foreign ? name :"Вы");
+						newMsgs[i] = m;
+						if(Settings.autoMarkAsRead)
+						{
+							VikaUtils.download(new URLBuilder("messages.markAsRead").addField("start_message_id", ""+m.mid).addField("peer_id", peerId));
 						}
 					}
-					catch(JSONException e)
-					{ }
-					catch(NullPointerException e)
-					{ }
-				}
-				MsgItem[] newMsgs = new MsgItem[newMsgCount];
-				for(int i = 0; i < newMsgCount; i++)
-				{
-					MsgItem m = new MsgItem(items.getJSONObject(i));
-					m.parseJSON();
-					int fromId = m.fromid; 
-					String name = "user" + fromId;
-					Integer ii = new Integer(fromId);
-					
-					if(profileNames.containsKey(ii))
+					// аппенд
+					for(int i=0; i < newMsgCount; i++)
 					{
-						name = (String) profileNames.get(ii);
+						MsgItem m = newMsgs[newMsgCount-i-1];
+						uiItems[uiItems.length-hasSpace] = m;
+						hasSpace--;
 					}
-					
-					boolean chain = false;
-					if(i+1<newMsgCount)
-					{
-						chain = fromId == items.getJSONObject(i+1).optInt("from_id");
-					}
-					m.showName = !chain;
-					m.name = (m.foreign ? name :"Вы");
-					newMsgs[i] = m;
-					if(Settings.autoMarkAsRead)
-					{
-						VikaUtils.download(new URLBuilder("messages.markAsRead").addField("start_message_id", ""+m.mid).addField("peer_id", peerId));
-					}
-				}
-				// аппенд
-				for(int i=0; i < newMsgCount; i++)
-				{
-					MsgItem m = newMsgs[newMsgCount-i-1];
-					uiItems[uiItems.length-hasSpace] = m;
-					hasSpace--;
-				}
-			}	
-			System.gc();
-			
+				}	
+				System.gc();
+				
+			}
+			refreshOk = true;
 		}
-		refreshOk = true;
+		catch(JSONException e)
+		{
+			throw e;
+		}
+		catch(Throwable e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	private void runUpdater()

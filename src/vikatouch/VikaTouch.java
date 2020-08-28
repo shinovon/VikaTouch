@@ -11,6 +11,7 @@ import javax.microedition.io.file.FileConnection;
 import javax.microedition.lcdui.*;
 import javax.microedition.rms.RecordStore;
 
+import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
 import ru.nnproject.vikatouch.VikaTouchApp;
@@ -135,7 +136,7 @@ public class VikaTouch
 
 	public static void setDisplay(VikaScreen s, int direction)
 	{
-		if(!Settings.dontBack)
+		if(!Settings.dontBack || Settings.animateTransition)
 		{
 			if(direction != -1 && s instanceof MainScreen && canvas.currentScreen instanceof MainScreen)
 				((MainScreen)s).backScreen = (MainScreen) canvas.currentScreen;
@@ -217,7 +218,6 @@ public class VikaTouch
 	public boolean login(final String user, final String pass)
 	{
 		//илья ты заебал со своей безопасностью, пошел нахуй
-		String refreshToken;
 		if (user.length() > 0)
 		{
 			try
@@ -228,6 +228,10 @@ public class VikaTouch
 					Settings.https = true;
 					OAUTH = Settings.httpsOAuth;
 				}
+				else
+				{
+					OAUTH = Settings.proxyOAuth;
+				}
 				tokenUnswer = VikaUtils.download(
 					new URLBuilder(OAUTH, "token")
 					.addField("grant_type", "password")
@@ -236,9 +240,11 @@ public class VikaTouch
 					.addField("username", user)
 					.addField("password", pass)
 					.addField("scope", "notify,friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,notifications,stats,ads,offline")
+					.addField("2fa_supported", 1)
+					.addField("force_sms", 1)
 					.toString()
 				);
-				if(tokenUnswer == null)
+				if(tokenUnswer == null && !Settings.proxy)
 				{
 					Settings.proxy = true;
 					Settings.https = false;
@@ -251,6 +257,8 @@ public class VikaTouch
 						.addField("username", user)
 						.addField("password", pass)
 						.addField("scope", "notify,friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,notifications,stats,ads,offline")
+						.addField("2fa_supported", 1)
+						.addField("force_sms", 1)
 						.toString()
 					);
 				}
@@ -276,65 +284,7 @@ public class VikaTouch
 				errReason = tokenUnswer;
 				if(tokenUnswer.indexOf("need_captcha") > 0)
 				{
-					captchaScr = new CaptchaScreen();
-					captchaScr.obj = new CaptchaObject(new JSONObject(tokenUnswer));
-					captchaScr.obj.parseJSON();
-					canvas.showCaptcha = true;
-					while(appInst.started)
-					{
-						if(captchaScr != null && CaptchaScreen.finished)
-						{
-							tokenUnswer = VikaUtils.download(
-							new URLBuilder(OAUTH, "token")
-								.addField("grant_type", "password")
-								.addField("client_id", "2685278")
-								.addField("client_secret", "lxhD8OD7dMsqtXIm5IUY")
-								.addField("username", user)
-								.addField("password", pass)
-								.addField("scope", "notify,friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,notifications,stats,ads,offline")
-								.addField("captcha_sid", captchaScr.obj.captchasid)
-								.addField("captcha_key", CaptchaScreen.input)
-								.toString()
-							);
-							errReason = tokenUnswer;
-							if(tokenUnswer.indexOf("error") >= 0)
-							{
-								return false;
-							}
-
-							accessToken = tokenUnswer.substring(tokenUnswer.indexOf("access_token") + 15,
-									tokenUnswer.indexOf("expires_in") - 3);
-							userId = tokenUnswer.substring(tokenUnswer.indexOf("user_id") + 9,
-									tokenUnswer.indexOf("}") - 0);
-							//String var5 = ":APA91bFAM-gVwLCkCABy5DJPPRH5TNDHW9xcGu_OLhmdUSA8zuUsBiU_DexHrTLLZWtzWHZTT5QUaVkBk_GJVQyCE_yQj9UId3pU3vxvizffCPQISmh2k93Fs7XH1qPbDvezEiMyeuLDXb5ebOVGehtbdk_9u5pwUw";
-							/*
-							if ((refreshToken = VikaUtils.download(new URLBuilder("auth.refreshToken").addField("receipt", var5).toString())).indexOf("method") == INDEX_FALSE) {
-								accessToken = refreshToken.substring(refreshToken.indexOf("access_token") + 23, refreshToken.length() - 3);
-								tokenUnswer = "{\"access_token\":\"" + accessToken + "\",\"expires_in\":0,\"user_id\":"
-										+ userId + "}";
-								final VikaScreen canvas = menuScr = new MenuScreen();
-								setDisplay(canvas, 1);
-								saveToken();
-								Dialogs.refreshDialogsList(true);
-								CaptchaScreen.finished = false;
-								return true;
-							}
-							else
-							{
-								errReason = "failed auth with captcha";
-							}*/
-
-							final VikaScreen canvas = menuScr = new MenuScreen();
-							setDisplay(canvas, 1);
-							saveToken();
-							Dialogs.refreshDialogsList(true);
-							CaptchaScreen.finished = false;
-							return true;
-							//CaptchaScreen.finished = false;
-							//break;
-						}
-					}
-					
+					return captcha(user, pass);
 				}
 				else
 				{
@@ -346,10 +296,9 @@ public class VikaTouch
 					}
 					accessToken = tokenUnswer.substring(tokenUnswer.indexOf("access_token") + 15, tokenUnswer.indexOf("expires_in") - 3);
 					userId = tokenUnswer.substring(tokenUnswer.indexOf("user_id") + 9, tokenUnswer.indexOf("}") - 0);
-					//VikaUtils.download(URLBuilder.makeSimpleURL("audio.get"));
+					refreshToken();
 					/*
-					String var5 = ":APA91bFAM-gVwLCkCABy5DJPPRH5TNDHW9xcGu_OLhmdUSA8zuUsBiU_DexHrTLLZWtzWHZTT5QUaVkBk_GJVQyCE_yQj9UId3pU3vxvizffCPQISmh2k93Fs7XH1qPbDvezEiMyeuLDXb5ebOVGehtbdk_9u5pwUw";
-					if ((refreshToken = VikaUtils.download(new URLBuilder("auth.refreshToken").addField("receipt", var5).toString())).indexOf("method") == INDEX_FALSE) {
+					if (refreshToken.indexOf("method") == INDEX_FALSE) {
 						accessToken = refreshToken.substring(refreshToken.indexOf("access_token") + 23, refreshToken.length() - 3);
 						tokenUnswer = "{\"access_token\":\"" + accessToken + "\",\"expires_in\":0,\"user_id\":"
 								+ userId + "}";
@@ -388,6 +337,97 @@ public class VikaTouch
 			errReason = "login is invalid";
 		}
 		return false;
+	}
+
+	private void refreshToken()
+	{
+		String refreshToken;
+		if(VikaUtils.download(URLBuilder.makeSimpleURL("audio.get")).indexOf("Token confirmation required") >= 0)
+		{
+			System.out.println("nuzhen confirmation");
+		}
+		String var5 = ":APA91bFAM-gVwLCkCABy5DJPPRH5TNDHW9xcGu_OLhmdUSA8zuUsBiU_DexHrTLLZWtzWHZTT5QUaVkBk_GJVQyCE_yQj9UId3pU3vxvizffCPQISmh2k93Fs7XH1qPbDvezEiMyeuLDXb5ebOVGehtbdk_9u5pwUw";
+		refreshToken = VikaUtils.download(new URLBuilder("auth.refreshToken", false).addField("access_token", accessToken).addField("v", "5.91").addField("receipt", var5).toString());
+		
+		System.out.println("refreshToken " + refreshToken);
+	}
+
+	private boolean captcha(String user, String pass)
+	{
+		try
+		{
+			captchaScr = new CaptchaScreen();
+			captchaScr.obj = new CaptchaObject(new JSONObject(tokenUnswer));
+			captchaScr.obj.parseJSON();
+			canvas.showCaptcha = true;
+			CaptchaScreen.finished = false;
+			while(appInst.started)
+			{
+				if(captchaScr != null && CaptchaScreen.finished)
+				{
+					tokenUnswer = VikaUtils.download(
+					new URLBuilder(OAUTH, "token")
+						.addField("grant_type", "password")
+						.addField("client_id", "2685278")
+						.addField("client_secret", "lxhD8OD7dMsqtXIm5IUY")
+						.addField("username", user)
+						.addField("password", pass)
+						.addField("scope", "notify,friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,notifications,stats,ads,offline")
+						.addField("captcha_sid", captchaScr.obj.captchasid)
+						.addField("captcha_key", CaptchaScreen.input)
+						.toString()
+					);
+					errReason = tokenUnswer;
+					if(tokenUnswer.indexOf("need_captcha") > 0)
+					{
+						return captcha(user, pass);
+					}
+					if(tokenUnswer.indexOf("error") >= 0)
+					{
+						return false;
+					}
+	
+					accessToken = tokenUnswer.substring(tokenUnswer.indexOf("access_token") + 15,
+							tokenUnswer.indexOf("expires_in") - 3);
+					userId = tokenUnswer.substring(tokenUnswer.indexOf("user_id") + 9,
+							tokenUnswer.indexOf("}") - 0);
+					refreshToken();
+					//String var5 = ":APA91bFAM-gVwLCkCABy5DJPPRH5TNDHW9xcGu_OLhmdUSA8zuUsBiU_DexHrTLLZWtzWHZTT5QUaVkBk_GJVQyCE_yQj9UId3pU3vxvizffCPQISmh2k93Fs7XH1qPbDvezEiMyeuLDXb5ebOVGehtbdk_9u5pwUw";
+					/*
+					if ((refreshToken = VikaUtils.download(new URLBuilder("auth.refreshToken").addField("receipt", var5).toString())).indexOf("method") == INDEX_FALSE) {
+						accessToken = refreshToken.substring(refreshToken.indexOf("access_token") + 23, refreshToken.length() - 3);
+						tokenUnswer = "{\"access_token\":\"" + accessToken + "\",\"expires_in\":0,\"user_id\":"
+								+ userId + "}";
+						final VikaScreen canvas = menuScr = new MenuScreen();
+						setDisplay(canvas, 1);
+						saveToken();
+						Dialogs.refreshDialogsList(true);
+						CaptchaScreen.finished = false;
+						return true;
+					}
+					else
+					{
+						errReason = "failed auth with captcha";
+					}*/
+	
+					final VikaScreen canvas = menuScr = new MenuScreen();
+					setDisplay(canvas, 1);
+					saveToken();
+					Dialogs.refreshDialogsList(true);
+					CaptchaScreen.finished = false;
+					return true;
+					//CaptchaScreen.finished = false;
+					//break;
+				}
+			}
+		}
+		catch (JSONException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+		
 	}
 
 	public static String getReason()
@@ -797,6 +837,7 @@ public class VikaTouch
 				{
 					if(userId == null || userId == "")
 					{
+						refreshToken();
 						JSONObject jo = new JSONObject(VikaUtils.download(new URLBuilder("account.getProfileInfo"))).getJSONObject("response");
 						userId = "" + jo.optInt("id");
 					}
@@ -815,6 +856,7 @@ public class VikaTouch
 			else
 			{
 				canvas = loginScr = new LoginScreen();
+				disposeSplash();
 			}
 			setDisplay(canvas, 0);
 		}
@@ -930,5 +972,29 @@ public class VikaTouch
 		loginScr = null;
 		splash = null;
 		System.gc();
+	}
+
+	public static void logout()
+			throws Exception
+	{
+		VikaTouch.accessToken = null;
+		try
+		{
+			if(VikaTouch.tokenRMS != null)
+				VikaTouch.tokenRMS.closeRecordStore();
+		}
+		catch (Exception e)
+		{
+			
+		}
+		RecordStore.deleteRecordStore(VikaTouch.TOKEN_RMS);
+		VikaTouch.menuScr = null;
+		
+	}
+
+	public static void gc()
+	{
+		// TODO Garbage Cleaner
+		
 	}
 }

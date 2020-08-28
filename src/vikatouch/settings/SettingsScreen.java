@@ -348,9 +348,8 @@ public class SettingsScreen
 						{
 							try
 							{
-								if(VikaTouch.tokenRMS != null)
-									VikaTouch.tokenRMS.closeRecordStore();
-								RecordStore.deleteRecordStore(VikaTouch.TOKEN_RMS);
+								VikaTouch.logout();
+								VikaTouch.gc();
 							}
 							catch(Exception e)
 							{

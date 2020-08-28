@@ -72,11 +72,11 @@ public class Settings
 	//константы
 	public final static String xtrafrancyzApi = "http://vk-api-proxy.xtrafrancyz.net:80";
 
-	public final static String xtrafrancyzOAuth = "http://vk-oauth-proxy.xtrafrancyz.net:80";
+	public final static String xtrafrancyzOAuth = "http://vk-oauth-proxy.xtrafrancyz.net";
 
 	public final static String httpsApi = "https://api.vk.com:443";
 
-	public final static String httpsOAuth = "https://oauth.vk.com:443";
+	public final static String httpsOAuth = "https://oauth.vk.com";
 
 	public static final int SENSOR_OK = 0;
 	public static final int SENSOR_J2MELOADER = 1;

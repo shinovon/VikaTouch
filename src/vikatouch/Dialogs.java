@@ -102,7 +102,7 @@ public class Dialogs
 					VikaTouch.offlineMode = true;
 					e.printStackTrace();
 				}
-				catch (Exception e)
+				catch (Throwable e)
 				{
 					e.printStackTrace();
 				}
