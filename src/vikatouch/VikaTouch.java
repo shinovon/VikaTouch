@@ -756,8 +756,16 @@ public class VikaTouch
 		
 		splash.currState = 2;
 		
+		try
+		{
 		TextLocal.init();
 		splash.setText();
+		}
+		catch (Exception e)
+		{
+			error(e, ErrorCodes.LOCALELOAD);
+			e.printStackTrace();
+		}
 		
 		if(EmulatorDetector.emulatorNotSupported)
 			VikaTouch.popup(new InfoPopup(TextLocal.inst.get("splash.emnotsupported"), null));

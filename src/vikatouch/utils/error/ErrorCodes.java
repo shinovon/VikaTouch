@@ -52,4 +52,5 @@ public class ErrorCodes
 	public static final int MUSICITEMDRAW = 47;
 	public static final int MUSICLISTPARSE = 48;
 	public static final int MUSICLISTLOAD = 49;
+	public static final int LOCALELOAD = 50;
 }

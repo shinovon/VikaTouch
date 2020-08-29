@@ -74,7 +74,7 @@ public class TextLocal
 					x = "";
 				}
 				else
-					x += String.valueOf(c);
+					x += Integer.valueOf(c);
 			}
 			x = null;
 		}

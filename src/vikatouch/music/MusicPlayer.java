@@ -95,6 +95,7 @@ public class MusicPlayer extends MainScreen
 	
 	public void loadTrack()
 	{
+		System.out.println("TRACK LOAD");
 		try
 		{
 			player.stop();
@@ -110,8 +111,6 @@ public class MusicPlayer extends MainScreen
 		//TODO methods
 		inst = this;
 		byte[] aByteArray207 = null;
-		player = null;
-		input = null;
 		System.gc();
 		
 		//TODO move temp constants
@@ -135,8 +134,6 @@ public class MusicPlayer extends MainScreen
 						try
 						{
 							player = Manager.createPlayer(getC().mp3);
-							player.realize();
-							player.prefetch();
 							try
 							{
 								((VolumeControl) player.getControl("VolumeControl")).setLevel(100);
@@ -257,7 +254,7 @@ public class MusicPlayer extends MainScreen
 									return;
 								}
 								time = "0:00";
-								totalTime = time(player.getDuration()/1000);
+								totalTime = time(player.getDuration()/1000000L);
 							} else if(Settings.audioMode == Settings.AUDIO_LOADANDSYSTEMPLAY) {
 								VikaTouch.callSystemPlayer(path);
 								// ну вдруг вот то что ниже хер знает на каком ублюдстве не заработает?))
@@ -445,7 +442,7 @@ public class MusicPlayer extends MainScreen
 	public void updateDrawData()
 	{
 		if(!isReady) return;
-		time = time(player.getMediaTime()/1000);
+		time = time(player.getMediaTime()/1000000L);
 		//System.out.println("time:"+player.getMediaTime());
 		try
 		{
