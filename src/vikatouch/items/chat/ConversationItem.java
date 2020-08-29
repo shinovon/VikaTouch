@@ -18,6 +18,7 @@ import vikatouch.VikaTouch;
 import vikatouch.attachments.AudioAttachment;
 import vikatouch.attachments.PhotoAttachment;
 import vikatouch.items.JSONUIItem;
+import vikatouch.json.JSONBase;
 import vikatouch.settings.Settings;
 import vikatouch.utils.ResizeUtils;
 import vikatouch.utils.error.ErrorCodes;
@@ -255,12 +256,11 @@ public class ConversationItem
 		
 		try
 		{
-			lastmessage = new MsgItem(json.getJSONObject("last_message"));
-			lastmessage.parseJSON();
+			JSONObject msg = json.getJSONObject("last_message");
 
-			date = lastmessage.date;
+			date = msg.optLong("date");
 			
-			text = lastmessage.text;
+			text = fixJSONString(msg.optString("text"));
 
 			time = getTime();
 			

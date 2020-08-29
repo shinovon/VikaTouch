@@ -23,6 +23,7 @@ import vikatouch.attachments.WallAttachment;
 import vikatouch.items.menu.OptionItem;
 import vikatouch.screens.ChatScreen;
 import vikatouch.settings.Settings;
+import vikatouch.utils.IntObject;
 import vikatouch.utils.text.CountUtils;
 import vikatouch.utils.url.URLBuilder;
 import vikatouch.utils.url.URLDecoder;
@@ -141,9 +142,9 @@ public class MsgItem
 				}
 				else
 				{
-					if(fromId > 0 && ChatScreen.profileNames[fromId] != null)
+					if(fromId > 0 && ChatScreen.profileNames.contains(new IntObject(fromId)))
 					{
-						replyName = ChatScreen.profileNames[fromId];
+						replyName = (String) ChatScreen.profileNames.get(new IntObject(fromId));
 					}
 				}
 			}

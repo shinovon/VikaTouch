@@ -26,6 +26,7 @@ import vikatouch.canvas.VikaCanvasInst;
 import vikatouch.items.chat.MsgItem;
 import vikatouch.locale.TextLocal;
 import vikatouch.settings.Settings;
+import vikatouch.utils.IntObject;
 import vikatouch.utils.text.CountUtils;
 import vikatouch.utils.text.TextEditor;
 import vikatouch.utils.url.URLBuilder;
@@ -125,7 +126,7 @@ public class ChatScreen
 		}
 	}
 	
-	public static String[] profileNames = new String[OFFSET_INT + 256];
+	public static Hashtable profileNames;
 	
 	public ChatScreen(int peerId, String title)
 	{
@@ -241,8 +242,8 @@ public class ChatScreen
 				String firstname = profile.optString("first_name");
 				String lastname = profile.optString("last_name");
 				int id = profile.optInt("id");
-				if(id > 0 && firstname != null && profileNames[id] != null)
-					profileNames[id] = firstname + " " + lastname;
+				if(id > 0 && firstname != null && profileNames.contains(new IntObject(id)))
+					profileNames.put(new IntObject(id), firstname + " " + lastname);
 			}
 			for(int i = 0; i < items.length(); i++)
 			{
@@ -252,9 +253,9 @@ public class ChatScreen
 
 				String name = "user" + fromId;
 				
-				if(fromId > 0 && profileNames[fromId] != null)
+				if(fromId > 0 && profileNames.contains(new IntObject(fromId)))
 				{
-					name = (String)profileNames[fromId];
+					name = (String)profileNames.get(new IntObject(fromId));
 				}
 				
 				boolean chain = false;
@@ -288,7 +289,7 @@ public class ChatScreen
 			uiItems = new PressableUIItem[Settings.messagesPerLoad+loadSpace];
 			String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("count", Settings.messagesPerLoad).addField("offset", 0));
 			JSONArray json = new JSONObject(x).getJSONObject("response").getJSONArray("items");
-			profileNames[peerId] = title;
+			profileNames.put(new IntObject(peerId), title);
 			for(int i = 0; i<json.length();i++) 
 			{
 				MsgItem m = new MsgItem(json.getJSONObject(i));
@@ -674,8 +675,8 @@ public class ChatScreen
 								String firstname = profile.optString("first_name");
 								String lastname = profile.optString("last_name");
 								int id = profile.optInt("id");
-								if(id > 0 && firstname != null && profileNames[id] != null)
-									profileNames[id] = firstname + " " + lastname;
+								if(id > 0 && firstname != null && profileNames.contains(new IntObject(id)))
+									profileNames.put(new IntObject(id), firstname + " " + lastname);
 							}
 						}
 						catch(JSONException e)
@@ -691,9 +692,9 @@ public class ChatScreen
 						int fromId = m.fromid; 
 						String name = "user" + fromId;
 						
-						if(profileNames[fromId] != null)
+						if(profileNames.contains(new IntObject(fromId)))
 						{
-							name = profileNames[fromId];
+							name = (String) profileNames.get(new IntObject(fromId));
 						}
 						
 						boolean chain = false;
