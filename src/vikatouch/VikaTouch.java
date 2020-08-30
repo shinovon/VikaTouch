@@ -76,7 +76,7 @@ public class VikaTouch
 	public static VikaTouch inst;
 	public static VikaTouchApp appInst;
 	public static boolean crashed;
-	protected static SettingsScreen sets;
+	public static SettingsScreen setsScr;
 	public static boolean isEmulator;
 
 	private void saveToken()

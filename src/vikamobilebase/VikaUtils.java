@@ -473,6 +473,7 @@ public final class VikaUtils
 		{
 			caching = false;
 		}
+		System.out.println(url + " " + caching);
 		String filename = null;
 		if(caching)
 		{

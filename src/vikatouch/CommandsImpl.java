@@ -187,9 +187,9 @@ public class CommandsImpl
 					case 13:
 					{
 						//Настройки
-						if(VikaTouch.sets == null)
-							VikaTouch.sets = new SettingsScreen();
-						VikaTouch.setDisplay(VikaTouch.sets, 1);
+						if(VikaTouch.setsScr == null)
+							VikaTouch.setsScr = new SettingsScreen();
+						VikaTouch.setDisplay(VikaTouch.setsScr, 1);
 						break;
 					}
 					case 14:

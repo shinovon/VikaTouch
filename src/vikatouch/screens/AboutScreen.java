@@ -15,8 +15,8 @@ public class AboutScreen
 	extends ScrollableCanvas
 {
 	
-	private static final String[] strings;
-	
+	//private static final String[] strings;
+	/*
 	static
 	{
 		strings = new String[]{ 
@@ -38,17 +38,28 @@ public class AboutScreen
 				"",
 		};
 	}
+	*/
 
 	private static String backStr;
+	private static String publisherStr;
+	private static String devsStr;
+	private static String teamStr;
+	private String testersStr;
 
 	public AboutScreen()
 	{
 		super();
-		itemsh = 48 + (strings.length * 24) + 25;
+		itemsh = 48 + (16 * 24) + 25;
 		
 		backStr = TextLocal.inst.get("back");
+		
+		devsStr = TextLocal.inst.get("about.devs");
+		
+		publisherStr = TextLocal.inst.get("about.vendor");
+		
+		//teamStr = TextLocal.inst.get("about.team");
 	}
-
+	
 	public void draw(Graphics g)
 	{
 		update(g);
@@ -73,9 +84,21 @@ public class AboutScreen
 		g.drawString("Разработчик/Бета-тестер:", 32, 192, 0);
 		g.drawString("Feodor0090", 32, 216, 0);
 		*/
-		for(int i = 0; i < strings.length; i++)
+		//for(int i = 0; i < strings.length; i++)
 		{
-			g.drawString(strings[i], 32, 48 + (i * 24), 0);
+			//g.drawString(strings[i], 32, 48 + (i * 24), 0);
+			g.drawString(devsStr, 32, 48, 0);
+			g.drawString("shinovon", 32, 48 + (1 * 24), 0);
+			g.drawString("Feodor0090", 32, 48 + (2 * 24), 0);
+			g.drawString(publisherStr, 32, 48 + (4 * 24), 0);
+			g.drawString("Ilya Visotsky", 32, 48 + (5 * 24), 0);
+			g.drawString(testersStr, 32, 48 + (7 * 24), 0);
+			g.drawString("mineshanya", 32, 48 + (8 * 24), 0);
+			g.drawString("bodyz", 32, 48 + (9 * 24), 0);
+			g.drawString("niceday", 32, 48 + (10 * 24), 0);
+			g.drawString("rilliane829", 32, 48 + (11 * 24), 0);
+			g.drawString("nikitashustol", 32, 48 + (12 * 24), 0);
+			g.drawString("rehdzi", 32, 48 + (13 * 24), 0);
 		}
 		
 		g.translate(0, -g.getTranslateY());
@@ -92,7 +115,7 @@ public class AboutScreen
 	{
 		if(x < 50 && y > DisplayUtils.height - 30)
 		{
-			VikaTouch.setDisplay(VikaTouch.menuScr, -1);
+			VikaTouch.setDisplay(VikaTouch.setsScr, -1);
 		}
 		else
 			super.release(x, y);
@@ -102,7 +125,7 @@ public class AboutScreen
 	{
 		if(key == 8 || key == -6)
 		{
-			VikaTouch.setDisplay(VikaTouch.menuScr, -1);
+			VikaTouch.setDisplay(VikaTouch.setsScr, -1);
 		}
 		else
 			super.press(key);

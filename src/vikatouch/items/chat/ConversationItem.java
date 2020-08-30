@@ -105,6 +105,7 @@ public class ConversationItem
 				
 			}
 		}
+		avaurl = null;
 	}
 	
 	public String getTime()
@@ -206,7 +207,7 @@ public class ConversationItem
 				title = fixJSONString(chatSettings.optString("title"));
 				isGroup = chatSettings.optBoolean("is_group_channel");
 				avaurl = fixJSONString(chatSettings.getJSONObject("photo").optString("photo_50"));
-				chatSettings.dispose();
+				chatSettings.dispose("chatsets");
 			}
 			catch (Throwable e)
 			{
@@ -220,9 +221,9 @@ public class ConversationItem
 			type = fixJSONString(peer.optString("type"));
 			id = peer.optInt("local_id");
 			
-			peer.dispose();
+			peer.dispose("peer");
 			
-			conv.dispose();
+			conv.dispose("conv");
 			
 			if(type.equalsIgnoreCase("user") && Dialogs.profiles != null)
 			{
@@ -234,11 +235,8 @@ public class ConversationItem
 						title = fixJSONString(profile.optString("first_name") + " " + profile.optString("last_name"));
 						if(!Settings.dontLoadAvas)
 							avaurl = fixJSONString(profile.optString("photo_50"));
-						profile.dispose();
 						break;
 					}
-					if(profile != null)
-						profile.dispose();
 				}
 			}
 			if(type.equalsIgnoreCase("group") && Dialogs.groups != null)
@@ -251,11 +249,8 @@ public class ConversationItem
 						title = fixJSONString(group.optString("name"));
 						if(!Settings.dontLoadAvas)
 							avaurl = fixJSONString(group.optString("photo_50"));
-						group.dispose();
 						break;
 					}
-					if(group != null)
-						group.dispose();
 					
 				}	
 			}
@@ -272,7 +267,7 @@ public class ConversationItem
 
 			date = msg.optLong("date");
 			
-			lasttext = (text = fixJSONString(msg.optString("text"))).substring(0, 8);
+			lasttext = text = fixJSONString(msg.optString("text"));
 
 			time = getTime();
 			
@@ -310,6 +305,7 @@ public class ConversationItem
 				text = "Вложение";
 			}
 			int fromId = msg.optInt("fromId");
+			msg.dispose();
 			if(("" + fromId).equalsIgnoreCase(VikaTouch.userId))
 			{
 				nameauthora = "Вы";
@@ -336,7 +332,6 @@ public class ConversationItem
 			{
 				text = text.substring(0, 26) + "...";
 			}
-			msg.dispose();
 		}
 		catch (Exception e)
 		{
@@ -348,6 +343,8 @@ public class ConversationItem
 			title = title.substring(0, 22) + "...";
 		}
 		type = null;
+		json.dispose("conv json");
+		json = null;
 		System.gc();
 	}
 	

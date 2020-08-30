@@ -81,12 +81,14 @@ public class ImageStorage
 		} 
 	    catch (Exception e)
 		{
+	    	e.printStackTrace();
 		}
 		return i;
     }
     
     public static void save(String s, Image i)
     {
+		System.out.println("cached " + s);
 		images.put(s, i);
 		if(images.size() > lastSize)
 			storeImagesInRMS();
@@ -138,7 +140,8 @@ public class ImageStorage
      */
     protected static void restoreImagesFromRMS()
     {
-    	
+
+    	System.out.println("RMS cache load");
         int[] intArrayOfRGBforImage = null;
         int w = 0;//width of image
         int h = 0;//height of image
@@ -202,6 +205,7 @@ public class ImageStorage
     public static void storeImagesInRMS()
     {
     	
+    	System.out.println("RMS cache store");
         int w, h, l;
         int[] rgbImage = new int[MAX_AREA_OF_IMAGE];
         try
@@ -229,7 +233,7 @@ public class ImageStorage
             /*save additional info for checking necessity of re-cashing into RMS
             /*...*/
             Image curImage;
-            Enumeration e = images.elements();
+            Enumeration e = images.keys();
             String x = null;
             for (curImage = null; e.hasMoreElements(); curImage = (Image) images.get(x = (String) e.nextElement()))
             {
@@ -267,7 +271,7 @@ public class ImageStorage
         }
         catch (Exception e)
         {
-        	
+        	e.printStackTrace();
         }
         
     }
@@ -295,7 +299,9 @@ public class ImageStorage
             recordStore.closeRecordStore();
     	} 
     	catch (RecordStoreNotFoundException e)
-    	{ }
+    	{ 
+    		e.printStackTrace();
+    	}
         
     }
  

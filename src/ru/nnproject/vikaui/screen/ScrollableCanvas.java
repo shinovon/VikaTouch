@@ -28,7 +28,7 @@ public abstract class ScrollableCanvas
 	public static final double scrollSpeed = 1.8;
 	public PressableUIItem[] uiItems;
 	public short scrollOffset;
-	public short currentItem;
+	public int currentItem;
 	public static boolean keysMode = false;
 	public boolean scrollWithKeys = false;
 	
@@ -63,6 +63,8 @@ public abstract class ScrollableCanvas
 				scrollingTimer += Math.abs(scroll) / 14;
 				if(Math.abs(scroll / 3) > Math.abs(driftSpeed))
 					driftSpeed = (short) (scroll / 3);
+				if(poorScrolling())
+					scroll *= 2.5;
 			}
 			else
 			{
