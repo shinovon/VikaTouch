@@ -1318,7 +1318,10 @@ public class JSONObject {
 	 * Clears all arrays
 	 */
 	public void dispose() {
-		myHashMap.clear();
+		if(myHashMap != null)
+		{
+			myHashMap.clear();
+		}
 		myHashMap = null;
 	}
 }
