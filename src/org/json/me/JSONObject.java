@@ -1313,4 +1313,12 @@ public class JSONObject {
 		Object var3;
 		return (var3 = this.opt(var1)) != null ? var3.toString() : var2;
 	}
+	
+	/**
+	 * Clears all arrays
+	 */
+	public void dispose() {
+		myHashMap.clear();
+		myHashMap = null;
+	}
 }

@@ -20,7 +20,7 @@ import vikatouch.settings.Settings;
 import vikatouch.utils.error.ErrorCodes;
 
 public class VikaCanvasInst
-extends VikaCanvas
+	extends VikaCanvas
 {
 	public VikaScreen currentScreen;
 	public VikaScreen lastTempScreen;
@@ -347,6 +347,11 @@ extends VikaCanvas
 	public boolean isSensorModeJ2MELoader()
 	{
 		return Settings.sensorMode == Settings.SENSOR_J2MELOADER;
+	}
+
+	public boolean poorScrolling()
+	{
+		return Settings.sensorMode == Settings.SENSOR_KEMULATOR;
 	}
 
 }

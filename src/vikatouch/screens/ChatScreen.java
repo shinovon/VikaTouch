@@ -269,7 +269,7 @@ public class ChatScreen
 				uiItems[uiItems.length-1-i-loadSpace] = m;
 				if(Settings.autoMarkAsRead && i == 0)
 				{
-					VikaUtils.download(new URLBuilder("messages.markAsRead").addField("start_message_id", ""+m.mid).addField("peer_id", peerId));
+					VikaUtils.request(new URLBuilder("messages.markAsRead").addField("start_message_id", ""+m.mid).addField("peer_id", peerId));
 				}
 				itemsCount = (short) uiItems.length;
 			}
@@ -307,7 +307,7 @@ public class ChatScreen
 				uiItems[uiItems.length-1-i-loadSpace] = m;
 				if(Settings.autoMarkAsRead && i == 0)
 				{
-					VikaUtils.download(new URLBuilder("messages.markAsRead").addField("start_message_id", ""+m.mid).addField("peer_id", peerId));
+					VikaUtils.request(new URLBuilder("messages.markAsRead").addField("start_message_id", ""+m.mid).addField("peer_id", peerId));
 				}
 				itemsCount = (short) uiItems.length;
 			}

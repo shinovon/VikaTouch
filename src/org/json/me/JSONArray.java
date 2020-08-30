@@ -879,10 +879,18 @@ public class JSONArray {
     }
 
 
-public final JSONObject method35(int var1) {
+public final JSONObject method35(int var1) { 
 	Object var2;
 	return (var2 = this.opt(var1)) instanceof JSONObject ? (JSONObject) var2 : null;
 }
+
+	/**
+	 * Clears all arrays
+	 */
+	public void dispose() {
+		myArrayList.removeAllElements();
+		myArrayList = null;
+	}
 
 
 }

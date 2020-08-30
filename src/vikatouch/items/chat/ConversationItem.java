@@ -206,6 +206,7 @@ public class ConversationItem
 				title = fixJSONString(chatSettings.optString("title"));
 				isGroup = chatSettings.optBoolean("is_group_channel");
 				avaurl = fixJSONString(chatSettings.getJSONObject("photo").optString("photo_50"));
+				chatSettings.dispose();
 			}
 			catch (Throwable e)
 			{
@@ -219,32 +220,43 @@ public class ConversationItem
 			type = fixJSONString(peer.optString("type"));
 			id = peer.optInt("local_id");
 			
+			peer.dispose();
+			
+			conv.dispose();
+			
 			if(type.equalsIgnoreCase("user"))
 			{
 				for(int i = 0; i < Dialogs.profiles.length(); i++)
 				{
-					JSONObject profile = Dialogs.profiles.getJSONObject(i);
-					if(profile.optInt("id") == id)
+					JSONObject profile = Dialogs.profiles.optJSONObject(i);
+					if(profile != null && profile.optInt("id") == id)
 					{
 						title = fixJSONString(profile.optString("first_name") + " " + profile.optString("last_name"));
 						if(!Settings.dontLoadAvas)
 							avaurl = fixJSONString(profile.optString("photo_50"));
+						profile.dispose();
 						break;
 					}
+					if(profile != null)
+						profile.dispose();
 				}
 			}
 			if(type.equalsIgnoreCase("group") && Dialogs.groups != null)
 			{
 				for(int i = 0; i < Dialogs.groups.length(); i++)
 				{
-					JSONObject group = Dialogs.groups.getJSONObject(i);
-					if(group.optInt("id") == id)
+					JSONObject group = Dialogs.groups.optJSONObject(i);
+					if(group != null && group.optInt("id") == id)
 					{
 						title = fixJSONString(group.optString("name"));
 						if(!Settings.dontLoadAvas)
 							avaurl = fixJSONString(group.optString("photo_50"));
+						group.dispose();
 						break;
 					}
+					if(group != null)
+						group.dispose();
+					
 				}	
 			}
 		}
@@ -324,6 +336,7 @@ public class ConversationItem
 			{
 				text = text.substring(0, 26) + "...";
 			}
+			msg.dispose();
 		}
 		catch (Exception e)
 		{

@@ -123,6 +123,8 @@ public class VikaTouch
 				MenuScreen.lastname = name.substring(name.indexOf(" ")+1, name.length());
 				userId = s2.substring(0, s2.indexOf(";"));
 				tokenRMS.closeRecordStore();
+				//оптимизация
+				MenuScreen.avaurl = null;
 				return true;
 			}
 			tokenRMS.closeRecordStore();

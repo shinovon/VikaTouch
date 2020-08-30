@@ -675,4 +675,21 @@ public final class VikaUtils
 		int minutes = cal.get(Calendar.MINUTE);
 		return TextLocal.inst.formatFullDate(day, month, year, hour, minutes);
 	}
+
+	public static void request(URLBuilder url)
+		throws IOException
+	{
+		makereq(url.toString());
+	}
+
+	public static void makereq(String url)
+		throws IOException
+	{
+		HttpConnection httpconn = null;
+		Connection conn = Connector.open(url);
+		httpconn = (HttpConnection) conn;
+		httpconn.setRequestMethod("GET");
+		httpconn.setRequestProperty("User-Agent", "KateMobileAndroid/51.1 lite-442 (Symbian; SDK 17; x86; Nokia; ru)");
+		httpconn.openInputStream();	
+	}
 }

@@ -67,6 +67,9 @@ public class Dialogs
 						{
 							itemsCount = dialogsCount;
 						}
+						response.dispose();
+						items.dispose();
+						item.dispose();
 						if(VikaTouch.unreadCount != has || has > 0 || u)
 						{
 							VikaTouch.unreadCount = has;
@@ -86,7 +89,10 @@ public class Dialogs
 								item = items.getJSONObject(i);
 								dialogs[i] = new ConversationItem(item);
 								dialogs[i].parseJSON();
+								item.dispose();
 							}
+							items.dispose();
+							response.dispose();
 						}
 					}
 					catch (JSONException e)

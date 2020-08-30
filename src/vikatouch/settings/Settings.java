@@ -13,7 +13,9 @@ import javax.microedition.rms.RecordStoreNotFoundException;
 import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.locale.LangObject;
+import vikatouch.utils.emulatordetect.EmulatorDetector;
 import vikatouch.utils.error.ErrorCodes;
+
 
 public class Settings
 {
@@ -81,6 +83,7 @@ public class Settings
 	public static final int SENSOR_OK = 0;
 	public static final int SENSOR_J2MELOADER = 1;
 	public static final int SENSOR_RESISTIVE = 2;
+	public static final int SENSOR_KEMULATOR = 3;
 	
 	public static final int AUDIO_PLAYONLINE = 0; // даём плееру урл и пусть играет.
 	public static final int AUDIO_CACHEANDPLAY = 1; // подключаем поток и даём плееру его.
@@ -266,7 +269,18 @@ public class Settings
 
 	public static void setEmulatorSettings()
 	{
-		
+		if(EmulatorDetector.isEmulator)
+		{
+			if(EmulatorDetector.emulatorType == EmulatorDetector.EM_KEM_OR_J2L)
+			{
+				Settings.sensorMode = Settings.SENSOR_J2MELOADER;
+			}
+
+			if(EmulatorDetector.emulatorType == EmulatorDetector.EM_KEMMOD)
+			{
+				Settings.sensorMode = Settings.SENSOR_KEMULATOR;
+			}
+		}
 	}
 
 }
