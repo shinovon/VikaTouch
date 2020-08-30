@@ -52,6 +52,7 @@ public class MsgItem
 	private boolean hasReply;
 	public String replyName;
 	public String replyText;
+	private boolean attsReady;
 
 	public void ChangeText(String s)
 	{
@@ -167,34 +168,38 @@ public class MsgItem
 		{
 			attH = 0;
 			// prepairing attachments
-			try {
-				for(int i=0; i<attachments.length; i++)
-				{
-					Attachment at = attachments[i];
-					if(at==null) continue;
-					if(!Settings.isLiteOrSomething)
+			if(!attsReady)
+			{
+				attsReady = true;
+				try {
+					for(int i=0; i<attachments.length; i++)
 					{
-						if(at instanceof PhotoAttachment)
+						Attachment at = attachments[i];
+						if(at==null) continue;
+						if(!Settings.isLiteOrSomething)
 						{
-							((PhotoAttachment) at).load();
-						}
-						if(at instanceof StickerAttachment)
-						{
-							int stickerH = DisplayUtils.width > 250 ? 128 : 64;
-							attH += stickerH + attMargin;
-						}
-						else
-						{
-							attH += at.getDrawHeight() + attMargin;
+							if(at instanceof PhotoAttachment)
+							{
+								((PhotoAttachment) at).load();
+							}
+							if(at instanceof StickerAttachment)
+							{
+								int stickerH = DisplayUtils.width > 250 ? 128 : 64;
+								attH += stickerH + attMargin;
+							}
+							else
+							{
+								attH += at.getDrawHeight() + attMargin;
+							}
 						}
 					}
+					if(attH != 0) { attH += attMargin; }
 				}
-				if(attH != 0) { attH += attMargin; }
-			}
-			catch (Exception e)
-			{
-				attH = 0;
-				e.printStackTrace();
+				catch (Exception e)
+				{
+					attH = 0;
+					e.printStackTrace();
+				}
 			}
 		}
 		// drawing
@@ -254,7 +259,8 @@ public class MsgItem
 		{
 			g.drawString(replyText, textX+h1, y+h1/2+h1*(linesC+1+(showName?1:0)), 0);
 			ColorUtils.setcolor(g, ColorUtils.COLOR1);
-			g.drawString(replyName, textX+h1, y+h1/2+h1*(linesC+(showName?1:0)), 0);
+			if(replyName != null)
+				g.drawString(replyName, textX+h1, y+h1/2+h1*(linesC+(showName?1:0)), 0);
 			g.fillRect(textX+h1/2-1, y+h1/2+h1*(linesC+(showName?1:0)), 2, h1*2);
 		}
 		

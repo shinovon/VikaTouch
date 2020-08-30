@@ -126,7 +126,7 @@ public class ChatScreen
 		}
 	}
 	
-	public static Hashtable profileNames;
+	public static Hashtable profileNames = new Hashtable();
 	
 	public ChatScreen(int peerId, String title)
 	{

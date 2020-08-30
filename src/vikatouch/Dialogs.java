@@ -55,7 +55,7 @@ public class Dialogs
 						short has = 0;
 						try
 						{
-							u = dialogs[0] == null || !item.getJSONObject("last_message").optString("text").substring(0, 7).equalsIgnoreCase(dialogs[0].lastmessage.text.substring(0, 7));
+							u = dialogs[0] == null || !item.getJSONObject("last_message").optString("text").substring(0, 7).equalsIgnoreCase(dialogs[0].lasttext.substring(0, 7));
 						}
 						catch (Exception e)
 						{

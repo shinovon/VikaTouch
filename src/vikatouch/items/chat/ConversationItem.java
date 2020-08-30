@@ -28,7 +28,6 @@ public class ConversationItem
 {
 	public String text;
 	public String title;
-	public MsgItem lastmessage;
 	public long chatid;
 	public boolean ls;
 	public long date;
@@ -44,6 +43,7 @@ public class ConversationItem
 	private Image ava;
 	//private static Image deleteImg;
 	//private static Image unreadImg;
+	public String lasttext;
 	
 	public ConversationItem(JSONObject json)
 	{
@@ -260,7 +260,7 @@ public class ConversationItem
 
 			date = msg.optLong("date");
 			
-			text = fixJSONString(msg.optString("text"));
+			lasttext = text = fixJSONString(msg.optString("text"));
 
 			time = getTime();
 			
@@ -268,6 +268,7 @@ public class ConversationItem
 			
 			if(text == "" || text == null || text.length() == 0 || text.length() == 1)
 			{
+				/*
 				if(lastmessage.attachments != null && lastmessage.attachments.length != 0 && lastmessage.attachments[0] != null)
 				{
 					try
@@ -293,9 +294,11 @@ public class ConversationItem
 						}
 					}
 				}
+				*/
+				text = "Вложение";
 			}
-			
-			if(("" + lastmessage.fromid).equalsIgnoreCase(VikaTouch.userId))
+			int fromId = msg.optInt("fromId");
+			if(("" + fromId).equalsIgnoreCase(VikaTouch.userId))
 			{
 				nameauthora = "Вы";
 			}
@@ -304,7 +307,7 @@ public class ConversationItem
 				for(int i = 0; i < Dialogs.profiles.length(); i++)
 				{
 					JSONObject profile = Dialogs.profiles.getJSONObject(i);
-					if(lastmessage.fromid == profile.optInt("id"))
+					if(fromId == profile.optInt("id"))
 					{
 						nameauthora = profile.optString("first_name");
 					}
