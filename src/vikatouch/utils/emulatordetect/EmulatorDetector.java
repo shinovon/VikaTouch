@@ -28,6 +28,8 @@ public class EmulatorDetector
 	
 	public static final int EM_PC = 10;
 	
+	public static final int EM_KEMMOD = 11;
+	
 	public static final int EM_UNDEFINED = -1;
 	
 	public static final int EM_NOT_EMULATOR = 0;
@@ -61,6 +63,11 @@ public class EmulatorDetector
 			emulatorType = EM_MICROEMULATOR;
 			emulatorNotSupported = true;
 		}
+		else if(platform.endsWith("/KEmulatorMod"))
+		{
+			isEmulator = true;
+			emulatorType = EM_KEMMOD;
+		}
 		else if(platform.indexOf("Emulator") >= 0)
 		{
 			isEmulator = true;
@@ -83,6 +90,55 @@ public class EmulatorDetector
 			emulatorType = EM_NOT_EMULATOR;
 		}
 		Settings.setEmulatorSettings();
+	}
+	
+	public static boolean isCompatible(int i)
+	{
+		return false;
+	}
+	
+	public static String getString(int i)
+	{
+		switch(i)
+		{
+			case 0:
+				return "notemulator";
+				
+			case -1:
+				return "unknown";
+				
+			case 4:
+				return "nokiasdk";
+				
+			case 5:
+				return "s40v5sdk";
+				
+			case 6:
+				return "s40v6sdk";
+				
+			case 7:
+				return "incompatible";
+				
+			case 8:
+				return "microemu";
+				
+			case 9:
+				return "microemu-v2";
+				
+			case 10:
+				return "unknown";
+				
+			case 11:
+				return "kemulator-mod";
+				
+			case 16:
+				return "j2meloader";
+				
+			case 17:
+				return "j2ml-or-kem";
+				
+		}
+		return "unknown";
 	}
 
 }

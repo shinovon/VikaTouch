@@ -197,6 +197,8 @@ public class ConversationItem
 		try
 		{
 			JSONObject conv = json.getJSONObject("conversation");
+			JSONObject peer = conv.getJSONObject("peer");
+			peerId = peer.optInt("id");
 			//System.out.println(json.toString());
 			try
 			{
@@ -207,16 +209,14 @@ public class ConversationItem
 			}
 			catch (Throwable e)
 			{
-				e.printStackTrace();
+				System.out.println("conv " + peerId + ": " + e.toString());
 				//chat_settings может не существовать, так-что это исключение игнорируется
 			}
 			
 			unread = conv.optInt("unread_count");
 			mention = conv.has("mentions");
 				
-			JSONObject peer = conv.getJSONObject("peer");
 			type = fixJSONString(peer.optString("type"));
-			peerId = peer.optInt("id");
 			id = peer.optInt("local_id");
 			
 			if(type.equalsIgnoreCase("user"))
