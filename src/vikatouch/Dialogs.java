@@ -93,6 +93,7 @@ public class Dialogs
 							}
 							items.dispose();
 							response.dispose();
+							x = null;
 						}
 					}
 					catch (JSONException e)

@@ -224,7 +224,7 @@ public class ConversationItem
 			
 			conv.dispose();
 			
-			if(type.equalsIgnoreCase("user"))
+			if(type.equalsIgnoreCase("user") && Dialogs.profiles != null)
 			{
 				for(int i = 0; i < Dialogs.profiles.length(); i++)
 				{
@@ -272,7 +272,7 @@ public class ConversationItem
 
 			date = msg.optLong("date");
 			
-			lasttext = text = fixJSONString(msg.optString("text"));
+			lasttext = (text = fixJSONString(msg.optString("text"))).substring(0, 8);
 
 			time = getTime();
 			
@@ -347,7 +347,7 @@ public class ConversationItem
 		{
 			title = title.substring(0, 22) + "...";
 		}
-		
+		type = null;
 		System.gc();
 	}
 	
