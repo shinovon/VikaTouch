@@ -1333,7 +1333,6 @@ public class JSONObject {
 		disposed = true;
 		if(myHashMap != null)
 		{
-			System.out.println("JSONObject " + string + " " + this.myHashMap.toString()+" disposed!");
 			myHashMap.clear();
 			//DebugUtils.printStackTrace();
 		}

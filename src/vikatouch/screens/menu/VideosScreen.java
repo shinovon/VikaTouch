@@ -67,7 +67,7 @@ public class VideosScreen
 					try
 					{
 						VikaTouch.loading = true;
-						System.out.println(x);
+						//System.out.println(x);
 						JSONObject response = new JSONObject(x).getJSONObject("response");
 						JSONArray items = response.getJSONArray("items");
 						int totalVids = response.getInt("count");

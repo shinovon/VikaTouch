@@ -67,7 +67,7 @@ public class TextLocal
 						String key = x.substring(0, splitLoc);
 						String val = VikaUtils.replace(x.substring(splitLoc + 1, len - 1), "|", "\n");
 						hashtable.put(key, val);
-						System.out.println(key + "=" + val);
+						//System.out.println(key + "=" + val);
 						//System.out.println();
 					}
 					iscomment = false;

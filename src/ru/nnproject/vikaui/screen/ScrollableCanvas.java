@@ -64,7 +64,7 @@ public abstract class ScrollableCanvas
 				if(Math.abs(scroll / 3) > Math.abs(driftSpeed))
 					driftSpeed = (short) (scroll / 3);
 				if(poorScrolling())
-					scroll *= 2.5;
+					scroll *= 4;
 			}
 			else
 			{

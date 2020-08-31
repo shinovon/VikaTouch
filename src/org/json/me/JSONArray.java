@@ -898,7 +898,6 @@ public class JSONArray {
 	public void dispose(String string) {
 		if(myArrayList != null)
 		{
-			System.out.println("JSONArray " + string + " " +this.myArrayList.toString()+" disposed!");
 			for(int i = 0; i < myArrayList.size(); i++)
 			{
 				if(myArrayList.elementAt(i) instanceof JSONObject)

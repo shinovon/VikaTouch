@@ -213,7 +213,7 @@ public final class VikaUtils
 		try
 		{
 			Connection conn = Connector.open(url);
-			System.out.println("conn is " + conn.toString() + " " + conn.getClass().getName());
+			//System.out.println("conn is " + conn.toString() + " " + conn.getClass().getName());
 			httpconn = (HttpConnection) conn;
 			httpconn.setRequestMethod("GET");
 			httpconn.setRequestProperty("User-Agent", "KateMobileAndroid/51.1 lite-442 (Symbian; SDK 17; x86; Nokia; ru)");
@@ -224,7 +224,7 @@ public final class VikaUtils
 			int i;
 			if (httpconn.getResponseCode() != 200 && httpconn.getResponseCode() != 401)
 			{
-				System.out.println("not 200 and not 401");
+				//System.out.println("not 200 and not 401");
 				if(httpconn.getHeaderField("Location") != null)
 				{
 					final String replacedURL = httpconn.getHeaderField("Location");
@@ -249,7 +249,7 @@ public final class VikaUtils
 			}
 			else
 			{
-				System.out.println("yay"+httpconn.getResponseCode());
+				//System.out.println("yay"+httpconn.getResponseCode());
 				buffer = new char[10000];
 				
 				while ((i = isr.read(buffer, 0, buffer.length)) != -1)
@@ -261,24 +261,9 @@ public final class VikaUtils
 
 			result = replace(sb.toString(), "<br>", " ");
 		}
-		catch (UnsupportedEncodingException e)
-		{
-			System.out.println("Failed to download " + url);
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			System.out.println("Failed to download " + url);
-			e.printStackTrace();
-		}
-		catch (NullPointerException e)
-		{
-			System.out.println("Failed to download " + url);
-			e.printStackTrace();
-		}
 		catch (Throwable e)
 		{
-			System.out.println("Failed to download " + url);
+			System.out.println("Fail " + url);
 			e.printStackTrace();
 		}
 
@@ -288,7 +273,6 @@ public final class VikaUtils
 		}
 		catch (Exception e)
 		{
-			System.out.println("Failed to close stream");
 			e.printStackTrace();
 		}
 
@@ -298,7 +282,6 @@ public final class VikaUtils
 		}
 		catch (Exception e)
 		{
-			System.out.println("Failed to close stream");
 			e.printStackTrace();
 		}
 
@@ -308,7 +291,6 @@ public final class VikaUtils
 		}
 		catch (Exception e)
 		{
-			System.out.println("Failed to close stream");
 			e.printStackTrace();
 		}
 
@@ -321,12 +303,12 @@ public final class VikaUtils
 		}
 		catch (NullPointerException e)
 		{
-			System.out.println("WARNING!! Response from " + url + " is null!");
 			e.printStackTrace();
 		}
 
 		return result;
 	}
+	/*
 	
 	public static String sendPostRequest(String url, String vars)
 	{
@@ -410,6 +392,7 @@ public final class VikaUtils
 		return sb.toString();
 	}
 	
+	*/
 	public static String replace(String str, String from, String to)
 	{
 		

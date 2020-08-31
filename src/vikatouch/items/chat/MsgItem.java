@@ -388,7 +388,7 @@ public class MsgItem
 		{
 			e.printStackTrace();
 		}
-		System.out.println("links c "+li);
+		//System.out.println("links c "+li);
 		return la;
 	}
 

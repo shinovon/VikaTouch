@@ -642,7 +642,7 @@ public class MusicPlayer extends MainScreen
 	
 	public void release(int x, int y)
 	{
-		System.out.println("Player touch");
+		//System.out.println("Player touch");
 		int dw = DisplayUtils.width;
 		int dh = DisplayUtils.height;
 		int hdw = dw/2;

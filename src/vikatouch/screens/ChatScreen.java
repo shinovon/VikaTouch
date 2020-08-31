@@ -72,7 +72,7 @@ public class ChatScreen
 		if(updater!=null&&updater.isAlive())
 		{
 			updater.interrupt();
-			System.out.println("Updater stopped.");
+			//System.out.println("Updater stopped.");
 		}
 	}
 	
@@ -217,12 +217,12 @@ public class ChatScreen
 		}
 		
 		System.gc();
-		System.out.println("Dialog ready.");
+		//System.out.println("Dialog ready.");
 		//scroll = -10000;
 		//dragging = true;
 		repaint();
 		runUpdater();
-		System.out.println("Updater started returned.");
+		//System.out.println("Updater started returned.");
 	}
 
 	private void messagesChat()
@@ -661,7 +661,7 @@ public class ChatScreen
 					}
 					if(newMsgCount>=hasSpace-1)
 					{
-						System.out.println("List shifting");
+						//System.out.println("List shifting");
 						shiftList();
 					}
 					if(type == TYPE_CHAT)
@@ -758,7 +758,7 @@ public class ChatScreen
 					{ return; } // забавный факт, оно падает при убивании потока во время сна. Я к тому что его надо либо не ловить, либо при поимке завершать галиматью вручную.
 					try
 					{
-						System.out.println("Chat updating...");
+						//System.out.println("Chat updating...");
 						update();
 					}
 					catch (Exception e)

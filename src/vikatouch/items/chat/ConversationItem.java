@@ -211,7 +211,7 @@ public class ConversationItem
 			}
 			catch (Throwable e)
 			{
-				System.out.println("conv " + peerId + ": " + e.toString());
+				//System.out.println("conv " + peerId + ": " + e.toString());
 				//chat_settings может не существовать, так-что это исключение игнорируется
 			}
 			
