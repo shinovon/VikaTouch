@@ -6,10 +6,10 @@ import org.json.me.JSONArray;
 import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
-import vikamobilebase.VikaUtils;
 import vikatouch.items.chat.ConversationItem;
 import vikatouch.screens.ChatScreen;
 import vikatouch.settings.Settings;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.url.URLBuilder;
 
 public class Dialogs

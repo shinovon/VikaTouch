@@ -10,9 +10,9 @@ import javax.microedition.rms.RecordStoreException;
 import javax.microedition.rms.RecordStoreFullException;
 import javax.microedition.rms.RecordStoreNotFoundException;
 
-import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.locale.LangObject;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.emulatordetect.EmulatorDetector;
 import vikatouch.utils.error.ErrorCodes;
 

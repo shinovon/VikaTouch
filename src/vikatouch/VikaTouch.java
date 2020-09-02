@@ -32,6 +32,7 @@ import vikatouch.screens.temp.SplashScreen;
 import vikatouch.settings.Settings;
 import vikatouch.settings.SettingsScreen;
 import vikatouch.utils.ResizeUtils;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.captcha.CaptchaObject;
 import vikatouch.utils.emulatordetect.EmulatorDetector;
 import vikatouch.utils.error.ErrorCodes;

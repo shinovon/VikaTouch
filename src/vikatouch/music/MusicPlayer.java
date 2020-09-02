@@ -29,13 +29,13 @@ import ru.nnproject.vikaui.popup.InfoPopup;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.images.IconsManager;
-import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.items.menu.OptionItem;
 import vikatouch.items.music.AudioTrackItem;
 import vikatouch.screens.MainScreen;
 import vikatouch.screens.music.MusicScreen;
 import vikatouch.settings.Settings;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.url.URLDecoder;
 
 // экранчик с названием песни, перемоткой ии... Всё.

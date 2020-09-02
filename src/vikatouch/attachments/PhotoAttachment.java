@@ -10,9 +10,9 @@ import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.popup.ImagePreview;
 import ru.nnproject.vikaui.utils.DisplayUtils;
-import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.items.chat.MsgItem;
+import vikatouch.utils.VikaUtils;
 
 public class PhotoAttachment
 	extends ImageAttachment implements ISocialable

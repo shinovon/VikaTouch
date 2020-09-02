@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.microedition.lcdui.Image;
 
-import vikamobilebase.VikaUtils;
+import vikatouch.utils.VikaUtils;
 
 public class StickerAttachment
 	extends ImageAttachment

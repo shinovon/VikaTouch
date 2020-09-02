@@ -10,11 +10,11 @@ import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
-import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.items.PostItem;
 import vikatouch.locale.TextLocal;
 import vikatouch.screens.menu.MenuScreen;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.error.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
 

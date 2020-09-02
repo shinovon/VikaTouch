@@ -13,7 +13,6 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.screen.ScrollableCanvas;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
-import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.attachments.PhotoSize;
 import vikatouch.items.JSONUIItem;
@@ -21,6 +20,7 @@ import vikatouch.screens.menu.DocsScreen;
 import vikatouch.screens.music.MusicScreen;
 import vikatouch.settings.Settings;
 import vikatouch.utils.ResizeUtils;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.error.ErrorCodes;
 
 public class PlaylistItem extends JSONUIItem {

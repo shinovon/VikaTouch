@@ -7,12 +7,12 @@ import javax.microedition.lcdui.Image;
 
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.images.IconsManager;
-import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.attachments.DocumentAttachment;
 import vikatouch.attachments.ISocialable;
 import vikatouch.attachments.PhotoAttachment;
 import vikatouch.items.menu.DocItem;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.error.ErrorCodes;
 
 public class ImagePreview extends VikaNotice {

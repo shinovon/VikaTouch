@@ -15,7 +15,6 @@ import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.images.IconsManager;
 import ru.nnproject.vikaui.utils.text.TextBreaker;
-import vikamobilebase.VikaUtils;
 import vikatouch.Dialogs;
 import vikatouch.VikaTouch;
 import vikatouch.items.menu.FriendItem;
@@ -28,6 +27,7 @@ import vikatouch.screens.menu.FriendsScreen;
 import vikatouch.screens.menu.MenuScreen;
 import vikatouch.screens.menu.VideosScreen;
 import vikatouch.screens.music.MusicScreen;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.error.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
 

@@ -1,4 +1,4 @@
-package vikamobilebase;
+package vikatouch.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;

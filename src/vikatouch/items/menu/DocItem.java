@@ -15,7 +15,6 @@ import ru.nnproject.vikaui.screen.ScrollableCanvas;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.images.IconsManager;
-import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.attachments.ISocialable;
 import vikatouch.attachments.PhotoSize;
@@ -23,6 +22,7 @@ import vikatouch.items.JSONUIItem;
 import vikatouch.json.JSONBase;
 import vikatouch.screens.menu.DocsScreen;
 import vikatouch.utils.ResizeUtils;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.error.ErrorCodes;
 
 public class DocItem
