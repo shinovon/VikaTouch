@@ -249,6 +249,8 @@ public final class VikaUtils
 				buffer = null;
 
 			}
+			
+			result = sb.toString();
 
 			//result = replace(sb.toString(), "<br>", " ");
 		}
