@@ -974,7 +974,7 @@ public class VikaTouch
 		newsScr = null;
 		loginScr = null;
 		splash = null;
-		System.gc();
+		gc();
 	}
 
 	public static void logout()
@@ -998,6 +998,7 @@ public class VikaTouch
 	public static void gc()
 	{
 		// TODO Garbage Cleaner
+		System.gc();
 		
 	}
 }
