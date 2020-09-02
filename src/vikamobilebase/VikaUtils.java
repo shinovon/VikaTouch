@@ -521,12 +521,20 @@ public final class VikaUtils
 		final Connection con = Connector.open(url);
 		if(con instanceof HttpConnection)
 		{
-			con.close();
 			HttpConnection var2 = (HttpConnection) con; 
 			var2.setRequestMethod("GET");
 			var2.setRequestProperty("User-Agent", "KateMobileAndroid/51.1 lite-442 (Symbian; SDK 17; x86; Nokia; ru)");
-			if (var2.getResponseCode() != 200 && var2.getResponseCode() != 401) {
-				url = var2.getHeaderField("Location");
+			int respcode = var2.getResponseCode();
+			if (respcode != 200 && respcode != 401) {
+				if(var2.getHeaderField("Location") != null)
+				{
+					url = var2.getHeaderField("Location");
+				}
+				else
+				{
+					
+					throw new IOException("" + respcode);
+				}
 			}
 			
 			var2.close();
