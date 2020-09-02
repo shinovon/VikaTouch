@@ -175,28 +175,6 @@ public final class VikaUtils
 	    
 	    return result;
 	}
-
-	public static boolean check()
-	{
-		String url = new URLBuilder("execute").addField("code", "return \"ok\";").toString();
-		HttpConnection httpconn = null;
-		try
-		{
-			httpconn = (HttpConnection) Connector.open(url);
-		
-			if(httpconn.getResponseCode() == 200)
-			{
-				httpconn.close();
-				return true;
-			}
-			httpconn.close();
-			return false;
-		}
-		catch (IOException e)
-		{
-			return false;
-		}
-	}
 	
 	public static String download(URLBuilder url)
 	{
@@ -428,20 +406,6 @@ public final class VikaUtils
 		if (height == -1) {
 			height = width * origHeight / origWidth;
 		}
-/*
-		Image newImage;
-		Graphics g = (newImage = Image.createImage(width, height)).getGraphics();
-
-		for (int y = 0; y < height; ++y) {
-			for (int x = 0; x < width; ++x) {
-				g.setClip(x, y, 1, 1);
-				int xx = x * origWidth / width;
-				int yy = y * origHeight / height;
-				g.drawImage(image, x - xx, y - yy, 20);
-			}
-		}
-
-		return Image.createImage(newImage);*/
 		return ImageUtils.resize(image, width, height, false, false);
 	}
 
