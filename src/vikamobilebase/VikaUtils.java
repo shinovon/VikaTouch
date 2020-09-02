@@ -81,6 +81,7 @@ public final class VikaUtils
 	
 	public static String parseTime(final long paramLong)
 	{
+		/*
 		final Calendar cal = Calendar.getInstance();
 		
 		final Date date = new Date(paramLong * 1000L);
@@ -125,7 +126,10 @@ public final class VikaUtils
 		    }
 	    }
 	    
+	    
 	    return result;
+	    */
+		return parseShortTime(paramLong);
 	}
 	
 	public static String parseMsgTime(final long paramLong)
