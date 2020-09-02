@@ -502,7 +502,7 @@ public final class VikaUtils
 						, "vk.comimages", "")
 						, "com", "");
 			
-				System.out.println(filename+" ||| "+url);
+				//System.out.println(filename+" ||| "+url);
 			
 				Image image = ImageStorage.get(filename);
 				if(image != null)
@@ -517,7 +517,7 @@ public final class VikaUtils
 			}
 		}
 
-		ByteArrayOutputStream baos = null;
+		//ByteArrayOutputStream baos = null;
 		final Connection con = Connector.open(url);
 		if(con instanceof HttpConnection)
 		{
@@ -538,7 +538,8 @@ public final class VikaUtils
 
 			DataInputStream dis = ((FileConnection) Connector.open(url)).openDataInputStream();
 
-			Image image = Image.createImage(dis);
+			return Image.createImage(dis);
+			
 			/*
 			try
 			{
