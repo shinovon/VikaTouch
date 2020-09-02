@@ -65,7 +65,7 @@ public class Settings
 	
 	//Не нуждаются сохранению (м.б передумаем)
 	public static boolean threaded;
-	public static long memoryClearCache = 400;
+	public static long memoryClearCache = 500;
 	public static boolean dontBack;
 	public static boolean isLiteOrSomething;
 	public static boolean autoMarkAsRead = true;

@@ -169,12 +169,15 @@ public class VideoItem
 		}
 		else
 		{
-			VikaTouch.popup(new ConfirmBox(external, "Открыть?", new Runnable() {
-				public void run() 
-				{
-					playExternal();
-				}
-			}, null));
+			if(key == KEY_OK)
+			{
+				VikaTouch.popup(new ConfirmBox(external, "Открыть?", new Runnable() {
+					public void run() 
+					{
+						playExternal();
+					}
+				}, null));
+			}
 		}
 	}
 	public void playExternal()

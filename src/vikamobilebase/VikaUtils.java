@@ -16,10 +16,12 @@ import javax.microedition.io.Connector;
 import javax.microedition.io.ContentConnection;
 import javax.microedition.io.HttpConnection;
 import javax.microedition.io.HttpsConnection;
+import javax.microedition.io.InputConnection;
 import javax.microedition.io.file.FileConnection;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
+import tube42.lib.imagelib.ImageUtils;
 import vikatouch.VikaTouch;
 import vikatouch.caching.ImageStorage;
 import vikatouch.locale.TextLocal;
@@ -228,6 +230,14 @@ public final class VikaUtils
 				if(httpconn.getHeaderField("Location") != null)
 				{
 					final String replacedURL = httpconn.getHeaderField("Location");
+					try
+					{
+						isr.close();
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+					}
 					httpconn.close();
 					httpconn = (HttpConnection) Connector.open(replacedURL);
 					httpconn.setRequestMethod("GET");
@@ -256,10 +266,12 @@ public final class VikaUtils
 				{
 					sb.append(buffer, 0, i);
 				}
+				
+				buffer = null;
 
 			}
 
-			result = replace(sb.toString(), "<br>", " ");
+			//result = replace(sb.toString(), "<br>", " ");
 		}
 		catch (Throwable e)
 		{
@@ -290,18 +302,6 @@ public final class VikaUtils
 			httpconn.close();
 		}
 		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		try
-		{
-			if (VikaTouch.API != "https://api.vk.com:443")
-			{
-				result = replace(replace(replace(replace(result, "http://cs", "https://cs"), "http:\\/\\/cs", "https://cs"), "https://vk-api", "http://vk-api"), "https:\\/\\/vk-api", "http://vk-api");
-			}
-		}
-		catch (NullPointerException e)
 		{
 			e.printStackTrace();
 		}
@@ -422,12 +422,13 @@ public final class VikaUtils
 	
 	public static Image resize(Image image, int width, int height)
 	{
+		
 		int origWidth = image.getWidth();
 		int origHeight = image.getHeight();
 		if (height == -1) {
 			height = width * origHeight / origWidth;
 		}
-
+/*
 		Image newImage;
 		Graphics g = (newImage = Image.createImage(width, height)).getGraphics();
 
@@ -440,7 +441,8 @@ public final class VikaUtils
 			}
 		}
 
-		return Image.createImage(newImage);
+		return Image.createImage(newImage);*/
+		return ImageUtils.resize(image, width, height, false, false);
 	}
 
 	public static Image downloadImage(String url) 
@@ -519,6 +521,7 @@ public final class VikaUtils
 		final Connection con = Connector.open(url);
 		if(con instanceof HttpConnection)
 		{
+			con.close();
 			HttpConnection var2 = (HttpConnection) con; 
 			var2.setRequestMethod("GET");
 			var2.setRequestProperty("User-Agent", "KateMobileAndroid/51.1 lite-442 (Symbian; SDK 17; x86; Nokia; ru)");
@@ -533,8 +536,10 @@ public final class VikaUtils
 			caching = false;
 			con.close();
 
-			FileConnection fileconn;
-			DataInputStream dis = (fileconn = (FileConnection) Connector.open(url)).openDataInputStream();
+			DataInputStream dis = ((FileConnection) Connector.open(url)).openDataInputStream();
+
+			Image image = Image.createImage(dis);
+			/*
 			try
 			{
 				int length = (int) fileconn.fileSize();
@@ -568,13 +573,21 @@ public final class VikaUtils
 					baos.close();
 				}
 
-			}
+			}*/
 		}
-		ContentConnection contconn;
-		DataInputStream cin = (contconn = (ContentConnection) Connector.open(url)).openDataInputStream();
+		con.close();
+		DataInputStream cin = ((ContentConnection) Connector.open(url)).openDataInputStream();
 
+		Image image = Image.createImage(cin);
+		 if(image != null && caching)
+			{
+				ImageStorage.save(filename, image);
+			}
+		 return image;
+		 /*
 		try
 		{
+			 /*
 			int length;
 			byte[] imgBytes;
 			if ((length = (int) contconn.getLength()) != -1)
@@ -615,6 +628,7 @@ public final class VikaUtils
 			{
 				
 			}
+			
 		}
 		finally
 		{
@@ -635,6 +649,7 @@ public final class VikaUtils
 		}
 
 		return null;
+		*/
 	}
 
 	public static String time(Date date)

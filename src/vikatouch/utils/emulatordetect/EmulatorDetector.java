@@ -94,6 +94,48 @@ public class EmulatorDetector
 	
 	public static boolean isCompatible(int i)
 	{
+		switch(i)
+		{
+			case 0:
+				return true;
+				
+			case -1:
+				return false;
+				
+			case 1:
+				//TODO return false;
+				return true;
+				
+			case 4:
+				return true;
+				
+			case 5:
+				return true;
+				
+			case 6:
+				return true;
+				
+			case 7:
+				return false;
+				
+			case 8:
+				return false;
+				
+			case 9:
+				return false;
+				
+			case 10:
+				return false;
+				
+			case 11:
+				return true;
+				
+			case 16:
+				return true;
+				
+			case 17:
+				return true;
+		}
 		return false;
 	}
 	
@@ -106,6 +148,9 @@ public class EmulatorDetector
 				
 			case -1:
 				return "unknown";
+				
+			case 1:
+				return "kemulator";
 				
 			case 4:
 				return "nokiasdk";
@@ -136,7 +181,6 @@ public class EmulatorDetector
 				
 			case 17:
 				return "j2ml-or-kem";
-				
 		}
 		return "unknown";
 	}
