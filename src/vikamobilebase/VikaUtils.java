@@ -81,7 +81,6 @@ public final class VikaUtils
 	
 	public static String parseTime(final long paramLong)
 	{
-		/*
 		final Calendar cal = Calendar.getInstance();
 		
 		final Date date = new Date(paramLong * 1000L);
@@ -126,14 +125,12 @@ public final class VikaUtils
 		    }
 	    }
 	    
-	    
 	    return result;
-	    */
-		return parseShortTime(paramLong);
 	}
 	
 	public static String parseMsgTime(final long paramLong)
 	{
+		/*
 		final Calendar cal = Calendar.getInstance();
 		
 		final Date date = new Date(paramLong * 1000L);
@@ -178,6 +175,8 @@ public final class VikaUtils
 	    }
 	    
 	    return result;
+	    */
+		return parseShortTime(paramLong);
 	}
 	
 	public static String download(URLBuilder url)
@@ -187,12 +186,10 @@ public final class VikaUtils
 	
 	public static String download(String url)
 	{
-		url = replace(url, ":443", "");
 		HttpConnection httpconn = null;
 		InputStream is = null;
 		InputStreamReader isr = null;
 		String result = null;
-		
 		
 		try
 		{
@@ -263,25 +260,12 @@ public final class VikaUtils
 
 		try
 		{
-			isr.close();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		try
-		{
-			is.close();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		try
-		{
-			httpconn.close();
+			if(isr != null)
+				isr.close();
+			if(is != null)
+				is.close();
+			if(httpconn != null)
+				httpconn.close();
 		}
 		catch (Exception e)
 		{
