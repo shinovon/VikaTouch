@@ -624,7 +624,7 @@ public final class VikaUtils
 		String time = TextLocal.inst.formatTime(hours, minutes);
 		return time;
 	}
-
+/*
 	public static String fullDate(Date date)
 	{
 
@@ -637,7 +637,7 @@ public final class VikaUtils
 		int minutes = cal.get(Calendar.MINUTE);
 		return TextLocal.inst.formatFullDate(day, month, year, hour, minutes);
 	}
-
+*/
 	public static void request(URLBuilder url)
 		throws IOException
 	{
