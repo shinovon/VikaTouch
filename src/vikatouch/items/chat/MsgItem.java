@@ -58,8 +58,8 @@ public class MsgItem
 	{
 		text = s;
 		int h1 = Font.getFont(0, 0, 8).getHeight();
-		drawText = TextBreaker.breakText(text, false, null, true, msgWidth-h1);
-		for (linesC=0; (linesC<drawText.length && drawText[linesC]!=null); linesC++) { }
+		drawText = TextBreaker.breakText(text, Font.getFont(0, 0, Font.SIZE_SMALL), msgWidth-h1);
+		linesC = drawText.length;
 		itemDrawHeight = h1*(linesC+1);
 	}
 	public void parseJSON()
@@ -210,7 +210,7 @@ public class MsgItem
 		int th = attY + attH;
 		itemDrawHeight = th;
 		int textX = 0;
-		final int radius = 16;
+		int radius = 16;
 		if(foreign)
 		{
 			ColorUtils.setcolor(g, ColorUtils.FOREIGNMSG);
@@ -464,7 +464,8 @@ public class MsgItem
 				e.printStackTrace();
 			}
 			return;
-		} else if(i>=0)
+		} 
+		else if(i>=0)
 		{ // прикрепы
 			try
 			{
