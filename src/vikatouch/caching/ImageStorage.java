@@ -12,11 +12,11 @@ import vikatouch.settings.Settings;
 
 public class ImageStorage
 {
-    private static final int MAX_AREA_OF_IMAGE = 640 * 480;
+    //private static final int MAX_AREA_OF_IMAGE = 640 * 480;
 
     
   //name of storage in RMS
-    private static final String RMS_IMAGES = "vikaImagesCache";
+    //private static final String RMS_IMAGES = "vikaImagesCache";
     //HashMap<String, Image>
     private static Hashtable images;
  
@@ -26,28 +26,28 @@ public class ImageStorage
      * your color is processed correctly by application.
      * It is setted only once (you can make it final)
      */
-    protected static int COLOR_TO_BE_TRANSPARENT = 0xFFFFFF;
+   // protected static int COLOR_TO_BE_TRANSPARENT = 0xFFFFFF;
  
-    private static boolean isLoaded = false; //flag indicates that images have been loaded from RMS
+   // private static boolean isLoaded = false; //flag indicates that images have been loaded from RMS
 
 
-	private static int lastSize;
+	//private static int lastSize;
 
 
-	private static RecordStore recordStore;
+	//private static RecordStore recordStore;
  
     
     public static void init()
     {
     	images = new Hashtable();
-    	try
-    	{
-			loadImages();
-		}
-    	catch (Exception e)
-    	{
+    	//try
+    	//{
+		//	loadImages();
+		//}
+    	//catch (Exception e)
+    	//{
 			
-		}
+		//}
     }
  
     
@@ -66,9 +66,10 @@ public class ImageStorage
 			{
 	    		return i;
 			}
+			/*
 	    	if(!images.contains(s) || !isLoaded)
 	    	{
-				loadImages();
+				//loadImages();
 	        	if(images.contains(s))
 	        	{
 	        		return i = (Image) images.get(s);
@@ -78,9 +79,11 @@ public class ImageStorage
 	    	{
 	    		return i;
 	    	}
+	    	*/
 		} 
 	    catch (Exception e)
 		{
+	    	e.printStackTrace();
 		}
 		return i;
     }
@@ -88,9 +91,9 @@ public class ImageStorage
     public static void save(String s, Image i)
     {
 		images.put(s, i);
-		if(images.size() > lastSize)
-			storeImagesInRMS();
-		lastSize = images.size();
+		//if(images.size() > lastSize)
+		//	storeImagesInRMS();
+		//lastSize = images.size();
     }
     
     public static boolean has(String s)
@@ -106,6 +109,7 @@ public class ImageStorage
      * @param h        - height of taken image (we can take not whole region of image)
      * @param s        - area of image (should be w*h)
      */
+    /*
     protected static void getRGB(int[] rgbInts, Image curImage, int w, int h, int s)
     {
         curImage.getRGB(rgbInts, 0, w, 0, 0, w, h);
@@ -113,6 +117,7 @@ public class ImageStorage
             if ((rgbInts[i] & 0x00FFFFFF) == COLOR_TO_BE_TRANSPARENT)
                 rgbInts[i] = (rgbInts[i] & 0x00FFFFFF);
     }
+    */
  
     /**
      * Checks if we need to update cash
@@ -124,12 +129,6 @@ public class ImageStorage
      * @throws RecordStoreException
      * @throws IOException
      */
-    protected boolean additioanlCheckingOfNeedingReCashing(RecordStore recordStore)
-    		throws RecordStoreException, IOException
-    {
-        /*additional check e.g. data in RMS is out-of-date because of changed font or resolution*/
-        return false;
-    }
  
     /**
      * Restores array of images from RMS to array of cashed images
@@ -138,7 +137,7 @@ public class ImageStorage
      */
     protected static void restoreImagesFromRMS()
     {
-    	
+    	/*
         int[] intArrayOfRGBforImage = null;
         int w = 0;//width of image
         int h = 0;//height of image
@@ -150,9 +149,9 @@ public class ImageStorage
             recordStore = RecordStore.openRecordStore(RMS_IMAGES, true);
             RecordEnumeration re = recordStore.enumerateRecords(null, null, true);
  
-            /* Here you can place code for taking additional info for re-cashing into RMS (you should simply skip it)
+            // Here you can place code for taking additional info for re-cashing into RMS (you should simply skip it)
              * because it is already processed) 
-            /*...*/
+            //...
  
             try
             {
@@ -191,7 +190,7 @@ public class ImageStorage
         {
             rse.printStackTrace();
         }
-        
+        */
     }
  
     /**
@@ -201,7 +200,7 @@ public class ImageStorage
      */
     public static void storeImagesInRMS()
     {
-    	
+    	/*
         int w, h, l;
         int[] rgbImage = new int[MAX_AREA_OF_IMAGE];
         try
@@ -226,10 +225,10 @@ public class ImageStorage
             }
             RecordStore recordStore = RecordStore.openRecordStore(RMS_IMAGES, true);
  
-            /*save additional info for checking necessity of re-cashing into RMS
-            /*...*/
+            //save additional info for checking necessity of re-cashing into RMS
+            //...
             Image curImage;
-            Enumeration e = images.elements();
+            Enumeration e = images.keys();
             String x = null;
             for (curImage = null; e.hasMoreElements(); curImage = (Image) images.get(x = (String) e.nextElement()))
             {
@@ -267,9 +266,9 @@ public class ImageStorage
         }
         catch (Exception e)
         {
-        	
+        	e.printStackTrace();
         }
-        
+        */
     }
  
     /**
@@ -279,35 +278,30 @@ public class ImageStorage
      *
      * @throws Exception
      */
+    /*
     public static void loadImages()
     		throws Exception
     {
-    	RecordStore recordStore;
-    	try 
-    	{
-    		recordStore = RecordStore.openRecordStore(RMS_IMAGES, true);
+    	//RecordStore recordStore;
+    	//try 
+    	//{
+    		//recordStore = RecordStore.openRecordStore(RMS_IMAGES, true);
     		//if (recordStore.getNumRecords() == 0 && images.size() > 0)
-            {
+            //{
             //    storeImagesInRMS();
-            }
-            restoreImagesFromRMS();
-            isLoaded = true;
-            recordStore.closeRecordStore();
-    	} 
-    	catch (RecordStoreNotFoundException e)
-    	{ }
+            //}
+          //  restoreImagesFromRMS();
+          //  isLoaded = true;
+            //recordStore.closeRecordStore();
+    	//} 
+    	//catch (RecordStoreNotFoundException e)
+    	//{ 
+    	//	e.printStackTrace();
+    	//}
         
     }
- 
-    /**
-     * Use this method instead of Graphics.drawImage to draw complicated cashed images
-     *
-     * @param g      - object of class {@link javax.microedition.lcdui.Graphics}
-     * @param index  - index of cashed image in array of cashed images
-     * @param x      - x coordinate of painted image
-     * @param y      - y coordinate of painted image
-     * @param anchor - anchor of painted image
-     */
+    */
+ /*
     public static void drawImage(Graphics g, String s, int x, int y, int anchor)
     {
         if (ImageStorage.isLoaded)
@@ -323,4 +317,5 @@ public class ImageStorage
             }
         }
     }
+    */
 }

@@ -2,7 +2,7 @@ package vikatouch.json;
 
 import org.json.me.JSONObject;
 
-import vikamobilebase.VikaUtils;
+import vikatouch.utils.VikaUtils;
 
 public abstract class JSONBase
 {

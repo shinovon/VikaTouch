@@ -4,8 +4,8 @@
 $lastglobal = "2.6.11";
 
 $lastprealpha = "2.6.11";
-$lastalpha = "none";
-$lastprebeta = "none";
+$lastalpha = "2.6.18";
+$lastprebeta = "2.7.4";
 $lastclosedbeta = "none";
 $lastopenbeta = "none";
 $lastprerelease = "none";

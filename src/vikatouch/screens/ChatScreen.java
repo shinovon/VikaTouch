@@ -20,12 +20,13 @@ import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.images.IconsManager;
 import ru.nnproject.vikaui.utils.text.TextBreaker;
-import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.canvas.VikaCanvasInst;
 import vikatouch.items.chat.MsgItem;
 import vikatouch.locale.TextLocal;
 import vikatouch.settings.Settings;
+import vikatouch.utils.IntObject;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.text.CountUtils;
 import vikatouch.utils.text.TextEditor;
 import vikatouch.utils.url.URLBuilder;
@@ -71,7 +72,7 @@ public class ChatScreen
 		if(updater!=null&&updater.isAlive())
 		{
 			updater.interrupt();
-			System.out.println("Updater stopped.");
+			//System.out.println("Updater stopped.");
 		}
 	}
 	
@@ -125,7 +126,7 @@ public class ChatScreen
 		}
 	}
 	
-	public static String[] profileNames = new String[OFFSET_INT + 256];
+	public static Hashtable profileNames = new Hashtable();
 	
 	public ChatScreen(int peerId, String title)
 	{
@@ -216,12 +217,12 @@ public class ChatScreen
 		}
 		
 		System.gc();
-		System.out.println("Dialog ready.");
+		//System.out.println("Dialog ready.");
 		//scroll = -10000;
 		//dragging = true;
 		repaint();
 		runUpdater();
-		System.out.println("Updater started returned.");
+		//System.out.println("Updater started returned.");
 	}
 
 	private void messagesChat()
@@ -241,8 +242,8 @@ public class ChatScreen
 				String firstname = profile.optString("first_name");
 				String lastname = profile.optString("last_name");
 				int id = profile.optInt("id");
-				if(id > 0 && firstname != null && profileNames[id] != null)
-					profileNames[id] = firstname + " " + lastname;
+				if(id > 0 && firstname != null && profileNames.contains(new IntObject(id)))
+					profileNames.put(new IntObject(id), firstname + " " + lastname);
 			}
 			for(int i = 0; i < items.length(); i++)
 			{
@@ -252,9 +253,9 @@ public class ChatScreen
 
 				String name = "user" + fromId;
 				
-				if(fromId > 0 && profileNames[fromId] != null)
+				if(fromId > 0 && profileNames.contains(new IntObject(fromId)))
 				{
-					name = (String)profileNames[fromId];
+					name = (String)profileNames.get(new IntObject(fromId));
 				}
 				
 				boolean chain = false;
@@ -268,7 +269,7 @@ public class ChatScreen
 				uiItems[uiItems.length-1-i-loadSpace] = m;
 				if(Settings.autoMarkAsRead && i == 0)
 				{
-					VikaUtils.download(new URLBuilder("messages.markAsRead").addField("start_message_id", ""+m.mid).addField("peer_id", peerId));
+					VikaUtils.request(new URLBuilder("messages.markAsRead").addField("start_message_id", ""+m.mid).addField("peer_id", peerId));
 				}
 				itemsCount = (short) uiItems.length;
 			}
@@ -288,7 +289,7 @@ public class ChatScreen
 			uiItems = new PressableUIItem[Settings.messagesPerLoad+loadSpace];
 			String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("count", Settings.messagesPerLoad).addField("offset", 0));
 			JSONArray json = new JSONObject(x).getJSONObject("response").getJSONArray("items");
-			profileNames[peerId] = title;
+			profileNames.put(new IntObject(peerId), title);
 			for(int i = 0; i<json.length();i++) 
 			{
 				MsgItem m = new MsgItem(json.getJSONObject(i));
@@ -306,7 +307,7 @@ public class ChatScreen
 				uiItems[uiItems.length-1-i-loadSpace] = m;
 				if(Settings.autoMarkAsRead && i == 0)
 				{
-					VikaUtils.download(new URLBuilder("messages.markAsRead").addField("start_message_id", ""+m.mid).addField("peer_id", peerId));
+					VikaUtils.request(new URLBuilder("messages.markAsRead").addField("start_message_id", ""+m.mid).addField("peer_id", peerId));
 				}
 				itemsCount = (short) uiItems.length;
 			}
@@ -660,7 +661,7 @@ public class ChatScreen
 					}
 					if(newMsgCount>=hasSpace-1)
 					{
-						System.out.println("List shifting");
+						//System.out.println("List shifting");
 						shiftList();
 					}
 					if(type == TYPE_CHAT)
@@ -674,8 +675,8 @@ public class ChatScreen
 								String firstname = profile.optString("first_name");
 								String lastname = profile.optString("last_name");
 								int id = profile.optInt("id");
-								if(id > 0 && firstname != null && profileNames[id] != null)
-									profileNames[id] = firstname + " " + lastname;
+								if(id > 0 && firstname != null && profileNames.contains(new IntObject(id)))
+									profileNames.put(new IntObject(id), firstname + " " + lastname);
 							}
 						}
 						catch(JSONException e)
@@ -691,9 +692,9 @@ public class ChatScreen
 						int fromId = m.fromid; 
 						String name = "user" + fromId;
 						
-						if(profileNames[fromId] != null)
+						if(profileNames.contains(new IntObject(fromId)))
 						{
-							name = profileNames[fromId];
+							name = (String) profileNames.get(new IntObject(fromId));
 						}
 						
 						boolean chain = false;
@@ -757,7 +758,7 @@ public class ChatScreen
 					{ return; } // забавный факт, оно падает при убивании потока во время сна. Я к тому что его надо либо не ловить, либо при поимке завершать галиматью вручную.
 					try
 					{
-						System.out.println("Chat updating...");
+						//System.out.println("Chat updating...");
 						update();
 					}
 					catch (Exception e)

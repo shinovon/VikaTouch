@@ -13,13 +13,13 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.menu.items.PressableUIItem;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
-import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.items.LoadMoreButtonItem;
 import vikatouch.items.menu.DocItem;
 import vikatouch.json.INextLoadable;
 import vikatouch.locale.TextLocal;
 import vikatouch.screens.MainScreen;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.error.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
 

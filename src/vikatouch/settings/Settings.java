@@ -10,10 +10,12 @@ import javax.microedition.rms.RecordStoreException;
 import javax.microedition.rms.RecordStoreFullException;
 import javax.microedition.rms.RecordStoreNotFoundException;
 
-import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.locale.LangObject;
+import vikatouch.utils.VikaUtils;
+import vikatouch.utils.emulatordetect.EmulatorDetector;
 import vikatouch.utils.error.ErrorCodes;
+
 
 public class Settings
 {
@@ -63,7 +65,7 @@ public class Settings
 	
 	//Не нуждаются сохранению (м.б передумаем)
 	public static boolean threaded;
-	public static long memoryClearCache = 400;
+	public static long memoryClearCache = 500;
 	public static boolean dontBack;
 	public static boolean isLiteOrSomething;
 	public static boolean autoMarkAsRead = true;
@@ -81,6 +83,7 @@ public class Settings
 	public static final int SENSOR_OK = 0;
 	public static final int SENSOR_J2MELOADER = 1;
 	public static final int SENSOR_RESISTIVE = 2;
+	public static final int SENSOR_KEMULATOR = 3;
 	
 	public static final int AUDIO_PLAYONLINE = 0; // даём плееру урл и пусть играет.
 	public static final int AUDIO_CACHEANDPLAY = 1; // подключаем поток и даём плееру его.
@@ -266,7 +269,18 @@ public class Settings
 
 	public static void setEmulatorSettings()
 	{
-		
+		if(EmulatorDetector.isEmulator)
+		{
+			if(EmulatorDetector.emulatorType == EmulatorDetector.EM_KEM_OR_J2L)
+			{
+				Settings.sensorMode = Settings.SENSOR_J2MELOADER;
+			}
+
+			if(EmulatorDetector.emulatorType == EmulatorDetector.EM_KEMMOD)
+			{
+				Settings.sensorMode = Settings.SENSOR_KEMULATOR;
+			}
+		}
 	}
 
 }

@@ -13,7 +13,6 @@ import ru.nnproject.vikaui.popup.ContextMenu;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.images.IconsManager;
-import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.items.menu.FriendItem;
 import vikatouch.items.menu.OptionItem;
@@ -22,6 +21,7 @@ import vikatouch.items.music.PlaylistItem;
 import vikatouch.locale.TextLocal;
 import vikatouch.screens.*;
 import vikatouch.screens.menu.PlaylistsScreen;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.error.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
 

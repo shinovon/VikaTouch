@@ -1,4 +1,4 @@
-package vikamobilebase;
+package vikatouch.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -16,10 +16,12 @@ import javax.microedition.io.Connector;
 import javax.microedition.io.ContentConnection;
 import javax.microedition.io.HttpConnection;
 import javax.microedition.io.HttpsConnection;
+import javax.microedition.io.InputConnection;
 import javax.microedition.io.file.FileConnection;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
+import tube42.lib.imagelib.ImageUtils;
 import vikatouch.VikaTouch;
 import vikatouch.caching.ImageStorage;
 import vikatouch.locale.TextLocal;
@@ -128,6 +130,7 @@ public final class VikaUtils
 	
 	public static String parseMsgTime(final long paramLong)
 	{
+		/*
 		final Calendar cal = Calendar.getInstance();
 		
 		final Date date = new Date(paramLong * 1000L);
@@ -172,28 +175,8 @@ public final class VikaUtils
 	    }
 	    
 	    return result;
-	}
-
-	public static boolean check()
-	{
-		String url = new URLBuilder("execute").addField("code", "return \"ok\";").toString();
-		HttpConnection httpconn = null;
-		try
-		{
-			httpconn = (HttpConnection) Connector.open(url);
-		
-			if(httpconn.getResponseCode() == 200)
-			{
-				httpconn.close();
-				return true;
-			}
-			httpconn.close();
-			return false;
-		}
-		catch (IOException e)
-		{
-			return false;
-		}
+	    */
+		return parseShortTime(paramLong);
 	}
 	
 	public static String download(URLBuilder url)
@@ -203,17 +186,15 @@ public final class VikaUtils
 	
 	public static String download(String url)
 	{
-		url = replace(url, ":443", "");
 		HttpConnection httpconn = null;
 		InputStream is = null;
 		InputStreamReader isr = null;
 		String result = null;
 		
-		
 		try
 		{
 			Connection conn = Connector.open(url);
-			System.out.println("conn is " + conn.toString() + " " + conn.getClass().getName());
+			//System.out.println("conn is " + conn.toString() + " " + conn.getClass().getName());
 			httpconn = (HttpConnection) conn;
 			httpconn.setRequestMethod("GET");
 			httpconn.setRequestProperty("User-Agent", "KateMobileAndroid/51.1 lite-442 (Symbian; SDK 17; x86; Nokia; ru)");
@@ -224,10 +205,18 @@ public final class VikaUtils
 			int i;
 			if (httpconn.getResponseCode() != 200 && httpconn.getResponseCode() != 401)
 			{
-				System.out.println("not 200 and not 401");
+				//System.out.println("not 200 and not 401");
 				if(httpconn.getHeaderField("Location") != null)
 				{
 					final String replacedURL = httpconn.getHeaderField("Location");
+					try
+					{
+						isr.close();
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+					}
 					httpconn.close();
 					httpconn = (HttpConnection) Connector.open(replacedURL);
 					httpconn.setRequestMethod("GET");
@@ -249,84 +238,45 @@ public final class VikaUtils
 			}
 			else
 			{
-				System.out.println("yay"+httpconn.getResponseCode());
+				//System.out.println("yay"+httpconn.getResponseCode());
 				buffer = new char[10000];
 				
 				while ((i = isr.read(buffer, 0, buffer.length)) != -1)
 				{
 					sb.append(buffer, 0, i);
 				}
+				
+				buffer = null;
 
 			}
+			
+			result = sb.toString();
 
-			result = replace(sb.toString(), "<br>", " ");
-		}
-		catch (UnsupportedEncodingException e)
-		{
-			System.out.println("Failed to download " + url);
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			System.out.println("Failed to download " + url);
-			e.printStackTrace();
-		}
-		catch (NullPointerException e)
-		{
-			System.out.println("Failed to download " + url);
-			e.printStackTrace();
+			//result = replace(sb.toString(), "<br>", " ");
 		}
 		catch (Throwable e)
 		{
-			System.out.println("Failed to download " + url);
+			System.out.println("Fail " + url);
 			e.printStackTrace();
 		}
 
 		try
 		{
-			isr.close();
+			if(isr != null)
+				isr.close();
+			if(is != null)
+				is.close();
+			if(httpconn != null)
+				httpconn.close();
 		}
 		catch (Exception e)
 		{
-			System.out.println("Failed to close stream");
-			e.printStackTrace();
-		}
-
-		try
-		{
-			is.close();
-		}
-		catch (Exception e)
-		{
-			System.out.println("Failed to close stream");
-			e.printStackTrace();
-		}
-
-		try
-		{
-			httpconn.close();
-		}
-		catch (Exception e)
-		{
-			System.out.println("Failed to close stream");
-			e.printStackTrace();
-		}
-
-		try
-		{
-			if (VikaTouch.API != "https://api.vk.com:443")
-			{
-				result = replace(replace(replace(replace(result, "http://cs", "https://cs"), "http:\\/\\/cs", "https://cs"), "https://vk-api", "http://vk-api"), "https:\\/\\/vk-api", "http://vk-api");
-			}
-		}
-		catch (NullPointerException e)
-		{
-			System.out.println("WARNING!! Response from " + url + " is null!");
 			e.printStackTrace();
 		}
 
 		return result;
 	}
+	/*
 	
 	public static String sendPostRequest(String url, String vars)
 	{
@@ -410,6 +360,7 @@ public final class VikaUtils
 		return sb.toString();
 	}
 	
+	*/
 	public static String replace(String str, String from, String to)
 	{
 		
@@ -439,25 +390,13 @@ public final class VikaUtils
 	
 	public static Image resize(Image image, int width, int height)
 	{
+		
 		int origWidth = image.getWidth();
 		int origHeight = image.getHeight();
 		if (height == -1) {
 			height = width * origHeight / origWidth;
 		}
-
-		Image newImage;
-		Graphics g = (newImage = Image.createImage(width, height)).getGraphics();
-
-		for (int y = 0; y < height; ++y) {
-			for (int x = 0; x < width; ++x) {
-				g.setClip(x, y, 1, 1);
-				int xx = x * origWidth / width;
-				int yy = y * origHeight / height;
-				g.drawImage(image, x - xx, y - yy, 20);
-			}
-		}
-
-		return Image.createImage(newImage);
+		return ImageUtils.resize(image, width, height, false, false);
 	}
 
 	public static Image downloadImage(String url) 
@@ -473,6 +412,7 @@ public final class VikaUtils
 		{
 			caching = false;
 		}
+		System.out.println(url + " " + caching);
 		String filename = null;
 		if(caching)
 		{
@@ -516,7 +456,7 @@ public final class VikaUtils
 						, "vk.comimages", "")
 						, "com", "");
 			
-				System.out.println(filename+" ||| "+url);
+				//System.out.println(filename+" ||| "+url);
 			
 				Image image = ImageStorage.get(filename);
 				if(image != null)
@@ -531,15 +471,24 @@ public final class VikaUtils
 			}
 		}
 
-		ByteArrayOutputStream baos = null;
+		//ByteArrayOutputStream baos = null;
 		final Connection con = Connector.open(url);
 		if(con instanceof HttpConnection)
 		{
 			HttpConnection var2 = (HttpConnection) con; 
 			var2.setRequestMethod("GET");
 			var2.setRequestProperty("User-Agent", "KateMobileAndroid/51.1 lite-442 (Symbian; SDK 17; x86; Nokia; ru)");
-			if (var2.getResponseCode() != 200 && var2.getResponseCode() != 401) {
-				url = var2.getHeaderField("Location");
+			int respcode = var2.getResponseCode();
+			if (respcode != 200 && respcode != 401) {
+				if(var2.getHeaderField("Location") != null)
+				{
+					url = var2.getHeaderField("Location");
+				}
+				else
+				{
+					
+					throw new IOException("" + respcode);
+				}
 			}
 			
 			var2.close();
@@ -549,8 +498,11 @@ public final class VikaUtils
 			caching = false;
 			con.close();
 
-			FileConnection fileconn;
-			DataInputStream dis = (fileconn = (FileConnection) Connector.open(url)).openDataInputStream();
+			DataInputStream dis = ((FileConnection) Connector.open(url)).openDataInputStream();
+
+			return Image.createImage(dis);
+			
+			/*
 			try
 			{
 				int length = (int) fileconn.fileSize();
@@ -584,13 +536,21 @@ public final class VikaUtils
 					baos.close();
 				}
 
-			}
+			}*/
 		}
-		ContentConnection contconn;
-		DataInputStream cin = (contconn = (ContentConnection) Connector.open(url)).openDataInputStream();
+		con.close();
+		DataInputStream cin = ((ContentConnection) Connector.open(url)).openDataInputStream();
 
+		Image image = Image.createImage(cin);
+		 if(image != null && caching)
+			{
+				ImageStorage.save(filename, image);
+			}
+		 return image;
+		 /*
 		try
 		{
+			 /*
 			int length;
 			byte[] imgBytes;
 			if ((length = (int) contconn.getLength()) != -1)
@@ -631,6 +591,7 @@ public final class VikaUtils
 			{
 				
 			}
+			
 		}
 		finally
 		{
@@ -651,6 +612,7 @@ public final class VikaUtils
 		}
 
 		return null;
+		*/
 	}
 
 	public static String time(Date date)
@@ -662,7 +624,7 @@ public final class VikaUtils
 		String time = TextLocal.inst.formatTime(hours, minutes);
 		return time;
 	}
-
+/*
 	public static String fullDate(Date date)
 	{
 
@@ -674,5 +636,22 @@ public final class VikaUtils
 		int hour = cal.get(Calendar.HOUR);
 		int minutes = cal.get(Calendar.MINUTE);
 		return TextLocal.inst.formatFullDate(day, month, year, hour, minutes);
+	}
+*/
+	public static void request(URLBuilder url)
+		throws IOException
+	{
+		makereq(url.toString());
+	}
+
+	public static void makereq(String url)
+		throws IOException
+	{
+		HttpConnection httpconn = null;
+		Connection conn = Connector.open(url);
+		httpconn = (HttpConnection) conn;
+		httpconn.setRequestMethod("GET");
+		httpconn.setRequestProperty("User-Agent", "KateMobileAndroid/51.1 lite-442 (Symbian; SDK 17; x86; Nokia; ru)");
+		httpconn.openInputStream();	
 	}
 }

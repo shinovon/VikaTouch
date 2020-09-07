@@ -28,7 +28,7 @@ public abstract class ScrollableCanvas
 	public static final double scrollSpeed = 1.8;
 	public PressableUIItem[] uiItems;
 	public short scrollOffset;
-	public short currentItem;
+	public int currentItem;
 	public static boolean keysMode = false;
 	public boolean scrollWithKeys = false;
 	
@@ -63,6 +63,8 @@ public abstract class ScrollableCanvas
 				scrollingTimer += Math.abs(scroll) / 14;
 				if(Math.abs(scroll / 3) > Math.abs(driftSpeed))
 					driftSpeed = (short) (scroll / 3);
+				if(poorScrolling())
+					scroll *= 4;
 			}
 			else
 			{
@@ -82,6 +84,10 @@ public abstract class ScrollableCanvas
 			{
 				dragging = true;
 			}
+		}
+		if(poorScrolling())
+		{
+			dragging = true;
 		}
 		lastx = x;
 		lasty = y;
@@ -104,11 +110,16 @@ public abstract class ScrollableCanvas
 		endx = -1;
 		endy = -1;
 	}
+	
+	public static boolean poorScrolling()
+	{
+		return DisplayUtils.canvas.poorScrolling();
+	}
 
 	public void release(int x, int y)
 	{
 		VikaCanvas.debugString = "released " + x +" " +y;
-		if(timer < 7)
+		if(!poorScrolling() && timer < 7)
 		{
 			if(scrollPrev != 0)
 				drag(x, y);
@@ -295,16 +306,19 @@ public abstract class ScrollableCanvas
 	{
 		try
 		{
-			if(timer < 3200)
-				timer++;
-			if(scrollingTimer > 0)
-				scrollingTimer--;
-			
-			if(drift != 0 && driftSpeed != 0 && scrollingTimer > 5)
+			if(!poorScrolling())
 			{
-				scroll += driftSpeed;
-				drift -= driftSpeed;
-				driftSpeed *= 0.975;
+				if(timer < 3200)
+					timer++;
+				if(scrollingTimer > 0)
+					scrollingTimer--;
+				
+				if(drift != 0 && driftSpeed != 0 && scrollingTimer > 5)
+				{
+					scroll += driftSpeed;
+					drift -= driftSpeed;
+					driftSpeed *= 0.975;
+				}
 			}
 		}
 		catch(ArithmeticException e)
@@ -350,7 +364,8 @@ public abstract class ScrollableCanvas
 			}
 			g.translate(0, scrolled);
 		}
-		scroll = 0;
+		if(!poorScrolling())
+			scroll = 0;
 	}
 
 	protected void callRefresh()

@@ -23,5 +23,7 @@ public abstract class VikaCanvas
 	public abstract boolean isSensorModeOK();
 	
 	public abstract boolean isSensorModeJ2MELoader();
+	
+	public abstract boolean poorScrolling();
 
 }

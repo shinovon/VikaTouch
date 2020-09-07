@@ -7,7 +7,6 @@ import javax.microedition.lcdui.Displayable;
 import ru.nnproject.vikaui.popup.InfoPopup;
 import ru.nnproject.vikaui.screen.VikaScreen;
 import ru.nnproject.vikaui.utils.DisplayUtils;
-import vikamobilebase.VikaUtils;
 import vikatouch.locale.TextLocal;
 import vikatouch.screens.AboutScreen;
 import vikatouch.screens.ChatScreen;
@@ -25,6 +24,7 @@ import vikatouch.screens.music.MusicScreen;
 import vikatouch.screens.page.GroupPageScreen;
 import vikatouch.settings.Settings;
 import vikatouch.settings.SettingsScreen;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.url.URLBuilder;
 
 public class CommandsImpl
@@ -187,9 +187,9 @@ public class CommandsImpl
 					case 13:
 					{
 						//Настройки
-						if(VikaTouch.sets == null)
-							VikaTouch.sets = new SettingsScreen();
-						VikaTouch.setDisplay(VikaTouch.sets, 1);
+						if(VikaTouch.setsScr == null)
+							VikaTouch.setsScr = new SettingsScreen();
+						VikaTouch.setDisplay(VikaTouch.setsScr, 1);
 						break;
 					}
 					case 14:

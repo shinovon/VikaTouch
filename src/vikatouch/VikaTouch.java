@@ -32,6 +32,7 @@ import vikatouch.screens.temp.SplashScreen;
 import vikatouch.settings.Settings;
 import vikatouch.settings.SettingsScreen;
 import vikatouch.utils.ResizeUtils;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.captcha.CaptchaObject;
 import vikatouch.utils.emulatordetect.EmulatorDetector;
 import vikatouch.utils.error.ErrorCodes;
@@ -76,7 +77,7 @@ public class VikaTouch
 	public static VikaTouch inst;
 	public static VikaTouchApp appInst;
 	public static boolean crashed;
-	protected static SettingsScreen sets;
+	public static SettingsScreen setsScr;
 	public static boolean isEmulator;
 
 	private void saveToken()
@@ -123,6 +124,8 @@ public class VikaTouch
 				MenuScreen.lastname = name.substring(name.indexOf(" ")+1, name.length());
 				userId = s2.substring(0, s2.indexOf(";"));
 				tokenRMS.closeRecordStore();
+				//оптимизация
+				MenuScreen.avaurl = null;
 				return true;
 			}
 			tokenRMS.closeRecordStore();
@@ -747,14 +750,14 @@ public class VikaTouch
 		cmdsInst = new CommandsImpl();
 		setDisplay(splash, 0);
 		
-		splash.currState = 1;
+		SplashScreen.currState = 1;
 		
 		Settings.loadDefaultSettings();
+		EmulatorDetector.checkForEmulator(mobilePlatform);
 		Settings.loadSettings();
 		
-		EmulatorDetector.checkForEmulator(mobilePlatform);
 		
-		splash.currState = 2;
+		SplashScreen.currState = 2;
 		
 		try
 		{
@@ -770,7 +773,7 @@ public class VikaTouch
 		if(EmulatorDetector.emulatorNotSupported)
 			VikaTouch.popup(new InfoPopup(TextLocal.inst.get("splash.emnotsupported"), null));
 		
-		splash.currState = 3;
+		SplashScreen.currState = 3;
 		
 		ImageStorage.init();
 		try
@@ -792,7 +795,7 @@ public class VikaTouch
 			e1.printStackTrace();
 		}
 		
-		splash.currState = 4;
+		SplashScreen.currState = 4;
 		
 		//Выбор сервера
 		if(!Settings.setted)
@@ -841,6 +844,7 @@ public class VikaTouch
 			final VikaScreen canvas;
 			if(DEMO_MODE || getToken())
 			{
+				SplashScreen.currState = 5;
 				if(accessToken != "")
 				{
 					if(userId == null || userId == "")
@@ -848,16 +852,16 @@ public class VikaTouch
 						refreshToken();
 						JSONObject jo = new JSONObject(VikaUtils.download(new URLBuilder("account.getProfileInfo"))).getJSONObject("response");
 						userId = "" + jo.optInt("id");
+						jo.dispose();
 					}
 				}
-				splash.currState = 5;
 				canvas = menuScr = new MenuScreen();
-				splash.currState = 6;
+				SplashScreen.currState = 6;
 				if(accessToken != "" && !offlineMode)
 				{
-					Dialogs.refreshDialogsList(false);
+					Dialogs.refreshDialogsList(true);
 				}
-				splash.currState = 7;
+				SplashScreen.currState = 7;
 				Thread.sleep(250);
 				disposeSplash();
 			}
@@ -979,7 +983,7 @@ public class VikaTouch
 		newsScr = null;
 		loginScr = null;
 		splash = null;
-		System.gc();
+		gc();
 	}
 
 	public static void logout()
@@ -1003,6 +1007,7 @@ public class VikaTouch
 	public static void gc()
 	{
 		// TODO Garbage Cleaner
+		System.gc();
 		
 	}
 }

@@ -10,7 +10,6 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.menu.items.PressableUIItem;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
-import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.items.LoadMoreButtonItem;
 import vikatouch.items.menu.GroupItem;
@@ -19,6 +18,7 @@ import vikatouch.json.INextLoadable;
 import vikatouch.locale.TextLocal;
 import vikatouch.screens.MainScreen;
 import vikatouch.settings.Settings;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.error.ErrorCodes;
 import vikatouch.utils.url.URLBuilder;
 
@@ -67,7 +67,7 @@ public class VideosScreen
 					try
 					{
 						VikaTouch.loading = true;
-						System.out.println(x);
+						//System.out.println(x);
 						JSONObject response = new JSONObject(x).getJSONObject("response");
 						JSONArray items = response.getJSONArray("items");
 						int totalVids = response.getInt("count");

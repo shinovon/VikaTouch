@@ -11,13 +11,13 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.images.IconsManager;
-import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.items.JSONUIItem;
 import vikatouch.screens.menu.DocsScreen;
 import vikatouch.screens.page.ProfilePageScreen;
 import vikatouch.settings.Settings;
 import vikatouch.utils.ResizeUtils;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.error.ErrorCodes;
 
 public class FriendItem extends JSONUIItem

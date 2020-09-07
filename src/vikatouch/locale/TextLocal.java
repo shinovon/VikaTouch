@@ -3,9 +3,9 @@ package vikatouch.locale;
 import java.io.*;
 import java.util.Hashtable;
 
-import vikamobilebase.VikaUtils;
 import vikatouch.VikaTouch;
 import vikatouch.settings.Settings;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.error.ErrorCodes;
 
 public class TextLocal
@@ -101,6 +101,7 @@ public class TextLocal
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			VikaTouch.error(e, ErrorCodes.LANGGET);
 		}
 		return key;

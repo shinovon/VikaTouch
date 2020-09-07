@@ -1,6 +1,7 @@
 #info:
 #русский
 #оригинальный язык
+#совместимо с: пре-бета 2.7.2
 #авторы shinovon, Feodor0090
 #
 #вк авторов:
@@ -122,11 +123,16 @@ title.groups=Группы
 title.friends=Друзья
 title.music=Музыка
 title.playlists=Плейлисты
+title.album=Альбом
+title.albums=Альбомы
 title.settings=Настройки
 title.friendsw=Друзья %1
 title.documentsw=Документы %1
 title.clubsw=Группы %1
 title.membersw=Участники %1
+title.musicw=Музыка %1
+title.playlistsw=Плейлисты %1
+title.albumsw=Альбомы %1
 
 friend.remove=Удалить из друзей
 friend.add=Добавить в друзья
@@ -193,7 +199,7 @@ settings.j2meloader=J2ME Loader
 settings.resistive=Резистивный тач
 settings.logout=Выйти из аккаунта
 settings.reset=Настройки по умолчанию
-settings.clearcache=Удалить кэшированные изображения
+settings.clearcache=Очистить кэш
 settings.transitionanimation=Анимация переходов
 settings.listslength=Количество элементов в списках
 settings.dontloadavas=Не загружать аватарки
@@ -223,6 +229,8 @@ settings.audioc.6=Воспроизвести в VLC [KEmulator]
 settings.audioc.7=Скачать файл через браузер
 settings.spabilities=Специальные возможности
 settings.debug=Отладка
+settings.debugcrap=Отладочная информация на экране
+
 
 back=Назад
 select=Выбрать

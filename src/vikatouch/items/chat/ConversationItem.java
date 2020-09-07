@@ -12,14 +12,15 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.images.IconsManager;
-import vikamobilebase.VikaUtils;
 import vikatouch.Dialogs;
 import vikatouch.VikaTouch;
 import vikatouch.attachments.AudioAttachment;
 import vikatouch.attachments.PhotoAttachment;
 import vikatouch.items.JSONUIItem;
+import vikatouch.json.JSONBase;
 import vikatouch.settings.Settings;
 import vikatouch.utils.ResizeUtils;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.error.ErrorCodes;
 
 public class ConversationItem
@@ -27,7 +28,6 @@ public class ConversationItem
 {
 	public String text;
 	public String title;
-	public MsgItem lastmessage;
 	public long chatid;
 	public boolean ls;
 	public long date;
@@ -43,6 +43,7 @@ public class ConversationItem
 	private Image ava;
 	//private static Image deleteImg;
 	//private static Image unreadImg;
+	public String lasttext;
 	
 	public ConversationItem(JSONObject json)
 	{
@@ -104,6 +105,7 @@ public class ConversationItem
 				
 			}
 		}
+		avaurl = null;
 	}
 	
 	public String getTime()
@@ -196,6 +198,8 @@ public class ConversationItem
 		try
 		{
 			JSONObject conv = json.getJSONObject("conversation");
+			JSONObject peer = conv.getJSONObject("peer");
+			peerId = peer.optInt("id");
 			//System.out.println(json.toString());
 			try
 			{
@@ -203,27 +207,30 @@ public class ConversationItem
 				title = fixJSONString(chatSettings.optString("title"));
 				isGroup = chatSettings.optBoolean("is_group_channel");
 				avaurl = fixJSONString(chatSettings.getJSONObject("photo").optString("photo_50"));
+				chatSettings.dispose("chatsets");
 			}
 			catch (Throwable e)
 			{
-				e.printStackTrace();
+				//System.out.println("conv " + peerId + ": " + e.toString());
 				//chat_settings может не существовать, так-что это исключение игнорируется
 			}
 			
 			unread = conv.optInt("unread_count");
 			mention = conv.has("mentions");
 				
-			JSONObject peer = conv.getJSONObject("peer");
 			type = fixJSONString(peer.optString("type"));
-			peerId = peer.optInt("id");
 			id = peer.optInt("local_id");
 			
-			if(type.equalsIgnoreCase("user"))
+			peer.dispose("peer");
+			
+			conv.dispose("conv");
+			
+			if(type.equalsIgnoreCase("user") && Dialogs.profiles != null)
 			{
 				for(int i = 0; i < Dialogs.profiles.length(); i++)
 				{
-					JSONObject profile = Dialogs.profiles.getJSONObject(i);
-					if(profile.optInt("id") == id)
+					JSONObject profile = Dialogs.profiles.optJSONObject(i);
+					if(profile != null && profile.optInt("id") == id)
 					{
 						title = fixJSONString(profile.optString("first_name") + " " + profile.optString("last_name"));
 						if(!Settings.dontLoadAvas)
@@ -236,14 +243,15 @@ public class ConversationItem
 			{
 				for(int i = 0; i < Dialogs.groups.length(); i++)
 				{
-					JSONObject group = Dialogs.groups.getJSONObject(i);
-					if(group.optInt("id") == id)
+					JSONObject group = Dialogs.groups.optJSONObject(i);
+					if(group != null && group.optInt("id") == id)
 					{
 						title = fixJSONString(group.optString("name"));
 						if(!Settings.dontLoadAvas)
 							avaurl = fixJSONString(group.optString("photo_50"));
 						break;
 					}
+					
 				}	
 			}
 		}
@@ -255,12 +263,11 @@ public class ConversationItem
 		
 		try
 		{
-			lastmessage = new MsgItem(json.getJSONObject("last_message"));
-			lastmessage.parseJSON();
+			JSONObject msg = json.getJSONObject("last_message");
 
-			date = lastmessage.date;
+			date = msg.optLong("date");
 			
-			text = lastmessage.text;
+			lasttext = text = fixJSONString(msg.optString("text"));
 
 			time = getTime();
 			
@@ -268,6 +275,7 @@ public class ConversationItem
 			
 			if(text == "" || text == null || text.length() == 0 || text.length() == 1)
 			{
+				/*
 				if(lastmessage.attachments != null && lastmessage.attachments.length != 0 && lastmessage.attachments[0] != null)
 				{
 					try
@@ -293,9 +301,12 @@ public class ConversationItem
 						}
 					}
 				}
+				*/
+				text = "Вложение";
 			}
-			
-			if(("" + lastmessage.fromid).equalsIgnoreCase(VikaTouch.userId))
+			int fromId = msg.optInt("fromId");
+			msg.dispose();
+			if(("" + fromId).equalsIgnoreCase(VikaTouch.userId))
 			{
 				nameauthora = "Вы";
 			}
@@ -304,7 +315,7 @@ public class ConversationItem
 				for(int i = 0; i < Dialogs.profiles.length(); i++)
 				{
 					JSONObject profile = Dialogs.profiles.getJSONObject(i);
-					if(lastmessage.fromid == profile.optInt("id"))
+					if(fromId == profile.optInt("id"))
 					{
 						nameauthora = profile.optString("first_name");
 					}
@@ -331,7 +342,9 @@ public class ConversationItem
 		{
 			title = title.substring(0, 22) + "...";
 		}
-		
+		type = null;
+		json.dispose("conv json");
+		json = null;
 		System.gc();
 	}
 	

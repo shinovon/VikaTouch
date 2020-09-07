@@ -30,6 +30,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import vikatouch.utils.DebugUtils;
+
 /**
  * A JSONObject is an unordered collection of name/value pairs. Its
  * external form is a string wrapped in curly braces with colons between the
@@ -132,6 +134,7 @@ public class JSONObject {
      * The hash map where the JSONObject's properties are kept.
      */
     private Hashtable myHashMap;
+	public boolean disposed;
 
 
     /**
@@ -1312,5 +1315,27 @@ public class JSONObject {
 		String var2 = "";
 		Object var3;
 		return (var3 = this.opt(var1)) != null ? var3.toString() : var2;
+	}
+	
+	/**
+	 * Clears all arrays
+	 * @param string 
+	 */
+	public void dispose() {
+		dispose("null");
+	}
+	
+	/**
+	 * Clears all arrays
+	 * @param string 
+	 */
+	public void dispose(String string) {
+		disposed = true;
+		if(myHashMap != null)
+		{
+			myHashMap.clear();
+			//DebugUtils.printStackTrace();
+		}
+		myHashMap = null;
 	}
 }

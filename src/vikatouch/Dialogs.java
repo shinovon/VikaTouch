@@ -6,17 +6,17 @@ import org.json.me.JSONArray;
 import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
-import vikamobilebase.VikaUtils;
 import vikatouch.items.chat.ConversationItem;
 import vikatouch.screens.ChatScreen;
 import vikatouch.settings.Settings;
+import vikatouch.utils.VikaUtils;
 import vikatouch.utils.url.URLBuilder;
 
 public class Dialogs
 	extends TimerTask
 {
 	
-	private static final int dialogsCount = 15;
+	public static int dialogsCount = 15;
 	
 	public static ConversationItem[] dialogs = new ConversationItem[15];
 	
@@ -24,20 +24,22 @@ public class Dialogs
 	
 	public static JSONArray groups;
 
-	public static short itemsCount;
+	public static int itemsCount;
 
 	public static boolean selected;
 	
 	public static Thread downloaderThread;
 
 	private static Thread downloaderThread2;
+
+	private static Runnable runnable;
 	
 	public static void refreshDialogsList(final boolean async)
 	{
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
 		
-		downloaderThread = new Thread()
+		runnable = new Runnable()
 		{
 			public void run()
 			{
@@ -55,7 +57,7 @@ public class Dialogs
 						short has = 0;
 						try
 						{
-							u = dialogs[0] == null || !item.getJSONObject("last_message").optString("text").substring(0, 7).equalsIgnoreCase(dialogs[0].lastmessage.text.substring(0, 7));
+							u = dialogs[0] == null || !item.getJSONObject("last_message").optString("text").substring(0, 7).equalsIgnoreCase(dialogs[0].lasttext.substring(0, 7));
 						}
 						catch (Exception e)
 						{
@@ -67,6 +69,9 @@ public class Dialogs
 						{
 							itemsCount = dialogsCount;
 						}
+						response.dispose("response pre");
+						items.dispose("items pre");
+						item.dispose("item pre");
 						if(VikaTouch.unreadCount != has || has > 0 || u)
 						{
 							VikaTouch.unreadCount = has;
@@ -86,8 +91,12 @@ public class Dialogs
 								item = items.getJSONObject(i);
 								dialogs[i] = new ConversationItem(item);
 								dialogs[i].parseJSON();
+								item.dispose("item for");
 							}
+							items.dispose("items");
+							x = null;
 						}
+						response.dispose("response");
 					}
 					catch (JSONException e)
 					{
@@ -98,6 +107,7 @@ public class Dialogs
 				}
 				catch (NullPointerException e)
 				{
+					if(!VikaTouch.offlineMode)
 					VikaTouch.warn("Сбой соединения с сервером. Проверьте ваше подключение. Приложение переключено в оффлайн режим");
 					VikaTouch.offlineMode = true;
 					e.printStackTrace();
@@ -135,11 +145,12 @@ public class Dialogs
 		};
 		if(async)
 		{
+			downloaderThread = new Thread(runnable);
 			downloaderThread.start();
 		}
 		else
 		{
-			downloaderThread.run();
+			runnable.run();
 		}
 	}
 	

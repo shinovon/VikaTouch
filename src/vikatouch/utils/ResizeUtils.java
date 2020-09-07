@@ -4,7 +4,6 @@ import javax.microedition.lcdui.Image;
 
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import tube42.lib.imagelib.ImageUtils;
-import vikamobilebase.VikaUtils;
 
 public class ResizeUtils
 {
