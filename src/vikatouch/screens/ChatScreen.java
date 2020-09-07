@@ -807,8 +807,8 @@ public class ChatScreen
 	private void msgClick(int tapY, long tapTime)
 	{
 		tapY-=topPanelH;
-		if(tapTime > 200)
-		{
+		/*if(tapTime > 200)
+		{*/
 			if(uiItems==null) return;
 			int y = 0;
 			int gTapY = tapY-scrolled;
@@ -823,7 +823,7 @@ public class ChatScreen
 				}
 				y = y2;
 			}
-		}
+		//}
 	}
 	
 	private void drawDialog(Graphics g)
