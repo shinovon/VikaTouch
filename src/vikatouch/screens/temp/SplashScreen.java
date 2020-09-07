@@ -61,8 +61,8 @@ public class SplashScreen
 		int hdw = dw/2;
 		Font f = Font.getFont(0, 0, Font.SIZE_MEDIUM);
 		g.setFont(f);
-		int sy = (dh-(310+f.getHeight()*2))/2;
-		if(dh>300)
+		int sy = (dh-(260+20+4+f.getHeight()*2))/2;
+		if(dh>=360)
 		{
 			try
 			{
@@ -70,26 +70,23 @@ public class SplashScreen
 				g.setColor(0,0,0);
 				g.drawString(header, hdw-f.stringWidth(header)/2, sy+260, 0);
 				ColorUtils.setcolor(g, ColorUtils.COLOR1);
-				g.fillRect(40, sy+260+f.getHeight()+30, dw-80, 16);
+				g.fillRect(40, sy+260+f.getHeight()+4, dw-80, 16);
 				g.setGrayScale(255);
-				g.fillRect(42, sy+260+f.getHeight()+30+2, dw-84, 12);
+				g.fillRect(42, sy+260+f.getHeight()+4+2, dw-84, 12);
 				ColorUtils.setcolor(g, ColorUtils.COLOR1);
-				g.fillRect(43, sy+260+f.getHeight()+30+3, (dw-86)*statesProgress[currState]/100, 10);
+				g.fillRect(43, sy+260+f.getHeight()+4+3, (dw-86)*statesProgress[currState]/100, 10);
 				g.setColor(0,0,0);
-				g.drawString(statesNames[currState], hdw/*-f.stringWidth(statesNames[currState])/2*/, sy+260+f.getHeight()+30+20, Graphics.TOP | Graphics.HCENTER);
+				g.drawString(statesNames[currState], hdw, sy+260+f.getHeight()+4+20, Graphics.TOP | Graphics.HCENTER);
 				
 				// Подсказка
-				if(tip!=null)
+				if(tip!=null && dh>450) // толку то, всё равно не влазит.
 				{
-					g.drawString(tipStr, hdw-f.stringWidth(tipStr)/2, sy+260+f.getHeight()*3+50, 0);
+					g.drawString(tipStr, hdw-f.stringWidth(tipStr)/2, sy+260+f.getHeight()*3+20+4, 0);
 					f = Font.getFont(0, 0, Font.SIZE_SMALL);
 					g.setFont(f);
 					for(int i=0;i<tipL;i++)
 					{
-						//int sw = f.stringWidth(tip[i]); // иначе почему-то не работает.
-						g.drawString(tip[i], hdw/*-sw/2*/, sy+260+50+f.getHeight()*(i+5), Graphics.TOP | Graphics.HCENTER);
-						// Я СКАЗАЛ, ОНО ПО ДРУГОМУ НЕ РАБОТАЕТ. Если пашет на н8 (или что там), не обязано на КЕме / других телах.
-						//мне похуй
+						g.drawString(tip[i], hdw, sy+260+24+f.getHeight()*(i+5), Graphics.TOP | Graphics.HCENTER);
 					}
 				}
 			}
@@ -136,8 +133,8 @@ public class SplashScreen
 		int tipsC = 16;
 		Random r = new Random();
 		int i = r.nextInt(tipsC);
-		tip = TextBreaker.breakText(TextLocal.inst.get("splash.tip."+i), false, null, true, DisplayUtils.width-40);
-		for(tipL = 0; (tipL<tip.length && tip[tipL]!=null); tipL++) { }
+		tip = TextBreaker.breakText(TextLocal.inst.get("splash.tip."+i), Font.getFont(0, 0, Font.SIZE_SMALL), DisplayUtils.width-40);
+		tipL = tip.length;
 	}
 	
 	

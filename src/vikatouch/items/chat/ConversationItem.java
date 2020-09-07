@@ -124,7 +124,6 @@ public class ConversationItem
 	public void paint(Graphics g, int y, int scrolled)
 	{
 		Font font = Font.getFont(0, 0, 8);
-		
 		ColorUtils.setcolor(g, 0);
 		
 		if(selected)
@@ -137,13 +136,14 @@ public class ConversationItem
 		
 		if(DisplayUtils.compact)
 		{
-			
 		}
 		else
 		{
+			int h = itemDrawHeight;
+			int hfh = font.getHeight() / 2;
 			if(title != null)
 			{
-				g.drawString(title, 73, y + 16, 0);
+				g.drawString(title, 73, y + h/4 - hfh, 0);
 			}
 			
 			if(!selected)
@@ -151,7 +151,7 @@ public class ConversationItem
 				ColorUtils.setcolor(g, ColorUtils.OUTLINE);
 			}
 			
-			g.drawString(text==null?"Сообщение":text, 73, y + 40, 0);
+			g.drawString(text==null?"Сообщение":text, 73, y + h*3/4 - hfh, 0);
 			
 			if(!selected)
 			{
@@ -160,7 +160,7 @@ public class ConversationItem
 			
 			if(time != null)
 			{
-				g.drawString(time, DisplayUtils.width - (16 + font.stringWidth(time)), y + 16, 0);
+				g.drawString(time, DisplayUtils.width - (16 + font.stringWidth(time)), y + h/4 - hfh, 0);
 			}
 			
 			
@@ -180,15 +180,15 @@ public class ConversationItem
 			}
 			if(unread > 0)
 			{
-				int rh = 18;
+				int rh = hfh*2;
 				int hm = 4;
 				String s = (mention?"@ ":"")+unread;
 				
 				ColorUtils.setcolor(g, ColorUtils.COLOR1);
-				g.fillRoundRect(DisplayUtils.width - 16 - font.stringWidth(s) - hm*2, y+38, font.stringWidth(s) + hm*2, rh, rh/2, rh/2);
+				g.fillRoundRect(DisplayUtils.width - 16 - font.stringWidth(s) - hm*2, y + h*3/4 - hfh, font.stringWidth(s) + hm*2, rh, rh/2, rh/2);
 				
 				g.setGrayScale(255);
-				g.drawString(s, DisplayUtils.width - 16 - font.stringWidth(s) - hm, y+40, 0);
+				g.drawString(s, DisplayUtils.width - 16 - font.stringWidth(s) - hm, y + h*3/4 - hfh, 0);
 			}
 		}
 	}
