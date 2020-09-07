@@ -134,17 +134,20 @@ public class VikaCanvasInst
 			VikaTouch.captchaScr.draw(g);
 		}
 		
-		if(currentAlert != null)
-		{
-			currentAlert.draw(g);
-		}
-		
 		g.translate(-g.getTranslateX(), 0);
 		
 		if(currentScreen != null && currentScreen instanceof MainScreen)
 		{
 			((MainScreen) currentScreen).drawHUD(g);
 		}
+		
+		if(currentAlert != null)
+		{
+			vengine.GraphicUtils.darkScreen(g, DisplayUtils.width, DisplayUtils.height, 0, 0, 0, 128);
+			currentAlert.draw(g);
+		}
+		
+		
 		
 		if(VikaTouch.loading && !(currentScreen instanceof SplashScreen))
 		{
