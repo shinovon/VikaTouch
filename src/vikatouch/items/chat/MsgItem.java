@@ -73,8 +73,8 @@ public class MsgItem
 			foreign = !(""+json.optInt("from_id")).equalsIgnoreCase(VikaTouch.userId);
 			mid = json.optLong("id");
 			int h1 = Font.getFont(0, 0, 8).getHeight();
-			drawText = TextBreaker.breakText(text, false, null, true, msgWidth-h1);
-			for (linesC=0; (linesC<drawText.length && drawText[linesC]!=null); linesC++) { }
+			drawText = TextBreaker.breakText(text, Font.getFont(0, 0, Font.SIZE_SMALL), msgWidth-h1);
+			linesC = drawText.length;
 			
 			itemDrawHeight = h1*(linesC+1);
 			
