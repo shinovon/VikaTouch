@@ -43,11 +43,6 @@ public class PhotoAttachment
 		ownerid = json.optInt("owner_id");
 		albumid = json.optInt("album_id");
 		userid = json.optInt("user_id");
-		
-		// EXPERIMENTAL
-		{
-			//System.out.println(json.toString());
-		}
 	}
 	
 	public Image getImg(String x)
@@ -110,7 +105,7 @@ public class PhotoAttachment
 		return PhotoSize.searchSmallerSize(sizes, Math.min((int)(DisplayUtils.width*0.6), MsgItem.msgWidth - MsgItem.attMargin*2));
 	}
 	// Загружает картинку
-	public void load ()
+	public void loadForMessage ()
 	{
 		try 
 		{
@@ -122,6 +117,22 @@ public class PhotoAttachment
 				i = VikaUtils.resize(i, w, -1);
 			}
 			
+			renderH = i.getHeight();
+			renderW = i.getWidth();
+			renderImg = i;
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void loadForNews ()
+	{
+		try 
+		{
+			PhotoSize ps = PhotoSize.searchSmallerSize(sizes, DisplayUtils.width);
+			Image i = VikaUtils.downloadImage(ps.url);
 			renderH = i.getHeight();
 			renderW = i.getWidth();
 			renderImg = i;

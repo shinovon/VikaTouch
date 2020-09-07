@@ -17,6 +17,8 @@ import ru.nnproject.vikaui.utils.text.TextBreaker;
 import vikatouch.VikaTouch;
 import vikatouch.attachments.Attachment;
 import vikatouch.attachments.PhotoAttachment;
+import vikatouch.attachments.PhotoSize;
+import vikatouch.items.chat.MsgItem;
 import vikatouch.screens.NewsScreen;
 import vikatouch.settings.Settings;
 import vikatouch.utils.VikaUtils;
@@ -223,68 +225,14 @@ public class PostItem
 						if(attachments[0] instanceof PhotoAttachment)
 						{
 							hasPrevImg = true;
-							switch(DisplayUtils.idispi)
+							try
 							{
-								case DisplayUtils.DISPLAY_PORTRAIT:
-								case DisplayUtils.DISPLAY_ALBUM:
-								case DisplayUtils.DISPLAY_E6:
-								{
-									try
-									{
-										prevImage = ((PhotoAttachment)attachments[0]).getImg("x");
-									}
-									catch (Exception e)
-									{
-										try
-										{
-											prevImage = ((PhotoAttachment)attachments[0]).getImg("p");
-										}
-										catch (Exception e2)
-										{
-											
-										}
-									}
-									break;
-								}
-								case DisplayUtils.DISPLAY_S40:
-								case DisplayUtils.DISPLAY_ASHA311:
-								{
-									try
-									{
-										prevImage = ((PhotoAttachment)attachments[0]).getImg("x");
-									}
-									catch (Exception e)
-									{
-										try
-										{
-											prevImage = ((PhotoAttachment)attachments[0]).getImg("p");
-										}
-										catch (Exception e2)
-										{
-											
-										}
-									}
-									break;
-								}
-								default:
-								{
-									try
-									{
-										prevImage = ((PhotoAttachment)attachments[0]).getImg("x");
-									}
-									catch (Exception e)
-									{
-										try
-										{
-											prevImage = ((PhotoAttachment)attachments[0]).getImg("p");
-										}
-										catch (Exception e2)
-										{
-											
-										}
-									}
-									break;
-								}
+								((PhotoAttachment)attachments[0]).loadForNews();
+								prevImage = ((PhotoAttachment)attachments[0]).renderImg;
+							}
+							catch (Exception e2)
+							{
+								e2.printStackTrace();
 							}
 						}
 						if(prevImage != null)

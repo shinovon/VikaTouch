@@ -180,7 +180,7 @@ public class MsgItem
 						{
 							if(at instanceof PhotoAttachment)
 							{
-								((PhotoAttachment) at).load();
+								((PhotoAttachment) at).loadForMessage();
 							}
 							if(at instanceof StickerAttachment)
 							{
