@@ -10,6 +10,7 @@ import javax.microedition.rms.RecordStoreException;
 import javax.microedition.rms.RecordStoreFullException;
 import javax.microedition.rms.RecordStoreNotFoundException;
 
+import ru.nnproject.vikaui.utils.DisplayUtils;
 import vikatouch.VikaTouch;
 import vikatouch.locale.LangObject;
 import vikatouch.utils.VikaUtils;
@@ -213,7 +214,7 @@ public class Settings
 		sensorMode = SENSOR_OK;
 		simpleListsLength = 30;
 		messagesPerLoad = 30;
-		videoResolution = "480";
+		videoResolution = Math.min(DisplayUtils.width, DisplayUtils.height)>=360?"360":"240";
 		language = "ru_RU";
 		cacheImages = true;
 		dontLoadAvas = false;
@@ -222,6 +223,7 @@ public class Settings
 		isLiteOrSomething = VikaTouch.isS40();
 		dontBack = isLiteOrSomething;
 		threaded = true;
+		audioMode = AUDIO_LOADANDPLAY;
 		
 		//язык соотвествующий настройкам устройства
 		try

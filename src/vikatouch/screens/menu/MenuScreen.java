@@ -1,25 +1,16 @@
 package vikatouch.screens.menu;
 
-import java.io.IOException;
-import java.util.Date;
-
-import javax.microedition.lcdui.Alert;
-import javax.microedition.lcdui.AlertType;
-import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
-import javax.microedition.lcdui.game.GameCanvas;
 
 import org.json.me.JSONObject;
 
 import ru.nnproject.vikaui.menu.IMenu;
-import ru.nnproject.vikaui.screen.ScrollableCanvas;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.images.IconsManager;
 import vikatouch.VikaTouch;
-import vikatouch.canvas.VikaCanvasInst;
 import vikatouch.items.menu.OptionItem;
 import vikatouch.json.JSONBase;
 import vikatouch.locale.TextLocal;
@@ -34,27 +25,15 @@ public class MenuScreen
 	extends MainScreen implements IMenu
 {
 
-	//public static Image logoImg;
-	//public static Image menuImg;
-	//public static Image dialImg;
 	private static Image profileImg;
-	/*private static Image friendimg;
-	private static Image groupimg;*/
 	public static String name;
 	public static boolean hasAva;
 	public static String lastname;
 	public static String status;
 	public static String avaurl;
-	/*private static Image musicimg;
-	private static Image videosimg;
-	private static Image photosimg;
+	/*
 	private static int[] itemscmd = {4, 5, 6, 7, 8, 9, -1};
-	public static Image dialImg2;
-	public static Image docsimg;
-	private Image exit;
-	
-	private int selectedBtn;*/
-	//private Image settingsImg;
+	*/
 	private int btnsLen = 8 ;
 	public String exitStr;
 	public String docsStr;
@@ -70,13 +49,6 @@ public class MenuScreen
 	{
 		super();
 
-		/*try {
-			settingsImg = Image.createImage("/settings.png");
-		}
-		catch (Exception e)
-		{
-			VikaTouch.error(e, ErrorCodes.MENUIMAGE);
-		}*/
 		profileImg = VikaTouch.cameraImg;
 		if(VikaTouch.DEMO_MODE)
 		{
@@ -95,7 +67,7 @@ public class MenuScreen
 				{
 					String var10 = VikaUtils.download(new URLBuilder("users.get")
 						.addField("user_ids", VikaTouch.userId)
-						.addField("fields", "photo_id,verified,sex,bdate,city,country,home_town,has_photo,photo_50,status"));
+						.addField("fields", "photo_id,verified,sex,bdate,city,country,has_photo,photo_50,status"));
 					JSONObject profileobj = new JSONObject(var10).getJSONArray("response").getJSONObject(0);
 					name = profileobj.optString("first_name");
 					lastname = profileobj.optString("last_name");
@@ -107,12 +79,15 @@ public class MenuScreen
 				{
 					try
 					{
-						profileImg = ResizeUtils.resizeava(VikaUtils.downloadImage(avaurl));
+						profileImg = ResizeUtils.resizeava(
+								VikaUtils.downloadImage(avaurl));
 					}
 					catch (Throwable e)
 					{
+						e.printStackTrace();
 						if(!VikaTouch.offlineMode)
-							VikaTouch.error(e, ErrorCodes.MENUAVATAR);
+							VikaTouch.error(ErrorCodes.MENUAVATAR, false);
+						// там всегда нулл будет. Больше падать нечему. И нечего всё крашить, не скачалось и хрен с ним
 						hasAva = false;
 					}
 				}
@@ -136,7 +111,7 @@ public class MenuScreen
 		}
 		else
 		{
-			VikaTouch.error(ErrorCodes.MENUAVATAR, false);
+			VikaTouch.error(ErrorCodes.MENUNOUSERID, false);
 		}
 		try
 		{
@@ -178,8 +153,7 @@ public class MenuScreen
 		selectedBtn--;
 		if(selectedBtn < 0)
 			selectedBtn = 0;
-		scroll += oneitemheight;
-		dragging = true;
+		scrollToSelected();
 		if(selectedBtn > 0)
 			uiItems[selectedBtn-1].setSelected(true);
 	}
@@ -191,11 +165,15 @@ public class MenuScreen
 		selectedBtn++;
 		if(selectedBtn >= btnsLen)
 			selectedBtn = btnsLen - 1;
-		if(selectedBtn > 3)
-			scroll -= oneitemheight;
-		dragging = true;
+		scrollToSelected();
 		if(selectedBtn > 0)
 			uiItems[selectedBtn-1].setSelected(true);
+	}
+	
+	public void scrollToSelected()
+	{
+		System.out.println("Y: "+getItemY(selectedBtn-1));
+		scrolled = -(getItemY(selectedBtn-1)-DisplayUtils.height/2+(uiItems[selectedBtn-1].getDrawHeight()/2)+topPanelH+50);
 	}
 	
 	public final void press(int key)
