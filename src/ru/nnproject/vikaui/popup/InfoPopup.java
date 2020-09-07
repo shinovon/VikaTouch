@@ -21,36 +21,26 @@ public class InfoPopup
 	
 	public InfoPopup(String text, Runnable onOk, String title, String btnText)
 	{
-		lines = TextBreaker.breakText(text, false, null, true, Math.min(DisplayUtils.width-20, 340)-60);
+		lines = TextBreaker.breakText(text, Font.getFont(0, 0, Font.SIZE_SMALL), Math.min(DisplayUtils.width-20, 340)-60);
 		ok = onOk;
-		int i=0;
-		while(i<lines.length && lines[i]!=null)
-		{
-			i++;
-		}
-		linesCount = i;
+		linesCount = lines.length;
 		header = title;
 		button = btnText==null?"OK":btnText;
 	}
 	
 	public InfoPopup(String text, Runnable onOk)
 	{
-		lines = TextBreaker.breakText(text, false, null, true, Math.min(DisplayUtils.width-20, 340)-60);
+		lines = TextBreaker.breakText(text, Font.getFont(0, 0, Font.SIZE_SMALL), Math.min(DisplayUtils.width-20, 340)-60);
 		ok = onOk;
-		int i=0;
-		while(i<lines.length && lines[i]!=null)
-		{
-			i++;
-		}
-		linesCount = i;
+		linesCount = lines.length;
 		header = null;
 		button = "OK";
 	}
 
 	public void draw(Graphics g) {
 		int width = Math.min(DisplayUtils.width-8, 350);
-		Font f = Font.getFont(0, 0, Font.SIZE_MEDIUM);
-		Font hf = Font.getFont(0, Font.STYLE_BOLD, Font.SIZE_LARGE); // Header Font
+		Font f = Font.getFont(0, 0, Font.SIZE_SMALL);
+		Font hf = Font.getFont(0, Font.STYLE_BOLD, Font.SIZE_MEDIUM); // Header Font
 		int hh = hf.getHeight(); // Header Height
 		int h1 = f.getHeight();
 		int hp = header==null?0:hh+(h1/2); // Header Place (сколько он занимает)

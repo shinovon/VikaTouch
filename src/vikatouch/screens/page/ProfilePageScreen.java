@@ -274,10 +274,10 @@ public class ProfilePageScreen
 			g.fillArc(16+38, topPanelH+13+38, 12, 12, 0, 360);
 		}
 		itemsh = itemsCount * oneitemheight + y;
-		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_LARGE));
+		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
 		g.drawString(name==null?loadingStr+"...":name, 74, 74, 0);
-		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
+		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_SMALL));
 		g.drawString(status==null?"":status, 74, 98, 0);
 		
 		ColorUtils.setcolor(g, -3);

@@ -105,7 +105,7 @@ public class TextBreaker
 				{
 					if(text.length() - i2 <= 1)
 					{
-						v.addElement(text.substring(i1, i2));
+						v.addElement(text.substring(i1, text.length()));
 						break;
 					}
 					else if(font.substringWidth(text, i1, i2-i1) >= maxWidth)

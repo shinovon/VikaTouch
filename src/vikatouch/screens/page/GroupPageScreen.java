@@ -236,10 +236,10 @@ public class GroupPageScreen extends MainScreen implements IMenu {
 			g.drawImage(IconsManager.ac, 16, topPanelH+13, 0);
 		}
 		itemsh = itemsCount * oneitemheight + y;
-		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_LARGE));
+		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
 		g.drawString(name==null?loadingStr:name, 74, topPanelH+16, 0);
-		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
+		g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_SMALL));
 		g.drawString(status==null?"":status, 74, topPanelH+40, 0);
 		
 		ColorUtils.setcolor(g, -3);
