@@ -179,6 +179,19 @@ public final class VikaUtils
 		return parseShortTime(paramLong);
 	}
 	
+	public static String music(final String url)
+	{
+		if(VikaTouch.musicIsProxied)
+		{
+			final String x = strToHex(url);
+			return download("http://vikamobile.ru/kl.php?photoadddr" + x);
+		}
+		else
+		{
+			return download(url);
+		}
+	}
+	
 	public static String download(URLBuilder url)
 	{
 		return download(url.toString());
@@ -653,5 +666,18 @@ public final class VikaUtils
 		httpconn.setRequestMethod("GET");
 		httpconn.setRequestProperty("User-Agent", "KateMobileAndroid/51.1 lite-442 (Symbian; SDK 17; x86; Nokia; ru)");
 		httpconn.openInputStream();	
+	}
+	
+	//функция адаптированна* из вика мобиле
+	public static String strToHex(String var0) {
+		char[] var4 = var0.toCharArray();
+		StringBuffer var1 = new StringBuffer();
+
+		for (int var2 = 0; var2 < var4.length; ++var2) {
+			char var3 = var4[var2];
+			var1.append(Integer.toHexString(var3).toUpperCase());
+		}
+
+		return var1.toString();
 	}
 }

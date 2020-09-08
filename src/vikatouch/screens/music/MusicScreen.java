@@ -64,7 +64,7 @@ public class MusicScreen
 				try
 				{
 					VikaTouch.loading = true;
-					String x = VikaUtils.download(new URLBuilder("audio.get").addField("owner_id", oid).addField("album_id", albumId).addField("count", 100).addField("offset", 0));
+					String x = VikaUtils.music(new URLBuilder("audio.get").addField("owner_id", oid).addField("album_id", albumId).addField("count", 100).addField("offset", 0));
 					if(x.indexOf("error") != -1)
 					{
 						VikaTouch.error(ErrorCodes.MUSICLISTLOAD, x, false);

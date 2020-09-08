@@ -79,6 +79,7 @@ public class VikaTouch
 	public static boolean crashed;
 	public static SettingsScreen setsScr;
 	public static boolean isEmulator;
+	public static boolean musicIsProxied;
 
 	private void saveToken()
 	{
@@ -345,14 +346,31 @@ public class VikaTouch
 	private void refreshToken()
 	{
 		String refreshToken;
-		if(VikaUtils.download(URLBuilder.makeSimpleURL("audio.get")).indexOf("Token confirmation required") >= 0)
+		if(VikaUtils.music(URLBuilder.makeSimpleURL("audio.get")).indexOf("Token confirmation required") >= 0)
 		{
-			System.out.println("nuzhen confirmation");
+			String recept = ":APA91bFAM-gVwLCkCABy5DJPPRH5TNDHW9xcGu_OLhmdUSA8zuUsBiU_DexHrTLLZWtzWHZTT5QUaVkBk_GJVQyCE_yQj9UId3pU3vxvizffCPQISmh2k93Fs7XH1qPbDvezEiMyeuLDXb5ebOVGehtbdk_9u5pwUw";
+			String surl = new URLBuilder("auth.refreshToken", false).addField("access_token", accessToken).addField("v", "5.120").addField("receipt", recept).toString();
+			refreshToken = VikaUtils.download(surl);
+			try
+			{
+				if(refreshToken.indexOf("Unknown method") != -1)
+				{
+					musicIsProxied = true;
+					refreshToken = VikaUtils.music(surl);
+					JSONObject resp = new JSONObject(refreshToken).getJSONObject("response");
+					accessToken = resp.getString("access_token");
+				}
+				else
+				{
+					JSONObject resp = new JSONObject(refreshToken).getJSONObject("response");
+					accessToken = resp.getString("access_token");
+				}
+			}
+			catch (Exception e)
+			{
+				
+			}
 		}
-		String var5 = ":APA91bFAM-gVwLCkCABy5DJPPRH5TNDHW9xcGu_OLhmdUSA8zuUsBiU_DexHrTLLZWtzWHZTT5QUaVkBk_GJVQyCE_yQj9UId3pU3vxvizffCPQISmh2k93Fs7XH1qPbDvezEiMyeuLDXb5ebOVGehtbdk_9u5pwUw";
-		refreshToken = VikaUtils.download(new URLBuilder("auth.refreshToken", false).addField("access_token", accessToken).addField("v", "5.91").addField("receipt", var5).toString());
-		
-		System.out.println("refreshToken " + refreshToken);
 	}
 
 	private boolean captcha(String user, String pass)
