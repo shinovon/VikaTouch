@@ -14,38 +14,26 @@ import javax.microedition.m3g.VertexArray;
 import javax.microedition.m3g.VertexBuffer;*/
 
 // пусть лежит тут отдельно, проще новые самоделки перетаскивать
+//а хто афтар сие тварения??
 public class GraphicUtils {
 	protected static int[] lastRGB;
 	
 	public static Image lastPO2;
 	
 	
-	public static void fillTransparentRect(Graphics G, int x, int y, int w, int h, int r, int g, int b, int a)
+	public static void fillTransparentRect(Graphics graphics, int x, int y, int w, int h, int r, int g, int b, int a)
 	{
 		int c = (a << 24) | (r << 16) | (g << 8) | b;
-		int l = w*h+1;
-		int[] m;
-		if(lastRGB != null && l>1 && lastRGB.length == l && lastRGB[0] == c)
-		{
-			m = lastRGB;
-		}
-		else
-		{
-			m = new int[l];
-			for(int i=0; i<l; i++)
-			{
-				m[i] = c;
-			}
-		}
-		G.drawRGB(m, 0, w, x, y, w, h, true);
+		fillTransparentRect(graphics, x, y, w, h, c);
 	}
 	
-	public static void darkScreen(Graphics G, int w, int h, int r, int g, int b, int a)
+	//УВОЖАЕМЫЙ,
+	//ВАС БАЙТКОД ОПТИМИЗИРОВАТЬ НЕ УЧИЛИ?
+	public static void fillTransparentRect(Graphics g, int x, int y, int w, int h, int color)
 	{
-		int c = (a << 24) | (r << 16) | (g << 8) | b;
-		int l = w*30+1;
+		int l = w*h+1;
 		int[] m;
-		if(lastRGB != null && l>1 && lastRGB.length == l && lastRGB[0] == c)
+		if(lastRGB != null && l>1 && lastRGB.length == l && lastRGB[0] == color)
 		{
 			m = lastRGB;
 		}
@@ -54,13 +42,21 @@ public class GraphicUtils {
 			m = new int[l];
 			for(int i=0; i<l; i++)
 			{
-				m[i] = c;
+				m[i] = color;
 			}
 		}
-		for(int i=0; i<=h; i+=30)
-		{
-			G.drawRGB(m, 0, w, 0, i, w, 30, true);
-		}
+		g.drawRGB(m, 0, w, x, y, w, h, true);
+	}
+	
+	public static void darkScreen(Graphics g, int w, int h, int color)
+	{
+		fillTransparentRect(g, 0, 0, w, h, color);
+	}
+	
+	public static void darkScreen(Graphics graphics, int w, int h, int r, int g, int b, int a)
+	{
+		int c = (a << 24) | (r << 16) | (g << 8) | b;
+		darkScreen(graphics, w, h, c);
 	}
 	
 	public static Image roundImage(Image img)
