@@ -61,7 +61,7 @@ public class PlaylistsScreen extends MainScreen {
 				try
 				{
 					VikaTouch.loading = true;
-					String x = VikaUtils.music(new URLBuilder("audio.getPlaylists").addField("owner_id", id).addField("count", 100).addField("offset", 0));
+					String x = VikaUtils.music(new URLBuilder("audio.getPlaylists").addField("owner_id", id).addField("count", 100).addField("offset", 0).toString());
 					try
 					{
 						System.out.println(x);
