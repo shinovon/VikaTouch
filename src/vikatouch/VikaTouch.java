@@ -358,12 +358,12 @@ public class VikaTouch
 					musicIsProxied = true;
 					refreshToken = VikaUtils.music(surl);
 					JSONObject resp = new JSONObject(refreshToken).getJSONObject("response");
-					accessToken = resp.getString("access_token");
+					accessToken = resp.getString("token");
 				}
 				else
 				{
 					JSONObject resp = new JSONObject(refreshToken).getJSONObject("response");
-					accessToken = resp.getString("access_token");
+					accessToken = resp.getString("token");
 				}
 			}
 			catch (Exception e)
