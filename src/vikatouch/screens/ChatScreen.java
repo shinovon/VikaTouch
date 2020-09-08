@@ -179,8 +179,8 @@ public class ChatScreen
 					}
 					catch (JSONException e)
 					{
-						this.title2 = e.toString();
-						//this.title2 = "Ошибка JSON";
+						//this.title2 = e.toString();
+						this.title2 = "Ошибка JSON";
 					}
 
 					messagesChat();
@@ -807,6 +807,7 @@ public class ChatScreen
 	private void msgClick(int tapY, long tapTime)
 	{
 		tapY-=topPanelH;
+		VikaCanvasInst.debugString = "hold " + tapTime;
 		/*if(tapTime > 200)
 		{*/
 			if(uiItems==null) return;
