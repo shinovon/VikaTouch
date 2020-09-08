@@ -92,8 +92,10 @@ public class GraphicsUtil {
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return img; // ну рухнуло и рухнуло
+			// ну рухнуло и рухнуло
+			//а надо за исключением.
 		}
+		return img; 
 	}
 	
 	/*public static ImgToPowerOf2Res powerOf2(Image img)
@@ -131,23 +133,23 @@ public class GraphicsUtil {
 		public float texH;
 	}*/
 	
-	public static void DrawShadowText(Graphics G, String text, int x, int y, int a, int color1, int color2, int dx, int dy)
+	public static void DrawShadowText(Graphics g, String text, int x, int y, int a, int color1, int color2, int dx, int dy)
 	{
-		G.setColor(color2);
-		G.drawString(text, x+dx, y+dy, a);
-		G.setColor(color1);
-		G.drawString(text, x, y, a);
+		g.setColor(color2);
+		g.drawString(text, x+dx, y+dy, a);
+		g.setColor(color1);
+		g.drawString(text, x, y, a);
 	}
 	
-	public static void DrawBorderedText(Graphics G, String text, int x, int y, int a, int color1, int color2)
+	public static void DrawBorderedText(Graphics g, String text, int x, int y, int a, int color1, int color2)
 	{
-		G.setColor(color2);
-		G.drawString(text, x+1, y+1, a);
-		G.drawString(text, x+1, y-1, a);
-		G.drawString(text, x-1, y+1, a);
-		G.drawString(text, x-1, y-1, a);
-		G.setColor(color1);
-		G.drawString(text, x, y, a);
+		g.setColor(color2);
+		g.drawString(text, x+1, y+1, a);
+		g.drawString(text, x+1, y-1, a);
+		g.drawString(text, x-1, y+1, a);
+		g.drawString(text, x-1, y-1, a);
+		g.setColor(color1);
+		g.drawString(text, x, y, a);
 	}
 	
 	/*
