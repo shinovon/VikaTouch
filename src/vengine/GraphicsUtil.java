@@ -15,7 +15,7 @@ import javax.microedition.m3g.VertexBuffer;*/
 
 // пусть лежит тут отдельно, проще новые самоделки перетаскивать
 //а хто афтар сие тварения??
-public class GraphicUtils {
+public class GraphicsUtil {
 	protected static int[] lastRGB;
 	
 	public static Image lastPO2;
