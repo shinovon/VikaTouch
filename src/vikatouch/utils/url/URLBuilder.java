@@ -22,7 +22,12 @@ public class URLBuilder
 	
 	public URLBuilder(String method, boolean defaultParams)
 	{
-		append(VikaTouch.API);
+		this(VikaTouch.API, method, defaultParams);
+	}
+	
+	public URLBuilder(String host, String method, boolean defaultParams)
+	{
+		append(host);
 		append("/method/");
 		append(method);
 		if(defaultParams)
@@ -31,7 +36,7 @@ public class URLBuilder
 			addField("v", VikaTouch.API_VERSION);
 		}
 	}
-	
+
 	public URLBuilder addField(String param, String value)
 	{
 		if(!state)

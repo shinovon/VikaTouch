@@ -349,7 +349,7 @@ public class VikaTouch
 		if(VikaUtils.music(URLBuilder.makeSimpleURL("audio.get")).indexOf("Token confirmation required") >= 0)
 		{
 			String recept = ":APA91bFAM-gVwLCkCABy5DJPPRH5TNDHW9xcGu_OLhmdUSA8zuUsBiU_DexHrTLLZWtzWHZTT5QUaVkBk_GJVQyCE_yQj9UId3pU3vxvizffCPQISmh2k93Fs7XH1qPbDvezEiMyeuLDXb5ebOVGehtbdk_9u5pwUw";
-			String surl = new URLBuilder("auth.refreshToken", false).addField("access_token", accessToken).addField("v", "5.120").addField("receipt", recept).toString();
+			String surl = new URLBuilder(Settings.httpsApi, "auth.refreshToken", false).addField("access_token", accessToken).addField("v", "5.120").addField("receipt", recept).toString();
 			refreshToken = VikaUtils.download(surl);
 			try
 			{
