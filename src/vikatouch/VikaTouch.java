@@ -880,7 +880,6 @@ public class VikaTouch
 					Dialogs.refreshDialogsList(true);
 				}
 				SplashScreen.currState = 7;
-				Thread.sleep(250);
 				disposeSplash();
 			}
 			else
