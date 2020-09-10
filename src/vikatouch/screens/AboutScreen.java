@@ -57,6 +57,8 @@ public class AboutScreen
 		
 		publisherStr = TextLocal.inst.get("about.vendor");
 		
+		testersStr = TextLocal.inst.get("about.testers");
+		
 		//teamStr = TextLocal.inst.get("about.team");
 	}
 	

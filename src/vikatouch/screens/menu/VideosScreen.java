@@ -36,13 +36,14 @@ public class VideosScreen
 
 	public int fromVid;
 	public int currId;
-	public String whose;
 	public static Thread downloaderThread;
 	public String range = null;
 	public boolean canLoadMore = true;
+	private String whose;
 	private String name2;
+	protected String formattedTitle;
 
-	public void load(final int from, final int id, final String name, String name2)
+	public void load(final int from, final int id, final String name1, final String name2)
 	{
 		scrolled = 0;
 		uiItems = null;
@@ -50,7 +51,7 @@ public class VideosScreen
 		final int count = Settings.simpleListsLength;
 		fromVid = from;
 		currId = id;
-		whose = name;
+		this.whose = name1;
 		this.name2 = name2;
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
@@ -88,6 +89,14 @@ public class VideosScreen
 							itemsCount++;
 						}
 						VikaTouch.loading = true;
+						String name = name1;
+						if(name == null && name2 != null)
+							name = name2;
+						
+						if(name == null || name2 == null)
+							formattedTitle = TextLocal.inst.get("title.videos");
+						else
+							formattedTitle = TextLocal.inst.getFormatted("title.videosw", new String[] { name, name2 });
 						Thread.sleep(500);
 						VikaTouch.loading = true;
 						for(int i = 0; i < itemsCount - (canLoadMore?1:0); i++)
@@ -158,7 +167,7 @@ public class VideosScreen
 	
 	public final void drawHUD(Graphics g)
 	{
-		drawHUD(g, uiItems==null?(videosStr+" (загрузка...)"):(videosStr+/*(range==null?"":range)+*/" "+(whose==null?"":whose)));
+		drawHUD(g, formattedTitle);
 	}
 	
 	public final void release(int x, int y)

@@ -34,7 +34,6 @@ public class GroupsScreen
 	{
 		super();
 		VikaTouch.loading = true;
-		loadingStr = TextLocal.inst.get("title.loading");
 		groupsStr = TextLocal.inst.get("title.groups");
 	}
 
@@ -54,31 +53,34 @@ public class GroupsScreen
 	
 	public int currId;
 	public int fromG;
-	public String whose = null;
 	public String range = null;
 	public int totalItems;
 	public boolean canLoadMore = true;
 
 	private String groupsStr;
 
-	private String loadingStr;
+	protected String formattedTitle;
+
+	private String whose;
 
 	private String name2;
 
-	public void loadGroups(final int from, final int id, final String name, String name2)
+	public void loadGroups(final int from, final int id, final String name1, final String name2)
 	{
+		formattedTitle = groupsStr;
 		scrolled = 0;
 		uiItems = null;
 		final GroupsScreen thisC = this;
 		fromG = from;
 		currId = id;
-		whose = name;
+		whose = name1;
 		this.name2 = name2;
 		
 		abortLoading();
 
 		downloaderThread = new Thread()
 		{
+
 			public void run()
 			{
 				try
@@ -120,6 +122,14 @@ public class GroupsScreen
 						uiItems[0].setSelected(true);
 					}
 					VikaTouch.loading = true;
+					String name = name1;
+					if(name == null && name2 != null)
+						name = name2;
+					
+					if(name == null || name2 == null)
+						formattedTitle = TextLocal.inst.get("title.groups");
+					else
+						formattedTitle = TextLocal.inst.getFormatted("title.groupsw", new String[] { name, name2 });
 					repaint();
 					Thread.sleep(1000);
 					VikaTouch.loading = true;
@@ -192,7 +202,7 @@ public class GroupsScreen
 	
 	public final void drawHUD(Graphics g)
 	{
-		drawHUD(g, uiItems==null?groupsStr+" ("+loadingStr+"...)":groupsStr+/*(range==null?"":range)+*/" "+(whose==null?"":whose));
+		drawHUD(g, formattedTitle);
 	}
 	
 	public final void release(int x, int y)

@@ -173,7 +173,7 @@ public class MusicScreen
 		super.release(x, y);
 	}
 
-	public static void open(final int id, final String name, String name2)
+	public static void open(final int id, final String name, final String name2)
 	{
 		IMenu m = new EmptyMenu()
 		{
@@ -182,13 +182,13 @@ public class MusicScreen
 				if(i==0)
 				{
 					MusicScreen pls = new MusicScreen();
-					pls.load(id,0,TextLocal.inst.get("title.music")+" "+name);
+					pls.load(id,0,getMusicTitle("music", name, name2));
 					VikaTouch.setDisplay(pls, 1);
 				}
 				else if(i==1)
 				{
 					PlaylistsScreen pls = new PlaylistsScreen();
-					pls.load(id,name);
+					pls.load(id,getMusicTitle("playlists", name, name2));
 					VikaTouch.setDisplay(pls, 1);
 				}
 			}
@@ -199,5 +199,17 @@ public class MusicScreen
 			new OptionItem(m, TextLocal.inst.get("title.playlists"), IconsManager.MENU, 1, 50)
 		};
 		VikaTouch.popup(new ContextMenu(oi));
+	}
+
+	protected static String getMusicTitle(String s, String name, String name2)
+	{
+		if(name == null)
+		{
+			return TextLocal.inst.get("title."+s);
+		}
+		else
+		{
+			return TextLocal.inst.getFormatted("title."+s+"w", new String[]{name, name2});
+		}
 	}
 }

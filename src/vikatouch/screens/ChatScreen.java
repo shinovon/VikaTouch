@@ -69,10 +69,21 @@ public class ChatScreen
 	
 	public static void stopUpdater()
 	{
-		if(updater!=null&&updater.isAlive())
+		
+		if(updater!=null && updater.isAlive())
 		{
 			updater.interrupt();
-			//System.out.println("Updater stopped.");
+			updater = null;
+		}
+		if(typer !=null && typer.isAlive())
+		{
+			typer.interrupt();
+			typer = null;
+		}
+		if(reporter !=null && reporter.isAlive())
+		{
+			reporter.interrupt();
+			reporter = null;
 		}
 	}
 	
@@ -102,7 +113,9 @@ public class ChatScreen
 		if(VikaTouch.canvas.currentScreen instanceof ChatScreen)
 		{
 			final ChatScreen c = (ChatScreen) VikaTouch.canvas.currentScreen;
-			final Thread typer = new Thread()
+			if(typer != null && typer.isAlive())
+				typer.interrupt();
+			typer = new Thread()
 			{
 				public void run()
 				{
@@ -242,7 +255,7 @@ public class ChatScreen
 				String firstname = profile.optString("first_name");
 				String lastname = profile.optString("last_name");
 				int id = profile.optInt("id");
-				if(id > 0 && firstname != null && profileNames.contains(new IntObject(id)))
+				if(id > 0 && firstname != null)
 					profileNames.put(new IntObject(id), firstname + " " + lastname);
 			}
 			for(int i = 0; i < items.length(); i++)
@@ -560,6 +573,8 @@ public class ChatScreen
 	}
 
 	public boolean canSend = true;
+	private static Thread reporter;
+	private static Thread typer;
 	
 	private void send()
 	{
@@ -675,7 +690,7 @@ public class ChatScreen
 								String firstname = profile.optString("first_name");
 								String lastname = profile.optString("last_name");
 								int id = profile.optInt("id");
-								if(id > 0 && firstname != null && profileNames.contains(new IntObject(id)))
+								if(id > 0 && firstname != null)
 									profileNames.put(new IntObject(id), firstname + " " + lastname);
 							}
 						}
@@ -741,13 +756,6 @@ public class ChatScreen
 		{
 			public void run()
 			{
-				Thread.yield();
-				try
-				{
-					Thread.sleep(1000*Settings.refreshRate);
-				}
-				catch (InterruptedException e)
-				{ return; }
 				while(true)
 				{
 					try
@@ -755,7 +763,7 @@ public class ChatScreen
 						Thread.sleep(1000*Settings.refreshRate);
 					}
 					catch (InterruptedException e)
-					{ return; } // забавный факт, оно падает при убивании потока во время сна. Я к тому что его надо либо не ловить, либо при поимке завершать галиматью вручную.
+					{ break; } // забавный факт, оно падает при убивании потока во время сна. Я к тому что его надо либо не ловить, либо при поимке завершать галиматью вручную.
 					try
 					{
 						//System.out.println("Chat updating...");
@@ -766,7 +774,7 @@ public class ChatScreen
 						e.printStackTrace();
 						refreshOk = false;
 					}
-				
+					Thread.yield();
 				}
 			}
 		};
@@ -776,7 +784,9 @@ public class ChatScreen
 	private void showTextBox()
 	{
 		if(!canSend) return;
-		final Thread typer = new Thread()
+		if(typer != null && typer.isAlive())
+			typer.interrupt();
+		typer = new Thread()
 		{
 			public void run()
 			{
@@ -784,7 +794,9 @@ public class ChatScreen
 				inputChanged = true;
 			}
 		};
-		final Thread reporter = new Thread()
+		if(reporter != null && reporter.isAlive())
+			reporter.interrupt();
+		reporter = new Thread()
 		{
 			public void run()
 			{

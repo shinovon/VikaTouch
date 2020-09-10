@@ -86,7 +86,7 @@ public class MenuScreen
 					{
 						e.printStackTrace();
 						if(!VikaTouch.offlineMode)
-							VikaTouch.error(ErrorCodes.MENUAVATAR, false);
+							VikaTouch.error(e, ErrorCodes.MENUAVATAR);
 						// там всегда нулл будет. Больше падать нечему. И нечего всё крашить, не скачалось и хрен с ним
 						hasAva = false;
 					}

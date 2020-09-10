@@ -133,14 +133,31 @@ public abstract class MainScreen
 			// unread count
 			if(VikaTouch.unreadCount > 0)
 			{
+				String s = "" + VikaTouch.unreadCount;
+				int d2 = 16;
+				int d3 = 2;
+				boolean roundrect = false;
+				if(VikaTouch.unreadCount > 9)
+				{
+					s = "9+";
+					d2 = 24;
+					d3 = 2 - ((d2 - 16) / 2);
+					roundrect = true;
+				}
 				int d = 16;
 				int fh = f.getHeight();
 	
 				g.setColor(225, 73, 73);
-				g.fillArc(dw/2+2, bpiy-5, d, d, 0, 360);
-	
+				if(roundrect)
+				{
+					g.fillRoundRect(dw/2+d3, bpiy-5, d2, d, 8, 8);
+				}
+				else
+				{
+					g.fillArc(dw/2+d3, bpiy-5, d2, d, 0, 360);
+				}
 				g.setGrayScale(255);
-				g.drawString(""+VikaTouch.unreadCount, dw/2+2+(d-f.stringWidth(""+VikaTouch.unreadCount))/2, bpiy-5+(d-fh)/2+1, 0);
+				g.drawString(s, dw/2+2+(d-f.stringWidth(s))/2, bpiy-5+(d-fh)/2+1, 0);
 			}
 		}
 

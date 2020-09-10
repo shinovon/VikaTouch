@@ -39,15 +39,15 @@ public class PlaylistsScreen extends MainScreen {
 	public int currId;
 	public Thread downloaderThread;
 	
-	public String whose = null;
+	public String title = null;
 
-	public void load(final int id, String name)
+	public void load(final int id, final String title)
 	{
+		this.title = title;
 		scrolled = 0;
 		uiItems = null;
 		final PlaylistsScreen thisC = this;
 		currId = id;
-		whose = name;
 		if(downloaderThread != null && downloaderThread.isAlive())
 		{
 			downloaderThread.interrupt();
@@ -148,7 +148,7 @@ public class PlaylistsScreen extends MainScreen {
 	
 	public final void drawHUD(Graphics g)
 	{
-		drawHUD(g, uiItems==null?plStr+" ("+loadingStr+"...)":plStr+" "+(whose==null?"":whose));
+		drawHUD(g, uiItems==null?title:plStr);
 	}
 	
 	public final void release(int x, int y)

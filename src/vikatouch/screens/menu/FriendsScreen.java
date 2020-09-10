@@ -70,7 +70,7 @@ public class FriendsScreen
 
 	private String formattedTitle;
 
-	public void loadFriends(final int from, final int id, final String name, final String name2)
+	public void loadFriends(final int from, final int id, final String name1, final String name2)
 	{
 		formattedTitle = peopleStr;
 		scrolled = 0;
@@ -78,8 +78,6 @@ public class FriendsScreen
 		final FriendsScreen thisC = this;
 		fromF = from;
 		currId = id;
-		whose = name;
-		this.name2 = name2;
 		
 		abortLoading();
 
@@ -128,13 +126,14 @@ public class FriendsScreen
 							uiItems[0].setSelected(true);
 						}
 						VikaTouch.loading = true;
-						if(whose == null && name2 != null)
-							whose = name2;
+						String name = name1;
+						if(name == null && name2 != null)
+							name = name2;
 						
-						if(whose == null || name2 == null)
+						if(name == null || name2 == null)
 							formattedTitle = TextLocal.inst.get("title.friends");
 						else
-							formattedTitle = TextLocal.inst.getFormatted("title.friendsw", new String[] { whose, name2 });
+							formattedTitle = TextLocal.inst.getFormatted("title.friendsw", new String[] { name, name2 });
 						
 						repaint();
 						Thread.sleep(1000); // ну вдруг юзер уже нажмёт? Зачем зря грузить

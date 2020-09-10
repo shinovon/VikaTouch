@@ -52,24 +52,27 @@ public class DocsScreen
 	public Image previewImage = null;
 	public int previewX = 0;
 	public int previewY = 0;
-	
-	public String whose = null;
 	public String range = null;
 	
 	public boolean canLoadMore = true;
 
+	private String formattedTitle;
+
+	private String whose;
+
 	private String name2;
 
-	public void loadDocs(final int from, final int id, String name, String name2)
+	public void loadDocs(final int from, final int id, final String name1, final String name2)
 	{
+		this.whose = name1;
+		this.name2 = name2;
+		formattedTitle = docsStr;
 		scrolled = 0;
 		uiItems = null;
 		final DocsScreen thisC = current = this;
 		final int count = loadDocsCount;
 		fromDoc = from;
 		currId = id;
-		whose = name;
-		this.name2 = name2;
 		if(downloaderThread != null && downloaderThread.isAlive())
 			downloaderThread.interrupt();
 		
@@ -103,6 +106,14 @@ public class DocsScreen
 							uiItems[itemsCount] = new LoadMoreButtonItem(thisC);
 							itemsCount++;
 						}
+						String name = name1;
+						if(name == null && name2 != null)
+							name = name2;
+						
+						if(name == null || name2 == null)
+							formattedTitle = TextLocal.inst.get("title.docs");
+						else
+							formattedTitle = TextLocal.inst.getFormatted("title.docsw", new String[] { name1, name2 });
 					}
 					catch (JSONException e)
 					{
@@ -179,7 +190,7 @@ public class DocsScreen
 	
 	public final void drawHUD(Graphics g)
 	{
-		drawHUD(g, uiItems==null?docsStr+" ("+loadingStr+"...)":docsStr+/*(range==null?"":range)+*/" "+(whose==null?"":whose));
+		drawHUD(g, formattedTitle);
 	}
 	
 	public final void release(int x, int y)

@@ -33,6 +33,7 @@ import vikatouch.settings.Settings;
 import vikatouch.settings.SettingsScreen;
 import vikatouch.utils.ResizeUtils;
 import vikatouch.utils.VikaUtils;
+import vikatouch.utils.text.TextEditor;
 import vikatouch.utils.captcha.CaptchaObject;
 import vikatouch.utils.emulatordetect.EmulatorDetector;
 import vikatouch.utils.error.ErrorCodes;
@@ -297,37 +298,25 @@ public class VikaTouch
 				}
 				System.out.println(tokenUnswer);
 				errReason = tokenUnswer;
-				if(tokenUnswer.indexOf("need_captcha") > 0)
+				if(tokenUnswer.indexOf("error") >= 0)
 				{
-					return captcha(user, pass);
+					if(tokenUnswer.indexOf("need_captcha") > 0)
+					{
+						return captcha(user, pass);
+					}
+					if(tokenUnswer.indexOf("2fa") > 0)
+					{
+						return code(user, pass, tokenUnswer);
+					}
+					errReason = tokenUnswer;
+					return false;
 				}
 				else
 				{
-
-					if(tokenUnswer.indexOf("error") >= 0)
-					{
-						errReason = tokenUnswer;
-						return false;
-					}
-					accessToken = tokenUnswer.substring(tokenUnswer.indexOf("access_token") + 15, tokenUnswer.indexOf("expires_in") - 3);
-					userId = tokenUnswer.substring(tokenUnswer.indexOf("user_id") + 9, tokenUnswer.indexOf("}") - 0);
+					JSONObject json = new JSONObject(tokenUnswer);
+					accessToken = json.getString("access_token");
+					userId = json.getString("user_id");
 					refreshToken();
-					/*
-					if (refreshToken.indexOf("method") == INDEX_FALSE) {
-						accessToken = refreshToken.substring(refreshToken.indexOf("access_token") + 23, refreshToken.length() - 3);
-						tokenUnswer = "{\"access_token\":\"" + accessToken + "\",\"expires_in\":0,\"user_id\":"
-								+ userId + "}";
-						final VikaScreen canvas = menuScr = new MenuScreen();
-						setDisplay(canvas, 1);
-						saveToken();
-						Dialogs.refreshDialogsList(true);
-						return true;
-					}
-					else
-					{
-						errReason = "failed auth "+refreshToken+" "+tokenUnswer;
-					}
-					*/
 					final VikaScreen canvas = menuScr = new MenuScreen();
 					setDisplay(canvas, 1);
 					saveToken();
@@ -352,6 +341,72 @@ public class VikaTouch
 			errReason = "login is invalid";
 		}
 		return false;
+	}
+
+	private boolean code(String user, String pass, String tokenUnswer)
+	{
+		String code = TextEditor.inputString("", "2Fa code", 16);
+		try
+		{
+			tokenUnswer = VikaUtils.download(
+					new URLBuilder(OAUTH, "token")
+					.addField("grant_type", "password")
+					.addField("client_id", "2685278")
+					.addField("client_secret", "lxhD8OD7dMsqtXIm5IUY")
+					.addField("username", user)
+					.addField("password", pass)
+					.addField("scope", "notify,friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,notifications,stats,ads,offline")
+					.addField("2fa_supported", 1)
+					.addField("force_sms", 1)
+					.addField("code", code)
+					.toString()
+				);
+	
+			if(tokenUnswer == null)
+			{
+				errReason = "network error!";
+				return false;
+			}
+			System.out.println(tokenUnswer);
+			errReason = tokenUnswer;
+			if(tokenUnswer.indexOf("error") >= 0)
+			{
+				if(tokenUnswer.indexOf("need_captcha") > 0)
+				{
+					return captcha(user, pass);
+				}
+				if(tokenUnswer.indexOf("2fa") > 0)
+				{
+					return code(user, pass, tokenUnswer);
+				}
+				errReason = tokenUnswer;
+				return false;
+			}
+			else
+			{
+				JSONObject json = new JSONObject(tokenUnswer);
+				accessToken = json.getString("access_token");
+				userId = json.getString("user_id");
+				refreshToken();
+				final VikaScreen canvas = menuScr = new MenuScreen();
+				setDisplay(canvas, 1);
+				saveToken();
+				Dialogs.refreshDialogsList(true);
+				return true;
+			}
+		}
+		catch (NullPointerException e)
+		{
+			errReason = "no internet: "+e.toString();
+			e.printStackTrace();
+			return false;
+		}
+		catch (Exception e)
+		{
+			errReason = e.toString();
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	private void refreshToken()
@@ -418,11 +473,13 @@ public class VikaTouch
 					{
 						return false;
 					}
-	
-					accessToken = tokenUnswer.substring(tokenUnswer.indexOf("access_token") + 15,
-							tokenUnswer.indexOf("expires_in") - 3);
-					userId = tokenUnswer.substring(tokenUnswer.indexOf("user_id") + 9,
-							tokenUnswer.indexOf("}") - 0);
+					JSONObject json = new JSONObject(tokenUnswer);
+					accessToken = json.getString("access_token");
+					userId = json.getString("user_id");
+					//accessToken = tokenUnswer.substring(tokenUnswer.indexOf("access_token") + 15,
+					//		tokenUnswer.indexOf("expires_in") - 3);
+					//userId = tokenUnswer.substring(tokenUnswer.indexOf("user_id") + 9,
+					//		tokenUnswer.indexOf("}") - 0);
 					refreshToken();
 					//String var5 = ":APA91bFAM-gVwLCkCABy5DJPPRH5TNDHW9xcGu_OLhmdUSA8zuUsBiU_DexHrTLLZWtzWHZTT5QUaVkBk_GJVQyCE_yQj9UId3pU3vxvizffCPQISmh2k93Fs7XH1qPbDvezEiMyeuLDXb5ebOVGehtbdk_9u5pwUw";
 					/*
@@ -876,7 +933,7 @@ public class VikaTouch
 				SplashScreen.currState = 5;
 				if(accessToken != "")
 				{
-					if(userId == null || userId == "")
+					if(userId == null || userId == "" || userId.length() < 2 || userId.length() > 32)
 					{
 						refreshToken();
 						JSONObject jo = new JSONObject(VikaUtils.download(new URLBuilder("account.getProfileInfo"))).getJSONObject("response");
@@ -992,6 +1049,7 @@ public class VikaTouch
 
 	public void stop()
 	{
+		Settings.saveSettings();
 		if(VikaTouch.accessToken != null && VikaTouch.accessToken != "")
 		{
 			try
