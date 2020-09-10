@@ -52,6 +52,7 @@ public class CommandsImpl
 					case -1:
 					{
 						//Выход
+						Settings.saveSettings();
 						VikaTouch.appInst.destroyApp(false);
 						break;
 					}
@@ -231,7 +232,7 @@ public class CommandsImpl
 		{
 			if(s instanceof SettingsScreen)
 			{
-				Settings.saveSettings();
+				//Settings.saveSettings();
 				if(VikaTouch.menuScr != null && VikaTouch.accessToken != null && VikaTouch.accessToken != "")
 				{
 					VikaTouch.setDisplay(VikaTouch.menuScr, -1);
@@ -258,7 +259,7 @@ public class CommandsImpl
 		{
 			if(s instanceof SettingsScreen)
 			{
-				Settings.saveSettings();
+			//	Settings.saveSettings();
 			}
 			if(s instanceof MainScreen)
 			{
@@ -303,7 +304,7 @@ public class CommandsImpl
 	{
 		if(s instanceof SettingsScreen)
 		{
-			Settings.saveSettings();
+		//	Settings.saveSettings();
 		}
 		if(MenuScreen.lastMenu == DisplayUtils.CANVAS_MENU || s instanceof DocsScreen  || s instanceof GroupsScreen || s instanceof VideosScreen || s instanceof FriendsScreen || s instanceof PhotosScreen)
 		{
