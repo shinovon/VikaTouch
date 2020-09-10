@@ -219,6 +219,7 @@ public class CommandsImpl
 
 	protected void back(VikaScreen s)
 	{
+		
 		if(s instanceof MenuScreen)
 		{
 			//command(-1, s);

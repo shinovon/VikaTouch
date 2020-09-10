@@ -227,7 +227,7 @@ public class LoginScreen
 			}
 			else
 			{
-				g.drawImage(IconsManager.ico[IconsManager.SETTINGS], DisplayUtils.width-36, DisplayUtils.compact?0:8, 0);
+				g.drawImage(IconsManager.selIco[IconsManager.TOPBAR], DisplayUtils.width-36, DisplayUtils.compact?0:8, 0);
 			}
 			//if(!shortLayout) g.fillRect(0, DisplayUtils.height-50, DisplayUtils.width, 50);
 			//if(vikaLogo != null && !shortLayout)
