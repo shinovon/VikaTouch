@@ -140,6 +140,17 @@ public class VikaTouch
 
 	public static void setDisplay(VikaScreen s, int direction)
 	{
+		if(s == null)
+		{
+			if(accessToken == null || accessToken.length() < 2)
+			{
+				s = loginScr;
+			}
+			else
+			{
+				s = menuScr;
+			}
+		}
 		if(!Settings.dontBack || Settings.animateTransition)
 		{
 			if(direction != -1 && s instanceof MainScreen && canvas.currentScreen instanceof MainScreen)

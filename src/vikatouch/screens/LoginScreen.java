@@ -240,7 +240,7 @@ public class LoginScreen
 			ColorUtils.setcolor(g, ColorUtils.BACKGROUND);
 			//g.drawString("Vika Touch - "+titleLoginStr, 8, (shortLayout?12:24)-f.getHeight()/2, 0);
 			
-			tapCoords = new int[] { yCenter - fH/2 - 8 - fH, yCenter - fH/2 - 8, yCenter - fH/2, yCenter + fH/2, yCenter + fH/2 + 8, yCenter + fH/2 + 8 + 32 };
+			tapCoords = new int[] { yCenter - fH/2 - 8 - fH, yCenter - fH/2 - 8, yCenter - fH/2, yCenter + fH/2, yCenter + fH/2 + 8, yCenter + fH/2 + 8 + 32};
 			
 			ColorUtils.setcolor(g, ColorUtils.TEXTBOX_OUTLINE);
 			if(selectedBtn == 1)
@@ -281,6 +281,10 @@ public class LoginScreen
 	}
 	
 	public final void press(int x, int y) {
+		if(x > DisplayUtils.width - 50 && y < 50)
+		{
+			VikaTouch.inst.cmdsInst.command(13, this);
+		}
 		keysMode = false;
 		if(y>tapCoords[4]&&y<tapCoords[5])
 		{
