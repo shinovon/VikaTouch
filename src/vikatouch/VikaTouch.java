@@ -368,7 +368,7 @@ public class VikaTouch
 			}
 			catch (Exception e)
 			{
-				
+				e.printStackTrace();
 			}
 		}
 	}
@@ -871,6 +871,7 @@ public class VikaTouch
 						JSONObject jo = new JSONObject(VikaUtils.download(new URLBuilder("account.getProfileInfo"))).getJSONObject("response");
 						userId = "" + jo.optInt("id");
 						jo.dispose();
+						saveToken();
 					}
 				}
 				canvas = menuScr = new MenuScreen();
@@ -880,13 +881,12 @@ public class VikaTouch
 					Dialogs.refreshDialogsList(true);
 				}
 				SplashScreen.currState = 7;
-				disposeSplash();
 			}
 			else
 			{
 				canvas = loginScr = new LoginScreen();
-				disposeSplash();
 			}
+			disposeSplash();
 			setDisplay(canvas, 0);
 		}
 		catch (Exception e)
