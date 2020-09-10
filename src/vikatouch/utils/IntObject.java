@@ -8,6 +8,11 @@ public class IntObject
 		this.value = value;
 	}
 	
+	public final int hashCode()
+	{
+		return value;
+	}
+	
 	public int value;
 
 }
