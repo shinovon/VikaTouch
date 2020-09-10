@@ -27,6 +27,7 @@ import vikatouch.caching.ImageStorage;
 import vikatouch.locale.TextLocal;
 import vikatouch.settings.Settings;
 import vikatouch.utils.url.URLBuilder;
+import vikatouch.utils.url.URLDecoder;
 
 
 public final class VikaUtils
@@ -183,8 +184,8 @@ public final class VikaUtils
 	{
 		if(VikaTouch.musicIsProxied)
 		{
-			final String x = strToHex(url);
-			return download("http://vikamobile.ru/kl.php?photoadddr" + x);
+			final String x = URLDecoder.encode(url);
+			return download("http://vkt.nnproject.tk/tokenproxy.php?" + x);
 		}
 		else
 		{
