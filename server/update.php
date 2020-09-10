@@ -1,11 +1,11 @@
 <?php
 
 //constants
-$lastglobal = "2.6.11";
+$lastglobal = "2.7.7";
 
 $lastprealpha = "2.6.11";
 $lastalpha = "2.6.18";
-$lastprebeta = "2.7.4";
+$lastprebeta = "2.7.7";
 $lastclosedbeta = "none";
 $lastopenbeta = "none";
 $lastprerelease = "none";
