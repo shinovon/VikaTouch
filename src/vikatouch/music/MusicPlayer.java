@@ -149,17 +149,21 @@ public class MusicPlayer extends MainScreen
 					{
 						try
 						{
-							time = "...";
+							time = "00:00";
+							totalTime = "--:--";
 							player = Manager.createPlayer(getC().mp3);
+							getCover();
+							resizeCover();
+							player.start();
+							isReady = true;
+							isPlaying = true;
+							stop = false;
 							try
 							{
 								((VolumeControl) player.getControl("VolumeControl")).setLevel(100);
 							}
 							catch (Exception e) { }
-							player.start();
-							isReady = true;
-							isPlaying = true;
-							stop = false;
+							totalTime = time(player.getDuration()/1000000L);
 						}
 						catch(Exception e)
 						{
@@ -299,6 +303,8 @@ public class MusicPlayer extends MainScreen
 			else 
 			{
 				System.out.println("cache playing");
+				getCover();
+				resizeCover();
 				ContentConnection contCon = null;
 				DataInputStream dis = null;
 				try {
@@ -496,7 +502,11 @@ public class MusicPlayer extends MainScreen
 	
 	public void resizeCover()
 	{
-		if(coverOrig==null) return;
+		if(coverOrig==null) 
+		{
+			VikaTouch.sendLog("coverOrig is null");
+			return;
+		}
 		int dw = DisplayUtils.width;
 		if(dw > DisplayUtils.height)
 		{
@@ -529,12 +539,26 @@ public class MusicPlayer extends MainScreen
 				}
 				if(coverOrig==null)
 				{
-					coverOrig = VikaUtils.downloadImage(playlist.coverUrl);
+					if(playlist.coverUrl!=null) coverOrig = VikaUtils.downloadImage(playlist.coverUrl);
 				}
 				
 			} catch (Exception var23) {
-				var23.printStackTrace();
+				if(playlist.coverUrl!=null)
+					try {
+						coverOrig = VikaUtils.downloadImage(playlist.coverUrl);
+					} catch (IOException e) {
+						//VikaTouch.sendLog(e.toString());
+					}
 			}
+		}
+		else
+		{
+			if(playlist.coverUrl!=null)
+				try {
+					coverOrig = VikaUtils.downloadImage(playlist.coverUrl);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 		}
 	}
 	
