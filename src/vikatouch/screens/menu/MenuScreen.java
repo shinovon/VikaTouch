@@ -12,6 +12,7 @@ import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.images.IconsManager;
 import vikatouch.VikaTouch;
 import vikatouch.items.menu.OptionItem;
+import vikatouch.items.music.MusicMenuItem;
 import vikatouch.json.JSONBase;
 import vikatouch.locale.TextLocal;
 import vikatouch.screens.MainScreen;
@@ -132,7 +133,7 @@ public class MenuScreen
 		uiItems = new OptionItem[7];
 		uiItems[0] = new OptionItem(this, friendsStr, IconsManager.FRIENDS, 4, uiih);
 		uiItems[1] = new OptionItem(this, groupsStr, IconsManager.GROUPS, 5, uiih);
-		uiItems[2] = new OptionItem(this, musicStr, IconsManager.MUSIC, 6, uiih);
+		uiItems[2] = new MusicMenuItem(this, musicStr, IconsManager.MUSIC, 6, uiih);
 		uiItems[3] = new OptionItem(this, videosStr, IconsManager.VIDEOS, 7, uiih);
 		uiItems[4] = new OptionItem(this, photosStr, IconsManager.CAMERA, 8, uiih);
 		uiItems[5] = new OptionItem(this, docsStr, IconsManager.DOCS, 9, uiih);

@@ -19,6 +19,7 @@ import vikatouch.items.menu.OptionItem;
 import vikatouch.items.music.AudioTrackItem;
 import vikatouch.items.music.PlaylistItem;
 import vikatouch.locale.TextLocal;
+import vikatouch.music.MusicPlayer;
 import vikatouch.screens.*;
 import vikatouch.screens.menu.PlaylistsScreen;
 import vikatouch.utils.VikaUtils;
@@ -191,13 +192,24 @@ public class MusicScreen
 					pls.load(id,getMusicTitle("playlists", name, name2));
 					VikaTouch.setDisplay(pls, 1);
 				}
+				else if(i==2)
+				{
+					VikaTouch.setDisplay(MusicPlayer.inst, 1);
+				}
 			}
 		};
-		OptionItem[] oi = new OptionItem[]
-		{ 
-			new OptionItem(m, TextLocal.inst.get("music.all"), IconsManager.MUSIC, 0, 50),
-			new OptionItem(m, TextLocal.inst.get("title.playlists"), IconsManager.MENU, 1, 50)
-		};
+		OptionItem[] oi = new OptionItem[MusicPlayer.inst==null?2:3];
+		try
+		{
+			oi[0] = new OptionItem(m, TextLocal.inst.get("music.all"), IconsManager.MUSIC, 0, 50);
+			oi[1] = new OptionItem(m, TextLocal.inst.get("title.playlists"), IconsManager.MENU, 1, 50);
+			if(MusicPlayer.inst!=null)
+			{
+				oi[2] = new OptionItem(m, MusicPlayer.inst.title == null ? "Player" : MusicPlayer.inst.title, IconsManager.PLAY, 2, 50);
+			}
+		} catch(Exception e)
+		{ }
+		
 		VikaTouch.popup(new ContextMenu(oi));
 	}
 

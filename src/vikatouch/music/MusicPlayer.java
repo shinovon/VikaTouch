@@ -53,7 +53,7 @@ public class MusicPlayer extends MainScreen
 	public boolean random = false;
 	
 	// кэш для рисования
-	private String title = "Track name";
+	public String title = "Track name";
 	private String artist = "track artist";
 	private String totalNumber;
 	private String time = "00:00";
