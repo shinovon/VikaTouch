@@ -57,5 +57,5 @@ Vika Touch это клиент соц. сети "ВКонтакте" для см
 Запись и отправка голосовых сообщений<br/>
 <br/>
 # Исправить
-"Error 25. Token confirmation required" в музыке<br/>
+<s>"Error 25. Token confirmation required" в музыке</s><br/>
 <br/>
