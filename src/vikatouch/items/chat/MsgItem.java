@@ -9,6 +9,7 @@ import org.json.me.JSONObject;
 import ru.nnproject.vikaui.menu.IMenu;
 import ru.nnproject.vikaui.popup.ContextMenu;
 import ru.nnproject.vikaui.popup.InfoPopup;
+import ru.nnproject.vikaui.screen.ScrollableCanvas;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.images.IconsManager;
@@ -143,7 +144,7 @@ public class MsgItem
 				}
 				else
 				{
-					if(fromId > 0 && ChatScreen.profileNames.contains(new IntObject(fromId)))
+					if(fromId > 0 && ChatScreen.profileNames.containsKey(new IntObject(fromId)))
 					{
 						replyName = (String) ChatScreen.profileNames.get(new IntObject(fromId));
 					}
@@ -217,7 +218,7 @@ public class MsgItem
 			g.fillRoundRect(margin, y, msgWidth, th, radius, radius);
 			g.fillRect(margin, y+th-radius, radius, radius);
 			textX = margin + h1/2;
-			if(selected)
+			if(selected && ScrollableCanvas.keysMode)
 			{
 				ColorUtils.setcolor(g, ColorUtils.TEXT);
 				g.setStrokeStyle(Graphics.SOLID);
@@ -230,7 +231,7 @@ public class MsgItem
 			g.fillRoundRect(DisplayUtils.width-(margin+msgWidth), y, msgWidth, th, radius, radius);
 			g.fillRect(DisplayUtils.width-(margin+radius), y+th-radius, radius, radius);
 			textX = DisplayUtils.width-(margin+msgWidth) + h1/2;
-			if(selected)
+			if(selected && ScrollableCanvas.keysMode)
 			{
 				ColorUtils.setcolor(g, ColorUtils.TEXT);
 				g.setStrokeStyle(Graphics.SOLID);

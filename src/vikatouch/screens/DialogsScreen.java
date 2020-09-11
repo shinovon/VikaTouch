@@ -46,7 +46,10 @@ public class DialogsScreen
 	
 	public final void press(int key)
 	{
-		keysMode = true;
+		if(key != -12 && key != -20)
+		{
+			keysMode = true;
+		}
 		if(key == -5)
 		{
 			Dialogs.dialogs[currentItem].keyPressed(-5);

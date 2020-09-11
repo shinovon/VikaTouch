@@ -245,8 +245,9 @@ public class ChatScreen
 			// скачка сообщений
 			uiItems = new PressableUIItem[Settings.messagesPerLoad+loadSpace];
 			String x = VikaUtils.download(new URLBuilder("messages.getHistory").addField("peer_id", peerId).addField("extended", 1).addField("count", Settings.messagesPerLoad).addField("offset", 0));
-			JSONArray profiles = new JSONObject(x).getJSONObject("response").getJSONArray("profiles");
-			JSONArray items = new JSONObject(x).getJSONObject("response").getJSONArray("items");
+			JSONObject response = new JSONObject(x).getJSONObject("response");
+			JSONArray profiles = response.getJSONArray("profiles");
+			JSONArray items = response.getJSONArray("items");
 			
 			
 			for(int i = 0; i < profiles.length(); i++)
@@ -264,9 +265,9 @@ public class ChatScreen
 				m.parseJSON();
 				int fromId = m.fromid; 
 
-				String name = "user" + fromId;
+				String name = (fromId < 0 ? "g" : "") + "id" + fromId;
 				
-				if(fromId > 0 && profileNames.contains(new IntObject(fromId)))
+				if(fromId > 0 && profileNames.containsKey(new IntObject(fromId)))
 				{
 					name = (String)profileNames.get(new IntObject(fromId));
 				}
@@ -278,7 +279,7 @@ public class ChatScreen
 				}
 				m.showName = !chain;
 				
-				m.name = (m.foreign ? name :"Вы");
+				m.name = (m.foreign ? name : "Вы");
 				uiItems[uiItems.length-1-i-loadSpace] = m;
 				if(Settings.autoMarkAsRead && i == 0)
 				{
@@ -286,6 +287,10 @@ public class ChatScreen
 				}
 				itemsCount = (short) uiItems.length;
 			}
+			x = null;
+			items.dispose();
+			profiles.dispose();
+			response.dispose();
 		}
 		catch (Exception e)
 		{
@@ -435,7 +440,10 @@ public class ChatScreen
 	
 	public void press(int key)
 	{
-		keysMode = true;
+		if(key != -12 && key != -20)
+		{
+			keysMode = true;
+		}
 		if(VikaTouch.canvas.currentAlert!=null)
 		{
 			VikaTouch.canvas.currentAlert.press(key);
@@ -560,7 +568,10 @@ public class ChatScreen
 	
 	public void repeat(int key)
 	{
-		keysMode = true;
+		if(key != -12 && key != -20)
+		{
+			keysMode = true;
+		}
 		if(key == -1)
 		{
 			up();
@@ -707,7 +718,7 @@ public class ChatScreen
 						int fromId = m.fromid; 
 						String name = "user" + fromId;
 						
-						if(profileNames.contains(new IntObject(fromId)))
+						if(profileNames.containsKey(new IntObject(fromId)))
 						{
 							name = (String) profileNames.get(new IntObject(fromId));
 						}

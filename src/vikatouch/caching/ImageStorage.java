@@ -62,7 +62,7 @@ public class ImageStorage
 				VikaTouch.inst.freeMemoryLow();
 			}
 	    	i = (Image) images.get(s);
-			if(images.contains(s) && i != null)
+			if(images.containsKey(s) && i != null)
 			{
 	    		return i;
 			}
@@ -98,7 +98,7 @@ public class ImageStorage
     
     public static boolean has(String s)
     {
-    	return images.contains(s);
+    	return images.containsKey(s);
     }
     /**
      * Gets table of colors of image curImage into int array rgbInts
