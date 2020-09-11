@@ -106,6 +106,7 @@ public class AudioTrackItem
 				else
 				{
 					MusicPlayer.inst.current = indexInPL;
+					VikaTouch.setDisplay(MusicPlayer.inst, 1);
 					MusicPlayer.inst.loadTrack();
 				}
 			}

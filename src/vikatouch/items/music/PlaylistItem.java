@@ -30,6 +30,7 @@ public class PlaylistItem extends JSONUIItem {
 	private String iconUrl;
 	private Image iconImg;
 	private int size;
+	private String bigCoverUrl;
 	
 	public PlaylistItem(JSONObject json)
 	{
@@ -48,6 +49,7 @@ public class PlaylistItem extends JSONUIItem {
 			owner_id = json.optInt("owner_id");
 			id = json.optInt("id");
 			iconUrl = fixJSONString(json.getJSONObject("photo").optString("photo_135"));
+			bigCoverUrl = fixJSONString(json.getJSONObject("photo").optString("photo_600"));
 		}
 		catch (Exception e)
 		{
@@ -113,6 +115,7 @@ public class PlaylistItem extends JSONUIItem {
 	public void open() {
 		MusicScreen pls = new MusicScreen();
 		pls.load(owner_id,id,name);
+		pls.coverUrl = bigCoverUrl;
 		VikaTouch.setDisplay(pls, 1);
 	}
 

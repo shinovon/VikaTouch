@@ -58,7 +58,8 @@ public class MusicPlayer extends MainScreen
 	private String totalNumber;
 	private String time = "00:00";
 	private String totalTime = "99:59";
-	private int x1 = 30, x2 = 330, currX = 100;
+	public static final int PBMARGIN = 60;
+	private int x1 = PBMARGIN, x2 = 360 - PBMARGIN, currX = 100;
 	public Image[] buttons;
 	private Image coverOrig;
 	private Image resizedCover;
@@ -467,16 +468,16 @@ public class MusicPlayer extends MainScreen
 			if(dw > DisplayUtils.height)
 			{
 				// альбом
-				x1 = dw/2+60;
-				x2 = dw-60;
-				currX = dw/2 + 40 + (int)((dw/2-80)*player.getMediaTime()/player.getDuration());
+				x1 = dw/2+PBMARGIN;
+				x2 = dw-PBMARGIN;
+				currX = dw/2 + 60 + (int)((dw/2-PBMARGIN*2)*player.getMediaTime()/player.getDuration());
 			}
 			else
 			{
 				// квадрат, портрет
-				x1 = 60;
-				x2 = dw-60;
-				currX = 40 + (int)((dw-80)*player.getMediaTime()/player.getDuration());
+				x1 = PBMARGIN;
+				x2 = dw-PBMARGIN;
+				currX = PBMARGIN + (int)((dw-PBMARGIN*2)*player.getMediaTime()/player.getDuration());
 			}
 		}
 		catch (Exception e) { }
@@ -525,6 +526,10 @@ public class MusicPlayer extends MainScreen
 					}
 					s = VikaUtils.replace(s, "https", "http://vikamobile.ru:80/proxy.php?https");
 					coverOrig = VikaUtils.downloadImage(s);
+				}
+				if(coverOrig==null)
+				{
+					coverOrig = VikaUtils.downloadImage(playlist.coverUrl);
 				}
 				
 			} catch (Exception var23) {
@@ -627,7 +632,7 @@ public class MusicPlayer extends MainScreen
 		{
 			// альбом
 			textAnchor = (dw-50) * 3 / 4;
-			timeY = dh-20;
+			timeY = dh-70;
 			g.drawImage(buttons[5], textAnchor-125, dh-50, 0);
 			g.drawImage(buttons[0], textAnchor-75, dh-50, 0);
 			g.drawImage(buttons[isPlaying?3:1], textAnchor-25, dh-50, 0);
@@ -656,11 +661,8 @@ public class MusicPlayer extends MainScreen
 		if(isReady) g.fillRect(x1+2, timeY+2, currX-x1-4, 6);
 		
 		g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
-		g.drawString(time, x1-4, timeY, Graphics.TOP | Graphics.RIGHT);
-		g.drawString(totalTime, x2+4, timeY, Graphics.TOP | Graphics.LEFT);
-		
-		// так и не понял куда это присрать, пусть тут полежит пока.
-		//if(player.getMediaTime()==player.getDuration()) onTrackEnd();
+		g.drawString(time, x1-4, timeY-2, Graphics.TOP | Graphics.RIGHT);
+		g.drawString(totalTime, x2+4, timeY-2, Graphics.TOP | Graphics.LEFT);
 	}
 	
 	public void release(int x, int y)

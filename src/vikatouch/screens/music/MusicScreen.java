@@ -32,6 +32,7 @@ public class MusicScreen
 	
 	public int ownerId;
 	public int albumId;
+	public String coverUrl = null;
 	
 	public String title;
 	private String loadingStr;
