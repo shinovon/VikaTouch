@@ -18,6 +18,7 @@ import javax.microedition.lcdui.Image;
 import javax.microedition.media.Manager;
 import javax.microedition.media.MediaException;
 import javax.microedition.media.Player;
+import javax.microedition.media.PlayerListener;
 import javax.microedition.media.control.VolumeControl;
 
 import org.json.me.JSONObject;
@@ -40,7 +41,7 @@ import vikatouch.utils.url.URLDecoder;
 
 // экранчик с названием песни, перемоткой ии... Всё.
 public class MusicPlayer extends MainScreen
-	implements IMenu
+	implements IMenu, PlayerListener
 {
 	
 	public MusicScreen playlist;
@@ -86,6 +87,20 @@ public class MusicPlayer extends MainScreen
 		}
 	}
 	
+	public void destroy()
+	{
+		try
+		{
+			player.stop();
+		}
+		catch (Exception e) { }
+		try {
+			closePlayer();
+		} catch (MediaException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public void firstLoad()
 	{
@@ -123,7 +138,7 @@ public class MusicPlayer extends MainScreen
 				VikaTouch.popup(new InfoPopup("Player closing error", null));
 			}
 			String url = getC().mp3;
-			final String path = CACHETOPRIVATE ? (System.getProperty("fileconn.dir.private") + "track.mp3") : (System.getProperty("fileconn.dir.music") + "vikacache/track.mp3");
+			final String path = (CACHETOPRIVATE ? System.getProperty("fileconn.dir.private") : System.getProperty("fileconn.dir.music")) + "vikaMusicCache.mp3";
 			
 			if(Settings.audioMode == Settings.AUDIO_PLAYONLINE)
 			{
@@ -133,6 +148,7 @@ public class MusicPlayer extends MainScreen
 					{
 						try
 						{
+							time = "...";
 							player = Manager.createPlayer(getC().mp3);
 							try
 							{
@@ -163,6 +179,7 @@ public class MusicPlayer extends MainScreen
 						{
 							ContentConnection contCon = (ContentConnection) Connector.open(getC().mp3);
 							DataInputStream dis = contCon.openDataInputStream();
+							
 	
 							FileConnection trackFile = (FileConnection) Connector.open(path);
 				
@@ -450,15 +467,15 @@ public class MusicPlayer extends MainScreen
 			if(dw > DisplayUtils.height)
 			{
 				// альбом
-				x1 = dw/2+40;
-				x2 = dw-40;
+				x1 = dw/2+60;
+				x2 = dw-60;
 				currX = dw/2 + 40 + (int)((dw/2-80)*player.getMediaTime()/player.getDuration());
 			}
 			else
 			{
 				// квадрат, портрет
-				x1 = 40;
-				x2 = dw-40;
+				x1 = 60;
+				x2 = dw-60;
 				currX = 40 + (int)((dw-80)*player.getMediaTime()/player.getDuration());
 			}
 		}
@@ -595,7 +612,16 @@ public class MusicPlayer extends MainScreen
 		Font f = Font.getFont(0, 0, Font.SIZE_MEDIUM);
 		g.setFont(f);
 		// cover
-		if(resizedCover!=null) g.drawImage(resizedCover, 0, 0, 0);
+		if(resizedCover!=null) 
+		{
+			g.drawImage(resizedCover, 0, 0, 0);
+		}
+		else
+		{
+			int s = (dw>dh)?hdw:dw;
+			g.setGrayScale(64);
+			g.fillRect(0, 0, s, s);
+		}
 		g.setGrayScale(0);
 		if(dw>dh)
 		{
@@ -604,7 +630,7 @@ public class MusicPlayer extends MainScreen
 			timeY = dh-20;
 			g.drawImage(buttons[5], textAnchor-125, dh-50, 0);
 			g.drawImage(buttons[0], textAnchor-75, dh-50, 0);
-			g.drawImage(buttons[isPlaying?1:3], textAnchor-25, dh-50, 0);
+			g.drawImage(buttons[isPlaying?3:1], textAnchor-25, dh-50, 0);
 			g.drawImage(buttons[2], textAnchor+25, dh-50, 0);
 			g.drawImage(buttons[4], textAnchor+75, dh-50, 0);
 			
@@ -618,7 +644,7 @@ public class MusicPlayer extends MainScreen
 			timeY = dh-70;
 			g.drawImage(buttons[5], hdw-125, dh-50, 0);
 			g.drawImage(buttons[0], hdw-75, dh-50, 0);
-			g.drawImage(buttons[isPlaying?1:3], hdw-25, dh-50, 0);
+			g.drawImage(buttons[isPlaying?3:1], hdw-25, dh-50, 0);
 			g.drawImage(buttons[2], hdw+25, dh-50, 0);
 			g.drawImage(buttons[4], hdw+75, dh-50, 0);
 
@@ -631,7 +657,7 @@ public class MusicPlayer extends MainScreen
 		
 		g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
 		g.drawString(time, x1-4, timeY, Graphics.TOP | Graphics.RIGHT);
-		g.drawString(time, x2+4, timeY, Graphics.TOP | Graphics.LEFT);
+		g.drawString(totalTime, x2+4, timeY, Graphics.TOP | Graphics.LEFT);
 		
 		// так и не понял куда это присрать, пусть тут полежит пока.
 		//if(player.getMediaTime()==player.getDuration()) onTrackEnd();
@@ -750,5 +776,11 @@ public class MusicPlayer extends MainScreen
 
 
 	public void onMenuItemOption(int i) {
+	}
+
+
+	public void playerUpdate(Player arg0, String arg1, Object arg2) {
+		// TODO Auto-generated method stub
+		
 	}
 }

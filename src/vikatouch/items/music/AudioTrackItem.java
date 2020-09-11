@@ -11,6 +11,7 @@ import ru.nnproject.vikaui.screen.ScrollableCanvas;
 import ru.nnproject.vikaui.utils.ColorUtils;
 import ru.nnproject.vikaui.utils.DisplayUtils;
 import ru.nnproject.vikaui.utils.images.IconsManager;
+import vikatouch.VikaTouch;
 import vikatouch.items.JSONUIItem;
 import vikatouch.music.MusicPlayer;
 import vikatouch.screens.music.MusicScreen;
@@ -91,8 +92,28 @@ public class AudioTrackItem
 	{
 		if(key == KEY_OK)
 		{
-			System.out.println("Calling player");
-			MusicPlayer.launch(playlist, indexInPL);
+			if(MusicPlayer.inst == null)
+			{
+				System.out.println("Calling player");
+				MusicPlayer.launch(playlist, indexInPL);
+			}
+			else if(MusicPlayer.inst.playlist == playlist)
+			{
+				if(MusicPlayer.inst.current == indexInPL)
+				{
+					VikaTouch.setDisplay(MusicPlayer.inst, 1);
+				}
+				else
+				{
+					MusicPlayer.inst.current = indexInPL;
+					MusicPlayer.inst.loadTrack();
+				}
+			}
+			else
+			{
+				MusicPlayer.inst.destroy();
+				MusicPlayer.launch(playlist, indexInPL);
+			}
 		}
 	}
 }
