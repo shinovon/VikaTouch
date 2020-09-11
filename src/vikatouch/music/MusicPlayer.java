@@ -163,11 +163,11 @@ public class MusicPlayer extends MainScreen
 								((VolumeControl) player.getControl("VolumeControl")).setLevel(100);
 							}
 							catch (Exception e) { }
-							totalTime = time(player.getDuration()/1000000L);
+							player.addPlayerListener(inst);
 						}
 						catch(Exception e)
 						{
-							e.printStackTrace();
+							VikaTouch.popup(new InfoPopup(e.toString(), null, "Player error", null));
 						}
 					}
 				}.start();
@@ -247,6 +247,7 @@ public class MusicPlayer extends MainScreen
 								
 								try {
 									player = Manager.createPlayer(path);
+									player.addPlayerListener(inst);
 								} catch (Exception e) {
 									VikaTouch.popup(new InfoPopup("Player creating error", null)); //TODO errcodes
 									e.printStackTrace();
@@ -267,9 +268,9 @@ public class MusicPlayer extends MainScreen
 									e.printStackTrace();
 									return;
 								}
-								((VolumeControl) player.getControl("VolumeControl")).setLevel(100);
 								try {
 									player.start();
+									((VolumeControl) player.getControl("VolumeControl")).setLevel(100);
 								} catch (MediaException e) {
 									VikaTouch.popup(new InfoPopup("Player running error", null));
 									e.printStackTrace();
@@ -302,7 +303,8 @@ public class MusicPlayer extends MainScreen
 			} 
 			else 
 			{
-				System.out.println("cache playing");
+				time = "...";
+				totalTime = "--:--";
 				getCover();
 				resizeCover();
 				ContentConnection contCon = null;
@@ -338,6 +340,7 @@ public class MusicPlayer extends MainScreen
 				}
 				catch (Exception e) { }
 				player.start();
+				totalTime = time(player.getDuration()/1000000L);
 				isReady = true;
 				isPlaying = true;
 				stop = false;
@@ -345,7 +348,7 @@ public class MusicPlayer extends MainScreen
 
 			//System.gc();
 		} catch (Exception e) {
-			e.printStackTrace();
+			VikaTouch.popup(new InfoPopup(e.toString(), null, "Player error", null));
 		}
 	}
 
@@ -467,6 +470,11 @@ public class MusicPlayer extends MainScreen
 	{
 		if(!isReady) return;
 		time = time(player.getMediaTime()/1000000L);
+		long dur = player.getDuration();
+		if(dur==0)
+		{
+			dur = getC().length*1000000L;
+		}
 		//System.out.println("time:"+player.getMediaTime());
 		try
 		{
@@ -476,14 +484,14 @@ public class MusicPlayer extends MainScreen
 				// альбом
 				x1 = dw/2+PBMARGIN;
 				x2 = dw-PBMARGIN;
-				currX = dw/2 + 60 + (int)((dw/2-PBMARGIN*2)*player.getMediaTime()/player.getDuration());
+				currX = dw/2 + 60 + (int)((dw/2-PBMARGIN*2)*player.getMediaTime()/dur);
 			}
 			else
 			{
 				// квадрат, портрет
 				x1 = PBMARGIN;
 				x2 = dw-PBMARGIN;
-				currX = PBMARGIN + (int)((dw-PBMARGIN*2)*player.getMediaTime()/player.getDuration());
+				currX = PBMARGIN + (int)((dw-PBMARGIN*2)*player.getMediaTime()/dur);
 			}
 		}
 		catch (Exception e) { }
@@ -504,7 +512,7 @@ public class MusicPlayer extends MainScreen
 	{
 		if(coverOrig==null) 
 		{
-			VikaTouch.sendLog("coverOrig is null");
+			resizedCover = null;
 			return;
 		}
 		int dw = DisplayUtils.width;
@@ -805,8 +813,26 @@ public class MusicPlayer extends MainScreen
 	}
 
 
-	public void playerUpdate(Player arg0, String arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+	public void playerUpdate(Player pl, String event, Object data) {
+		if(event == END_OF_MEDIA)
+		{
+			if(loop)
+			{
+				try {
+					player.setMediaTime(1);
+					player.start();
+				} catch (MediaException e) {
+					e.printStackTrace();
+				}
+			}
+			else
+			{
+				next();
+			}
+		}
+		else if(event == ERROR)
+		{
+			VikaTouch.popup(new InfoPopup(data.toString(), null, "Player error", null));
+		}
 	}
 }
