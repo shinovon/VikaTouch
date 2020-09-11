@@ -304,7 +304,7 @@ public class ConversationItem
 				*/
 				text = "Вложение";
 			}
-			int fromId = msg.optInt("fromId");
+			int fromId = msg.optInt("from_id");
 			msg.dispose();
 			if(("" + fromId).equalsIgnoreCase(VikaTouch.userId))
 			{
