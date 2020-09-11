@@ -143,7 +143,7 @@ public class ChatScreen
 	
 	public ChatScreen(int peerId, String title)
 	{
-		title2 = "Загрузка...";
+		title2 = TextLocal.inst.get("title2.loading");
 		this.title = title;
 		this.peerId = peerId;
 		parse();
@@ -151,7 +151,7 @@ public class ChatScreen
 	
 	public ChatScreen(int peerId)
 	{
-		title2 = "Загрузка...";
+		title2 = TextLocal.inst.get("title2.loading");
 		this.peerId = peerId;
 		parse();
 	}

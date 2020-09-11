@@ -30,6 +30,7 @@ public class VikaCanvasInst
 	public VikaNotice currentAlert;
 	public double slide;
 	public VikaScreen oldScreen;
+	public static String busyStr;
 
 	public VikaCanvasInst()
 	{
@@ -53,6 +54,7 @@ public class VikaCanvasInst
 			e.printStackTrace();
 		}
 		slide = 0.0d;
+		busyStr = "Busy...";
 	}
 	
 	public void paint(Graphics g)
@@ -166,7 +168,7 @@ public class VikaCanvasInst
 	private void drawLoading(Graphics g)
 	{
 		ColorUtils.setcolor(g, ColorUtils.TEXT);
-		g.drawString("Загрузка", DisplayUtils.width / 2, DisplayUtils.height - 80, Graphics.TOP | Graphics.HCENTER);
+		g.drawString(busyStr, DisplayUtils.width / 2, DisplayUtils.height - 80, Graphics.TOP | Graphics.HCENTER);
 		
 		if(frame != null)
 		{
