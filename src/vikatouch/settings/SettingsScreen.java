@@ -14,6 +14,7 @@ import vikatouch.VikaTouch;
 import vikatouch.items.*;
 import vikatouch.items.menu.OptionItem;
 import vikatouch.locale.TextLocal;
+import vikatouch.music.MusicPlayer;
 import vikatouch.screens.AboutScreen;
 import vikatouch.screens.LoginScreen;
 import vikatouch.screens.MainScreen;

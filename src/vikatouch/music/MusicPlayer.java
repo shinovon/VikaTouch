@@ -55,6 +55,8 @@ public class MusicPlayer extends MainScreen
 	// кэш для рисования
 	public String title = "Track name";
 	private String artist = "track artist";
+	private int titleW, artistW;
+	private int currTx, currAx;
 	private String totalNumber;
 	private String time = "00:00";
 	private String totalTime = "99:59";
@@ -163,6 +165,7 @@ public class MusicPlayer extends MainScreen
 								((VolumeControl) player.getControl("VolumeControl")).setLevel(100);
 							}
 							catch (Exception e) { }
+							totalTime = time(getC().length);
 							player.addPlayerListener(inst);
 						}
 						catch(Exception e)
@@ -408,7 +411,6 @@ public class MusicPlayer extends MainScreen
 	
 	public void play()
 	{
-		System.out.println("PLAY");
 		try
 		{
 			if(isReady)
@@ -470,12 +472,7 @@ public class MusicPlayer extends MainScreen
 	{
 		if(!isReady) return;
 		time = time(player.getMediaTime()/1000000L);
-		long dur = player.getDuration();
-		if(dur==0)
-		{
-			dur = getC().length*1000000L;
-		}
-		//System.out.println("time:"+player.getMediaTime());
+		long dur = Settings.audioMode == Settings.AUDIO_PLAYONLINE ? getC().length*1000000L : player.getDuration();
 		try
 		{
 			int dw = DisplayUtils.width;
@@ -501,6 +498,9 @@ public class MusicPlayer extends MainScreen
 	{
 		title = getC().name;
 		artist = getC().artist;
+		Font f = Font.getFont(0, 0, Font.SIZE_MEDIUM);
+		titleW = f.stringWidth(title);
+		artistW = f.stringWidth(artist);
 	}
 	
 	public void onRotate()
@@ -648,22 +648,15 @@ public class MusicPlayer extends MainScreen
 		}
 		Font f = Font.getFont(0, 0, Font.SIZE_MEDIUM);
 		g.setFont(f);
-		// cover
-		if(resizedCover!=null) 
-		{
-			g.drawImage(resizedCover, 0, 0, 0);
-		}
-		else
-		{
-			int s = (dw>dh)?hdw:dw;
-			g.setGrayScale(64);
-			g.fillRect(0, 0, s, s);
-		}
 		g.setGrayScale(0);
+		currTx-=2;
+		currAx-=2;
+		if(-currTx>(titleW/2+hdw)) currTx = titleW/2+hdw;
+		if(-currAx>(artistW/2+hdw)) currAx = artistW/2+hdw;
 		if(dw>dh)
 		{
 			// альбом
-			textAnchor = (dw-50) * 3 / 4;
+			textAnchor = dw * 3 / 4;
 			timeY = dh-70;
 			g.drawImage(buttons[5], textAnchor-125, dh-50, 0);
 			g.drawImage(buttons[0], textAnchor-75, dh-50, 0);
@@ -671,8 +664,8 @@ public class MusicPlayer extends MainScreen
 			g.drawImage(buttons[2], textAnchor+25, dh-50, 0);
 			g.drawImage(buttons[4], textAnchor+75, dh-50, 0);
 			
-			g.drawString(artist, textAnchor, dh/2-f.getHeight(), Graphics.HCENTER | Graphics.TOP);
-			g.drawString(title, textAnchor, dh/2, Graphics.HCENTER | Graphics.TOP);
+			g.drawString(artist, textAnchor+(artistW>hdw?currAx:0), dh/2-f.getHeight(), Graphics.HCENTER | Graphics.TOP);
+			g.drawString(title, textAnchor+(titleW>hdw?currTx:0), dh/2, Graphics.HCENTER | Graphics.TOP);
 		}
 		else
 		{
@@ -684,22 +677,34 @@ public class MusicPlayer extends MainScreen
 			g.drawImage(buttons[isPlaying?3:1], hdw-25, dh-50, 0);
 			g.drawImage(buttons[2], hdw+25, dh-50, 0);
 			g.drawImage(buttons[4], hdw+75, dh-50, 0);
-
-			g.drawString(artist, textAnchor, timeY-f.getHeight()*3/2, Graphics.HCENTER | Graphics.TOP);
-			g.drawString(title, textAnchor, timeY-f.getHeight()*5/2, Graphics.HCENTER | Graphics.TOP);
+			
+			g.drawString(artist, textAnchor+(artistW>dw?currAx:0), timeY-f.getHeight()*3/2, Graphics.HCENTER | Graphics.TOP);
+			g.drawString(title, textAnchor+(titleW>dw?currTx:0), timeY-f.getHeight()*5/2, Graphics.HCENTER | Graphics.TOP);
 		}
 		ColorUtils.setcolor(g, ColorUtils.BUTTONCOLOR);
 		g.drawRect(x1, timeY, x2-x1, 10);
 		if(isReady) g.fillRect(x1+2, timeY+2, currX-x1-4, 6);
 		
 		g.setFont(Font.getFont(0, 0, Font.SIZE_SMALL));
-		g.drawString(time, x1-4, timeY-2, Graphics.TOP | Graphics.RIGHT);
-		g.drawString(totalTime, x2+4, timeY-2, Graphics.TOP | Graphics.LEFT);
+		g.drawString(time, x1-4, timeY-4, Graphics.TOP | Graphics.RIGHT);
+		g.drawString(totalTime, x2+4, timeY-4, Graphics.TOP | Graphics.LEFT);
+		
+		// cover
+		int coverY = (dw>dh)?((dh-hdw)/2):0;
+		if(resizedCover!=null) 
+		{
+			g.drawImage(resizedCover, 0, coverY, 0);
+		}
+		else
+		{
+			int s = (dw>dh)?hdw:dw;
+			g.setGrayScale(200);
+			g.fillRect(0, coverY, s, s);
+		}
 	}
 	
 	public void release(int x, int y)
 	{
-		//System.out.println("Player touch");
 		int dw = DisplayUtils.width;
 		int dh = DisplayUtils.height;
 		int hdw = dw/2;
@@ -708,7 +713,7 @@ public class MusicPlayer extends MainScreen
 		if(dw>dh)
 		{
 			// альбом
-			anchor = (dw-50) * 3 / 4;
+			anchor = dw * 3 / 4;
 		}
 		else
 		{

@@ -1,6 +1,6 @@
 Nokia-MIDlet-No-Exit: true
 Manifest-Version: 1.0
-MIDlet-Version: 2.7.12
+MIDlet-Version: 2.7.13
 MIDlet-Info-URL: http://vkt.nnproject.tk
 Nokia-MIDlet-Background-Event: pause
 Nokia-MIDlet-On-Screen-Keypad: no

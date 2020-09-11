@@ -181,21 +181,28 @@ public class MusicScreen
 		{
 			public void onMenuItemPress(int i) 
 			{ 
-				if(i==0)
+				try
 				{
-					MusicScreen pls = new MusicScreen();
-					pls.load(id,0,getMusicTitle("music", name, name2));
-					VikaTouch.setDisplay(pls, 1);
+					if(i==0)
+					{
+						MusicScreen pls = new MusicScreen();
+						pls.load(id,0,getMusicTitle("music", name, name2));
+						VikaTouch.setDisplay(pls, 1);
+					}
+					else if(i==1)
+					{
+						PlaylistsScreen pls = new PlaylistsScreen();
+						pls.load(id,getMusicTitle("playlists", name, name2));
+						VikaTouch.setDisplay(pls, 1);
+					}
+					else if(i==2)
+					{
+						VikaTouch.setDisplay(MusicPlayer.inst, 1);
+					}
 				}
-				else if(i==1)
+				catch(Exception e)
 				{
-					PlaylistsScreen pls = new PlaylistsScreen();
-					pls.load(id,getMusicTitle("playlists", name, name2));
-					VikaTouch.setDisplay(pls, 1);
-				}
-				else if(i==2)
-				{
-					VikaTouch.setDisplay(MusicPlayer.inst, 1);
+					VikaTouch.sendLog("Music open: "+e.toString());
 				}
 			}
 		};
