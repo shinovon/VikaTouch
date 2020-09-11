@@ -669,6 +669,7 @@ public final class VikaUtils
 		httpconn.setRequestMethod("GET");
 		httpconn.setRequestProperty("User-Agent", "KateMobileAndroid/51.1 lite-442 (Symbian; SDK 17; x86; Nokia; ru)");
 		httpconn.openInputStream();	
+		httpconn.close();
 	}
 	
 	//функция адаптированна* из вика мобиле

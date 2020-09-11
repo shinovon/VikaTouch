@@ -847,8 +847,9 @@ public class VikaTouch
 		
 		try
 		{
-		TextLocal.init();
-		splash.setText();
+			TextLocal.init();
+			splash.setText();
+			VikaCanvasInst.busyStr = TextLocal.inst.get("busy");
 		}
 		catch (Exception e)
 		{
@@ -1054,7 +1055,7 @@ public class VikaTouch
 		{
 			try
 			{
-				VikaUtils.download(new URLBuilder("account.setOffline"));
+				VikaUtils.request(new URLBuilder("account.setOffline"));
 			}
 			catch (Exception e)
 			{

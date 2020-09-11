@@ -18,6 +18,7 @@ import vikatouch.attachments.AudioAttachment;
 import vikatouch.attachments.PhotoAttachment;
 import vikatouch.items.JSONUIItem;
 import vikatouch.json.JSONBase;
+import vikatouch.locale.TextLocal;
 import vikatouch.settings.Settings;
 import vikatouch.utils.ResizeUtils;
 import vikatouch.utils.VikaUtils;
@@ -302,9 +303,9 @@ public class ConversationItem
 					}
 				}
 				*/
-				text = "Вложение";
+				text = TextLocal.inst.get("msg.attach.attachment");
 			}
-			int fromId = msg.optInt("fromId");
+			int fromId = msg.optInt("from_id");
 			msg.dispose();
 			if(("" + fromId).equalsIgnoreCase(VikaTouch.userId))
 			{

@@ -902,6 +902,8 @@ public class JSONArray {
 			{
 				if(myArrayList.elementAt(i) instanceof JSONObject)
 					((JSONObject)myArrayList.elementAt(i)).dispose(string);
+				if(myArrayList.elementAt(i) instanceof JSONArray)
+					((JSONArray)myArrayList.elementAt(i)).dispose(string);
 			}
 			myArrayList.removeAllElements();
 		}
