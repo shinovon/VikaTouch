@@ -1055,7 +1055,7 @@ public class VikaTouch
 		{
 			try
 			{
-				VikaUtils.download(new URLBuilder("account.setOffline"));
+				VikaUtils.request(new URLBuilder("account.setOffline"));
 			}
 			catch (Exception e)
 			{
